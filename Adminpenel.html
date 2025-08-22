@@ -1,0 +1,694 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Orders and sells - Dynamic Sections</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+
+        }
+    </style>
+</head>
+
+<body class=" w-full fixed font-extrabold flex items-center justify-center ">
+    <div class="bg-white rounded-lg   w-full flex flex-col md:flex-row overflow-hidden">
+
+        <!-- Toggle Button (Visible only on mobile) -->
+        <div class="flex items-center px-2 justify-between">
+            <button id="menuToggle" class="md:hidden p-3 text-gray-700 focus:outline-none">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+
+            <button onclick=" closeLogin()" aria-label="Go back"
+                class="text-2xl  md:hidden flex justify-center items-center shadow-sm">
+                <h1 class="font-extrabold text-black text-2x1 mx-auto sm:text-base leading-none">
+                    Gift Zone
+                </h1>
+            </button>
+
+            <button onclick="toggleMenu()" class="md:hidden hidden p-3 text-gray-700 focus:outline-none0">
+                <i class="fas fa-ellipsis-v text-xl text-gray-700"></i>
+            </button>
+
+            <!-- Menu -->
+            <div id="menu" class="hidden absolute right-0 top-12 w-40 bg-white border z-50 rounded-lg shadow-lg">
+                <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    <i class="fas fa-pen mr-2"></i> Edit
+                </a>
+                <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    <i class="fas fa-trash mr-2"></i> Delete
+                </a>
+                <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    <i class="fas fa-share mr-2"></i> Share
+                </a>
+            </div>
+
+            <script>
+                function toggleMenu() {
+                    document.getElementById("menu").classList.toggle("hidden");
+                }
+            </script>
+        </div>
+        <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden md:hidden"></div>
+        <!-- Sidebar -->
+        <aside id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-white font-extrabold border-r border-gray-200 flex flex-col px-6 py-8
+  transform -translate-x-full transition-transform duration-300 ease-in-out
+  md:translate-x-0 md:static md:w-56">
+
+            <h1 class="font-bold text-lg mx-auto text-gray-900 mb-8">Gift Zone</h1>
+            <nav class="flex flex-col space-y-6 text-gray-400 text-sm font-semibold">
+                <button data-section="dashboard"
+                    class="flex items-center space-x-3 text-gray-400 hover:text-orange-500 transition-colors focus:outline-none"
+                    onclick="selectSection('dashboard', this)" type="button">
+                    <i class="fas fa-th-large text-xs"></i>
+                    <span>Dashboard</span>
+                </button>
+                <button data-section="objectives"
+                    class="flex items-center space-x-3 text-gray-400 hover:text-orange-500 transition-colors focus:outline-none"
+                    onclick="selectSection('objectives', this)" type="button">
+                    <i class="fas fa-bullseye text-xs"></i>
+                    <span>Objectives</span>
+                </button>
+                <button data-section="survey"
+                    class="flex items-center space-x-3 text-gray-400 hover:text-orange-500 transition-colors focus:outline-none"
+                    onclick="selectSection('survey', this)" type="button">
+                    <i class="fas fa-check-square text-xs"></i>
+                    <span>Survey</span>
+                </button>
+                <button data-section="documents"
+                    class="flex items-center space-x-3 text-gray-400 hover:text-orange-500 transition-colors focus:outline-none"
+                    onclick="selectSection('documents', this)" type="button">
+                    <i class="fas fa-file-alt text-xs"></i>
+                    <span>Documents</span>
+                </button>
+                <button data-section="photos"
+                    class="flex items-center space-x-3 text-gray-400 hover:text-orange-500 transition-colors focus:outline-none"
+                    onclick="selectSection('photos', this)" type="button">
+                    <i class="fas fa-camera text-xs"></i>
+                    <span>Photos</span>
+                </button>
+                <button data-section="sells"
+                    class="flex items-center space-x-3 text-orange-500 font-semibold focus:outline-none"
+                    onclick="selectSection('sells', this)" type="button">
+                    <i class="fas fa-shopping-cart text-xs"></i>
+                    <span>Sells</span>
+                </button>
+                <button data-section="message"
+                    class="flex items-center space-x-3 text-gray-400 hover:text-orange-500 transition-colors focus:outline-none"
+                    onclick="selectSection('message', this)" type="button">
+                    <i class="fas fa-comment-alt text-xs"></i>
+                    <span>Message</span>
+                </button>
+                <button data-section="help"
+                    class="flex items-center space-x-3 text-gray-400 hover:text-orange-500 transition-colors focus:outline-none"
+                    onclick="selectSection('help', this)" type="button">
+                    <i class="fas fa-question-circle text-xs"></i>
+                    <span>Help</span>
+                </button>
+                <button data-section="setting"
+                    class="flex items-center space-x-3 text-gray-400 hover:text-orange-500 transition-colors focus:outline-none"
+                    onclick="selectSection('setting', this)" type="button">
+                    <i class="fas fa-cog text-xs"></i>
+                    <span>Setting</span>
+                </button>
+            </nav>
+        </aside>
+
+        <!-- Main content -->
+        <main class="flex-1 px-2 md:p-6 md:mx-2 flex flex-col">
+
+            <div class="  flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4 sm:gap-0">
+                <div class="flex items-center bg-gray-100 rounded-full px-4 py-2 w-full md:mr-2">
+                    <input type="text" placeholder="Search  +  Orders +  Files  +  Products"
+                        class="bg-transparent focus:outline-none text-gray-600 placeholder-gray-400 text-sm w-full" />
+
+                    <button aria-label="Search"
+                        class="ml-2 w-8 h-8 flex items-center justify-center rounded-full text-gray-400   transition">
+                        <i class="fas fa-search text-lg font-extrabold text-gray-600"></i>
+                    </button>
+                </div>
+
+                <div class="flex items-center space-x-3">
+                    <select aria-label="Show products"
+                        class="border border-gray-300 rounded-full text-xs text-gray-600 px-6 py-3 focus:outline-none">
+                        <option>All Products</option>
+                        <option>Product 1</option>
+                        <option>Product 2</option>
+                        <option>Product 3</option>
+                        <option>Product 4</option>
+
+                    </select>
+                    <button
+                        class="bg-orange-500 text-white rounded-full w-full text-xs font-extrabold px-6 py-3 hover:bg-orange-600 transition-colors">
+                        + Add Product
+                    </button>
+                </div>
+            </div>
+            <!-- Sections container -->
+            <section id="dashboard" class="hidden">
+                <h2 class="text-orange-500 font-semibold text-xl mb-6">Dashboard</h2>
+                <p class="text-gray-700 text-sm">Welcome to the Dashboard section. Here you can see your overview and
+                    stats.</p>
+            </section>
+
+            <section id="objectives" class="hidden">
+                <h2 class="text-orange-500 font-semibold text-xl mb-6">Objectives</h2>
+                <!-- Right side summary and transactions -->
+                <div class="flex flex-col md:flex-row md:space-x-6">
+                    <!-- Chart and number -->
+                    <div class="flex-1 bg-gray-50 rounded-lg p-6 mb-6 md:mb-0 flex flex-col items-center">
+                        <p class="text-gray-900 font-semibold text-2xl mb-4">2.542</p>
+                        <div class="flex space-x-3">
+                            <div class="flex flex-col items-center">
+                                <div class="bg-orange-500 rounded-t-md w-3 h-10 sm:h-14" aria-label="Bar 1"></div>
+                                <div class="text-xs text-gray-400 mt-1">1</div>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div class="bg-orange-500 rounded-t-md w-3 h-8 sm:h-12" aria-label="Bar 2"></div>
+                                <div class="text-xs text-gray-400 mt-1">2</div>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div class="bg-orange-500 rounded-t-md w-3 h-12 sm:h-16" aria-label="Bar 3"></div>
+                                <div class="text-xs text-gray-400 mt-1">3</div>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div class="bg-orange-500 rounded-t-md w-3 h-10 sm:h-14" aria-label="Bar 4"></div>
+                                <div class="text-xs text-gray-400 mt-1">4</div>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div class="bg-orange-500 rounded-t-md w-3 h-8 sm:h-12" aria-label="Bar 5"></div>
+                                <div class="text-xs text-gray-400 mt-1">5</div>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div class="bg-orange-500 rounded-t-md w-3 h-10 sm:h-14" aria-label="Bar 6"></div>
+                                <div class="text-xs text-gray-400 mt-1">6</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Transactions -->
+                    <div class="flex-1 bg-gray-50 rounded-lg p-6 mb-6 md:mb-0 flex flex-col justify-between">
+                        <h3 class="text-gray-900 font-semibold mb-4 text-sm">All Transactions</h3>
+                        <ul class="space-y-4 text-gray-600 text-xs font-semibold">
+                            <li class="flex justify-between items-center">
+                                <div>
+                                    <p>Order #AB8754</p>
+                                    <p class="text-gray-400 text-[10px]">28 Oct, 2021</p>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </li>
+                            <li class="flex justify-between items-center">
+                                <div>
+                                    <p>Return #CT6759</p>
+                                    <p class="text-gray-400 text-[10px]">27 Oct, 2021</p>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </li>
+                            <li class="flex justify-between items-center">
+                                <div>
+                                    <p>Order #PF6489</p>
+                                    <p class="text-gray-400 text-[10px]">26 Oct, 2021</p>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Lorem Ipsum text -->
+                    <div class="flex-1 text-orange-500 text-xs font-semibold leading-5">
+                        <p>
+                            Lorem Ipsum
+                        </p>
+                        <p class="mt-2 text-[10px] font-normal text-orange-300 max-w-xs">
+                            Lorem ipsum lorem sit amet, consectetur adipiscing elit sed do tempor incididunt ut labore
+                            et dolore Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor
+                            incididunt ut labore et dolore.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="survey" class="hidden">
+                <h2 class="text-orange-500 font-semibold text-xl mb-6">Survey</h2>
+                <p class="text-gray-700 text-sm">Survey section content goes here. View and create surveys.</p>
+            </section>
+
+            <section id="documents" class="hidden">
+                <h2 class="text-orange-500 font-semibold text-xl mb-6">Documents</h2>
+                <p class="text-gray-700 text-sm">Manage your documents in this section.</p>
+            </section>
+
+            <section id="photos" class="hidden">
+                <h2 class="text-orange-500 font-semibold text-xl mb-6">Photos</h2>
+                <p class="text-gray-700 text-sm">View and upload photos here.</p>
+            </section>
+
+            <section id="sells" class="">
+                <h2 class="text-orange-500 font-semibold text-xl mb-6">
+                    Orders and sells
+                </h2>
+                <!-- Last Orders Table -->
+                <div class="overflow-x-auto mb-6 max-h-[480px] md:max-h-[470px]">
+                    <table class="w-full text-left text-gray-400 text-xs font-semibold">
+                        <thead>
+                            <tr>
+                                <th class=" text-gray-700 py-3 pr-6">Order</th>
+                                <th class="text-gray-700 py-3 pr-6">Name</th>
+                                <th class="text-gray-700 py-3 pr-6">Product</th>
+                                <th class="text-gray-700 py-3 pr-6">Date</th>
+                                <th class="text-gray-700 py-3 pr-6">Tracking</th>
+                                <th class="text-gray-700 py-3 pr-6">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-t border-gray-100/20">
+                                <td class="py-3 pr-6">#715234</td>
+                                <td class="py-3 pr-6">Kenny Kevin</td>
+                                <td class="py-3 pr-6">Notebook</td>
+                                <td class="py-3 pr-6">18.09.2018</td>
+                                <td class="py-3 pr-6">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-orange-100 text-orange-500">Shipped</span>
+                                </td>
+                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
+                            </tr>
+                            <tr class="border-t border-gray-100/20">
+                                <td class="py-3 pr-6">#715235</td>
+                                <td class="py-3 pr-6">Williams John</td>
+                                <td class="py-3 pr-6">Handphone</td>
+                                <td class="py-3 pr-6">23.09.2018</td>
+                                <td class="py-3 pr-6">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-cyan-100 text-cyan-500">Pending</span>
+                                </td>
+                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
+                            </tr>
+                            <tr class="border-t border-gray-100/20">
+                                <td class="py-3 pr-6">#715236</td>
+                                <td class="py-3 pr-6">Alex Martin</td>
+                                <td class="py-3 pr-6">Laptop</td>
+                                <td class="py-3 pr-6">25.09.2018</td>
+                                <td class="py-3 pr-6">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-orange-100 text-orange-500">Shipped</span>
+                                </td>
+                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
+                            </tr>
+                            <tr class="border-t border-gray-100/20">
+                                <td class="py-3 pr-6">#715237</td>
+                                <td class="py-3 pr-6">John Andre</td>
+                                <td class="py-3 pr-6">Headset</td>
+                                <td class="py-3 pr-6">27.09.2018</td>
+                                <td class="py-3 pr-6">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-cyan-100 text-cyan-500">Pending</span>
+                                </td>
+                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
+                            </tr>
+                            <tr class="border-t border-gray-100/20">
+                                <td class="py-3 pr-6">#715238</td>
+                                <td class="py-3 pr-6">Henderson</td>
+                                <td class="py-3 pr-6">Tablet</td>
+                                <td class="py-3 pr-6">28.09.2018</td>
+                                <td class="py-3 pr-6">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-orange-100 text-orange-500">Shipped</span>
+                                </td>
+                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
+                            </tr>
+                            <tr class="border-t border-gray-100/20">
+                                <td class="py-3 pr-6">#715239</td>
+                                <td class="py-3 pr-6">Kenny Kevin</td>
+                                <td class="py-3 pr-6">Notebook</td>
+                                <td class="py-3 pr-6">18.09.2018</td>
+                                <td class="py-3 pr-6">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-orange-100 text-orange-500">Shipped</span>
+                                </td>
+                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
+                            </tr>
+                            <tr class="border-t border-gray-100/20">
+                                <td class="py-3 pr-6">#715240</td>
+                                <td class="py-3 pr-6">Williams John</td>
+                                <td class="py-3 pr-6">Handphone</td>
+                                <td class="py-3 pr-6">23.09.2018</td>
+                                <td class="py-3 pr-6">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-cyan-100 text-cyan-500">Pending</span>
+                                </td>
+                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
+                            </tr>
+                            <tr class="border-t border-gray-100/20">
+                                <td class="py-3 pr-6">#715241</td>
+                                <td class="py-3 pr-6">Alex Martin</td>
+                                <td class="py-3 pr-6">Laptop</td>
+                                <td class="py-3 pr-6">25.09.2018</td>
+                                <td class="py-3 pr-6">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-orange-100 text-orange-500">Shipped</span>
+                                </td>
+                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
+                            </tr>
+                            <tr class="border-t border-gray-100/20">
+                                <td class="py-3 pr-6">#715242</td>
+                                <td class="py-3 pr-6">John Andre</td>
+                                <td class="py-3 pr-6">Headset</td>
+                                <td class="py-3 pr-6">27.09.2018</td>
+                                <td class="py-3 pr-6">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-cyan-100 text-cyan-500">Pending</span>
+                                </td>
+                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
+                            </tr>
+                            <tr class="border-t border-gray-100/20">
+                                <td class="py-3 pr-6">#715234</td>
+                                <td class="py-3 pr-6">Kenny Kevin</td>
+                                <td class="py-3 pr-6">Notebook</td>
+                                <td class="py-3 pr-6">18.09.2018</td>
+                                <td class="py-3 pr-6">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-orange-100 text-orange-500">Shipped</span>
+                                </td>
+                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
+                            </tr>
+                            <tr class="border-t border-gray-100/20">
+                                <td class="py-3 pr-6">#715235</td>
+                                <td class="py-3 pr-6">Williams John</td>
+                                <td class="py-3 pr-6">Handphone</td>
+                                <td class="py-3 pr-6">23.09.2018</td>
+                                <td class="py-3 pr-6">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-cyan-100 text-cyan-500">Pending</span>
+                                </td>
+                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
+                            </tr>
+                            <tr class="border-t border-gray-100/20">
+                                <td class="py-3 pr-6">#715236</td>
+                                <td class="py-3 pr-6">Alex Martin</td>
+                                <td class="py-3 pr-6">Laptop</td>
+                                <td class="py-3 pr-6">25.09.2018</td>
+                                <td class="py-3 pr-6">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-orange-100 text-orange-500">Shipped</span>
+                                </td>
+                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
+                            </tr>
+                            <tr class="border-t border-gray-100/20">
+                                <td class="py-3 pr-6">#715237</td>
+                                <td class="py-3 pr-6">John Andre</td>
+                                <td class="py-3 pr-6">Headset</td>
+                                <td class="py-3 pr-6">27.09.2018</td>
+                                <td class="py-3 pr-6">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-cyan-100 text-cyan-500">Pending</span>
+                                </td>
+                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
+                            </tr>
+                            <tr class="border-t border-gray-100/20">
+                                <td class="py-3 pr-6">#715238</td>
+                                <td class="py-3 pr-6">Henderson</td>
+                                <td class="py-3 pr-6">Tablet</td>
+                                <td class="py-3 pr-6">28.09.2018</td>
+                                <td class="py-3 pr-6">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-orange-100 text-orange-500">Shipped</span>
+                                </td>
+                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
+                            </tr>
+                            <tr class="border-t border-gray-100/20">
+                                <td class="py-3 pr-6">#715239</td>
+                                <td class="py-3 pr-6">Kenny Kevin</td>
+                                <td class="py-3 pr-6">Notebook</td>
+                                <td class="py-3 pr-6">18.09.2018</td>
+                                <td class="py-3 pr-6">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-orange-100 text-orange-500">Shipped</span>
+                                </td>
+                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
+                            </tr>
+                            <tr class="border-t border-gray-100/20">
+                                <td class="py-3 pr-6">#715240</td>
+                                <td class="py-3 pr-6">Williams John</td>
+                                <td class="py-3 pr-6">Handphone</td>
+                                <td class="py-3 pr-6">23.09.2018</td>
+                                <td class="py-3 pr-6">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-cyan-100 text-cyan-500">Pending</span>
+                                </td>
+                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
+                            </tr>
+                            <tr class="border-t border-gray-100/20">
+                                <td class="py-3 pr-6">#715241</td>
+                                <td class="py-3 pr-6">Alex Martin</td>
+                                <td class="py-3 pr-6">Laptop</td>
+                                <td class="py-3 pr-6">25.09.2018</td>
+                                <td class="py-3 pr-6">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-orange-100 text-orange-500">Shipped</span>
+                                </td>
+                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
+                            </tr>
+                            <tr class="border-t border-gray-100/20">
+                                <td class="py-3 pr-6">#715242</td>
+                                <td class="py-3 pr-6">John Andre</td>
+                                <td class="py-3 pr-6">Headset</td>
+                                <td class="py-3 pr-6">27.09.2018</td>
+                                <td class="py-3 pr-6">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-cyan-100 text-cyan-500">Pending</span>
+                                </td>
+                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
+                            </tr>
+                            <tr class="border-t border-gray-100/20">
+                                <td class="py-3 pr-6">#715234</td>
+                                <td class="py-3 pr-6">Kenny Kevin</td>
+                                <td class="py-3 pr-6">Notebook</td>
+                                <td class="py-3 pr-6">18.09.2018</td>
+                                <td class="py-3 pr-6">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-orange-100 text-orange-500">Shipped</span>
+                                </td>
+                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
+                            </tr>
+                            <tr class="border-t border-gray-100/20">
+                                <td class="py-3 pr-6">#715235</td>
+                                <td class="py-3 pr-6">Williams John</td>
+                                <td class="py-3 pr-6">Handphone</td>
+                                <td class="py-3 pr-6">23.09.2018</td>
+                                <td class="py-3 pr-6">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-cyan-100 text-cyan-500">Pending</span>
+                                </td>
+                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
+                            </tr>
+                            <tr class="border-t border-gray-100/20">
+                                <td class="py-3 pr-6">#715236</td>
+                                <td class="py-3 pr-6">Alex Martin</td>
+                                <td class="py-3 pr-6">Laptop</td>
+                                <td class="py-3 pr-6">25.09.2018</td>
+                                <td class="py-3 pr-6">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-orange-100 text-orange-500">Shipped</span>
+                                </td>
+                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
+                            </tr>
+                            <tr class="border-t border-gray-100/20">
+                                <td class="py-3 pr-6">#715237</td>
+                                <td class="py-3 pr-6">John Andre</td>
+                                <td class="py-3 pr-6">Headset</td>
+                                <td class="py-3 pr-6">27.09.2018</td>
+                                <td class="py-3 pr-6">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-cyan-100 text-cyan-500">Pending</span>
+                                </td>
+                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
+                            </tr>
+                            <tr class="border-t border-gray-100/20">
+                                <td class="py-3 pr-6">#715238</td>
+                                <td class="py-3 pr-6">Henderson</td>
+                                <td class="py-3 pr-6">Tablet</td>
+                                <td class="py-3 pr-6">28.09.2018</td>
+                                <td class="py-3 pr-6">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-orange-100 text-orange-500">Shipped</span>
+                                </td>
+                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
+                            </tr>
+                            <tr class="border-t border-gray-100/20">
+                                <td class="py-3 pr-6">#715239</td>
+                                <td class="py-3 pr-6">Kenny Kevin</td>
+                                <td class="py-3 pr-6">Notebook</td>
+                                <td class="py-3 pr-6">18.09.2018</td>
+                                <td class="py-3 pr-6">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-orange-100 text-orange-500">Shipped</span>
+                                </td>
+                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
+                            </tr>
+                            <tr class="border-t border-gray-100/20">
+                                <td class="py-3 pr-6">#715240</td>
+                                <td class="py-3 pr-6">Williams John</td>
+                                <td class="py-3 pr-6">Handphone</td>
+                                <td class="py-3 pr-6">23.09.2018</td>
+                                <td class="py-3 pr-6">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-cyan-100 text-cyan-500">Pending</span>
+                                </td>
+                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
+                            </tr>
+                            <tr class="border-t border-gray-100/20">
+                                <td class="py-3 pr-6">#715241</td>
+                                <td class="py-3 pr-6">Alex Martin</td>
+                                <td class="py-3 pr-6">Laptop</td>
+                                <td class="py-3 pr-6">25.09.2018</td>
+                                <td class="py-3 pr-6">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-orange-100 text-orange-500">Shipped</span>
+                                </td>
+                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
+                            </tr>
+                            <tr class="border-t border-gray-100/20">
+                                <td class="py-3 pr-6">#715242</td>
+                                <td class="py-3 pr-6">John Andre</td>
+                                <td class="py-3 pr-6">Headset</td>
+                                <td class="py-3 pr-6">27.09.2018</td>
+                                <td class="py-3 pr-6">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-cyan-100 text-cyan-500">Pending</span>
+                                </td>
+                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
+                            </tr>
+                            <tr class="border-t border-gray-100/20">
+                                <td class="py-3 pr-6">#715243</td>
+                                <td class="py-3 pr-6">Henderson</td>
+                                <td class="py-3 pr-6">Tablet</td>
+                                <td class="py-3 pr-6">28.09.2018</td>
+                                <td class="py-3 pr-6">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-orange-100 text-orange-500">Shipped</span>
+                                </td>
+                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
+                            </tr>
+                            <tr class="border-t border-gray-100/20">
+                                <td class="py-3 pr-6">#715244</td>
+                                <td class="py-3 pr-6">Kenny Kevin</td>
+                                <td class="py-3 pr-6">Notebook</td>
+                                <td class="py-3 pr-6">18.09.2018</td>
+                                <td class="py-3 pr-6">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-orange-100 text-orange-500">Shipped</span>
+                                </td>
+                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
+                            </tr>
+                            <tr class="border-t border-gray-100/20">
+                                <td class="py-3 pr-6">#715245</td>
+                                <td class="py-3 pr-6">Williams John</td>
+                                <td class="py-3 pr-6">Handphone</td>
+                                <td class="py-3 pr-6">23.09.2018</td>
+                                <td class="py-3 pr-6">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-cyan-100 text-cyan-500">Pending</span>
+                                </td>
+                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="message" class="hidden">
+                <h2 class="text-orange-500 font-semibold text-xl mb-6">Message</h2>
+                <p class="text-gray-700 text-sm">This is the Message section. View and send messages here.</p>
+            </section>
+
+            <section id="help" class="hidden">
+                <h2 class="text-orange-500 font-semibold text-xl mb-6">Help</h2>
+                <p class="text-gray-700 text-sm">Help section content goes here. Find FAQs and support.</p>
+            </section>
+
+            <section id="setting" class="hidden">
+                <h2 class="text-orange-500 font-semibold text-xl mb-6">Setting</h2>
+                <p class="text-gray-700 text-sm">Manage your settings and preferences here.</p>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        //Side Navbar 
+        function selectSection(sectionId, btn) {
+            // Hide all sections
+            const sections = document.querySelectorAll('main > section');
+            sections.forEach((section) => {
+                section.classList.add('hidden');
+            });
+
+            // Show selected section
+            const selectedSection = document.getElementById(sectionId);
+            if (selectedSection) {
+                selectedSection.classList.remove('hidden');
+            }
+
+            // Update sidebar active states
+            const buttons = document.querySelectorAll('aside nav button');
+            buttons.forEach((button) => {
+                if (button === btn) {
+                    button.classList.add('text-orange-500', 'font-semibold');
+                    button.classList.remove('text-gray-400');
+                } else {
+                    button.classList.remove('text-orange-500', 'font-semibold');
+                    button.classList.add('text-gray-400');
+                }
+            });
+        }
+
+        // On page load, show "sells" section by default and highlight its menu item
+        window.addEventListener('DOMContentLoaded', () => {
+            const defaultSection = 'sells';
+            const defaultBtn = document.querySelector(`aside nav button[data-section="${defaultSection}"]`);
+            if (defaultBtn) {
+                selectSection(defaultSection, defaultBtn);
+            }
+        });
+    </script>
+
+    <script>
+        const toggleBtn = document.getElementById("menuToggle");
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("overlay");
+
+        function openSidebar() {
+            sidebar.classList.remove("-translate-x-full");
+            overlay.classList.remove("hidden");
+        }
+
+        function closeSidebar() {
+            sidebar.classList.add("-translate-x-full");
+            overlay.classList.add("hidden");
+        }
+
+        toggleBtn.addEventListener("click", () => {
+            if (sidebar.classList.contains("-translate-x-full")) {
+                openSidebar();
+            } else {
+                closeSidebar();
+            }
+        });
+
+        overlay.addEventListener("click", closeSidebar);
+
+        // Optional: close sidebar when clicking a menu item (mobile only)
+        sidebar.querySelectorAll("button").forEach(btn => {
+            btn.addEventListener("click", () => {
+                if (window.innerWidth < 768) closeSidebar();
+            });
+        });
+    </script>
+
+</body>
+
+</html>

@@ -73,65 +73,63 @@
     will-change: transform, opacity;
   }
 </style>
+<style>
+  @media screen and (min-width:768px) {
+    .flex1 {
+      width: 50%;
+    }
+
+    .dragimg {
+      display: flex;
+    }
+
+    .instructors {
+      display: flex;
+    }
+
+  }
+
+  #Drags {
+    left: 0;
+    top: 0;
+    z-index: 99999;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+  }
+</style>
+<style>
+  .resize-handle {
+    width: 12px;
+    height: 12px;
+    background: #aeff79;
+    border: 2px solid white;
+    border-radius: 50%;
+    position: absolute;
+    cursor: nwse-resize;
+  }
+</style>
 
 <body class="bg-[#f5fdf7] mb-20 p-1">
-  <header class="px-3 py-1 flex items-center justify-between shadow-md z-50">
-    <a onclick="history.back()">
-      <img src="https://img.icons8.com/ios-filled/24/1e40af/left.png" alt="Back Arrow"
-        class="w-10 h-10 group-hover:brightness-800 transition duration-200" />
-    </a>
-    <a href="index.html">
-      <h1 class="text-xl font-extrabold text-[#1a1a1a] leading-none">
-        <span>Gift</span>
-        <span class="text-[#0f6f61]">Zone</span>
-      </h1>
-    </a>
-    <a href="Owner.html">
-      <img alt="Profile picture of a young man with short hair wearing a blue shirt"
-        class="w-8 h-8 rounded-full border-2 border-[#0f6f61]" height="32" src="User.jpg" width="32" />
-    </a>
-  </header>
-  <style>
-    @media screen and (min-width:768px) {
-      .flex1 {
-        width: 50%;
-      }
+  <div class=" p-3 text-black">
+    <div class="flex items-center mb-6 justify-between">
+      <button onclick="history.back()" aria-label="Go back"
+        class="w-10 h-10 bg-gray-100 rounded-full flex justify-center items-center shadow-sm">
+        <i class="fas fa-chevron-down text-black text-lg">
+        </i>
+      </button>
+      <button onclick="window.location.href='index.html'" aria-label="Go back"
+        class="text-3xl  flex justify-center items-center shadow-sm">
+        <h1 class="  text-3xl mx-auto font-extrabold leading-snug">
+          Gift Zone
+        </h1>
+      </button>
+    </div>
 
-      .dragimg {
-        display: flex;
-      }
-
-      .instructors {
-        display: flex;
-      }
-
-    }
-
-    #Drags {
-      left: 0;
-      top: 0;
-      z-index: 99999;
-      position: fixed;
-      width: 100vw;
-      height: 100vh;
-      background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600&auto=format&fit=crop');
-      background-size: cover;
-      background-position: center;
-    }
-  </style>
-  <style>
-    .resize-handle {
-      width: 12px;
-      height: 12px;
-      background: #aeff79;
-      border: 2px solid white;
-      border-radius: 50%;
-      position: absolute;
-      cursor: nwse-resize;
-    }
-  </style>
-  </head>
-
+  </div>
   <section id="Drags" style="display: none;" class="fixed w-full h-full flex flex-wrap gap-6 p-3  ">
     <div class="flex w-full p-2 items-center z-[999999]  justify-between">
       <button onclick="history.back()" aria-label="Go back"
@@ -407,7 +405,7 @@
 
   <main id="mainback" class=" bg-[#f5fdf7] w-full mx-auto overflow-auto font-sans">
     <!-- Course Detail -->
-    <section id="course-detail" class="bg-[#f5fdf7] rounded-lg shadow p-2 space-y-6"></section>
+    <section id="course-detail" class="bg-[#f5fdf7] shadow p-2 space-y-6"></section>
     <br>
     <div onclick="closeLogin()" id="overlay" class="fixed inset-0 bg-black bg-opacity-60 hidden z-40 backdrop-blur-sm">
     </div>
@@ -520,8 +518,6 @@
                     <option value="#708090" class="bg-[#708090] text-white">Slate Gray</option>
                     <option value="#FFD700" class="bg-[#FFD700] text-black">Gold</option>
                   </select>
-
-
                 </div>
               </div>
               <div id="data2" style="display: none; margin-top: -5px;">
@@ -589,15 +585,17 @@
                 const s = document.getElementById('data1').style.display = "none";
                 const d = document.getElementById('data2').style.display = "block";
                 const f = document.getElementById('swapback').style.display = "block";
-                const e = document.getElementById('swap').style.width = "80%";
-
+                const j = document.getElementById('swap').style.width = "80%";
+                const e = document.getElementById('swap');
+                e.innerText = "Submit";
               }
               function swapback() {
                 const s = document.getElementById('data1').style.display = "block";
                 const d = document.getElementById('data2').style.display = "none";
                 const f = document.getElementById('swapback').style.display = "none";
-                const e = document.getElementById('swap').style.width = "100%";
-
+                const w = document.getElementById('swap').style.width = "100%";
+                const e = document.getElementById('swap');
+                e.innerText = "Next";
               }
 
               const radios = document.querySelectorAll('input[name="size"]');
@@ -667,7 +665,7 @@
                 <button onclick="swap()" id="swap"
                   class="bg-yellow-400 text-black font-semibold rounded-full py-3 w-full max-w-[360px] mx-auto text-center"
                   type="submit">
-                  Payment
+                  Next
                 </button>
               </div>
             </nav>
@@ -678,8 +676,13 @@
   </main>
 
   <nav aria-label="Bottom navigation"
-    class="fixed bottom-0 left-0 right-0 border-t border-[#d9d9d9]bg-[#f3f3f3] flex justify-center items-center py-2 z-50">
-
+    class="fixed bottom-0 bg-gray-100 left-0 right-0 border-t gap-1 border-[#d9d9d9]bg-[#f3f3f3] flex justify-center items-center py-2 z-50">
+    <button onclick="document.getElementById('Drags').style.display='block' "
+      class="bg-green-700 text-white font-semibold rounded-full py-2 w-14  max-w-[360px] mx-auto text-center"
+      type="button">
+      <i class="far fa-image text-2xl"></i>
+    </button>
+    <br>
     <button id="openLoginBtn" onclick="buycourse()"
       class="bg-green-700 text-white font-semibold rounded-full py-3 w-full max-w-[360px] mx-auto text-center"
       type="button">
@@ -902,124 +905,130 @@
       const section = document.getElementById("course-detail");
 
       section.innerHTML = `
-  <div class=" dragimg w-full items-center justify-center" id="dragimg">
-    <div class="flex1 flex-col bg-[#f5fdf7] items-center justify-center gap-1 w-full h-100 overflow-hidden">
-  <img src="${course.icon}" 
-       alt="${course.iconAlt}" 
-       class="w-80 h-100 object-cover justify-center m-auto">
-<button onclick="document.getElementById('Drags').style.display='block' " class="text-gray-600 hover:text-black font-bold border-2 w-full m-auto py-1 px-4 rounded-full transition">
-  + Photo
-</button>
 
+  <div class=" dragimg w-full  items-center justify-center" id="dragimg">
+    <div class="flex1 flex-col bg-[#f5fdf7] items-center justify-center gap-1 w-full h-100 overflow-hidden">
+      <img src="${course.icon}" alt="${course.iconAlt}" class="w-80 h-100 object-cover justify-center m-auto">
+    </div>
+
+
+    <div class="flex1">
+      <div>
+       <h1 class="text-2xl md:text-3xl font-extrabold">
+  ${course.title}
+</h1>
+        <p class="text-sm text-gray-500">${course.location} &middot; ${course.fees}</p>
+      </div>
+      <p class="text-gray-700 text-justify mt-4">${course.description}</p>
+
+  <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-2 mt-2">
+  ${course.features.map(f => {
+    if (f.icon) {
+      return `
+        <span class="text-center mx-auto w-full bg-green-100 text-sm px-3 py-2 mt-2 rounded-full flex items-center gap-2">
+          <i class="${f.icon} text-sm text-gray-600"></i> 
+          <span>${f.text}</span>
+        </span>
+      `;
+    } else {
+      return `
+        <span class="bg-green-100 mx-auto w-full text-sm px-3 py-2 mt-2 rounded-full flex items-center gap-2">
+          <span class="border border-gray-500 w-5 h-5 flex justify-center items-center rounded-full text-[10px] font-bold text-gray-700">
+            ${f.badge}
+          </span>
+          <span>${f.text}</span>
+        </span>
+      `;
+    }
+  }).join("")}
 </div>
 
+      <hr class="border-2 mt-2 ">
+      <div>
+        <h2 class="text-lg font-semibold mt-4 mb-2">Discription Points</h2>
+        <ul class="list-disc list-inside space-y-1 text-gray-700">
+          ${course.syllabus.map(item => `<li>${item}</li>`).join("")}
+        </ul>
+      </div>
+      <hr class="border-2 ">
+    </div>
+  </div>
+  <div class="instructors justify-between">
+    <div class=" flex1">
+      <h2 class="text-lg font-semibold  mb-2">Order Process</h2>
+      <ul class="space-y-3">
 
- <div class="flex1">
-   <div>
-            <h1 class="text-lg font-bold text-gray-900">${course.title}</h1>
-            <p class="text-sm text-gray-500">${course.location} &middot; ${course.fees}</p>
+        <div class="flex items-center space-x-4">
+          <!-- Ordered -->
+          <div class="flex flex-col items-center space-y-1">
+            <div class="w-10 h-10 rounded-full bg-green-500 flex justify-center items-center">
+              <i class="fas fa-clipboard-list text-white text-lg"></i>
+            </div>
+            <span class="text-green-500 text-xs font-sans">Ordered</span>
           </div>
-        <p class="text-gray-700 text-justify mt-4">${course.description}</p>
 
-        <div class="flex flex-wrap gap-2">
-          ${course.features.map(f => {
-        if (f.icon) {
-          return `<span class="bg-gray-200 text-xs mt-4 px-2 py-2 rounded flex items-center gap-1">
-                <i class="${f.icon} text-xs"></i> <span>${f.text}</span>
-              </span>`;
-        } else {
-          return `<span class="bg-gray-200 text-sm mt-4 px-2 py-2 rounded flex items-center gap-1">
-                <span class="border border-gray-500 w-4 h-4 flex justify-center items-center rounded-full text-[10px] font-bold">${f.badge}</span> <span>${f.text}</span>
-              </span>`;
-        }
-      }).join("")}
-        </div>
- <hr class="border-2 ">
-        <div>
-          <h2 class="text-lg font-semibold mt-4 mb-2">Discription Points</h2>
-          <ul class="list-disc list-inside space-y-1 text-gray-700">
-            ${course.syllabus.map(item => `<li>${item}</li>`).join("")}
-          </ul>
-        </div>
- <hr class="border-2 ">
+          <!-- Line -->
+          <div class="w-8 h-0.5 bg-red-600 rounded"></div>
+
+          <!-- Packed -->
+          <div class="flex flex-col items-center space-y-1">
+            <div class="w-10 h-10 rounded-full bg-green-500 flex justify-center items-center">
+              <i class="fas fa-box-open text-white text-lg"></i>
+            </div>
+            <span class="text-green-500 text-xs font-sans">Packed</span>
           </div>
-            </div> 
-             <div class="instructors justify-between">
-        <div class=" flex1">
-          <h2 class="text-lg font-semibold  mb-2">Order Process</h2>
-          <ul class="space-y-3">
-   
-  <div class="flex items-center space-x-4">
-    <!-- Ordered -->
-    <div class="flex flex-col items-center space-y-1">
-      <div class="w-10 h-10 rounded-full bg-green-500 flex justify-center items-center">
-        <i class="fas fa-clipboard-list text-white text-lg"></i>
-      </div>
-      <span class="text-green-500 text-xs font-sans">Ordered</span>
-    </div>
 
-    <!-- Line -->
-    <div class="w-8 h-0.5 bg-red-600 rounded"></div>
+          <!-- Line -->
+          <div class="w-8 h-0.5 bg-red-600 rounded"></div>
 
-    <!-- Packed -->
-    <div class="flex flex-col items-center space-y-1">
-      <div class="w-10 h-10 rounded-full bg-green-500 flex justify-center items-center">
-        <i class="fas fa-box-open text-white text-lg"></i>
-      </div>
-      <span class="text-green-500 text-xs font-sans">Packed</span>
-    </div>
+          <!-- In Transit -->
+          <div class="flex flex-col items-center space-y-1">
+            <div class="w-10 h-10 rounded-full bg-green-500 flex justify-center items-center">
+              <i class="fas fa-truck-moving text-white text-lg"></i>
+            </div>
+            <span class="text-green-500 text-xs font-sans">Transit</span>
+          </div>
 
-    <!-- Line -->
-    <div class="w-8 h-0.5 bg-red-600 rounded"></div>
+          <!-- Dotted Line -->
+          <div class="flex space-x-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
 
-    <!-- In Transit -->
-    <div class="flex flex-col items-center space-y-1">
-      <div class="w-10 h-10 rounded-full bg-green-500 flex justify-center items-center">
-        <i class="fas fa-truck-moving text-white text-lg"></i>
-      </div>
-      <span class="text-green-500 text-xs font-sans">Transit</span>
-    </div>
+          </div>
 
-    <!-- Dotted Line -->
-    <div class="flex space-x-1">
-      <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
-      <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
-      <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
-      
-    </div>
-
-    <!-- Delivered -->
-    <div class="flex flex-col items-center space-y-1">
-      <div class="w-10 h-10 rounded-full bg-gray-500 flex justify-center items-center">
-        <i class="fas fa-home text-white text-lg"></i>
-      </div>
-      <span class="text-gray-600 text-xs font-sans">Delivered</span>
-    </div>
-  </div> 
-            ${course.instructors.map(inst => `
-              <li class="hidden flex items-center gap-4">
-                <img src="${inst.photo}" alt="${inst.alt}" class="w-12 h-12 rounded-full object-cover">
-                <span class="font-medium text-gray-800">${inst.name}</span>
-              </li>
-            `).join("")}
-          </ul>
+          <!-- Delivered -->
+          <div class="flex flex-col items-center space-y-1">
+            <div class="w-10 h-10 rounded-full bg-gray-500 flex justify-center items-center">
+              <i class="fas fa-home text-white text-lg"></i>
+            </div>
+            <span class="text-gray-600 text-xs font-sans">Delivered</span>
+          </div>
         </div>
-             <br>
-        <div  class=" flex1">
-          <h2 class="text-lg font-semibold   mb-2">Reviews</h2>
-          <ul class="space-y-3">
-            ${course.reviews.map(r => `
-              <li class="border rounded p-3 bg-gray-50">
-                <div class="flex justify-between items-center mb-1">
-                  <span class="font-semibold text-gray-800">${r.name}</span>
-                  <span class="flex gap-0.5">${renderStars(r.rating)}</span>
-                </div>
-                <p class="text-sm text-gray-600">${r.comment}</p>
-              </li>
-            `).join("")}
-          </ul>
-        </div>
-         </div> 
+        ${course.instructors.map(inst => `
+        <li class="hidden flex items-center gap-4">
+          <img src="${inst.photo}" alt="${inst.alt}" class="w-12 h-12 rounded-full object-cover">
+          <span class="font-medium text-gray-800">${inst.name}</span>
+        </li>
+        `).join("")}
+      </ul>
+    </div>
+    <br>
+    <div class=" flex1">
+      <h2 class="text-lg font-semibold   mb-2">Reviews</h2>
+      <ul class="space-y-3">
+        ${course.reviews.map(r => `
+        <li class="border rounded p-3 bg-gray-50">
+          <div class="flex justify-between items-center mb-1">
+            <span class="font-semibold text-gray-800">${r.name}</span>
+            <span class="flex gap-0.5">${renderStars(r.rating)}</span>
+          </div>
+          <p class="text-sm text-gray-600">${r.comment}</p>
+        </li>
+        `).join("")}
+      </ul>
+    </div>
+  </div>
       `;
     }
 

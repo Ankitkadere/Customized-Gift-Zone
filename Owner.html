@@ -1,143 +1,196 @@
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Passcode Data Viewer</title>
-  <link rel="apple-touch-icon" href="fav.jpg" />
-  <link rel="icon" href="fav.jpg" type="image/jpeg" />
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>
+    Fitness Club Auth Screens
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap" rel="stylesheet" />
   <style>
-    .loader {
-      position: absolute;
-      border: 16px solid #f3f3f3;
-      border-top: 16px solid #3498db;
-      border-radius: 50%;
-      width: 620px;
-      height: 620px;
-      animation: spin 2s linear infinite;
-    }
-
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
-
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-
-    #filterInput {
-      font-size: 22px;
-    }
-
-    .grid {
-      z-index: -1;
+    body {
+      font-family: 'Inter', sans-serif;
     }
   </style>
 </head>
 
-<body class="bg-[#f5fdf7] min-h-screen flex flex-col ">
-  <header class="px-3 py-4 flex items-center justify-between">
-    <a href="index.html">
-      <h1 class="text-xl font-extrabold text-[#1a1a1a] leading-none">
-        <span>Apna</span>
-        <span class="text-[#0f6f61]">Course</span>
-      </h1>
-    </a>
-    <a href="Owner.html">
-      <img alt="Profile picture of a young man with short hair wearing a blue shirt"
-        class="w-8 h-8 rounded-full border-2 border-[#0f6f61]" height="32" src="User.jpg" width="32" />
-    </a>
-  </header>
-  <div class="max-w-5xl w-full mt-114">
-    <center>
-      <img alt="Profile picture of a young man with short hair wearing a blue shirt"
-        class="w-28 h-28 rounded-full border-2 border-[#0f6f61]" height="32" src="User.jpg" width="32" />
-      <h1 id="headtilttle" class="text-2xl text-green-700 font-bold mb-6 text-center"> Login</h1>
-    </center>
-    <!-- Input + Dial Pad -->
-    <div class="absolute bottom-20 w-full bg-white p-4 rounded-lg shadow">
-      <input id="filterInput" type="text" placeholder="ENTER => PASSCODE  "
-        class="text-center w-full  px-4 py-2 mb-4 text-xl rounded focus:outline-none" value="" readonly />
-
-      <div class="grid grid-cols-3 gap-2 text-xl font-semibold">
-        <button class="bg-gray-200 p-2 rounded" data-value="1">1</button>
-        <button class="bg-gray-200 p-2 rounded" data-value="2">2</button>
-        <button class="bg-gray-200 p-2 rounded" data-value="3">3</button>
-        <button class="bg-gray-200 p-2 rounded" data-value="4">4</button>
-        <button class="bg-gray-200 p-2 rounded" data-value="5">5</button>
-        <button class="bg-gray-200 p-2 rounded" data-value="6">6</button>
-        <button class="bg-gray-200 p-2 rounded" data-value="7">7</button>
-        <button class="bg-gray-200 p-2 rounded" data-value="8">8</button>
-        <button class="bg-gray-200 p-2 rounded" data-value="9">9</button>
-        <button id="clearBtn" class="bg-red-200 p-2 rounded text-red-700">C</button>
-        <button class="bg-gray-200 p-2 rounded" data-value="0">0</button>
-        <button id="deleteBtn" class="bg-yellow-200 p-2 rounded text-yellow-800">⌫</button>
+<body class="fixed w-full h-full bg-[#f0f0f0]  flex items-center justify-center  ">
+  <div class="relative h-full w-full flex flex-col sm:flex-row gap-8 justify-center items-center">
+    <!-- Background circles -->
+    <img alt="Large light gray circle background top left"
+      class="hidden sm:block absolute top-0 left-0 w-[120px] h-[120px] rounded-full" height="120"
+      src="https://storage.googleapis.com/a1aa/image/4ec421ae-3827-4267-6b10-1bb5496f5434.jpg"
+      style="transform: translate(-50%, -50%)" width="120" />
+    <img alt="Large red circle background behind left card"
+      class="hidden sm:block absolute top-1/3 left-1/4 w-[120px] h-[120px] rounded-full" height="120"
+      src="https://storage.googleapis.com/a1aa/image/ca07d62f-2e8b-4362-147c-bda87b5e8a78.jpg"
+      style="transform: translate(-50%, -50%)" width="120" />
+    <img alt="Large red circle background behind right card bottom right"
+      class="hidden sm:block absolute bottom-0 right-0 w-[300px] h-[300px] rounded-full" height="120"
+      src="https://storage.googleapis.com/a1aa/image/64ed5666-f8ea-437b-80ae-87746832fd81.jpg"
+      style="transform: translate(50%, 50%)" width="120" />
+    <img alt="Medium light red circle background top right"
+      class="hidden sm:block absolute top-0 right-0 w-[120px] h-[120px] rounded-full" height="120"
+      src="https://storage.googleapis.com/a1aa/image/a9bcb80f-51bc-45dd-ada9-12c9ae529a5b.jpg"
+      style="transform: translate(50%, -50%)" width="120" />
+    <img alt="Medium light gray circle background bottom center"
+      class="hidden sm:block absolute bottom-1/3 left-1/2 w-[120px] h-[120px] rounded-full" height="120"
+      src="https://storage.googleapis.com/a1aa/image/9eaaaf2a-b3dc-4aa4-9363-953a40c6778d.jpg"
+      style="transform: translate(-50%, 50%)" width="20" />
+    <!-- Left Card: Sign In Form -->
+    <section id="data1" style="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)"
+      class=" z-50 md:w-96 w-full h-full rounded-3xl overflow-hidden shadow-lg flex flex-col">
+      <div class="px-6 pt-6 pb-16 text-white" style="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)">
+        <div class="flex items-center mb-6 justify-between">
+          <button onclick="history.back()" aria-label="Go back"
+            class="w-10 h-10 bg-white rounded-full flex justify-center items-center shadow-sm">
+            <i class="fas fa-chevron-down text-gray-700 text-lg">
+            </i>
+          </button>
+          <button onclick="window.location.href='index.html'" aria-label="Go back"
+            class="text-3xl  flex justify-center items-center shadow-sm">
+            <h1 class=" shadow-lg out text-3xl mx-auto font-extrabold leading-snug">
+              Gift Zone
+            </h1>
+          </button>
+        </div>
+        <h1 class="mt-8 text-3xl mx-auto font-semibold leading-snug">
+          Get Inside
+          <br />
+          Sign in !
+        </h1>
       </div>
-    </div>
+      <form autocomplete="off" class="bg-[#f7f7f9] px-6 pt-16 pb-10 h-full rounded-t-3xl flex flex-col gap-6">
+        <label class="flex flex-col text-sm font-semibold text-[#b90f2a]">
+          Mobile Number
+          <div class="relative">
+            <input
+              class="mt-1 w-full border-b border-gray-400 bg-transparent py-1 pr-8 text-gray-500 text-lg focus:outline-none"
+              type="tel" value="+91 123 456 7890 " />
+            <i aria-hidden="true" class="fas fa-check absolute right-0 top-1/2 -translate-y-1/2 text-gray-400 text-sm">
+            </i>
+          </div>
+        </label>
+        <label class="flex flex-col text-sm font-semibold text-[#b90f2a]">
+          Password
+          <div class="relative">
+            <input
+              class="mt-1 w-full border-b border-gray-400 bg-transparent py-1 pr-8 text-gray-500 text-sm focus:outline-none"
+              type="password" value="•••••••" />
+            <i aria-hidden="true"
+              class="fas fa-eye-slash absolute right-0 top-1/2 -translate-y-1/2 text-gray-400 text-lg cursor-pointer">
+            </i>
+          </div>
+        </label>
+        <div class="text-right text-xs text-gray-700 font-normal cursor-pointer">
+          Forgot password?
+        </div>
+        <button class="mt-20  w-full py-3 rounded-full font-semibold text-white text-sm"
+          style="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)" type="submit">
+          SIGN IN
+        </button>
+        <p class="mt-6 text-xs text-gray-600 text-right font-normal">
+          Don’t have account?
+          <span onclick="swapin()" class="font-extrabold text-lg text-gray-900">
+            Sign up
+          </span>
+        </p>
+      </form>
+    </section>
 
-    <!-- Submit Button -->
-    <div class="mt-6 p-2 w-full absolute bottom-4 ">
-      <button id="submitBtn"
-        class="w-full bg-green-700 hover:bg-green-900 text-white text-lg font-bold px-2 py-2 rounded">
-        Login
-      </button>
-    </div>
+    <!-- Right Card: Create Account -->
+    <section id="data2" style="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)"
+      class="z-50 md:block hidden md:w-96 w-full h-full rounded-3xl overflow-hidden shadow-lg flex flex-col">
+      <div class="px-6 pt-6 pb-16 text-white" style="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)">
+        <div class="flex items-center mb-6 justify-between">
+          <button onclick="history.back()" aria-label="Go back"
+            class="w-10 h-10 bg-white rounded-full flex justify-center items-center shadow-sm">
+            <i class="fas fa-chevron-down text-gray-700 text-lg">
+            </i>
+          </button>
+          <button onclick="window.location.href='index.html'" aria-label="Go back"
+            class="text-3xl  flex justify-center items-center shadow-sm">
+            <h1 class=" shadow-lg out text-3xl mx-auto font-extrabold leading-snug">
+              Gift Zone
+            </h1>
+          </button>
+        </div>
+
+        <h1 class="mt-8 text-3xl mx-auto font-semibold leading-snug">
+          Wellcome
+          <br />
+          Sign Up !
+        </h1>
+      </div>
+      <form autocomplete="off" class="bg-[#f7f7f9] px-6 pt-8 pb-10 rounded-t-3xl flex flex-col gap-6">
+        <label class="flex flex-col text-sm font-semibold text-[#b90f2a]">
+          Full Name
+          <div class="relative">
+            <input
+              class="mt-1 w-full border-b border-gray-400 bg-transparent py-1 pr-8 text-gray-500 text-sm focus:outline-none"
+              type="text" value="Mr. Ankit Kadere" />
+            <i aria-hidden="true" class="fas fa-check absolute right-0 top-1/2 -translate-y-1/2 text-gray-400 text-sm">
+            </i>
+          </div>
+        </label>
+        <label class="flex flex-col text-sm font-semibold text-[#b90f2a]">
+          Mobile Number
+          <div class="relative">
+            <input
+              class="mt-1 w-full border-b border-gray-400 bg-transparent py-1 pr-8 text-gray-500 text-sm focus:outline-none"
+              type="tel" value="+91 123 456 7890" />
+            <i aria-hidden="true" class="fas fa-check absolute right-0 top-1/2 -translate-y-1/2 text-gray-400 text-sm">
+            </i>
+          </div>
+        </label>
+        <label class="flex flex-col text-sm font-semibold text-[#b90f2a]">
+          Password
+          <div class="relative">
+            <input
+              class="mt-1 w-full border-b border-gray-400 bg-transparent py-1 pr-8 text-gray-500 text-sm focus:outline-none"
+              type="password" value="•••••••" />
+            <i aria-hidden="true"
+              class="fas fa-eye-slash absolute right-0 top-1/2 -translate-y-1/2 text-gray-400 text-sm cursor-pointer">
+            </i>
+          </div>
+        </label>
+        <label class="flex flex-col text-sm font-semibold text-[#b90f2a]">
+          Confirm Password
+          <div class="relative">
+            <input
+              class="mt-1 w-full border-b border-gray-400 bg-transparent py-1 pr-8 text-gray-500 text-sm focus:outline-none"
+              type="password" value="•••••••" />
+            <i aria-hidden="true"
+              class="fas fa-eye-slash absolute right-0 top-1/2 -translate-y-1/2 text-gray-400 text-sm cursor-pointer">
+            </i>
+          </div>
+        </label>
+        <button class="mt-6 w-full py-3 rounded-full font-semibold text-white text-sm"
+          style="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)" type="submit">
+          SIGN UP
+        </button>
+        <p class="mt-2 text-xs text-gray-600 text-right font-normal">
+          Don’t have account?
+          <span onclick="swapup()" class="font-extrabold text-lg text-gray-900">
+            Sign In
+          </span>
+        </p>
+      </form>
+    </section>
   </div>
-
-  <script>
-    const filterInput = document.getElementById("filterInput");
-    const buttons = document.querySelectorAll("[data-value]");
-    const clearBtn = document.getElementById("clearBtn");
-    const deleteBtn = document.getElementById("deleteBtn");
-    const submitBtn = document.getElementById("submitBtn");
-
-    let input = "";
-
-    buttons.forEach(btn => {
-      btn.addEventListener("click", () => {
-        input += btn.dataset.value;
-        filterInput.value = input;
-      });
-    });
-
-    clearBtn.addEventListener("click", () => {
-      input = "";
-      filterInput.value = "";
-    });
-
-    deleteBtn.addEventListener("click", () => {
-      input = input.slice(0, -1);
-      filterInput.value = input;
-    });
-
-    submitBtn.addEventListener("click", () => {
-      if (input.trim() === "") {
-        const headtilttle = document.getElementById("headtilttle").innerText = "Please Fill Passocde"
-        headtilttle.style.textcolor = "red";
-        return;
-      }
-      if (filterInput.value.length === 6) {
-        window.location.href = `Datafetch.html?passcode=${encodeURIComponent(input.trim())}`;
-      }
-      else if (filterInput.value.length === 4) { window.location.href = `User.html?passcode=${encodeURIComponent(input.trim())}`; }
-      else if (filterInput.value.length === 10) { window.location.href = `User.html?passcode=${encodeURIComponent(input.trim())}`; }
-
-      else {
-        const headtilttle = document.getElementById("headtilttle").innerText = "Try Again"
-        headtilttle.style.color = "red";
-      }
-    });
-
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        handleSubmit();
-      }
-    });
-  </script>
 </body>
+<script>
+  function swapin() {
+    document.getElementById("data1").classList.add("hidden");
+    document.getElementById("data2").classList.remove("hidden");
+  }
+  function swapup() {
+    document.getElementById("data1").classList.remove("hidden");
+    document.getElementById("data2").classList.add("hidden");
+  }
+</script>
 
 </html>
