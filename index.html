@@ -356,57 +356,57 @@
     });
 
   </script>
- 
-<div id="courselist"></div>
 
-<script>
-  // Load CSS dynamically
-  const link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.href = "css/style.css";
-  document.head.appendChild(link);
+  <div id="courselist"></div>
 
-  // Load HTML and then run filter.js
-  window.addEventListener("DOMContentLoaded", async () => {
-    try {
-      const res = await fetch("Courselist.html");
-      const html = await res.text();
+  <script>
+    // Load CSS dynamically
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = "css/style.css";
+    document.head.appendChild(link);
 
-      // Create a temporary container
-      const temp = document.createElement("div");
-      temp.innerHTML = html;
+    // Load HTML and then run filter.js
+    window.addEventListener("DOMContentLoaded", async () => {
+      try {
+        const res = await fetch("Courselist.html");
+        const html = await res.text();
 
-      // ✅ Extract and run inline <script> tags inside Courselist.html
-      temp.querySelectorAll("script").forEach(oldScript => {
-        const newScript = document.createElement("script");
-        if (oldScript.src) {
-          newScript.src = oldScript.src; // external script inside Courselist.html
-        } else {
-          newScript.textContent = oldScript.textContent; // inline script
-        }
-        document.body.appendChild(newScript);
-        oldScript.remove();
-      });
+        // Create a temporary container
+        const temp = document.createElement("div");
+        temp.innerHTML = html;
 
-      // ✅ Insert remaining HTML
-      document.getElementById("courselist").innerHTML = temp.innerHTML;
+        // ✅ Extract and run inline <script> tags inside Courselist.html
+        temp.querySelectorAll("script").forEach(oldScript => {
+          const newScript = document.createElement("script");
+          if (oldScript.src) {
+            newScript.src = oldScript.src; // external script inside Courselist.html
+          } else {
+            newScript.textContent = oldScript.textContent; // inline script
+          }
+          document.body.appendChild(newScript);
+          oldScript.remove();
+        });
 
-      // ✅ Remove old filter.js if already loaded
-      const oldScript = document.getElementById("courselist-script");
-      if (oldScript) oldScript.remove();
+        // ✅ Insert remaining HTML
+        document.getElementById("courselist").innerHTML = temp.innerHTML;
 
-      // ✅ Finally, load filter.js
-      const script = document.createElement("script");
-      script.src = "filter.js";
-      script.id = "courselist-script";
-      script.type = "text/javascript";
-      document.body.appendChild(script);
+        // ✅ Remove old filter.js if already loaded
+        const oldScript = document.getElementById("courselist-script");
+        if (oldScript) oldScript.remove();
 
-    } catch (err) {
-      console.error("Error loading courselist:", err);
-    }
-  });
-</script>
+        // ✅ Finally, load filter.js
+        const script = document.createElement("script");
+        script.src = "filter.js";
+        script.id = "courselist-script";
+        script.type = "text/javascript";
+        document.body.appendChild(script);
+
+      } catch (err) {
+        console.error("Error loading courselist:", err);
+      }
+    });
+  </script>
 
 
   <nav aria-label="Bottom navigation"
