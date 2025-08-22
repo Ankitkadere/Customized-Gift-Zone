@@ -675,9 +675,9 @@
     </div>
   </main>
 
-  <nav aria-label="Bottom navigation"
-    class="fixed bottom-0 bg-gray-100 left-0 right-0 border-t gap-1 border-[#d9d9d9]bg-[#f3f3f3] flex justify-center items-center py-2 z-50">
-    <button onclick="document.getElementById('Drags').style.display='block' "
+  <nav aria-label="Bottom navigation "
+    class="fixed bottom-0 bg-gray-100 left-0 right-0 border-t gap-1 border-[#d9d9d9]bg-[#f3f3f3] flex justify-center items-center py-2 px-2 z-50">
+    <button onclick="notload()" 
       class="bg-green-700 text-white font-semibold rounded-full py-2 w-14  max-w-[360px] mx-auto text-center"
       type="button">
       <i class="far fa-image text-2xl"></i>
@@ -923,15 +923,15 @@
 
   <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-2 mt-2">
   ${course.features.map(f => {
-    if (f.icon) {
-      return `
+        if (f.icon) {
+          return `
         <span class="text-center mx-auto w-full bg-green-100 text-sm px-3 py-2 mt-2 rounded-full flex items-center gap-2">
           <i class="${f.icon} text-sm text-gray-600"></i> 
           <span>${f.text}</span>
         </span>
       `;
-    } else {
-      return `
+        } else {
+          return `
         <span class="bg-green-100 mx-auto w-full text-sm px-3 py-2 mt-2 rounded-full flex items-center gap-2">
           <span class="border border-gray-500 w-5 h-5 flex justify-center items-center rounded-full text-[10px] font-bold text-gray-700">
             ${f.badge}
@@ -939,8 +939,8 @@
           <span>${f.text}</span>
         </span>
       `;
-    }
-  }).join("")}
+        }
+      }).join("")}
 </div>
 
       <hr class="border-2 mt-2 ">
@@ -1213,5 +1213,39 @@
     overlay.addEventListener("click", closeLogin);
   </script>
 </body>
+<script>
+  function notload() {
+document.getElementById('Drags').style.display='block';
+    // 1. Block reload/close attempts (F5, ctrl+r, etc.)
+    window.onbeforeunload = function (e) {
+      e.preventDefault();
+      return ""; // Show browser "Do you want to leave?" dialog
+    };
+
+    // 2. Disable pull-to-refresh on mobile
+    let lastY = 0;
+    window.addEventListener("touchstart", function (e) {
+      lastY = e.touches[0].clientY;
+    }, { passive: false });
+
+    window.addEventListener("touchmove", function (e) {
+      const currentY = e.touches[0].clientY;
+
+      // if user is at top & trying to swipe down
+      if (window.scrollY === 0 && currentY > lastY) {
+        e.preventDefault(); // stop pull-to-refresh
+      }
+      lastY = currentY;
+    }, { passive: false });
+
+    // 3. Optional: block keyboard shortcuts like F5, Ctrl+R
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "F5" || (e.ctrlKey && e.key === "r")) {
+        e.preventDefault();
+        alert("Page reload is disabled 🚫");
+      }
+    });
+  }
+</script>
 
 </html>

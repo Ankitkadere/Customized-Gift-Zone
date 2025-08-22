@@ -47,19 +47,95 @@
                 </h1>
                 <div class="  text-left">
                     <!-- Trigger -->
-                    <button onclick="toggleMenu()" class="md:hidden p-2 rounded-full hover:bg-gray-200">
+                    <button id="openModalBtn" onclick="toggleMenu()"
+                        class="md:hidden p-2 rounded-full hover:bg-gray-200">
                         <i class="fas fa-ellipsis-v text-gray-700"></i>
                     </button>
 
                     <!-- Menu -->
-                    <div id="menu" class="hidden absolute right-0 mt-2 w-40 bg-white border z-50 rounded-lg shadow-lg">
-                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                            <i class="fas fa-pen mr-2"></i> Edit
-                        </a>
-                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    <div id="menu"
+                        class="hidden absolute right-0 mt-2 w-40 bg-white border z-[150] rounded-lg shadow-lg">
+                        <script src="https://cdn.tailwindcss.com"></script>
+                        <link rel="stylesheet"
+                            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+                        <style>
+                            /* Custom animation for fade in/out */
+                            .fade-in {
+                                animation: fadeInScale 0.3s forwards;
+                            }
+
+                            .fade-out {
+                                animation: fadeOutScale 0.3s forwards;
+                            }
+
+                            @keyframes fadeInScale {
+                                0% {
+                                    opacity: 0;
+                                    transform: scale(0.95);
+                                }
+
+                                100% {
+                                    opacity: 1;
+                                    transform: scale(1);
+                                }
+                            }
+
+                            @keyframes fadeOutScale {
+                                0% {
+                                    opacity: 1;
+                                    transform: scale(1);
+                                }
+
+                                100% {
+                                    opacity: 0;
+                                    transform: scale(0.95);
+                                }
+                            }
+                        </style>
+
+                        <body class="bg-gray-100 flex items-center justify-center w-full p-4 mx-4">
+
+
+                            <!-- Modal Overlay -->
+                            <div id="modalOverlay"
+                                class="fixed inset-0 p-4 bg-black bg-opacity-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
+                                <!-- Modal Box -->
+                                <div id="modalBox"
+                                    class="bg-white rounded-lg shadow-xl max-w-md w-full p-6 transform opacity-0 scale-95"
+                                    role="dialog" aria-modal="true" aria-labelledby="modalTitle"
+                                    aria-describedby="modalDesc">
+                                    <div class="flex justify-between items-center mb-4">
+                                        <h2 id="modalTitle"
+                                            class="text-xl font-semibold text-green-700 flex items-center space-x-2">
+                                            <i class="fas fa-check-circle text-green-600 text-2xl"></i>
+                                            <span>Download Mobile App</span>
+                                        </h2>
+                                        <button id="closeModalBtn" aria-label="Close order confirmation"
+                                            class="text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-green-400 rounded">
+                                            <i class="fas fa-times text-xl"></i>
+                                        </button>
+                                    </div>
+                                    <p id="modalDesc" class="text-gray-700 mb-6">
+                                        Thank you for your order! Your order has been successfully placed and is being
+                                        processed. You will receive a confirmation email shortly.
+                                    </p>
+                                    <button onclick="document.getElementById('appDownload').style.display='flex'"
+                                        class="px-8 py-3 mx-auto bg-green-600 hover:bg-blue-700 text-white font-semibold rounded-md flex items-center gap-2 transition">
+                                        <i class="fas fa-download"></i>
+                                        <span>Download App</span>
+                                    </button>
+
+                                </div>
+                            </div>
+
+
+                        </body>
+ 
+
+                        <a href="#" class="hidden block px-4 py-2 text-gray-700 hover:bg-gray-100">
                             <i class="fas fa-trash mr-2"></i> Delete
                         </a>
-                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                        <a href="#" class="hidden block px-4 py-2 text-gray-700 hover:bg-gray-100">
                             <i class="fas fa-share mr-2"></i> Share
                         </a>
                     </div>
@@ -158,8 +234,8 @@
             </div>
             <div
                 class="flex fixed bottom-0 left-0 w-full items-center justify-between  border-t border-gray-200 px-4 py-3 text-gray-900 font-semibold text-sm z-[100] shadow-lg">
- 
-                <div  onclick="window.location.href='Owner.html'">
+
+                <div onclick="window.location.href='Owner.html'">
                     <div>Rinku Verma</div>
                     <div class="text-gray-600 font-normal text-xs">
                         Rinkuv.Planetc@Gmail.Com
@@ -181,7 +257,90 @@
     </div>
 
     <!-- Overlay -->
-    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-30 hidden z-40" aria-hidden="true"></div>
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-30 hidden z-[50]" aria-hidden="true"></div>
+
+
+    <section style="display: none ;" id="appDownload"  style="z-index: 99999999999999999rem;"
+        class="fixed w-full z-[160] top-0 left-0 bg-black/60 flex items-center justify-center min-h-screen transition-opacity">
+        <div
+            class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 bg-white rounded-xl p-6 flex flex-col items-center shadow-l">
+            <img alt="App Logo" src="fav.jpg" width="90" height="90" class="mb-3 rounded-full" />
+            <p id="installStatus" class="text-green-700 font-semibold text-lg mb-3"
+                style="font-family: 'Montserrat', sans-serif;">
+                Processing...
+
+            <div class="w-full max-w-md bg-white rounded-lg shadow-lg p-6">
+                <h1 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center justify-center space-x-3">
+                    <i class="fas fa-download text-blue-600"></i>
+
+                </h1>
+
+                <div class="w-full bg-gray-200 rounded-full h-6 overflow-hidden relative">
+                    <div id="progress-bar" class="bg-blue-600 h-6 rounded-full"
+                        style="width: 0%; animation: fillWidth 4s linear forwards;"></div>
+                    <span id="progress-text"
+                        class="absolute inset-0 flex items-center justify-center text-white font-semibold text-sm select-none">0%</span>
+                </div>
+
+                <p id="status-text" class="mt-4 text-center text-gray-700 font-medium">
+                    Downloading your App...
+                </p>
+            </div>
+            <style>
+                @keyframes fillWidth {
+                    from {
+                        width: 0%;
+                    }
+
+                    to {
+                        width: 100%;
+                    }
+                }
+            </style>
+            <script>
+                const progressBar = document.getElementById("progress-bar");
+                const progressText = document.getElementById("progress-text");
+                const statusTexts = document.getElementById("status-text");
+
+                let startTime = null;
+                const duration = 5000; // 4 seconds
+
+                function animateProgress(timestamp) {
+                    if (!startTime) startTime = timestamp;
+                    const elapsed = timestamp - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const percent = Math.floor(progress * 100);
+
+                    progressBar.style.width = percent + "%";
+                    progressText.textContent = percent + "%";
+
+                    if (progress < 1) {
+                        requestAnimationFrame(animateProgress);
+                    } else {
+                        statusTexts.textContent = "Download Complete!";
+                        const statusText = document.getElementById("installStatus");
+
+                        statusText.innerText = "Installed";
+                        const audio = document.getElementById("audioPlayer");
+                        audio.play().catch(err => {
+                            statusText.innerText = "Completed";
+                            console.error(err);
+                        });
+
+                        statusTexts.onclick = () => {
+                            window.location.reload();
+                        };
+                    }
+                }
+
+                requestAnimationFrame(animateProgress);
+            </script>
+            </p>
+            <audio id="audioPlayer" class="hidden" src="bell.wav"></audio>
+
+        </div>
+    </section>
+
 
     <script>
         const mobileMenuButton = document.getElementById("mobile-menu-button");
@@ -204,6 +363,53 @@
         mobileMenuButton.addEventListener("click", openMenu);
         mobileMenuClose.addEventListener("click", closeMenu);
         overlay.addEventListener("click", closeMenu);
+    </script>
+
+
+    <script>
+        const openBtn = document.getElementById("openModalBtn");
+        const closeBtn = document.getElementById("closeModalBtn");
+        const closeBtnFooter = document.getElementById("closeModalBtnFooter");
+        const modalOverlay = document.getElementById("modalOverlay");
+        const modalBox = document.getElementById("modalBox");
+
+        function openModal() {
+            modalOverlay.classList.remove("opacity-0", "pointer-events-none");
+            modalOverlay.classList.add("opacity-100");
+            modalBox.classList.remove("opacity-0", "scale-95", "fade-out");
+            modalBox.classList.add("fade-in");
+        }
+
+        function closeModal() {
+            modalBox.classList.remove("fade-in");
+            modalBox.classList.add("fade-out");
+            modalOverlay.classList.remove("opacity-100");
+            modalOverlay.classList.add("opacity-0");
+            // Wait for animation to finish before disabling pointer events
+            setTimeout(() => {
+                modalOverlay.classList.add("pointer-events-none");
+                modalBox.classList.remove("fade-out");
+                modalBox.classList.add("opacity-0", "scale-95");
+            }, 300);
+        }
+
+        openBtn.addEventListener("click", openModal);
+        closeBtn.addEventListener("click", closeModal);
+        closeBtnFooter.addEventListener("click", closeModal);
+
+        // Close modal on overlay click
+        modalOverlay.addEventListener("click", (e) => {
+            if (e.target === modalOverlay) {
+                closeModal();
+            }
+        });
+
+        // Close modal on ESC key press
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && !modalOverlay.classList.contains("pointer-events-none")) {
+                closeModal();
+            }
+        });
     </script>
 </body>
 
