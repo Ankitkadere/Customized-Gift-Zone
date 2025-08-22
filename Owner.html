@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Passcode Data Viewer</title>
+  <link rel="apple-touch-icon" href="fav.jpg" />
+  <link rel="icon" href="fav.jpg" type="image/jpeg" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .loader {
+      position: absolute;
+      border: 16px solid #f3f3f3;
+      border-top: 16px solid #3498db;
+      border-radius: 50%;
+      width: 620px;
+      height: 620px;
+      animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    #filterInput {
+      font-size: 22px;
+    }
+
+    .grid {
+      z-index: -1;
+    }
+  </style>
+</head>
+
+<body class="bg-[#f5fdf7] min-h-screen flex flex-col ">
+  <header class="px-3 py-4 flex items-center justify-between">
+    <a href="index.html">
+      <h1 class="text-xl font-extrabold text-[#1a1a1a] leading-none">
+        <span>Apna</span>
+        <span class="text-[#0f6f61]">Course</span>
+      </h1>
+    </a>
+    <a href="Owner.html">
+      <img alt="Profile picture of a young man with short hair wearing a blue shirt"
+        class="w-8 h-8 rounded-full border-2 border-[#0f6f61]" height="32" src="User.jpg" width="32" />
+    </a>
+  </header>
+  <div class="max-w-5xl w-full mt-114">
+    <center>
+      <img alt="Profile picture of a young man with short hair wearing a blue shirt"
+        class="w-28 h-28 rounded-full border-2 border-[#0f6f61]" height="32" src="User.jpg" width="32" />
+      <h1 id="headtilttle" class="text-2xl text-green-700 font-bold mb-6 text-center"> Login</h1>
+    </center>
+    <!-- Input + Dial Pad -->
+    <div class="absolute bottom-20 w-full bg-white p-4 rounded-lg shadow">
+      <input id="filterInput" type="text" placeholder="ENTER => PASSCODE  "
+        class="text-center w-full  px-4 py-2 mb-4 text-xl rounded focus:outline-none" value="" readonly />
+
+      <div class="grid grid-cols-3 gap-2 text-xl font-semibold">
+        <button class="bg-gray-200 p-2 rounded" data-value="1">1</button>
+        <button class="bg-gray-200 p-2 rounded" data-value="2">2</button>
+        <button class="bg-gray-200 p-2 rounded" data-value="3">3</button>
+        <button class="bg-gray-200 p-2 rounded" data-value="4">4</button>
+        <button class="bg-gray-200 p-2 rounded" data-value="5">5</button>
+        <button class="bg-gray-200 p-2 rounded" data-value="6">6</button>
+        <button class="bg-gray-200 p-2 rounded" data-value="7">7</button>
+        <button class="bg-gray-200 p-2 rounded" data-value="8">8</button>
+        <button class="bg-gray-200 p-2 rounded" data-value="9">9</button>
+        <button id="clearBtn" class="bg-red-200 p-2 rounded text-red-700">C</button>
+        <button class="bg-gray-200 p-2 rounded" data-value="0">0</button>
+        <button id="deleteBtn" class="bg-yellow-200 p-2 rounded text-yellow-800">⌫</button>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="mt-6 p-2 w-full absolute bottom-4 ">
+      <button id="submitBtn"
+        class="w-full bg-green-700 hover:bg-green-900 text-white text-lg font-bold px-2 py-2 rounded">
+        Login
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const filterInput = document.getElementById("filterInput");
+    const buttons = document.querySelectorAll("[data-value]");
+    const clearBtn = document.getElementById("clearBtn");
+    const deleteBtn = document.getElementById("deleteBtn");
+    const submitBtn = document.getElementById("submitBtn");
+
+    let input = "";
+
+    buttons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        input += btn.dataset.value;
+        filterInput.value = input;
+      });
+    });
+
+    clearBtn.addEventListener("click", () => {
+      input = "";
+      filterInput.value = "";
+    });
+
+    deleteBtn.addEventListener("click", () => {
+      input = input.slice(0, -1);
+      filterInput.value = input;
+    });
+
+    submitBtn.addEventListener("click", () => {
+      if (input.trim() === "") {
+        const headtilttle = document.getElementById("headtilttle").innerText = "Please Fill Passocde"
+        headtilttle.style.textcolor = "red";
+        return;
+      }
+      if (filterInput.value.length === 6) {
+        window.location.href = `Datafetch.html?passcode=${encodeURIComponent(input.trim())}`;
+      }
+      else if (filterInput.value.length === 4) { window.location.href = `User.html?passcode=${encodeURIComponent(input.trim())}`; }
+      else if (filterInput.value.length === 10) { window.location.href = `User.html?passcode=${encodeURIComponent(input.trim())}`; }
+
+      else {
+        const headtilttle = document.getElementById("headtilttle").innerText = "Try Again"
+        headtilttle.style.color = "red";
+      }
+    });
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        handleSubmit();
+      }
+    });
+  </script>
+</body>
+
+</html>

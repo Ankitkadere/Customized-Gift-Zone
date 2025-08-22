@@ -1,0 +1,796 @@
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>Courses List </title>
+  <link rel="apple-touch-icon" href="fav.jpg" />
+  <link rel="icon" href="fav.jpg" type="image/jpeg/jpg" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+    }
+
+    .productlist {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+
+      gap: 1rem;
+      padding: 0 .25rem;
+      margin: 1.5rem auto 5rem auto;
+    }
+
+    @media (max-width: 768px) {
+      .productlist {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 equal columns on mobile */
+        gap: 0.25rem;
+        padding: 0;
+        margin: 2%;
+      }
+    }
+
+    @media screen and (min-width: 768px) {
+      .navbars {
+
+        position: relative;
+        display: none;
+      }
+
+      .inputset {
+        display: none;
+      }
+    }
+
+    .item {
+      background: #dfdfdf;
+      /* gray-200 in Tailwind */
+      padding: 1rem;
+      border-radius: .5rem;
+    }
+
+    /* Remove button default styles */
+    .category-btn {
+      background: transparent;
+
+      padding-left: 1%;
+      padding-right: 1%;
+      cursor: pointer;
+      transition: color 0.2s ease;
+      outline: 2px solid #c9c7c7;
+    }
+
+    .category-btn:hover {
+      color: #22c55e;
+      border: #22c55e solid 2px;
+    }
+
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      /* IE and Edge */
+      scrollbar-width: none;
+      /* Firefox */
+    }
+  </style>
+</head>
+
+<body class="bg-[#f5fdf7] ">
+  <div id="header"></div> <!-- Header will load here -->
+
+  <script>
+    // Load Header CSS (optional)
+    const headerCSS = document.createElement("link");
+    headerCSS.rel = "stylesheet";
+    headerCSS.href = "Header.css";
+    document.head.appendChild(headerCSS);
+
+    // Load Header HTML
+    fetch("Header.html")
+      .then(res => res.text())
+      .then(html => {
+        const headerDiv = document.getElementById("header");
+        headerDiv.innerHTML = html;
+
+        // Run scripts from Header.html if any
+        headerDiv.querySelectorAll("script").forEach(oldScript => {
+          const newScript = document.createElement("script");
+          if (oldScript.src) {
+            newScript.src = oldScript.src; // external file
+          } else {
+            newScript.textContent = oldScript.textContent; // inline script
+          }
+          document.body.appendChild(newScript);
+        });
+
+        // Load external Header.js (optional)
+        const headerJS = document.createElement("script");
+        headerJS.src = "Header.js";
+        document.body.appendChild(headerJS);
+      })
+      .catch(err => console.error("Error loading header:", err));
+  </script>
+
+  <section aria-label="Filter and search"
+    class=" w-full  flex-col sm:flex-row sm:items-center sm:justify-between gap-2   mx-auto px-4  md:mt-4 ">
+    <div aria-label="Course categories"
+      class="overflow-auto scrollbar-hide  overflow-auto hide-scrollbar py-1  flex flex-nowrap items-center gap-2 md:gap-8 overflow-x-auto scrollbar-hide px-2"
+      style="-webkit-overflow-scrolling: touch;">
+      <button aria-pressed="true"
+        class="category-btn flex items-center gap-1 border-2 border-transparent px-2  rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0 "
+        data-filter="all" type="button">
+        <img alt=" All" class="w-12 h-12 rounded-full object-cover shadow-sm"
+          src="https://storage.googleapis.com/a1aa/image/647a1985-39a6-498f-856b-f668fe6ce1ab.jpg" />
+        <span>
+          All Frames
+        </span>
+      </button>
+      <button aria-pressed="false"
+        class=" category-btn flex items-center gap-3 border-2 border-transparent px-2  rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0 "
+        data-filter="english-speaking" type="button">
+        <img alt="English" class="w-12 h-12 rounded-full object-cover shadow-sm" height="48"
+          src="https://storage.googleapis.com/a1aa/image/716df796-ac72-4e80-41b5-3fc19c4a8379.jpg" width="48" />
+        <span>
+          Single Frame
+        </span>
+      </button>
+      <button aria-pressed="false"
+        class=" category-btn flex items-center gap-3 border-2 border-transparent px-2  rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0 "
+        data-filter="telly" type="button">
+        <img alt=" Accounting'" class="w-12 h-12 rounded-full object-cover shadow-sm" height="48"
+          src="https://storage.googleapis.com/a1aa/image/ea8adbbb-5020-4cf9-6c47-6ba5a0581f6d.jpg" width="48" />
+        <span>
+          Double Frame
+        </span>
+      </button>
+      <button aria-pressed="false"
+        class=" category-btn flex items-center gap-3 border-2 border-transparent px-2  rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0 "
+        data-filter="dca" type="button">
+        <img alt="DCA" class="w-12 h-12 mb-1 rounded-full object-cover" height="48"
+          src="https://storage.googleapis.com/a1aa/image/8ceb7270-de63-4fdb-c0e3-09ce84e689a4.jpg" width="48" />
+        <span>
+          Tripple Frame
+        </span>
+      </button>
+      <button aria-pressed="false"
+        class=" category-btn flex items-center gap-3 border-2 border-transparent px-2  rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0 "
+        data-filter="pgdca" type="button">
+        <img alt="Icon representing PGDCA courses, purple circle with white text 'PGD'"
+          class="w-12 h-12 mb-1 rounded-full object-cover"
+          src="https://storage.googleapis.com/a1aa/image/058ab65f-0b9f-410d-c568-28f460eba8e5.jpg" />
+        <span>
+          Multiple Frame
+        </span>
+      </button>
+      <button aria-pressed="false"
+        class="category-btn flex items-center gap-3 border-2 border-transparent px-2  rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0 "
+        data-filter="11th-grade" type="button">
+        <img alt="Icon representing 11th Grade courses, green circle with white text '11th'"
+          class="w-12 h-12 mb-1 rounded-full object-cover"
+          src="https://storage.googleapis.com/a1aa/image/b9ecc565-4b5d-40ea-89e1-14c344210cf1.jpg" />
+        <span>
+          11th Grade -Other
+        </span>
+      </button>
+      <button aria-pressed="false"
+        class=" category-btn flex items-center gap-3 border-2 border-transparent px-2  rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0 "
+        data-filter="12th-grade" type="button">
+        <img alt="Icon representing 12th Grade courses, green circle with white text '12th'"
+          class="w-12 h-12 mb-1 rounded-full object-cover"
+          src="https://storage.googleapis.com/a1aa/image/85f4550e-0d52-40ea-a064-68b164444ad2.jpg" />
+        <span>
+          Trendding
+        </span>
+      </button>
+      <button aria-pressed="false"
+        class=" category-btn flex items-center gap-3 border-2 border-transparent px-2  rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0 "
+        data-filter="12th-grade" type="button">
+        <img alt="Icon representing 12th Grade courses, green circle with white text '12th'"
+          class="w-12 h-12 mb-1 rounded-full object-cover"
+          src="https://storage.googleapis.com/a1aa/image/85f4550e-0d52-40ea-a064-68b164444ad2.jpg" />
+        <span>
+          Lovely
+        </span>
+      </button>
+    </div>
+    <div class="w-full sm:w-48 hidden">
+      <label for="search-input" class="sr-only">Search courses</label>
+      <div class="relative text-gray-400 focus-within:text-gray-600">
+        <input id="search-input" type="search" placeholder="Search courses..."
+          class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-9 pr-3 text-xs placeholder-gray-400 focus:border-[#0f6f61] focus:outline-none focus:ring-1 focus:ring-[#0f6f61]"
+          autocomplete="off" aria-label="Search courses by name" />
+        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
+          <i class="fas fa-search text-xs"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section aria-label="Courses list" class="productlist" id="courses-list">
+    <a data-category="english-speaking" data-id="english-speaking" href="CourseDetail.html?id=english-speaking"
+      role="button" tabindex="0" class="course-item block ">
+      <div class="border border-[#d9d9d9] p-3 bg-white cursor-pointer" role="button" tabindex="0">
+        <div class="flex items-center   mb-1">
+          <div class="  gap-2 items-center">
+            <img alt="English Speaking course icon in blue" class="w-40 h-40" height="40"
+              src="https://storage.googleapis.com/a1aa/image/35caddb2-0088-4304-13f7-80a6fcb0b810.jpg" width="100" />
+            <h2 class="font-semibold text-[#1a1a1a] truncate max-w-[calc(100%-20px)] text-sm leading-tight">
+              Single Frame <i class="fas fa-chevron-right text-[#0f6f61]  text-xs"></i>
+            </h2>
+          </div>
+        </div>
+        <p class="text-[#8a8a9f] text-xs mb-1 leading-tight">
+          Improve communication skills & fluency in English.
+        </p>
+        <div class="hidden flex flex-col space-y-1 text-[#8a8a9f] text-xs mb-1 ml-1">
+          <div class="flex items-center space-x-1 gap-2">
+            <i class="fas fa-map-marker-alt text-xs"></i>
+            <span> Online</span>
+          </div>
+          <div class="flex items-center space-x-1 gap-2">
+            <i class="fas fa-rupee-sign text-xs"></i>
+            <span>Affordable Fees</span>
+          </div>
+        </div>
+        <div class="hidden flex space-x-1 text-[#8a8a9f] -webkit-overflow-scrolling text-[10px] font-semibold">
+          <span class="bg-[#f3f2f7] rounded-md px-1.5 py-0.5 flex items-center space-x-1">
+            <i class="fas fa-chalkboard-teacher text-xs"></i>
+            <span>Online</span>
+          </span>
+          <span class="bg-[#f3f2f7] rounded-md px-1.5 py-0.5 flex items-center space-x-1">
+            <span
+              class="border border-[#8a8a9f] rounded-full w-3.5 h-3.5 flex items-center justify-center text-[8px] font-bold leading-none">B</span>
+            <span>Beginner Friendly</span>
+          </span>
+          <span class="bg-[#f3f2f7] rounded-md px-1.5 py-0.5 flex items-center space-x-1">
+            <i class="fas fa-clock text-xs"></i>
+            <span>Flexible Timings</span>
+          </span>
+        </div>
+        <div class="flex justify-between">
+          <div>
+            <b
+              class="items-center font-semibold text-green-700 truncate max-w-[calc(100%-20px)] mb-2 text-xs leading-tight">
+              <div class="flex flex-row-reverse justify-center">
+                <input type="radio" id="star5" name="rating" class="hidden peer" />
+                <label for="star5"
+                  class="cursor-pointer text-1xl text-gray-400 peer-checked:text-yellow-400 text-yellow-500">★</label>
+
+                <input type="radio" id="star4" name="rating" class="hidden peer" />
+                <label for="star4"
+                  class="cursor-pointer text-1xl text-gray-400 peer-checked:text-yellow-400 text-yellow-500">★</label>
+
+                <input type="radio" id="star3" name="rating" class="hidden peer" />
+                <label for="star3"
+                  class="cursor-pointer text-1xl text-gray-400 peer-checked:text-yellow-400 text-yellow-500">★</label>
+
+                <input type="radio" id="star2" name="rating" class="hidden peer" />
+                <label for="star2"
+                  class="cursor-pointer text-1xl text-gray-400 peer-checked:text-yellow-400 text-yellow-500">★</label>
+
+                <input type="radio" id="star1" name="rating" class="hidden peer" />
+                <label for="star1"
+                  class="cursor-pointer text-1xl text-gray-400 peer-checked:text-yellow-400 text-yellow-500">★</label>
+              </div>
+
+            </b>
+          </div>
+
+          <div>
+            <b
+              class="items-center font-semibold text-green-700 truncate max-w-[calc(100%-20px)] mb-2 text-sm leading-tight">
+              399 .Rs
+            </b>
+          </div>
+        </div>
+      </div>
+    </a>
+    <a data-category="telly" data-id="telly" href="CourseDetail.html?id=telly" role="button" tabindex="1"
+      class="course-item block">
+      <div data-category="telly" class="course-item border border-[#d9d9d9] rounded-xl p-3 bg-white cursor-pointer"
+        role="button" tabindex="0">
+        <div class=" items-center  mb-1">
+          <div class="  gap-2 items-center">
+            <img alt="Telly course icon in orange" class="w-40 h-40" height="100"
+              src="https://storage.googleapis.com/a1aa/image/8561ea4b-93eb-4e3f-1347-549169d41344.jpg" width="100" />
+            <h2 class="font-semibold text-[#1a1a1a] truncate max-w-[calc(100%-20px)] text-sm leading-tight">
+              Double Frame <i class="fas fa-chevron-right text-[#0f6f61] ml-auto text-xs"></i>
+            </h2>
+
+          </div>
+
+        </div>
+        <p class="text-[#8a8a9f] text-xs mb-1 leading-tight">
+          Accounting and financial management training.
+        </p>
+        <div class="hidden flex flex-col space-y-1 text-[#8a8a9f] text-xs mb-1 ml-1">
+          <div class="flex items-center space-x-1 gap-2">
+            <i class="fas fa-map-marker-alt text-xs"></i>
+            <span> Online & Offline</span>
+          </div>
+          <div class="flex items-center space-x-1 gap-2">
+            <i class="fas fa-rupee-sign text-xs"></i>
+            <span>Affordable Fees</span>
+          </div>
+        </div>
+        <div
+          class="hidden flex space-x-1 text-[#8a8a9f] overflow-x-auto -webkit-overflow-scrolling text-[10px] font-semibold">
+          <span class="bg-[#f3f2f7] rounded-md px-1.5 py-0.5 flex items-center space-x-1">
+            <i class="fas fa-calculator text-xs"></i>
+            <span>Practical Training</span>
+          </span>
+          <span class="bg-[#f3f2f7] rounded-md px-1.5 py-0.5 flex items-center space-x-1">
+            <span
+              class="border border-[#8a8a9f] rounded-full w-3.5 h-3.5 flex items-center justify-center text-[8px] font-bold leading-none">I</span>
+            <span>Intermediate</span>
+          </span>
+          <span class="bg-[#f3f2f7] rounded-md px-1.5 py-0.5 flex items-center space-x-1">
+            <i class="fas fa-clock text-xs"></i>
+            <span>Flexible Time</span>
+          </span>
+        </div>
+        <div class="flex justify-between">
+          <div>
+            <b
+              class="items-center font-semibold text-green-700 truncate max-w-[calc(100%-20px)] mb-2 text-xs leading-tight">
+              <div class="flex flex-row-reverse justify-center">
+                <input type="radio" id="star5" name="rating" class="hidden peer" />
+                <label for="star5"
+                  class="cursor-pointer text-1xl text-gray-400 peer-checked:text-yellow-400 text-yellow-500">★</label>
+
+                <input type="radio" id="star4" name="rating" class="hidden peer" />
+                <label for="star4"
+                  class="cursor-pointer text-1xl text-gray-400 peer-checked:text-yellow-400 text-yellow-500">★</label>
+
+                <input type="radio" id="star3" name="rating" class="hidden peer" />
+                <label for="star3"
+                  class="cursor-pointer text-1xl text-gray-400 peer-checked:text-yellow-400 text-yellow-500">★</label>
+
+                <input type="radio" id="star2" name="rating" class="hidden peer" />
+                <label for="star2"
+                  class="cursor-pointer text-1xl text-gray-400 peer-checked:text-yellow-400 text-yellow-500">★</label>
+
+                <input type="radio" id="star1" name="rating" class="hidden peer" />
+                <label for="star1"
+                  class="cursor-pointer text-1xl text-gray-400 peer-checked:text-yellow-400 text-yellow-500">★</label>
+              </div>
+
+            </b>
+          </div>
+
+          <div>
+            <b
+              class="items-center font-semibold text-green-700 truncate max-w-[calc(100%-20px)] mb-2 text-sm leading-tight">
+              399 .Rs
+            </b>
+          </div>
+        </div>
+      </div>
+    </a>
+    <a data-category="dca" data-id="dca" href="CourseDetail.html?id=dca" role="button" tabindex="0"
+      class="course-item block">
+
+      <div data-category="dca" class="course-item border border-[#d9d9d9] rounded-xl p-3 bg-white cursor-pointer"
+        role="button" tabindex="0">
+        <div class="  items-center justify-between space-x-1 mb-1">
+          <div class="  gap-2 items-center">
+            <img alt="DCA course icon in teal" class="w-40 h-40" height="20"
+              src="https://storage.googleapis.com/a1aa/image/a4423603-46d5-43bf-1247-48de95e66fb4.jpg" width="20" />
+            <h2 class="font-semibold text-[#1a1a1a] truncate max-w-[calc(100%-20px)] text-sm leading-tight">
+              DCA Course <i class="fas fa-chevron-right text-[#0f6f61] ml-auto text-xs"></i>
+            </h2>
+
+          </div>
+
+        </div>
+        <p class="text-[#8a8a9f] text-xs mb-1 leading-tight">
+          Trendding frames are Available
+        </p>
+        <div class="hidden flex flex-col space-y-1 text-[#8a8a9f] text-xs mb-1 ml-1">
+          <div class="flex items-center space-x-1 gap-2">
+            <i class="fas fa-map-marker-alt text-xs"></i>
+            <span> Online & Offline</span>
+          </div>
+          <div class="flex items-center space-x-1 gap-2">
+            <i class="fas fa-rupee-sign text-xs"></i>
+            <span>Affordable Fees</span>
+          </div>
+        </div>
+        <div class="hidden flex space-x-1 text-[#8a8a9f] text-[10px] font-semibold">
+          <span class="bg-[#f3f2f7] rounded-md px-1.5 py-0.5 flex items-center space-x-1">
+            <i class="fas fa-graduation-cap text-xs"></i>
+            <span>Cirtificate</span>
+          </span>
+          <span class="bg-[#f3f2f7] rounded-md px-1.5 py-0.5 flex items-center space-x-1">
+            <span
+              class="border border-[#8a8a9f] rounded-full w-3.5 h-3.5 flex items-center justify-center text-[8px] font-bold leading-none">A</span>
+            <span>Advanced</span>
+          </span>
+          <span class="bg-[#f3f2f7] rounded-md px-1.5 py-0.5 flex items-center space-x-1">
+            <i class="fas fa-clock text-xs"></i>
+            <span>Flexible Timings</span>
+          </span>
+        </div>
+        <div class="flex justify-between">
+          <div>
+            <b
+              class="items-center font-semibold text-green-700 truncate max-w-[calc(100%-20px)] mb-2 text-xs leading-tight">
+              <div class="flex flex-row-reverse justify-center">
+                <input type="radio" id="star5" name="rating" class="hidden peer" />
+                <label for="star5"
+                  class="cursor-pointer text-1xl text-gray-400 peer-checked:text-yellow-400 text-yellow-500">★</label>
+
+                <input type="radio" id="star4" name="rating" class="hidden peer" />
+                <label for="star4"
+                  class="cursor-pointer text-1xl text-gray-400 peer-checked:text-yellow-400 text-yellow-500">★</label>
+
+                <input type="radio" id="star3" name="rating" class="hidden peer" />
+                <label for="star3"
+                  class="cursor-pointer text-1xl text-gray-400 peer-checked:text-yellow-400 text-yellow-500">★</label>
+
+                <input type="radio" id="star2" name="rating" class="hidden peer" />
+                <label for="star2"
+                  class="cursor-pointer text-1xl text-gray-400 peer-checked:text-yellow-400 text-yellow-500">★</label>
+
+                <input type="radio" id="star1" name="rating" class="hidden peer" />
+                <label for="star1"
+                  class="cursor-pointer text-1xl text-gray-400 peer-checked:text-yellow-400 text-yellow-500">★</label>
+              </div>
+
+            </b>
+          </div>
+
+          <div>
+            <b
+              class="items-center font-semibold text-green-700 truncate max-w-[calc(100%-20px)] mb-2 text-sm leading-tight">
+              399 .Rs
+            </b>
+          </div>
+        </div>
+      </div>
+    </a>
+    <a data-category="pgdca" data-id="pgdca" href="CourseDetail.html?id=pgdca" role="button" tabindex="0"
+      class="course-item block">
+
+      <div data-category="pgdca" class="course-item border border-[#d9d9d9] rounded-xl p-3 bg-white cursor-pointer"
+        role="button" tabindex="0">
+        <div class="  items-center space-x-1 justify-between mb-1">
+          <div class="  gap-2 items-center">
+            <img alt="PGDCA course icon in purple" class="w-40 h-40" height="20"
+              src="https://storage.googleapis.com/a1aa/image/f41ee155-ce03-4dff-ffbc-871097d19bba.jpg" width="20" />
+            <h2 class="font-semibold text-[#1a1a1a] truncate max-w-[calc(100%-20px)] text-sm leading-tight">
+              PGDCA Course <i class="fas fa-chevron-right text-[#0f6f61] ml-auto text-xs"></i>
+            </h2>
+
+          </div>
+
+        </div>
+        <p class="text-[#8a8a9f] text-xs mb-1 leading-tight">
+          Post Graduate Diploma in Computer Applications.
+        </p>
+        <div class="hidden flex flex-col space-y-1 text-[#8a8a9f] text-xs mb-1 ml-1">
+          <div class="flex items-center space-x-1 gap-2">
+            <i class="fas fa-map-marker-alt text-xs"></i>
+            <span> Online & Offline</span>
+          </div>
+          <div class="flex items-center space-x-1 gap-2">
+            <i class="fas fa-rupee-sign text-xs"></i>
+            <span>Affordable Fees</span>
+          </div>
+        </div>
+        <div class="hidden flex space-x-1 text-[#8a8a9f] text-[10px] font-semibold">
+          <span class="bg-[#f3f2f7] rounded-md px-1.5 py-0.5 flex items-center space-x-1">
+            <i class="fas fa-graduation-cap text-xs"></i>
+            <span>Cirtificate</span>
+          </span>
+          <span class="bg-[#f3f2f7] rounded-md px-1.5 py-0.5 flex items-center space-x-1">
+            <span
+              class="border border-[#8a8a9f] rounded-full w-3.5 h-3.5 flex items-center justify-center text-[8px] font-bold leading-none">A</span>
+            <span>Advanced</span>
+          </span>
+          <span class="bg-[#f3f2f7] rounded-md px-1.5 py-0.5 flex items-center space-x-1">
+            <i class="fas fa-clock text-xs"></i>
+            <span>Flexible Timings</span>
+          </span>
+        </div>
+        <div class="flex justify-between">
+          <div>
+            <b
+              class="items-center font-semibold text-green-700 truncate max-w-[calc(100%-20px)] mb-2 text-xs leading-tight">
+              <div class="flex flex-row-reverse justify-center">
+                <input type="radio" id="star5" name="rating" class="hidden peer" />
+                <label for="star5"
+                  class="cursor-pointer text-1xl text-gray-400 peer-checked:text-yellow-400 text-yellow-500">★</label>
+
+                <input type="radio" id="star4" name="rating" class="hidden peer" />
+                <label for="star4"
+                  class="cursor-pointer text-1xl text-gray-400 peer-checked:text-yellow-400 text-yellow-500">★</label>
+
+                <input type="radio" id="star3" name="rating" class="hidden peer" />
+                <label for="star3"
+                  class="cursor-pointer text-1xl text-gray-400 peer-checked:text-yellow-400 text-yellow-500">★</label>
+
+                <input type="radio" id="star2" name="rating" class="hidden peer" />
+                <label for="star2"
+                  class="cursor-pointer text-1xl text-gray-400 peer-checked:text-yellow-400 text-yellow-500">★</label>
+
+                <input type="radio" id="star1" name="rating" class="hidden peer" />
+                <label for="star1"
+                  class="cursor-pointer text-1xl text-gray-400 peer-checked:text-yellow-400 text-yellow-500">★</label>
+              </div>
+
+            </b>
+          </div>
+
+          <div>
+            <b
+              class="items-center font-semibold text-green-700 truncate max-w-[calc(100%-20px)] mb-2 text-sm leading-tight">
+              399 .Rs
+            </b>
+          </div>
+        </div>
+      </div>
+    </a>
+    <a data-category="11th-grade" data-id="11th-grade" href="CourseDetail.html?id=11th-grade" role="button" tabindex="0"
+      class="course-item block">
+
+      <div data-category="11th-grade" class="course-item border border-[#d9d9d9] rounded-xl p-3 bg-white cursor-pointer"
+        role="button" tabindex="0">
+        <div class="  items-center justify-between space-x-1 mb-1">
+          <div class="  gap-2 items-center">
+            <img alt="11th grade course icon in green" class="w-40 h-40" height="20"
+              src="https://storage.googleapis.com/a1aa/image/e19c4740-fb74-44b9-7e1f-5cf1a55c1440.jpg" width="20" />
+            <h2 class="font-semibold text-[#1a1a1a] truncate max-w-[calc(100%-20px)] text-sm leading-tight">
+              11th Grade Course <i class="fas fa-chevron-right text-[#0f6f61] ml-auto text-xs"></i>
+            </h2>
+
+          </div>
+
+        </div>
+        <p class="text-[#8a8a9f] text-xs mb-1 leading-tight">
+          Higher Secondary Education - 11th Grade.
+        </p>
+        <div class="hidden flex flex-col space-y-1 text-[#8a8a9f] text-xs mb-1 ml-1">
+          <div class="flex items-center space-x-1 gap-2">
+            <i class="fas fa-map-marker-alt text-xs"></i>
+            <span> Online & Offline</span>
+          </div>
+          <div class="flex items-center space-x-1 gap-2">
+            <i class="fas fa-rupee-sign text-xs"></i>
+            <span>Affordable Fees</span>
+          </div>
+        </div>
+        <div class="hidden flex space-x-1 text-[#8a8a9f] text-[10px] font-semibold">
+          <span class="bg-[#f3f2f7] rounded-md px-1.5 py-0.5 flex items-center space-x-1">
+            <i class="fas fa-school text-xs"></i>
+            <span>Regular Classes</span>
+          </span>
+          <span class="bg-[#f3f2f7] rounded-md px-1.5 py-0.5 flex items-center space-x-1">
+            <span
+              class="border border-[#8a8a9f] rounded-full w-3.5 h-3.5 flex items-center justify-center text-[8px] font-bold leading-none">H</span>
+            <span>IMP. Q&A</span>
+          </span>
+          <span class="bg-[#f3f2f7] rounded-md px-1.5 py-0.5 flex items-center space-x-1">
+            <i class="fas fa-clock text-xs"></i>
+            <span>Flexible Timings</span>
+          </span>
+        </div>
+        <div class="flex justify-between">
+          <div>
+            <b
+              class="items-center font-semibold text-green-700 truncate max-w-[calc(100%-20px)] mb-2 text-xs leading-tight">
+              <div class="flex flex-row-reverse justify-center">
+                <input type="radio" id="star5" name="rating" class="hidden peer" />
+                <label for="star5"
+                  class="cursor-pointer text-1xl text-gray-400 peer-checked:text-yellow-400 text-yellow-500">★</label>
+
+                <input type="radio" id="star4" name="rating" class="hidden peer" />
+                <label for="star4"
+                  class="cursor-pointer text-1xl text-gray-400 peer-checked:text-yellow-400 text-yellow-500">★</label>
+
+                <input type="radio" id="star3" name="rating" class="hidden peer" />
+                <label for="star3"
+                  class="cursor-pointer text-1xl text-gray-400 peer-checked:text-yellow-400 text-yellow-500">★</label>
+
+                <input type="radio" id="star2" name="rating" class="hidden peer" />
+                <label for="star2"
+                  class="cursor-pointer text-1xl text-gray-400 peer-checked:text-yellow-400 text-yellow-500">★</label>
+
+                <input type="radio" id="star1" name="rating" class="hidden peer" />
+                <label for="star1"
+                  class="cursor-pointer text-1xl text-gray-400 peer-checked:text-yellow-400 text-yellow-500">★</label>
+              </div>
+
+            </b>
+          </div>
+
+          <div>
+            <b
+              class="items-center font-semibold text-green-700 truncate max-w-[calc(100%-20px)] mb-2 text-sm leading-tight">
+              399 .Rs
+            </b>
+          </div>
+        </div>
+      </div>
+    </a>
+    <a data-category="12th-grade" data-id="12th-grade" href="CourseDetail.html?id=12th-grade" role="button" tabindex="0"
+      class="course-item block">
+
+      <div data-category="12th-grade" class="course-item border border-[#d9d9d9] rounded-xl p-3 bg-white cursor-pointer"
+        role="button" tabindex="0">
+        <div class="items-center justify-between space-x-1 mb-1">
+          <div class=" gap-2 items-center">
+            <img alt="12th grade course icon in green" class="w-40 h-40" height="20"
+              src="https://storage.googleapis.com/a1aa/image/83567cdb-08d8-4d10-920c-e9479b024892.jpg" width="20" />
+            <h2 class="font-semibold text-[#1a1a1a] truncate max-w-[calc(100%-20px)] text-sm leading-tight">
+              12th Grade Course <i class="fas fa-chevron-right text-[#0f6f61] ml-auto text-xs"></i>
+            </h2>
+
+          </div>
+
+        </div>
+        <p class="text-[#8a8a9f] text-xs mb-1 leading-tight">
+          Higher Secondary Education - 12th Grade.
+        </p>
+        <div class=" hidden flex flex-col space-y-1 text-[#8a8a9f] text-xs mb-1 ml-1">
+          <div class="flex items-center space-x-1 gap-2">
+            <i class="fas fa-map-marker-alt text-xs"></i>
+            <span> Online & Offline</span>
+          </div>
+          <div class="flex items-center space-x-1 gap-2">
+            <i class="fas fa-rupee-sign text-xs"></i>
+            <span>Affordable Fees</span>
+          </div>
+        </div>
+        <div class="hidden flex space-x-1 text-[#8a8a9f] text-[10px] font-semibold">
+          <span class="bg-[#f3f2f7] rounded-md px-1.5 py-0.5 flex items-center space-x-1">
+            <i class="fas fa-school text-xs"></i>
+            <span>Regular Classes</span>
+          </span>
+          <span class="bg-[#f3f2f7] rounded-md px-1.5 py-0.5 flex items-center space-x-1">
+            <span
+              class="border border-[#8a8a9f] rounded-full w-3.5 h-3.5 flex items-center justify-center text-[8px] font-bold leading-none">H</span>
+            <span>IMP. Q&A</span>
+          </span>
+          <span class="bg-[#f3f2f7] rounded-md px-1.5 py-0.5 flex items-center space-x-1">
+            <i class="fas fa-clock text-xs"></i>
+            <span>Flexible Timings</span>
+          </span>
+        </div>
+        <div class="flex justify-between">
+          <div>
+            <b
+              class="items-center font-semibold text-green-700 truncate max-w-[calc(100%-20px)] mb-2 text-xs leading-tight">
+              <div class="flex flex-row-reverse justify-center">
+                <input type="radio" id="star5" name="rating" class="hidden peer" />
+                <label for="star5"
+                  class="cursor-pointer text-1xl text-gray-400 peer-checked:text-yellow-400 text-yellow-500">★</label>
+
+                <input type="radio" id="star4" name="rating" class="hidden peer" />
+                <label for="star4"
+                  class="cursor-pointer text-1xl text-gray-400 peer-checked:text-yellow-400 text-yellow-500">★</label>
+
+                <input type="radio" id="star3" name="rating" class="hidden peer" />
+                <label for="star3"
+                  class="cursor-pointer text-1xl text-gray-400 peer-checked:text-yellow-400 text-yellow-500">★</label>
+
+                <input type="radio" id="star2" name="rating" class="hidden peer" />
+                <label for="star2"
+                  class="cursor-pointer text-1xl text-gray-400 peer-checked:text-yellow-400 text-yellow-500">★</label>
+
+                <input type="radio" id="star1" name="rating" class="hidden peer" />
+                <label for="star1"
+                  class="cursor-pointer text-1xl text-gray-400 peer-checked:text-yellow-400 text-yellow-500">★</label>
+              </div>
+
+            </b>
+          </div>
+
+          <div>
+            <b
+              class="items-center font-semibold text-green-700 truncate max-w-[calc(100%-20px)] mb-2 text-sm leading-tight">
+              399 .Rs
+            </b>
+          </div>
+        </div>
+      </div>
+    </a>
+    <center>
+      <h2 class="text-gray-500 text-sm font-medium">... No More Courses ...</h2>
+    </center>
+  </section>
+  <nav aria-label="Bottom navigation"
+    class="navbars fixed bottom-0 left-0 right-0 border-t border-[#d9d9d9] bg-white flex justify-around items-center py-2 text-xs font-semibold text-[#8a8a9f] z-50"
+    role="navigation">
+
+    <!-- Home -->
+    <a href="index.html" class="flex flex-col items-center  ">
+      <img src="https://img.icons8.com/ios-filled/50/000000/home.png" alt="Home Icon" class="w-6 h-6" />
+      Home
+
+    </a>
+
+    <!-- Course -->
+    <a href="Courselist.html" class="flex flex-col items-center relative text-[#8a8a9f]">
+      <img src="https://img.icons8.com/ios-filled/50/000000/open-book--v1.png" alt="Course Icon" class="w-5 h-5 mb-1" />
+      Frame
+      <span
+        class="absolute -top-1 hidden right-3 bg-[#e11d48] text-white rounded-full text-[8px] font-bold w-4 h-4 flex items-center justify-center leading-none">1</span>
+      <div class="w-12 border-b-2 border-[#0f6f61] mt-1"></div>
+    </a>
+
+    <!-- Job -->
+    <a href="Job.html" class="flex flex-col items-center text-[#8a8a9f]">
+      <img src="https://img.icons8.com/ios-filled/50/000000/job.png" alt="Job Icon" class="w-5 h-5 mb-1" />
+      Job
+    </a>
+
+    <!-- My -->
+    <a href="Mycourse.html" class="flex flex-col items-center text-[#8a8a9f]">
+      <img src="https://img.icons8.com/ios-filled/50/000000/controller.png" alt="Game Icon" class="w-5 h-5 mb-1" />
+      Quiz
+    </a>
+
+  </nav>
+  <script>
+    const categoryButtons = document.querySelectorAll(".category-btn");
+    const courses = document.querySelectorAll(".course-item");
+    const noMoreCoursesText = document.querySelector("center h2");
+    const searchInput = document.getElementById("search-input");
+
+    let currentCategory = "all";
+
+    function filterCourses() {
+      const searchTerm = searchInput.value.trim().toLowerCase();
+      let anyVisible = false;
+
+      courses.forEach((course) => {
+        const courseCategory = course.dataset.category;
+        const courseName = course.querySelector("h2").textContent.toLowerCase();
+
+        const matchesCategory =
+          currentCategory === "all" || courseCategory === currentCategory;
+        const matchesSearch = courseName.includes(searchTerm);
+
+        if (matchesCategory && matchesSearch) {
+          course.style.display = "block";
+          anyVisible = true;
+        } else {
+          course.style.display = "none";
+        }
+      });
+
+      noMoreCoursesText.style.display = anyVisible ? "none" : "block";
+    }
+
+    categoryButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        // Remove active styles and aria-pressed
+        categoryButtons.forEach((b) => {
+          b.classList.remove("text-[#0f6f61]", "font-bold");
+          b.setAttribute("aria-pressed", "false");
+        });
+        // Add active styles and aria-pressed to clicked
+        btn.classList.add("text-[#0f6f61]", "font-bold");
+        btn.setAttribute("aria-pressed", "true");
+
+        currentCategory = btn.getAttribute("data-filter");
+        filterCourses();
+      });
+    });
+
+    searchInput.addEventListener("input", () => {
+      filterCourses();
+    });
+
+    // Initialize: show all courses by default and no category selected initially
+    filterCourses();
+  </script>
+</body>
+
+</html>

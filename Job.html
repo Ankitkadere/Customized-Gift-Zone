@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job : Apna Course</title>
+    <link rel="apple-touch-icon" href="fav.jpg" />
+  <link rel="icon" href="fav.jpg" type="image/jpeg/jpg" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
+</head>
+<style>
+  body {
+    margin-bottom: 20%;
+      
+    font-family: "Inter", sans-serif;
+  }
+  
+</style>
+
+<body class="bg-[#f5fdf7]">
+<div id="header"></div> <!-- Header will load here -->
+
+<script>
+  // Load Header CSS (optional)
+  const headerCSS = document.createElement("link");
+  headerCSS.rel = "stylesheet";
+  headerCSS.href = "Header.css"; 
+  document.head.appendChild(headerCSS);
+
+  // Load Header HTML
+  fetch("Header.html")
+    .then(res => res.text())
+    .then(html => {
+      const headerDiv = document.getElementById("header");
+      headerDiv.innerHTML = html;
+
+      // Run scripts from Header.html if any
+      headerDiv.querySelectorAll("script").forEach(oldScript => {
+        const newScript = document.createElement("script");
+        if (oldScript.src) {
+          newScript.src = oldScript.src; // external file
+        } else {
+          newScript.textContent = oldScript.textContent; // inline script
+        }
+        document.body.appendChild(newScript);
+      });
+
+      // Load external Header.js (optional)
+      const headerJS = document.createElement("script");
+      headerJS.src = "Header.js";
+      document.body.appendChild(headerJS);
+    })
+    .catch(err => console.error("Error loading header:", err));
+</script>
+
+  <center>
+    <h2>Not Available</h2>
+  </center>
+  <nav aria-label="Bottom navigation"
+    class="fixed bottom-0 left-0 right-0 border-t border-[#d9d9d9] bg-white flex justify-around items-center py-2 text-xs font-semibold text-[#8a8a9f] z-50"
+    role="navigation">
+
+    <!-- Home -->
+    <a href="index.html" class="flex flex-col items-center  ">
+      <img src="https://img.icons8.com/ios-filled/50/000000/home.png" alt="Home Icon" class="w-6 h-6" />
+      Home
+    </a>
+
+    <!-- Course -->
+    <a href="Courselist.html" class="flex flex-col items-center relative text-[#8a8a9f]">
+      <img src="https://img.icons8.com/ios-filled/50/000000/open-book--v1.png" alt="Course Icon" class="w-5 h-5 mb-1" />
+      Course
+      <span
+        class="absolute -top-1 hidden right-3 bg-[#e11d48] text-white rounded-full text-[8px] font-bold w-4 h-4 flex items-center justify-center leading-none">1</span>
+    </a>
+
+    <!-- Job -->
+    <a href="Job.html" class="flex flex-col items-center text-[#8a8a9f]">
+      <img src="https://img.icons8.com/ios-filled/50/000000/job.png" alt="Job Icon" class="w-5 h-5 mb-1" />
+      Job
+      <div class="w-12 border-b-2 border-[#0f6f61] mt-1"></div>
+    </a>
+
+    <!-- My -->
+    <a href="Mycourse.html" class="flex flex-col items-center text-[#8a8a9f]">
+      <img src="https://img.icons8.com/ios-filled/50/000000/controller.png" alt="Game Icon" class="w-5 h-5 mb-1" />
+      Quiz
+    </a>
+
+  </nav>
+</body>
+
+</html>
