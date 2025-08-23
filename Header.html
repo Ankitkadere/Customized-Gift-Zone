@@ -27,29 +27,37 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+
+        @media screen and (max-width:768px) {
+            ul li {
+                font-size: 15px;
+            }
+        }
     </style>
 </head>
 
-<body class=" bg-[#f5fdf7]   text-gray-900">
-    <header class="border-b border-gray-200 p-1">
+<body class=" bg-[#f5fdf7] text-gray-900">
+    <header class="  border-gray-200 p-1">
         <div class="   mx-auto flex items-center justify-between px-3 py-1 sm:py-3">
-            <div class="flex items-center justify-between w-full md:w-80 space-x-2 py-1  rounded-lg">
+            <div class="flex bottom-4 items-center justify-between w-full md:w-80 space-x-2   rounded-lg">
                 <button id="mobile-menu-button" aria-label="Open menu"
                     class="sm:hidden text-gray-700 hover:text-gray-900   focus:outline-none">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
-                <img alt="ClassyShop logo blue square with white text ClassyShop" class="w-8 h-8 object-contain"
-                    height="32" src="https://storage.googleapis.com/a1aa/image/23a41313-5963-42f0-083e-2250225fea4f.jpg"
-                    width="32" />
-                <h1 class="font-extrabold text-black text-lg   leading-none">
+                <img alt="ClassyShop logo blue square with white text ClassyShop" class="w-28 h-10 object-contain"
+                    height="32" src="fav.jpg" width="32" />
+                <h1 class="font-extrabold w-full pt-3 text-black md:text-1x1 text-2xl leading-none">
                     Gift Zone
-                    <span class="font-normal text-gray-500 text-sm sm:text-sm ml-1">Customized Gift Store</span>
+                    <span class="font-normal text-gray-500 text-sm sm:text-lg md:text-sm ">
+                        Gift Store
+                    </span>
                 </h1>
+
                 <div class="  text-left">
                     <!-- Trigger -->
                     <button id="openModalBtn" onclick="toggleMenu()"
                         class="md:hidden p-2 rounded-full hover:bg-gray-200">
-                        <i class="fas fa-ellipsis-v text-gray-700"></i>
+                        <i class="fas fa-ellipsis-v text-gray-700 text-lg   "></i>
                     </button>
 
                     <!-- Menu -->
@@ -149,10 +157,17 @@
 
             </div>
             <div class="hidden sm:flex flex-1 max-w-xl mx-4">
-                <input aria-label="Search for products"
-                    class="w-full border  border-gray-600 bg-[#f5fdf7]  rounded-full py-2 px-3 text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-600 focus:border-transparent"
-                    placeholder="Search for products..." type="search" />
+                <div class="relative w-full">
+                    <input aria-label="Search for products"
+                        class="w-full border  border-gray-600 bg-[#f5fdf7]  rounded-full py-2 px-3 text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-600 focus:border-transparent"
+                        placeholder="Search for products..." type="search" />
+
+                    <span class="absolute inset-y-0 right-3 flex items-center text-gray-500">
+                        🔍
+                    </span>
+                </div>
             </div>
+
             <div class="hidden sm:flex items-center space-x-4 text-xs sm:text-sm text-gray-900 font-semibold">
                 <div onclick="window.location.href='Owner.html'" class="text-right leading-tight">
                     <div>Gift Zone</div>
@@ -192,14 +207,16 @@
 
     <!-- Mobile Side Navbar -->
     <div id="mobile-nav"
-        class=" bg-[#f5fdf7] z-[100]  fixed inset-y-0 left-0 w-72  shadow-lg transform -translate-x-full transition-transform duration-300 ease-in-out z-50 overflow-y-auto">
+        class=" bg-[#f5fdf7] z-[100]  fixed inset-y-0 left-0 w-80  shadow-lg transform -translate-x-full transition-transform duration-300 ease-in-out z-50 overflow-y-auto">
         <div class="flex items-center justify-between px-4 py-3 border-b border-gray-200">
             <div class="flex items-center space-x-2">
-                <img alt="ClassyShop logo blue square with white text ClassyShop" class="w-12 h-12 object-contain"
-                    height="32" src="https://storage.googleapis.com/a1aa/image/23a41313-5963-42f0-083e-2250225fea4f.jpg"
-                    width="32" />
-                <h1 class="font-extrabold text-black text-base leading-none">
-                    Gift Zone <span class="font-normal text-gray-500 text-sm ml-1">BIG MEGA STORE</span>
+                <img alt="ClassyShop logo blue square with white text ClassyShop" class="w-28 h-10 object-contain"
+                    height="32" src="fav.jpg" width="32" />
+                <h1 class="font-extrabold w-full pt-3 text-black text-2xl leading-none">
+                    Gift Zone
+                    <span class="font-normal text-gray-500 text-base sm:text-lg ">
+                        Store
+                    </span>
                 </h1>
             </div>
 
@@ -208,26 +225,70 @@
             </button>
         </div>
         <div class="px-1 py-1 border-b border-gray-200">
-            <input aria-label="Search for products"
-                class="w-full  bg-[#f5fdf7]  border border-gray-400 rounded-full py-2 px-3 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent"
-                placeholder="Search For Products..." type="search" />
+            <div class="relative w-full">
+                <input aria-label="Search for products"
+                    class="w-full bg-[#f5fdf7] border border-gray-400 rounded-full py-2 pl-3 pr-10 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent"
+                    placeholder="Search For Products..." type="search" />
+
+                <span class="absolute inset-y-0 right-3 flex items-center text-gray-500">
+                    🔍
+                </span>
+            </div>
         </div>
-        <nav class="px-4 py-4 text-gray-700 text-sm">
+
+        <nav class="px-4 py-4 text-gray-700 text-lg">
             <div class="mb-3 flex items-center space-x-2 cursor-pointer select-none font-semibold">
                 <span>SHOP BY CATEGORIES</span>
                 <i class="fas fa-chevron-down text-xs"></i>
             </div>
-            <ul class="space-y-3 ">
-                <li><a class="block hover:text-gray-900" href="">Home</a></li>
-                <li><a class="block hover:text-gray-900" href="Adminpenel.html">Admin</a></li>
-                <li><a class="block hover:text-gray-900" href="#">Electronics</a></li>
-                <li><a class="block hover:text-gray-900" href="#">Bags</a></li>
-                <li><a class="block hover:text-gray-900" href="#">Footwear</a></li>
-                <li><a class="block hover:text-gray-900" href="#">Groceries</a></li>
-                <li><a class="block hover:text-gray-900" href="#">Beauty</a></li>
-                <li><a class="block hover:text-gray-900" href="#">Wellness</a></li>
-                <li><a class="block hover:text-gray-900" href="#">Jewellery</a></li>
+            <ul class="space-y-4 text-lg sm:text-xl">
+                <li>
+                    <a class="flex items-center gap-2 hover:text-gray-900" href="">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                </li>
+                <li>
+                    <a class="flex items-center gap-2 hover:text-gray-900" href="Adminpenel.html">
+                        <i class="fas fa-user-shield"></i> Admin
+                    </a>
+                </li>
+                <li>
+                    <a class="flex items-center gap-2 hover:text-gray-900" href="#">
+                        <i class="fas fa-tv"></i> Electronics
+                    </a>
+                </li>
+                <li>
+                    <a class="flex items-center gap-2 hover:text-gray-900" href="#">
+                        <i class="fas fa-shopping-bag"></i> Bags
+                    </a>
+                </li>
+                <li>
+                    <a class="flex items-center gap-2 hover:text-gray-900" href="#">
+                        <i class="fas fa-shoe-prints"></i> Footwear
+                    </a>
+                </li>
+                <li>
+                    <a class="flex items-center gap-2 hover:text-gray-900" href="#">
+                        <i class="fas fa-apple-alt"></i> Groceries
+                    </a>
+                </li>
+                <li>
+                    <a class="flex items-center gap-2 hover:text-gray-900" href="#">
+                        <i class="fas fa-spa"></i> Beauty
+                    </a>
+                </li>
+                <li>
+                    <a class="flex items-center gap-2 hover:text-gray-900" href="#">
+                        <i class="fas fa-heartbeat"></i> Wellness
+                    </a>
+                </li>
+                <li>
+                    <a class="flex items-center gap-2 hover:text-gray-900" href="#">
+                        <i class="fas fa-gem"></i> Jewellery
+                    </a>
+                </li>
             </ul>
+
             <div class="mt-6 flex items-center space-x-2 text-gray-700 text-sm">
                 <i class="fas fa-truck text-base"></i>
                 <span>Free International Delivery</span>

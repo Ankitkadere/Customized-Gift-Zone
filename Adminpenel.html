@@ -10,22 +10,26 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-
+            margin: 0;
+            padding: 0;
         }
     </style>
 </head>
 
-<body class=" w-full fixed font-extrabold flex items-center justify-center ">
-    <div class="bg-white rounded-lg   w-full flex flex-col md:flex-row overflow-hidden">
+<body class=" w-full top-0 left-0 fixed font-extrabold flex items-center justify-center ">
+    <div styl="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)"
+        class="  w-full flex flex-col md:flex-row overflow-hidden">
 
         <!-- Toggle Button (Visible only on mobile) -->
-        <div class="flex items-center px-2 justify-between">
+        <div class="flex items-center md:px-0 px-2 h-full justify-between">
             <button id="menuToggle" class="md:hidden p-3 text-gray-700 focus:outline-none">
                 <i class="fas fa-bars text-xl"></i>
+
             </button>
 
-            <button onclick=" closeLogin()" aria-label="Go back"
+            <button onclick=" window.location.href='index.html'" aria-label="Go back"
                 class="text-2xl  md:hidden flex justify-center items-center shadow-sm">
+
                 <h1 class="font-extrabold text-black text-2x1 mx-auto sm:text-base leading-none">
                     Gift Zone
                 </h1>
@@ -54,79 +58,94 @@
                 }
             </script>
         </div>
-        <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden md:hidden"></div>
+        <div id="overlay" class="fixed left-0 inset-0 bg-black bg-opacity-50 hidden md:hidden"></div>
         <!-- Sidebar -->
-        <aside id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-white font-extrabold border-r border-gray-200 flex flex-col px-6 py-8
-  transform -translate-x-full transition-transform duration-300 ease-in-out
-  md:translate-x-0 md:static md:w-56">
 
-            <h1 class="font-bold text-lg mx-auto text-gray-900 mb-8">Gift Zone</h1>
-            <nav class="flex flex-col space-y-6 text-gray-400 text-sm font-semibold">
+        <aside id="sidebar" class="fixed top-0 left-0 h-full w-56  bg-gray-200 font-extrabold border-r border-gray-200 flex flex-col py-8
+         transform -translate-x-full transition-transform duration-300 ease-in-out
+         md:translate-x-0 md:static md:w-40 md:h-full">
+            <div class="mx-auto flex flex-col items-center justify-center text-center mb-8">
+                <img src="fav.jpg" alt="ClassyShop logo blue square with white text ClassyShop"
+                    class="w-40 h-10 object-contain mb-2" width="160" height="40" />
+                <h1 class="font-bold text-xl text-gray-900">Gift Zone</h1>
+            </div>
+
+
+            <nav class="flex flex-col space-y-3 text-gray-700 font-semibold">
                 <button data-section="dashboard"
-                    class="flex items-center space-x-3 text-gray-400 hover:text-orange-500 transition-colors focus:outline-none"
+                    class="flex items-center space-x-3 text-gray-800 hover:text-orange-500 transition-colors px-3 py-2 rounded-md focus:outline-none text-base"
                     onclick="selectSection('dashboard', this)" type="button">
-                    <i class="fas fa-th-large text-xs"></i>
+                    <i class="fas fa-th-large text-base"></i>
                     <span>Dashboard</span>
                 </button>
+
                 <button data-section="objectives"
-                    class="flex items-center space-x-3 text-gray-400 hover:text-orange-500 transition-colors focus:outline-none"
+                    class="flex items-center space-x-3 text-gray-800 hover:text-orange-500 transition-colors px-3 py-2 rounded-md focus:outline-none text-base"
                     onclick="selectSection('objectives', this)" type="button">
-                    <i class="fas fa-bullseye text-xs"></i>
+                    <i class="fas fa-bullseye text-base"></i>
                     <span>Objectives</span>
                 </button>
+
                 <button data-section="survey"
-                    class="flex items-center space-x-3 text-gray-400 hover:text-orange-500 transition-colors focus:outline-none"
+                    class="flex items-center space-x-3 text-gray-800 hover:text-orange-500 transition-colors px-3 py-2 rounded-md focus:outline-none text-base"
                     onclick="selectSection('survey', this)" type="button">
-                    <i class="fas fa-check-square text-xs"></i>
+                    <i class="fas fa-check-square text-base"></i>
                     <span>Survey</span>
                 </button>
+
+
                 <button data-section="documents"
-                    class="flex items-center space-x-3 text-gray-400 hover:text-orange-500 transition-colors focus:outline-none"
+                    class="flex items-center space-x-3 text-gray-800 hover:text-orange-500 transition-colors px-3 py-2 rounded-md focus:outline-none text-base"
                     onclick="selectSection('documents', this)" type="button">
-                    <i class="fas fa-file-alt text-xs"></i>
+                    <i class="fas fa-file-alt text-base"></i>
                     <span>Documents</span>
                 </button>
+
                 <button data-section="photos"
-                    class="flex items-center space-x-3 text-gray-400 hover:text-orange-500 transition-colors focus:outline-none"
+                    class="flex items-center space-x-3 text-gray-800 hover:text-orange-500 transition-colors px-3 py-2 rounded-md focus:outline-none text-base"
                     onclick="selectSection('photos', this)" type="button">
-                    <i class="fas fa-camera text-xs"></i>
+                    <i class="fas fa-camera text-base"></i>
                     <span>Photos</span>
                 </button>
+
                 <button data-section="sells"
-                    class="flex items-center space-x-3 text-orange-500 font-semibold focus:outline-none"
+                    class="flex items-center space-x-3 text-orange-500 font-semibold px-3 py-2 rounded-md focus:outline-none text-base"
                     onclick="selectSection('sells', this)" type="button">
-                    <i class="fas fa-shopping-cart text-xs"></i>
+                    <i class="fas fa-shopping-cart text-base"></i>
                     <span>Sells</span>
                 </button>
+
                 <button data-section="message"
-                    class="flex items-center space-x-3 text-gray-400 hover:text-orange-500 transition-colors focus:outline-none"
+                    class="flex items-center space-x-3 text-gray-800 hover:text-orange-500 transition-colors px-3 py-2 rounded-md focus:outline-none text-base"
                     onclick="selectSection('message', this)" type="button">
-                    <i class="fas fa-comment-alt text-xs"></i>
+                    <i class="fas fa-comment-alt text-base"></i>
                     <span>Message</span>
                 </button>
+
                 <button data-section="help"
-                    class="flex items-center space-x-3 text-gray-400 hover:text-orange-500 transition-colors focus:outline-none"
+                    class="flex items-center space-x-3 text-gray-800 hover:text-orange-500 transition-colors px-3 py-2 rounded-md focus:outline-none text-base"
                     onclick="selectSection('help', this)" type="button">
-                    <i class="fas fa-question-circle text-xs"></i>
+                    <i class="fas fa-question-circle text-base"></i>
                     <span>Help</span>
                 </button>
+
                 <button data-section="setting"
-                    class="flex items-center space-x-3 text-gray-400 hover:text-orange-500 transition-colors focus:outline-none"
+                    class="flex items-center space-x-3 text-gray-800 hover:text-orange-500 transition-colors px-3 py-2 rounded-md focus:outline-none text-base"
                     onclick="selectSection('setting', this)" type="button">
-                    <i class="fas fa-cog text-xs"></i>
+                    <i class="fas fa-cog text-base"></i>
                     <span>Setting</span>
                 </button>
             </nav>
+
         </aside>
 
         <!-- Main content -->
-        <main class="flex-1 px-2 md:p-6 md:mx-2 flex flex-col">
+        <main class="flex-1 px-2 md:p-2  md:mx-2 flex flex-col">
 
             <div class="  flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4 sm:gap-0">
-                <div class="flex items-center bg-gray-100 rounded-full px-4 py-2 w-full md:mr-2">
+                <div class="flex items-center bg-gray-200 rounded-full px-4 py-2 w-full md:mr-2">
                     <input type="text" placeholder="Search  +  Orders +  Files  +  Products"
                         class="bg-transparent focus:outline-none text-gray-600 placeholder-gray-400 text-sm w-full" />
-
                     <button aria-label="Search"
                         class="ml-2 w-8 h-8 flex items-center justify-center rounded-full text-gray-400   transition">
                         <i class="fas fa-search text-lg font-extrabold text-gray-600"></i>
@@ -145,7 +164,7 @@
                     </select>
                     <button
                         class="bg-orange-500 text-white rounded-full w-full text-xs font-extrabold px-6 py-3 hover:bg-orange-600 transition-colors">
-                        + Add Product
+                        +Product
                     </button>
                 </div>
             </div>
@@ -252,10 +271,17 @@
                 <h2 class="text-orange-500 font-semibold text-xl mb-6">
                     Orders and sells
                 </h2>
+                <hr>
+                <style>
+                    .sells {
+                        height: auto;
+                        overflow: auto;
+                    }
+                </style>
                 <!-- Last Orders Table -->
-                <div class="overflow-x-auto mb-6 max-h-[480px] md:max-h-[470px]">
-                    <table class="w-full text-left text-gray-400 text-xs font-semibold">
-                        <thead>
+                <div class="  overflow-auto mb-6  h-[72vh]">
+                    <table class="w-full overflow-auto text-left text-gray-700 text-xs font-semibold">
+                        <thead class="bg-gray-100 ">
                             <tr>
                                 <th class=" text-gray-700 py-3 pr-6">Order</th>
                                 <th class="text-gray-700 py-3 pr-6">Name</th>
