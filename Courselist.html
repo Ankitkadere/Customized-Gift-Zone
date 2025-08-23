@@ -116,214 +116,81 @@
       })
       .catch(err => console.error("Error loading header:", err));
   </script>
+<section aria-label="Filter and search"
+  class="w-full flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mx-auto px-4 md:mt-4">
 
-  <section aria-label="Filter and search"
-    class=" w-full  flex-col sm:flex-row sm:items-center sm:justify-between gap-2   mx-auto px-4  md:mt-4 ">
-    <div aria-label="Course categories"
-      class="overflow-auto scrollbar-hide  overflow-auto hide-scrollbar py-1  flex flex-nowrap items-center gap-2 md:gap-8 overflow-x-auto scrollbar-hide px-2"
-      style="-webkit-overflow-scrolling: touch;">
-      <button aria-pressed="true"
-        class="category-btn flex items-center gap-1 border-2 border-transparent px-2  rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0 "
-        data-filter="all" type="button">
-        <img alt=" All" class="w-12 h-12 rounded-full object-cover shadow-sm"
-          src="https://storage.googleapis.com/a1aa/image/647a1985-39a6-498f-856b-f668fe6ce1ab.jpg" />
-        <span>
-          All Frames
-        </span>
-      </button>
-      <button aria-pressed="false"
-        class=" category-btn flex items-center gap-3 border-2 border-transparent px-2  rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0 "
-        data-filter="english-speaking" type="button">
-        <img alt="English" class="w-12 h-12 rounded-full object-cover shadow-sm" height="48"
-          src="https://storage.googleapis.com/a1aa/image/716df796-ac72-4e80-41b5-3fc19c4a8379.jpg" width="48" />
-        <span>
-          Single Frame
-        </span>
-      </button>
-      <button aria-pressed="false"
-        class=" category-btn flex items-center gap-3 border-2 border-transparent px-2  rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0 "
-        data-filter="telly" type="button">
-        <img alt=" Accounting'" class="w-12 h-12 rounded-full object-cover shadow-sm" height="48"
-          src="https://storage.googleapis.com/a1aa/image/ea8adbbb-5020-4cf9-6c47-6ba5a0581f6d.jpg" width="48" />
-        <span>
-          Double Frame
-        </span>
-      </button>
-      <button aria-pressed="false"
-        class=" category-btn flex items-center gap-3 border-2 border-transparent px-2  rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0 "
-        data-filter="dca" type="button">
-        <img alt="DCA" class="w-12 h-12 mb-1 rounded-full object-cover" height="48"
-          src="https://storage.googleapis.com/a1aa/image/8ceb7270-de63-4fdb-c0e3-09ce84e689a4.jpg" width="48" />
-        <span>
-          Tripple Frame
-        </span>
-      </button>
-      <button aria-pressed="false"
-        class=" category-btn flex items-center gap-3 border-2 border-transparent px-2  rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0 "
-        data-filter="pgdca" type="button">
-        <img alt="Icon representing PGDCA courses, purple circle with white text 'PGD'"
-          class="w-12 h-12 mb-1 rounded-full object-cover"
-          src="https://storage.googleapis.com/a1aa/image/058ab65f-0b9f-410d-c568-28f460eba8e5.jpg" />
-        <span>
-          Multiple Frame
-        </span>
-      </button>
-      <button aria-pressed="false"
-        class="category-btn flex items-center gap-3 border-2 border-transparent px-2  rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0 "
-        data-filter="11th-grade" type="button">
-        <img alt="Icon representing 11th Grade courses, green circle with white text '11th'"
-          class="w-12 h-12 mb-1 rounded-full object-cover"
-          src="https://storage.googleapis.com/a1aa/image/b9ecc565-4b5d-40ea-89e1-14c344210cf1.jpg" />
-        <span>
-           Calander
-        </span>
-      </button>
-      <button aria-pressed="false"
-        class=" category-btn flex items-center gap-3 border-2 border-transparent px-2  rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0 "
-        data-filter="12th-grade" type="button">
-        <img alt="Icon representing 12th Grade courses, green circle with white text '12th'"
-          class="w-12 h-12 mb-1 rounded-full object-cover"
-          src="https://storage.googleapis.com/a1aa/image/85f4550e-0d52-40ea-a064-68b164444ad2.jpg" />
-        <span>
-          Trendding
-        </span>
-      </button>
-      <button aria-pressed="false"
-        class=" category-btn flex items-center gap-3 border-2 border-transparent px-2  rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0 "
-        data-filter="12th-grade" type="button">
-        <img alt="Icon representing 12th Grade courses, green circle with white text '12th'"
-          class="w-12 h-12 mb-1 rounded-full object-cover"
-          src="https://storage.googleapis.com/a1aa/image/85f4550e-0d52-40ea-a064-68b164444ad2.jpg" />
-        <span>
-          Lovely
-        </span>
-      </button>
-    </div>
-    <div class="w-full sm:w-48 hidden">
-      <label for="search-input" class="sr-only">Search courses</label>
-      <div class="relative text-gray-400 focus-within:text-gray-600">
-        <input id="search-input" type="search" placeholder="Search courses..."
-          class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-9 pr-3 text-xs placeholder-gray-400 focus:border-[#0f6f61] focus:outline-none focus:ring-1 focus:ring-[#0f6f61]"
-          autocomplete="off" aria-label="Search courses by name" />
-        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
-          <i class="fas fa-search text-xs"></i>
-        </div>
-      </div>
-    </div>
-  </section>
+  <div aria-label="Photo frame categories"
+    class="overflow-auto hide-scrollbar py-2 md:py-1 flex flex-nowrap items-center gap-2 md:gap-8 overflow-x-auto px-2"
+    style="-webkit-overflow-scrolling: touch;">
+
+    <!-- All Frames -->
+    <button aria-pressed="true"
+      class="category-btn flex items-center ml-[-10] md: ml-[-6] gap-2 border-2 border-transparent px-3 py-1 rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
+      data-filter="all" type="button">
+      <i class="fas fa-th-large text-lg text-green-600"></i>
+      <span>All Frames</span>
+    </button>
+
+    <!-- Single Frame -->
+    <button aria-pressed="false"
+      class="category-btn flex items-center gap-2 border-2 border-transparent px-3 py-1 rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
+      data-filter="single" type="button">
+      <i class="fas fa-square text-lg text-blue-600"></i>
+      <span>Single Frame</span>
+    </button>
+
+    <!-- Double Frame -->
+    <button aria-pressed="false"
+      class="category-btn flex items-center gap-2 border-2 border-transparent px-3 py-1 rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
+      data-filter="double" type="button">
+      <i class="fas fa-columns text-lg text-purple-600"></i>
+      <span>Double Frame</span>
+    </button>
+
+    <!-- Triple Frame -->
+    <button aria-pressed="false"
+      class="category-btn flex items-center gap-2 border-2 border-transparent px-3 py-1 rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
+      data-filter="triple" type="button">
+      <i class="fas fa-border-all text-lg text-pink-600"></i>
+      <span>Triple Frame</span>
+    </button>
+
+    <!-- Multiple Frame -->
+    <button aria-pressed="false"
+      class="category-btn flex items-center gap-2 border-2 border-transparent px-3 py-1 rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
+      data-filter="multiple" type="button">
+      <i class="fas fa-th text-lg text-orange-600"></i>
+      <span>Multiple Frames</span>
+    </button>
+
+    <!-- Calendar Frames -->
+    <button aria-pressed="false"
+      class="category-btn flex items-center gap-2 border-2 border-transparent px-3 py-1 rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
+      data-filter="calendar" type="button">
+      <i class="fas fa-calendar-alt text-lg text-teal-600"></i>
+      <span>Calendar Frames</span>
+    </button>
+
+    <!-- Trending -->
+    <button aria-pressed="false"
+      class="category-btn flex items-center gap-2 border-2 border-transparent px-3 py-1 rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
+      data-filter="trending" type="button">
+      <i class="fas fa-fire text-lg text-red-600"></i>
+      <span>Trending</span>
+    </button>
+
+    <!-- Lovely Frames -->
+    <button aria-pressed="false"
+      class="category-btn flex items-center gap-2 border-2 border-transparent px-3 py-1 rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
+      data-filter="lovely" type="button">
+      <i class="fas fa-heart text-lg text-pink-500"></i>
+      <span>Lovely Frames</span>
+    </button>
+
+  </div>
+</section>
+
   <section aria-label="Courses list" class="productlist mb-20 ov" id="courses-list">
-    <a data-category="english-speaking" data-id="english-speaking" href="CourseDetail.html?id=english-speaking"
-      role="button" tabindex="0" class="course-item block ">
-      <div class="relative bg-white rounded-xl shadow-md p-1">
-        <img alt="" class="w-full rounded-lg" height="160"
-          src="https://m.media-amazon.com/images/I/816X7YX8XVL._UF894,1000_QL80_.jpg" width="160" />
-        <div class="absolute top-3 right-3 bg-[#E56A4F] w-7 h-7 rounded-full flex items-center justify-center">
-          <i class="fas fa-heart text-white text-xs">
-          </i>
-        </div>
-        <div class="mt-3">
-          <div class="flex items-center justify-between">
-            <h3 class="text-[#1E1E3F] font-semibold text-base leading-5">
-              Single Frame
-            </h3>
-            <div class="flex items-center space-x-1">
-              <i class="fas fa-star text-[#E56A4F] text-sm">
-              </i>
-              <span class="text-[#1E1E3F] text-sm font-semibold">
-                (4.5)
-              </span>
-            </div>
-          </div>
-          <p class="text-[#9A9AB0] leading-5 ">
-            Stylish + Elegance
-          </p>
-          <div class="flex items-center justify-between mt-1">
-            <span class="text-[#1E1E3F] font-extrabold text-lg">
-              150 .Rs
-            </span>
-            <button aria-label="Add to cart"
-              class="bg-[#3B3630] w-8 h-8 rounded-full flex items-center justify-center text-white text-xl leading-none">
-              +
-            </button>
-          </div>
-        </div>
-      </div>
-    </a>
-    <a data-category="telly" data-id="telly" href="CourseDetail.html?id=telly" role="button" tabindex="1"
-      class="course-item block">
-      <div class="relative bg-white rounded-xl shadow-md p-1">
-        <img alt="White tufted chair with spiral legs, front view" class="w-full rounded-lg" height="160"
-          src=" https://m.media-amazon.com/images/I/71kmFgUUs3L._UF1000,1000_QL80_.jpg" width="160" />
-        <div class="absolute top-3 right-3 bg-[#E56A4F] w-7 h-7 rounded-full flex items-center justify-center">
-          <i class="fas fa-heart text-white text-xs">
-          </i>
-        </div>
-        <div class="mt-3">
-          <div class="flex items-center justify-between">
-            <h3 class="text-[#1E1E3F] font-semibold text-base leading-5">
-              Double Frame
-            </h3>
-            <div class="flex items-center space-x-1">
-              <i class="fas fa-star text-[#E56A4F] text-sm">
-              </i>
-              <span class="text-[#1E1E3F] text-sm font-semibold">
-                (4.5)
-              </span>
-            </div>
-          </div>
-          <p class="text-[#9A9AB0] text-sm leading-5 ">
-            Stylish + Elegance
-          </p>
-          <div class="flex items-center justify-between mt-1">
-            <span class="text-[#1E1E3F] font-extrabold text-lg">
-              200 .Rs
-            </span>
-            <button aria-label="Add to cart"
-              class="bg-[#3B3659] w-8 h-8 rounded-full flex items-center justify-center text-white text-xl leading-none">
-              +
-            </button>
-          </div>
-        </div>
-      </div>
-    </a>
-    <a data-category="dca" data-id="dca" href="CourseDetail.html?id=dca" role="button" tabindex="0"
-      class="course-item block">
-      <div class="relative bg-white rounded-xl shadow-md p-1">
-        <img alt="White tufted chair with spiral legs, front view" class="w-full rounded-lg" height="160"
-          src=" https://i5.walmartimages.com/asr/2ed1d88c-5399-4886-818f-70987bbba8e7.3503cb5b591d8947418045fb676808ab.jpeg?odnHeight=320&odnWidth=320&odnBg=FFFFFF"
-          width="160" />
-        <div class="absolute top-3 right-3 bg-[#E56A4F] w-7 h-7 rounded-full flex items-center justify-center">
-          <i class="fas fa-heart text-white text-xs">
-          </i>
-        </div>
-        <div class="mt-3">
-          <div class="flex items-center justify-between">
-            <h3 class="text-[#1E1E3F] font-semibold text-base leading-5">
-              Tripple Frame
-            </h3>
-            <div class="flex items-center space-x-1">
-              <i class="fas fa-star text-[#E56A4F] text-sm">
-              </i>
-              <span class="text-[#1E1E3F] text-sm font-semibold">
-                (4.0)
-              </span>
-            </div>
-          </div>
-          <p class="text-[#9A9AB0] text-sm leading-5 ">
-            Stylish + Elegance
-          </p>
-          <div class="flex items-center justify-between mt-1">
-            <span class="text-[#1E1E3F] font-extrabold text-lg">
-              250 .Rs
-            </span>
-            <button aria-label="Add to cart"
-              class="bg-[#3B3659] w-8 h-8 rounded-full flex items-center justify-center text-white text-xl leading-none">
-              +
-            </button>
-          </div>
-        </div>
-      </div>
-    </a>
     <a data-category="pgdca" data-id="pgdca" href="CourseDetail.html?id=pgdca" role="button" tabindex="0"
       class="course-item block">
       <div class="relative bg-white rounded-xl shadow-md p-1">
@@ -362,6 +229,120 @@
         </div>
       </div>
     </a>
+     <a data-category="telly" data-id="telly" href="CourseDetail.html?id=telly" role="button" tabindex="1"
+      class="course-item block">
+      <div class="relative bg-white rounded-xl shadow-md p-1">
+        <img alt="White tufted chair with spiral legs, front view" class="w-full rounded-lg" height="160"
+          src="https://storage.googleapis.com/a1aa/image/52dd1803-892c-408f-da13-b5d5e9103fa3.jpg" width="160" />
+        <div class="absolute top-3 right-3 bg-[#E56A4F] w-7 h-7 rounded-full flex items-center justify-center">
+          <i class="fas fa-heart text-white text-xs">
+          </i>
+        </div>
+        <div class="mt-3">
+          <div class="flex items-center justify-between">
+            <h3 class="text-[#1E1E3F] font-semibold text-base leading-5">
+              Double Frame
+            </h3>
+            <div class="flex items-center space-x-1">
+              <i class="fas fa-star text-[#E56A4F] text-sm">
+              </i>
+              <span class="text-[#1E1E3F] text-sm font-semibold">
+                (4.5)
+              </span>
+            </div>
+          </div>
+          <p class="text-[#9A9AB0] text-sm leading-5 ">
+            Stylish + Elegance
+          </p>
+          <div class="flex items-center justify-between mt-1">
+            <span class="text-[#1E1E3F] font-extrabold text-lg">
+              200 .Rs
+            </span>
+            <button aria-label="Add to cart"
+              class="bg-[#3B3659] w-8 h-8 rounded-full flex items-center justify-center text-white text-xl leading-none">
+              +
+            </button>
+          </div>
+        </div>
+      </div>
+    </a>
+    <a data-category="english-speaking" data-id="english-speaking" href="CourseDetail.html?id=english-speaking"
+      role="button" tabindex="0" class="course-item block ">
+      <div class="relative bg-white rounded-xl shadow-md p-1">
+        <img alt="" class="w-full rounded-lg" height="160"
+          src="https://m.media-amazon.com/images/I/816X7YX8XVL._UF894,1000_QL80_.jpg" width="160" />
+        <div class="absolute top-3 right-3 bg-[#E56A4F] w-7 h-7 rounded-full flex items-center justify-center">
+          <i class="fas fa-heart text-white text-xs">
+          </i>
+        </div>
+        <div class="mt-3">
+          <div class="flex items-center justify-between">
+            <h3 class="text-[#1E1E3F] font-semibold text-base leading-5">
+              Single Frame
+            </h3>
+            <div class="flex items-center space-x-1">
+              <i class="fas fa-star text-[#E56A4F] text-sm">
+              </i>
+              <span class="text-[#1E1E3F] text-sm font-semibold">
+                (4.5)
+              </span>
+            </div>
+          </div>
+          <p class="text-[#9A9AB0] leading-5 ">
+            Stylish + Elegance
+          </p>
+          <div class="flex items-center justify-between mt-1">
+            <span class="text-[#1E1E3F] font-extrabold text-lg">
+              150 .Rs
+            </span>
+            <button aria-label="Add to cart"
+              class="bg-[#3B3630] w-8 h-8 rounded-full flex items-center justify-center text-white text-xl leading-none">
+              +
+            </button>
+          </div>
+        </div>
+      </div>
+    </a>
+   
+    <a data-category="dca" data-id="dca" href="CourseDetail.html?id=dca" role="button" tabindex="0"
+      class="course-item block">
+      <div class="relative bg-white rounded-xl shadow-md p-1">
+        <img alt="White tufted chair with spiral legs, front view" class="w-full rounded-lg" height="160"
+          src=" https://i5.walmartimages.com/asr/2ed1d88c-5399-4886-818f-70987bbba8e7.3503cb5b591d8947418045fb676808ab.jpeg?odnHeight=320&odnWidth=320&odnBg=FFFFFF"
+          width="160" />
+        <div class="absolute top-3 right-3 bg-[#E56A4F] w-7 h-7 rounded-full flex items-center justify-center">
+          <i class="fas fa-heart text-white text-xs">
+          </i>
+        </div>
+        <div class="mt-3">
+          <div class="flex items-center justify-between">
+            <h3 class="text-[#1E1E3F] font-semibold text-base leading-5">
+              Tripple Frame
+            </h3>
+            <div class="flex items-center space-x-1">
+              <i class="fas fa-star text-[#E56A4F] text-sm">
+              </i>
+              <span class="text-[#1E1E3F] text-sm font-semibold">
+                (4.0)
+              </span>
+            </div>
+          </div>
+          <p class="text-[#9A9AB0] text-sm leading-5 ">
+            Stylish + Elegance
+          </p>
+          <div class="flex items-center justify-between mt-1">
+            <span class="text-[#1E1E3F] font-extrabold text-lg">
+              250 .Rs
+            </span>
+            <button aria-label="Add to cart"
+              class="bg-[#3B3659] w-8 h-8 rounded-full flex items-center justify-center text-white text-xl leading-none">
+              +
+            </button>
+          </div>
+        </div>
+      </div>
+    </a>
+
     <a data-category="11th-grade" data-id="11th-grade" href="CourseDetail.html?id=11th-grade" role="button" tabindex="0"
       class="course-item block">
       <div class="relative bg-white rounded-xl shadow-md p-1">
