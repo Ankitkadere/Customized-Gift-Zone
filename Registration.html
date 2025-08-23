@@ -1,11 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Download Div as Image</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .box {
+            padding: 20px;
+            margin: 15px;
+            border: 2px solid #333;
+            border-radius: 10px;
+            background: #f9f9f9;
+        }
+    </style>
 </head>
+
 <body>
-    
+
+    <button onclick="downloadDivAsImage('section1')">📷 Download Section 1</button>
+    <button onclick="downloadDivAsImage('section2')">📷 Download Section 2</button>
+
+    <div id="section1" class="box">
+        <h2>🎁 Section 1</h2>
+        <p>This is the first section. Click download to save as image.</p>
+    </div>
+
+    <div id="section2" class="box">
+        <h2>🎁 Section 2</h2>
+        <p>This is the second section. Click download to save as image.</p>
+    </div>
+
+    <script>
+        function downloadDivAsImage(divId) {
+            const divElement = document.getElementById(divId);
+
+            html2canvas(divElement).then(canvas => {
+                const link = document.createElement("a");
+                link.download = divId + ".png";  // File name
+                link.href = canvas.toDataURL("image/png"); // Convert canvas to image
+                link.click(); // Trigger download
+            });
+        }
+    </script>
+
 </body>
+
 </html>
