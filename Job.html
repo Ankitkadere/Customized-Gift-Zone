@@ -24,9 +24,9 @@
   }
 </style>
 
-<body style="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)">
+<body class="" style="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)">
 
-  <div class="px-6 pt-6 pb-1  rounded-b-[40px] text-white fixed w-full z-[-2999px]"
+  <div class="px-6 pt-6 md:py-1 pb-1 rounded-b-[40px] text-white fixed w-full z-[-2999px]"
     style="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)">
     <div class="flex items-center mb-6 justify-between">
       <button onclick="history.back()" aria-label="Go back"
@@ -46,23 +46,21 @@
 
   <div class=" w-full top-20 overflow-hidden relative">
     <!-- Top bar -->
-    <div class="flex mt-8 pb-40 items-center justify-between px-5 pt-5">
-
-
+    <div class="flex mt-8 pb-40 md:pb-0 md:mt-0 items-center justify-between px-5 pt-5">
       </button>
     </div>
   </div>
 
- 
-  <div class="bg-white h-full w-full rounded-t-[40px] px-2 py-6 mt-10">
-    <section class="mx-auto max-w-8xl px-4 py-4">
 
-      <h1 class="text-2xl font-bold leading-tight mb-4">
+  <div class="bg-white h-full w-full rounded-t-[40px]  md:rounded-b-[40px] px-1 pb-20 md:pb-6 ">
+    <section class="mx-auto max-w-8xl px-1 md:px-4 md:mt-20 py-4">
+
+      <h1 class="text-2xl mx-auto text-center font-bold leading-tight mb-4">
         Photo Frame Categories
       </h1>
- 
-      <div class="grid grid-cols-2 gap-3 sm:grid-cols-2 md:grid-cols-8 lg:grid-cols-8">
- 
+
+      <div class="grid grid-cols-2 gap-3 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6">
+
         <a href="#wood" class="group rounded-2xl bg-yellow-400 text-black p-4 shadow-sm transition hover:shadow-md">
           <div class="flex items-center gap-3">
             <div class="rounded-xl bg-yellow-300 p-2">
@@ -157,7 +155,7 @@
             </div>
           </div>
         </a>
-           <a href="#wood" class="group rounded-2xl bg-yellow-400 text-black p-4 shadow-sm transition hover:shadow-md">
+        <a href="#wood" class="group rounded-2xl bg-yellow-400 text-black p-4 shadow-sm transition hover:shadow-md">
           <div class="flex items-center gap-3">
             <div class="rounded-xl bg-yellow-300 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" stroke="currentColor">
@@ -250,7 +248,8 @@
               <p class="text-xs">Any dimension</p>
             </div>
           </div>
-        </a>   <a href="#wood" class="group rounded-2xl bg-yellow-400 text-black p-4 shadow-sm transition hover:shadow-md">
+        </a> <a href="#wood"
+          class="group rounded-2xl bg-yellow-400 text-black p-4 shadow-sm transition hover:shadow-md">
           <div class="flex items-center gap-3">
             <div class="rounded-xl bg-yellow-300 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" stroke="currentColor">
@@ -343,7 +342,8 @@
               <p class="text-xs">Any dimension</p>
             </div>
           </div>
-        </a>   <a href="#wood" class="group rounded-2xl bg-yellow-400 text-black p-4 shadow-sm transition hover:shadow-md">
+        </a> <a href="#wood"
+          class="group rounded-2xl bg-yellow-400 text-black p-4 shadow-sm transition hover:shadow-md">
           <div class="flex items-center gap-3">
             <div class="rounded-xl bg-yellow-300 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" stroke="currentColor">
@@ -439,16 +439,16 @@
         </a>
 
       </div>
-      
+
     </section>
-    <div class="flex items-center justify-between mt-4">
+    <div class="flex items-center justify-between mt-4 md:mt-0">
     </div>
-    <button
+    <button onclick="window.location.href='Courselist.html'"
       class="mt-6 w-full md:w-96 md:mx-auto bg-yellow-400 hover:bg-yellow-500 text-black font-semibold rounded-full py-3 flex items-center justify-center space-x-2">
       <i class="fas fa-shopping-cart">
       </i>
       <span>
-        Buy Now
+        Book Now
       </span>
     </button>
   </div>
