@@ -488,9 +488,7 @@
             } else {
                 statusText.textContent = "Download Complete!";
                 installStatus.textContent = "Installed";
-                setTimeout(() => {
-                    window.location.reload();
-                }, 3000);
+               
                 audio.play().catch(err => console.error(err));
             }
         }
@@ -504,6 +502,9 @@
                 if (outcome === 'accepted') {
                     console.log('User accepted the install prompt');
                     installStatus.textContent = "App Installed!";
+                     setTimeout(() => {
+                    window.location.reload();
+                }, 3000);
                 } else {
                     console.log('User dismissed the install prompt');
                     installStatus.textContent = "Install Cancelled";
