@@ -481,25 +481,36 @@
               <input type="radio" name="size" id="size-9.5" value="9.5" class="hidden" />
 
             </div>
-            <!-- Form -->
-            <form class="space-y-4 mb-2">
+
+
+            <form id="crudForm" onsubmit="" class="space-y-4 mb-2">
               <p class="font-semibold text-black mb-3 md:mx-auto select-text">
                 Process Details
               </p>
               <div id="data1">
-                <input
-                  class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-400 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                  placeholder="Name" type="text" />
-                <input
-                  class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-400 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                  placeholder="Mobile Number" type="text" />
+                <input type="text" id="code" class="hidden" name="Id">
+                <input type="text" name="Date" id="dates" class=" hidden w-full p-2 border rounded-lg"
+                  placeholder="YYYY-MM-DD">
+                <input type="text" name="Time" id="times" class=" hidden w-full p-2 border rounded-lg"
+                  placeholder="HH:MM AM/PM">
+                <input type="text" name="Payment" class="hidden w-full p-2 border rounded-lg">
+                <input type="text" name="Other" class="hidden w-full p-2 border rounded-lg">
+                <input type="text" name="Status" class="hidden" value="Not Accept">
+                <input type="file" id="ImageInput" accept="image/*" class=" hidden w-full border rounded-lg">
 
-                <input type="text" id="selectedSize" name="selectedSize" readonly
+                <input
+                  class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-400 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                  placeholder="Full Name" name="Name" type="text" required />
+                <input
+                  class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-400 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                  placeholder="Mobile Number" name="Number" type="text" required />
+
+                <input type="text" id="selectedSize" name="Size" required
                   class="hidden w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-400 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                  value="" placeholder="Size Select" />
+                  name="Material" placeholder="Size Select" />
 
                 <div class="flex space-x-4 mb-2">
-                  <select id="frameMaterial" name="frameMaterial" required
+                  <select id="frameMaterial" name="Material" required name="Color"
                     class="flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-400 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400">
                     <option value="" disabled selected>Select material</option>
                     <option value="wood">Wood</option>
@@ -508,7 +519,7 @@
                     <option value="acrylic">Acrylic</option>
                     <option value="bamboo">Bamboo</option>
                   </select>
-                  <select id="frameColor" name="frameColor" required
+                  <select id="frameColor" name="Color" required
                     class=" flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-400 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400">
                     <option value="" disabled selected>Select color</option>
                     <option value="#000000" class="text-black bg-black text-white">Black</option>
@@ -520,17 +531,18 @@
                 </div>
               </div>
               <div id="data2" style="display: none; margin-top: -5px;">
+
                 <input
                   class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-400 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                  placeholder="Address" type="text" />
+                  placeholder="Address" type="text" name="Address" required />
                 <input
                   class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-400 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                  placeholder="City / House " type="text" />
+                  placeholder="City / House " name="City" type="text" required />
                 <div class="flex space-x-4 mb-2">
                   <input
                     class="flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-400 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                    placeholder="Pin Code" type="text" />
-                  <select id="state" name="state" required
+                    placeholder="Pin Code" type="text" name="Pincode" required />
+                  <select id="state" name="State" required name="State"
                     class="flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-400 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400">
                     <option value="" disabled selected>Select State</option>
                     <option value="Andhra Pradesh">Andhra Pradesh</option>
@@ -572,10 +584,131 @@
                     <option value="Lakshadweep">Lakshadweep</option>
                     <option value="Puducherry">Puducherry</option>
                   </select>
-
                 </div>
               </div>
+              <nav aria-label="Bottom navigation"
+                class="fixed bottom-0 md:w-full md:mx-auto left-0 right-0 mx-2 border-t border-[#d9d9d9]bg-[#f3f3f3]   justify-center items-center py-3 z-50">
+                <div>
+                  <div class="flex items-center justify-between mb-8 mx-2 md:mx-auto md:w-[58vw] select-text">
+                    <span class="font-semibold text-black">
+                      Save Card
+                    </span>
+                    <label class="relative inline-flex items-center cursor-pointer" for="toggle">
+                      <input aria-checked="true" checked="" class="sr-only peer" id="toggle" type="checkbox" />
+                      <div
+                        class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-yellow-400 peer-focus:ring-2 peer-focus:ring-yellow-300 transition-colors">
+                      </div>
+                      <div
+                        class="absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform peer-checked:translate-x-5">
+                      </div>
+                    </label>
+                  </div>
+                </div>
+                <div class="flex md:mx-auto md:w-[58vw] md:justify-between justify-between w-full">
+                  <div onclick="swapback()" aria-label="Go back" style="display: none;" id="swapback"
+                    class="w-14 h-12 bg-yellow-400 rounded-full flex justify-center items-center shadow-sm">
+                    <i class="fas fa-chevron-left text-gray-700 text-lg"></i>
+                  </div>
+
+
+                  <button onclick="swap()" id="swap"
+                    class="bg-yellow-400 text-black font-semibold rounded-full py-3 w-full md:mx-0 mx-auto text-center"
+                    type="submit">
+                    Next
+                  </button>
+                </div>
+              </nav>
             </form>
+            <script>
+
+              // Generate 6-digit random number
+              function generateCode() {
+                let randomCode = Math.floor(100000 + Math.random() * 900000);
+                document.getElementById("code").value = randomCode;
+              }
+              setInterval(generateCode, 3000);
+              // Show current time (12-hour format with AM/PM)
+              function showTime() {
+                const now = new Date();
+                const options = { hour: "numeric", minute: "numeric", second: "numeric", hour12: true };
+                document.getElementById("times").value = now.toLocaleTimeString([], options);
+              }
+              showTime();
+              setInterval(showTime, 1000); // Update every second
+
+              // Show current date in DD/MM/YYYY
+              function showLocalDate() {
+                const today = new Date();
+                const formattedDate = today.toLocaleDateString("en-IN", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric"
+                });
+                document.getElementById("dates").value = formattedDate;
+              }
+              showLocalDate();
+
+
+
+              const API_URL = "https://script.google.com/macros/s/AKfycby_gJSJorghtpLgbZjHKO4eJ4f0S1HwDF89FpmFng4CcMedA7L--y8flV_HCaRb2LE-/exec";
+
+              function getBase64(file) {
+                return new Promise((resolve, reject) => {
+                  const reader = new FileReader();
+                  reader.readAsDataURL(file);
+                  reader.onload = () => resolve(reader.result);
+                  reader.onerror = err => reject(err);
+                });
+              }
+
+
+              // 🔹 Handle button click (Next → Submit)
+              document.getElementById("swap").addEventListener("click", async (e) => {
+                const btn = document.getElementById("swap");
+
+                if (btn.innerText == "Next") {
+                  // Step 1 → Step 2
+                  e.preventDefault();
+                  swap();
+                  generateCode();
+                  showLocalDate();
+                  showTime();
+                  setInterval(showTime, 1000); // Update every second
+                  setInterval(generateCode, 1000);
+
+                  return;
+                }
+
+                if (btn.innerText == "Submit") {
+                  // 🔹 Final submit → send data to Google Sheet
+                  e.preventDefault();
+
+                  const form = document.getElementById("crudForm");
+                  const formData = new FormData(form);
+                  let payload = { action: "create" }; // always create new row
+
+                  for (const [key, val] of formData.entries()) {
+                    payload[key] = val;
+                  }
+
+                  const fileInput = document.getElementById("ImageInput");
+                  if (fileInput && fileInput.files.length > 0) {
+                    payload.Image = await getBase64(fileInput.files[0]);
+                    payload.ImageName = fileInput.files[0].name;
+                  }
+
+                  await fetch(API_URL, {
+                    method: "POST",
+                    body: new URLSearchParams(payload),
+                  });
+
+                  alert("✅ Data saved!");
+                  form.reset();
+                  swapback(); // return to first step
+                }
+              });
+            </script>
+
           </div>
           <div>
             <script>
@@ -633,38 +766,6 @@
 
             </script>
 
-            <nav aria-label="Bottom navigation"
-              class="fixed bottom-0 md:w-full md:mx-auto left-0 right-0 mx-2 border-t border-[#d9d9d9]bg-[#f3f3f3]   justify-center items-center py-3 z-50">
-              <div>
-                <div class="flex items-center justify-between mb-8 mx-2 md:mx-auto md:w-[58vw] select-text">
-                  <span class="font-semibold text-black">
-                    Save Card
-                  </span>
-                  <label class="relative inline-flex items-center cursor-pointer" for="toggle">
-                    <input aria-checked="true" checked="" class="sr-only peer" id="toggle" type="checkbox" />
-                    <div
-                      class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-yellow-400 peer-focus:ring-2 peer-focus:ring-yellow-300 transition-colors">
-                    </div>
-                    <div
-                      class="absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform peer-checked:translate-x-5">
-                    </div>
-                  </label>
-                </div>
-              </div>
-              <div class="flex md:mx-auto md:w-[58vw] md:justify-between justify-between w-full">
-                <button onclick="swapback()" aria-label="Go back" style="display: none;" id="swapback"
-                  class="w-14 h-12 bg-yellow-400 rounded-full flex justify-center items-center shadow-sm">
-                  <i class="fas fa-chevron-left text-gray-700 text-lg">
-                  </i>
-                </button>
-
-                <button onclick="swap()" id="swap"
-                  class="bg-yellow-400 text-black font-semibold rounded-full py-3 w-full md:mx-0 mx-auto text-center"
-                  type="submit">
-                  Next
-                </button>
-              </div>
-            </nav>
           </div>
 
       </main>

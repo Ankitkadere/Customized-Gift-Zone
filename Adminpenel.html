@@ -22,7 +22,7 @@
 
         <!-- Toggle Button (Visible only on mobile) -->
         <div class="flex items-center md:px-0 px-2 h-full justify-between">
-            <button id="menuToggle" class="md:hidden p-3 text-gray-700 focus:outline-none">
+            <button id="menuToggle" class="  p-3 text-gray-700 focus:outline-none">
                 <i class="fas fa-bars text-xl"></i>
 
             </button>
@@ -58,13 +58,14 @@
                 }
             </script>
         </div>
-        <div id="overlay" class="fixed left-0 inset-0 bg-black bg-opacity-50 hidden md:hidden"></div>
+        <div id="overlay" class="fixed left-0 inset-0 bg-black bg-opacity-50 hidden "></div>
         <!-- Sidebar -->
 
-        <aside id="sidebar" class="fixed top-0 left-0 h-full w-56  bg-gray-200 font-extrabold border-r border-gray-200 flex flex-col py-8
+        <aside id="sidebar" class="fixed top-0 left-0 h-full w-56 bg-gray-200 font-extrabold border-r border-gray-200 flex flex-col py-8
          transform -translate-x-full transition-transform duration-300 ease-in-out
-         md:translate-x-0 md:static md:w-40 md:h-full">
-            <div onclick="window.location.href='index.html'" class="mx-auto flex flex-col items-center justify-center text-center mb-8">
+       ">
+            <div onclick="window.location.href='index.html'"
+                class="mx-auto flex flex-col items-center justify-center text-center mb-8">
                 <img src="fav.jpg" alt="ClassyShop logo blue square with white text ClassyShop"
                     class="w-40 h-10 object-contain mb-2" width="160" height="40" />
                 <h1 class="font-bold text-xl text-gray-900">Gift Zone</h1>
@@ -143,11 +144,11 @@
         <main class="flex-1 px-2 md:p-2  md:mx-2 flex flex-col">
 
             <div class="  flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4 sm:gap-0">
-                <div class="flex items-center bg-gray-200 rounded-full px-4 py-2 w-full md:mr-2">
+                <div class="flex items-center bg-gray-200 rounded-full px-4 py-1 w-full md:mr-2">
                     <input type="text" placeholder="Search  +  Orders +  Files  +  Products"
                         class="bg-transparent focus:outline-none text-gray-600 placeholder-gray-400 text-sm w-full" />
                     <button aria-label="Search"
-                        class="ml-2 w-8 h-8 flex items-center justify-center rounded-full text-gray-400   transition">
+                        class="ml-2 w-8 h-8 flex items-center justify-center rounded-full text-gray-400  transition">
                         <i class="fas fa-search text-lg font-extrabold text-gray-600"></i>
                     </button>
                 </div>
@@ -162,7 +163,7 @@
                         <option>Product 4</option>
 
                     </select>
-                    <button
+                    <button onclick="showForm()"
                         class="bg-orange-500 text-white rounded-full w-full text-xs font-extrabold px-6 py-3 hover:bg-orange-600 transition-colors">
                         +Product
                     </button>
@@ -268,9 +269,36 @@
             </section>
 
             <section id="sells" class="">
-                <h2 class="text-orange-500 font-semibold text-xl mb-6">
-                    Orders and sells
-                </h2>
+                <div class="flex  justify-end"> <!-- 🔍 Filter Section -->
+
+                    <h2 class="  fixed md:left-12 md:top-20 top-3 left-12 text-orange-500 font-semibold text-xl mb-6">
+                        Orders
+                    </h2>
+
+                    <div class="mb-4  mx-1 flex justify-between md:justify-end space-x-4">
+                        <select id="filterField"
+                            class=" border rounded-lg shadow-sm p-2  md:pl-2 md:px-4   focus:outline-none text-sm">
+                            <option value="">All Fields</option>
+                            <option value="Id">Id</option>
+                            <option value="Date">Date</option>
+                            <option value="Time">Time</option>
+                            <option value="Name">Name</option>
+                            <option value="Number">Number</option>
+                            <option value="Material">Material</option>
+                            <option value="Color">Color</option>
+                            <option value="Address">Address</option>
+                            <option value="City">City</option>
+                            <option value="Pincode">Pincode</option>
+                            <option value="State">State</option>
+                            <option value="Status">Status</option>
+                            <option value="Payment">Payment</option>
+                            <option value="Other">Other</option>
+                        </select>
+
+                        <input type="text" id="searchInput" placeholder="Search..."
+                            class="md:w-80 w-[66vw] p-2 border rounded-lg shadow-sm  focus:outline-none text-sm">
+                    </div>
+                </div>
                 <hr>
                 <style>
                     .sells {
@@ -278,353 +306,306 @@
                         overflow: auto;
                     }
                 </style>
-                <!-- Last Orders Table -->
-                <div class="  overflow-auto mb-6  h-[72vh]">
-                    <table class="w-full overflow-auto text-left text-gray-700 text-xs font-semibold">
-                        <thead class="bg-gray-100 ">
-                            <tr>
-                                <th class=" text-gray-700 py-3 pr-6">Order</th>
-                                <th class="text-gray-700 py-3 pr-6">Name</th>
-                                <th class="text-gray-700 py-3 pr-6">Product</th>
-                                <th class="text-gray-700 py-3 pr-6">Date</th>
-                                <th class="text-gray-700 py-3 pr-6">Tracking</th>
-                                <th class="text-gray-700 py-3 pr-6">Price</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="border-t border-gray-100/20">
-                                <td class="py-3 pr-6">#715234</td>
-                                <td class="py-3 pr-6">Kenny Kevin</td>
-                                <td class="py-3 pr-6">Notebook</td>
-                                <td class="py-3 pr-6">18.09.2018</td>
-                                <td class="py-3 pr-6">
-                                    <span
-                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-orange-100 text-orange-500">Shipped</span>
-                                </td>
-                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
-                            </tr>
-                            <tr class="border-t border-gray-100/20">
-                                <td class="py-3 pr-6">#715235</td>
-                                <td class="py-3 pr-6">Williams John</td>
-                                <td class="py-3 pr-6">Handphone</td>
-                                <td class="py-3 pr-6">23.09.2018</td>
-                                <td class="py-3 pr-6">
-                                    <span
-                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-cyan-100 text-cyan-500">Pending</span>
-                                </td>
-                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
-                            </tr>
-                            <tr class="border-t border-gray-100/20">
-                                <td class="py-3 pr-6">#715236</td>
-                                <td class="py-3 pr-6">Alex Martin</td>
-                                <td class="py-3 pr-6">Laptop</td>
-                                <td class="py-3 pr-6">25.09.2018</td>
-                                <td class="py-3 pr-6">
-                                    <span
-                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-orange-100 text-orange-500">Shipped</span>
-                                </td>
-                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
-                            </tr>
-                            <tr class="border-t border-gray-100/20">
-                                <td class="py-3 pr-6">#715237</td>
-                                <td class="py-3 pr-6">John Andre</td>
-                                <td class="py-3 pr-6">Headset</td>
-                                <td class="py-3 pr-6">27.09.2018</td>
-                                <td class="py-3 pr-6">
-                                    <span
-                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-cyan-100 text-cyan-500">Pending</span>
-                                </td>
-                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
-                            </tr>
-                            <tr class="border-t border-gray-100/20">
-                                <td class="py-3 pr-6">#715238</td>
-                                <td class="py-3 pr-6">Henderson</td>
-                                <td class="py-3 pr-6">Tablet</td>
-                                <td class="py-3 pr-6">28.09.2018</td>
-                                <td class="py-3 pr-6">
-                                    <span
-                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-orange-100 text-orange-500">Shipped</span>
-                                </td>
-                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
-                            </tr>
-                            <tr class="border-t border-gray-100/20">
-                                <td class="py-3 pr-6">#715239</td>
-                                <td class="py-3 pr-6">Kenny Kevin</td>
-                                <td class="py-3 pr-6">Notebook</td>
-                                <td class="py-3 pr-6">18.09.2018</td>
-                                <td class="py-3 pr-6">
-                                    <span
-                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-orange-100 text-orange-500">Shipped</span>
-                                </td>
-                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
-                            </tr>
-                            <tr class="border-t border-gray-100/20">
-                                <td class="py-3 pr-6">#715240</td>
-                                <td class="py-3 pr-6">Williams John</td>
-                                <td class="py-3 pr-6">Handphone</td>
-                                <td class="py-3 pr-6">23.09.2018</td>
-                                <td class="py-3 pr-6">
-                                    <span
-                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-cyan-100 text-cyan-500">Pending</span>
-                                </td>
-                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
-                            </tr>
-                            <tr class="border-t border-gray-100/20">
-                                <td class="py-3 pr-6">#715241</td>
-                                <td class="py-3 pr-6">Alex Martin</td>
-                                <td class="py-3 pr-6">Laptop</td>
-                                <td class="py-3 pr-6">25.09.2018</td>
-                                <td class="py-3 pr-6">
-                                    <span
-                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-orange-100 text-orange-500">Shipped</span>
-                                </td>
-                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
-                            </tr>
-                            <tr class="border-t border-gray-100/20">
-                                <td class="py-3 pr-6">#715242</td>
-                                <td class="py-3 pr-6">John Andre</td>
-                                <td class="py-3 pr-6">Headset</td>
-                                <td class="py-3 pr-6">27.09.2018</td>
-                                <td class="py-3 pr-6">
-                                    <span
-                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-cyan-100 text-cyan-500">Pending</span>
-                                </td>
-                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
-                            </tr>
-                            <tr class="border-t border-gray-100/20">
-                                <td class="py-3 pr-6">#715234</td>
-                                <td class="py-3 pr-6">Kenny Kevin</td>
-                                <td class="py-3 pr-6">Notebook</td>
-                                <td class="py-3 pr-6">18.09.2018</td>
-                                <td class="py-3 pr-6">
-                                    <span
-                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-orange-100 text-orange-500">Shipped</span>
-                                </td>
-                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
-                            </tr>
-                            <tr class="border-t border-gray-100/20">
-                                <td class="py-3 pr-6">#715235</td>
-                                <td class="py-3 pr-6">Williams John</td>
-                                <td class="py-3 pr-6">Handphone</td>
-                                <td class="py-3 pr-6">23.09.2018</td>
-                                <td class="py-3 pr-6">
-                                    <span
-                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-cyan-100 text-cyan-500">Pending</span>
-                                </td>
-                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
-                            </tr>
-                            <tr class="border-t border-gray-100/20">
-                                <td class="py-3 pr-6">#715236</td>
-                                <td class="py-3 pr-6">Alex Martin</td>
-                                <td class="py-3 pr-6">Laptop</td>
-                                <td class="py-3 pr-6">25.09.2018</td>
-                                <td class="py-3 pr-6">
-                                    <span
-                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-orange-100 text-orange-500">Shipped</span>
-                                </td>
-                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
-                            </tr>
-                            <tr class="border-t border-gray-100/20">
-                                <td class="py-3 pr-6">#715237</td>
-                                <td class="py-3 pr-6">John Andre</td>
-                                <td class="py-3 pr-6">Headset</td>
-                                <td class="py-3 pr-6">27.09.2018</td>
-                                <td class="py-3 pr-6">
-                                    <span
-                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-cyan-100 text-cyan-500">Pending</span>
-                                </td>
-                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
-                            </tr>
-                            <tr class="border-t border-gray-100/20">
-                                <td class="py-3 pr-6">#715238</td>
-                                <td class="py-3 pr-6">Henderson</td>
-                                <td class="py-3 pr-6">Tablet</td>
-                                <td class="py-3 pr-6">28.09.2018</td>
-                                <td class="py-3 pr-6">
-                                    <span
-                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-orange-100 text-orange-500">Shipped</span>
-                                </td>
-                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
-                            </tr>
-                            <tr class="border-t border-gray-100/20">
-                                <td class="py-3 pr-6">#715239</td>
-                                <td class="py-3 pr-6">Kenny Kevin</td>
-                                <td class="py-3 pr-6">Notebook</td>
-                                <td class="py-3 pr-6">18.09.2018</td>
-                                <td class="py-3 pr-6">
-                                    <span
-                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-orange-100 text-orange-500">Shipped</span>
-                                </td>
-                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
-                            </tr>
-                            <tr class="border-t border-gray-100/20">
-                                <td class="py-3 pr-6">#715240</td>
-                                <td class="py-3 pr-6">Williams John</td>
-                                <td class="py-3 pr-6">Handphone</td>
-                                <td class="py-3 pr-6">23.09.2018</td>
-                                <td class="py-3 pr-6">
-                                    <span
-                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-cyan-100 text-cyan-500">Pending</span>
-                                </td>
-                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
-                            </tr>
-                            <tr class="border-t border-gray-100/20">
-                                <td class="py-3 pr-6">#715241</td>
-                                <td class="py-3 pr-6">Alex Martin</td>
-                                <td class="py-3 pr-6">Laptop</td>
-                                <td class="py-3 pr-6">25.09.2018</td>
-                                <td class="py-3 pr-6">
-                                    <span
-                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-orange-100 text-orange-500">Shipped</span>
-                                </td>
-                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
-                            </tr>
-                            <tr class="border-t border-gray-100/20">
-                                <td class="py-3 pr-6">#715242</td>
-                                <td class="py-3 pr-6">John Andre</td>
-                                <td class="py-3 pr-6">Headset</td>
-                                <td class="py-3 pr-6">27.09.2018</td>
-                                <td class="py-3 pr-6">
-                                    <span
-                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-cyan-100 text-cyan-500">Pending</span>
-                                </td>
-                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
-                            </tr>
-                            <tr class="border-t border-gray-100/20">
-                                <td class="py-3 pr-6">#715234</td>
-                                <td class="py-3 pr-6">Kenny Kevin</td>
-                                <td class="py-3 pr-6">Notebook</td>
-                                <td class="py-3 pr-6">18.09.2018</td>
-                                <td class="py-3 pr-6">
-                                    <span
-                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-orange-100 text-orange-500">Shipped</span>
-                                </td>
-                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
-                            </tr>
-                            <tr class="border-t border-gray-100/20">
-                                <td class="py-3 pr-6">#715235</td>
-                                <td class="py-3 pr-6">Williams John</td>
-                                <td class="py-3 pr-6">Handphone</td>
-                                <td class="py-3 pr-6">23.09.2018</td>
-                                <td class="py-3 pr-6">
-                                    <span
-                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-cyan-100 text-cyan-500">Pending</span>
-                                </td>
-                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
-                            </tr>
-                            <tr class="border-t border-gray-100/20">
-                                <td class="py-3 pr-6">#715236</td>
-                                <td class="py-3 pr-6">Alex Martin</td>
-                                <td class="py-3 pr-6">Laptop</td>
-                                <td class="py-3 pr-6">25.09.2018</td>
-                                <td class="py-3 pr-6">
-                                    <span
-                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-orange-100 text-orange-500">Shipped</span>
-                                </td>
-                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
-                            </tr>
-                            <tr class="border-t border-gray-100/20">
-                                <td class="py-3 pr-6">#715237</td>
-                                <td class="py-3 pr-6">John Andre</td>
-                                <td class="py-3 pr-6">Headset</td>
-                                <td class="py-3 pr-6">27.09.2018</td>
-                                <td class="py-3 pr-6">
-                                    <span
-                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-cyan-100 text-cyan-500">Pending</span>
-                                </td>
-                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
-                            </tr>
-                            <tr class="border-t border-gray-100/20">
-                                <td class="py-3 pr-6">#715238</td>
-                                <td class="py-3 pr-6">Henderson</td>
-                                <td class="py-3 pr-6">Tablet</td>
-                                <td class="py-3 pr-6">28.09.2018</td>
-                                <td class="py-3 pr-6">
-                                    <span
-                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-orange-100 text-orange-500">Shipped</span>
-                                </td>
-                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
-                            </tr>
-                            <tr class="border-t border-gray-100/20">
-                                <td class="py-3 pr-6">#715239</td>
-                                <td class="py-3 pr-6">Kenny Kevin</td>
-                                <td class="py-3 pr-6">Notebook</td>
-                                <td class="py-3 pr-6">18.09.2018</td>
-                                <td class="py-3 pr-6">
-                                    <span
-                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-orange-100 text-orange-500">Shipped</span>
-                                </td>
-                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
-                            </tr>
-                            <tr class="border-t border-gray-100/20">
-                                <td class="py-3 pr-6">#715240</td>
-                                <td class="py-3 pr-6">Williams John</td>
-                                <td class="py-3 pr-6">Handphone</td>
-                                <td class="py-3 pr-6">23.09.2018</td>
-                                <td class="py-3 pr-6">
-                                    <span
-                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-cyan-100 text-cyan-500">Pending</span>
-                                </td>
-                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
-                            </tr>
-                            <tr class="border-t border-gray-100/20">
-                                <td class="py-3 pr-6">#715241</td>
-                                <td class="py-3 pr-6">Alex Martin</td>
-                                <td class="py-3 pr-6">Laptop</td>
-                                <td class="py-3 pr-6">25.09.2018</td>
-                                <td class="py-3 pr-6">
-                                    <span
-                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-orange-100 text-orange-500">Shipped</span>
-                                </td>
-                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
-                            </tr>
-                            <tr class="border-t border-gray-100/20">
-                                <td class="py-3 pr-6">#715242</td>
-                                <td class="py-3 pr-6">John Andre</td>
-                                <td class="py-3 pr-6">Headset</td>
-                                <td class="py-3 pr-6">27.09.2018</td>
-                                <td class="py-3 pr-6">
-                                    <span
-                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-cyan-100 text-cyan-500">Pending</span>
-                                </td>
-                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
-                            </tr>
-                            <tr class="border-t border-gray-100/20">
-                                <td class="py-3 pr-6">#715243</td>
-                                <td class="py-3 pr-6">Henderson</td>
-                                <td class="py-3 pr-6">Tablet</td>
-                                <td class="py-3 pr-6">28.09.2018</td>
-                                <td class="py-3 pr-6">
-                                    <span
-                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-orange-100 text-orange-500">Shipped</span>
-                                </td>
-                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
-                            </tr>
-                            <tr class="border-t border-gray-100/20">
-                                <td class="py-3 pr-6">#715244</td>
-                                <td class="py-3 pr-6">Kenny Kevin</td>
-                                <td class="py-3 pr-6">Notebook</td>
-                                <td class="py-3 pr-6">18.09.2018</td>
-                                <td class="py-3 pr-6">
-                                    <span
-                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-orange-100 text-orange-500">Shipped</span>
-                                </td>
-                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
-                            </tr>
-                            <tr class="border-t border-gray-100/20">
-                                <td class="py-3 pr-6">#715245</td>
-                                <td class="py-3 pr-6">Williams John</td>
-                                <td class="py-3 pr-6">Handphone</td>
-                                <td class="py-3 pr-6">23.09.2018</td>
-                                <td class="py-3 pr-6">
-                                    <span
-                                        class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-cyan-100 text-cyan-500">Pending</span>
-                                </td>
-                                <td class="py-3 pr-6 text-orange-500 font-semibold">€ 1,200.00</td>
-                            </tr>
-                        </tbody>
-                    </table>
+
+
+                <div class=" md:mb-80 mx-auto">
+
+                    <!-- Data Table -->
+                    <div
+                        class="bg-white shadow rounded-lg md:mb-20 w-full md:max-h-[100vw] max-h-[490px] overflow-y-auto overflow-x-auto ">
+                        <table
+                            class=" hidden fixed  w-full md:mr-[-10px]  border border-gray-200 text-xs text-gray-700">
+                            <thead>
+                                <tr class="bg-gray-100 pl-6 text-gray-600 uppercase tracking-wider">
+                                    <th class="p-2 border">Id</th>
+                                    <th class="p-2 border">Date</th>
+                                    <th class="p-2 border">Time</th>
+                                    <th class="p-2 border">Name</th>
+                                    <th class="p-2 border">Number</th>
+                                    <th class="p-2 border">Material</th>
+                                    <th class="p-2 border">Color</th>
+                                    <th class="p-2 border">Address</th>
+                                    <th class="p-2 border">City</th>
+                                    <th class="p-2 border">Pincode</th>
+                                    <th class="p-2 border">State</th>
+                                    <th class="p-2 border">Status</th>
+                                    <th class="p-2 border">Payment</th>
+                                    <th class="p-2 border">Other</th>
+                                    <th class="p-2 border">Image</th>
+                                    <th class="p-2 border">Actions</th>
+                                </tr>
+                            </thead>
+
+                        </table>
+                        <table class="min-w-full border border-gray-200 text-xs text-gray-700">
+                            <thead>
+                                <tr class="bg-gray-100 text-gray-600 uppercase tracking-wider">
+                                    <th class="p-2 border">Id</th>
+                                    <th class="p-2 border">Date</th>
+                                    <th class="p-2 border">Time</th>
+                                    <th class="p-2 border">Name</th>
+                                    <th class="p-2 border">Number</th>
+                                    <th class="p-2 border">Size</th>
+                                    <th class="p-2 border">Material</th>
+                                    <th class="p-2 border">Color</th>
+                                    <th class="p-2 border">Address</th>
+                                    <th class="p-2 border">City</th>
+                                    <th class="p-2 border">Pincode</th>
+                                    <th class="p-2 border">State</th>
+                                    <th class="p-2 border">Status</th>
+                                    <th class="p-2 border">Payment</th>
+                                    <th class="p-2 border">Other</th>
+                                    <th class="p-2 border">Image</th>
+                                    <th class="p-2 border">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody"
+                                class=" max-h-80 overflow-y-auto mb-20 md:mb20 divide-y divide-gray-200"></tbody>
+
+                        </table>
+                    </div>
+
+                    <!-- Form (hidden by default) -->
+                    <div id="formContainer"
+                        class="fixed inset-0 max-w-6xl mx-auto left-0 right-0 top-6 bottom-6 md:top-12 md:bottom-auto max-h-[90vh] overflow-y-auto bg-white rounded-3xl shadow-2xl border border-purple-300 p-10">
+                        <h2 id="formTitle"
+                            class="text-3xl font-semibold mb-10 text-purple-700 border-b border-purple-300 pb-4 flex items-center gap-3">
+                            <i class="fas fa-plus-circle text-purple-500"></i> Add Record
+                        </h2>
+
+                        <form id="crudForm" class="w-full text-sm grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-6">
+                            <input type="hidden" id="Id" name="Id" />
+                            <div>
+                                <label class="block text-purple-700 font-medium mb-2" for="Date">Date</label>
+                                <input type="text" id="Date" name="Date" placeholder="YYYY-MM-DD"
+                                    class="w-full p-3 border border-purple-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 transition" />
+                            </div>
+                            <div>
+                                <label class="block text-purple-700 font-medium mb-2" for="Time">Time</label>
+                                <input type="text" id="Time" name="Time" placeholder="HH:MM AM/PM"
+                                    class="w-full p-3 border border-purple-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 transition" />
+                            </div>
+                            <div>
+                                <label class="block text-purple-700 font-medium mb-2" for="Name">Name</label>
+                                <input type="text" id="Name" name="Name"
+                                    class="w-full p-3 border border-purple-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 transition" />
+                            </div>
+
+                            <div>
+                                <label class="block text-purple-700 font-medium mb-2" for="Number">Number</label>
+                                <input type="text" id="Number" name="Number"
+                                    class="w-full p-3 border border-purple-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 transition" />
+                            </div>
+                            <div>
+                                <label class="block text-purple-700 font-medium mb-2" for="Size">Size</label>
+                                <input type="text" id="Size" name="Size"
+                                    class="w-full p-3 border border-purple-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 transition" />
+                            </div>
+                            <div>
+                                <label class="block text-purple-700 font-medium mb-2" for="Material">Material</label>
+                                <input type="text" id="Material" name="Material"
+                                    class="w-full p-3 border border-purple-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 transition" />
+                            </div>
+
+                            <div>
+                                <label class="block text-purple-700 font-medium mb-2" for="Color">Color</label>
+                                <input type="text" id="Color" name="Color"
+                                    class="w-full p-3 border border-purple-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 transition" />
+                            </div>
+                            <div>
+                                <label class="block text-purple-700 font-medium mb-2" for="Address">Address</label>
+                                <input type="text" id="Address" name="Address"
+                                    class="w-full p-3 border border-purple-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 transition" />
+                            </div>
+                            <div>
+                                <label class="block text-purple-700 font-medium mb-2" for="City">City</label>
+                                <input type="text" id="City" name="City"
+                                    class="w-full p-3 border border-purple-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 transition" />
+                            </div>
+
+                            <div>
+                                <label class="block text-purple-700 font-medium mb-2" for="Pincode">Pincode</label>
+                                <input type="text" id="Pincode" name="Pincode"
+                                    class="w-full p-3 border border-purple-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 transition" />
+                            </div>
+                            <div>
+                                <label class="block text-purple-700 font-medium mb-2" for="State">State</label>
+                                <input type="text" id="State" name="State"
+                                    class="w-full p-3 border border-purple-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 transition" />
+                            </div>
+                            <div>
+                                <label class="block text-purple-700 font-medium mb-2" for="Status">Status</label>
+                                <input type="text" id="Status" name="Status"
+                                    class="w-full p-3 border border-purple-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 transition" />
+                            </div>
+
+                            <div>
+                                <label class="block text-purple-700 font-medium mb-2" for="Payment">Payment</label>
+                                <input type="text" id="Payment" name="Payment"
+                                    class="w-full p-3 border border-purple-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 transition" />
+                            </div>
+                            <div>
+                                <label class="block text-purple-700 font-medium mb-2" for="Other">Other</label>
+                                <input type="text" id="Other" name="Other"
+                                    class="w-full p-3 border border-purple-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 transition" />
+                            </div>
+                            <div class="md:col-span-3">
+                                <label class="block text-purple-700 font-medium mb-2" for="ImageInput">Upload
+                                    Image</label>
+                                <input type="file" id="ImageInput" name="ImageInput" accept="image/*"
+                                    class="w-full border border-purple-300 rounded-xl p-2 cursor-pointer text-purple-700 hover:border-purple-500 transition" />
+                            </div>
+
+                            <div class="md:col-span-3 flex justify-end space-x-6 mt-8">
+                                <button type="button" onclick="hideForm()"
+                                    class="px-8 py-3 bg-purple-300 text-purple-800 font-semibold rounded-xl hover:bg-purple-400 transition flex items-center gap-3">
+                                    <i class="fas fa-times"></i> Cancel
+                                </button>
+                                <button type="submit"
+                                    class="px-8 py-3 bg-purple-700 text-white font-semibold rounded-xl hover:bg-purple-800 transition flex items-center gap-3">
+                                    <i class="fas fa-save"></i> Save
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Add Button -->
+                    <div class="mt-6 text-center">
+                        <button onclick="showForm()"
+                            class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded shadow">+ Add
+                            New</button>
+                    </div>
                 </div>
+
+                <script>
+                    const API_URL = "https://script.google.com/macros/s/AKfycby_gJSJorghtpLgbZjHKO4eJ4f0S1HwDF89FpmFng4CcMedA7L--y8flV_HCaRb2LE-/exec";
+                    let editing = false;
+                    let allRecords = []; // ✅ global storage for filtering
+
+                    function formatDate(dateValue) {
+                        if (!dateValue) return "";
+                        if (!isNaN(dateValue)) {
+                            let jsDate = new Date(Math.round((dateValue - 25569) * 86400 * 1000));
+                            return jsDate.toLocaleDateString("en-GB");
+                        }
+                        let date = new Date(dateValue);
+                        if (isNaN(date)) return dateValue;
+                        return date.toLocaleDateString("en-GB");
+                    }
+
+                    function formatTime(timeValue) {
+                        if (!timeValue) return "";
+                        if (!isNaN(timeValue)) {
+                            let totalMinutes = Math.round(timeValue * 24 * 60);
+                            let hours = Math.floor(totalMinutes / 60);
+                            let minutes = totalMinutes % 60;
+                            let period = hours >= 12 ? "PM" : "AM";
+                            hours = hours % 12 || 12;
+                            return `${hours}:${minutes.toString().padStart(2, "0")} ${period}`;
+                        }
+                        let date = new Date(`1970-01-01T${timeValue}`);
+                        if (isNaN(date)) return timeValue;
+                        return date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true });
+                    }
+
+                    function renderTable(records) {
+                        const tbody = document.getElementById("tableBody");
+                        tbody.innerHTML = "";
+                        records.forEach(record => {
+                            tbody.innerHTML += `
+          <tr class="hover:bg-gray-50 overlfow-auto min-h-[80px]">
+            <td class="border p-2 ">${record.Id}</td>
+            <td class="border p-2">${formatDate(record.Date)}</td>
+            <td class="border p-2">${formatTime(record.Time)}</td>
+            <td class="border p-2">${record.Name}</td>
+            <td class="border p-2">${record.Number}</td>
+              <td class="border p-2">${record.Size}</td>
+            <td class="border p-2">${record.Material}</td>
+            <td class="border p-2">${record.Color}</td>
+            <td class="border p-2">${record.Address}</td>
+            <td class="border p-2">${record.City}</td>
+            <td class="border p-2">${record.Pincode}</td>
+            <td class="border p-2">${record.State}</td>
+            <td class="border p-2">${record.Status}</td>
+            <td class="border p-2">${record.Payment}</td>
+            <td class="border p-2">${record.Other}</td>
+            <td class="border p-2">${record.Image ? `<a href="${record.Image}" target="_blank" class="text-blue-600 underline">View</a>` : ""}</td>
+            <td class="border flex p-2 space-x-1">
+              <button onclick='editRecord(${JSON.stringify(record)})' class="bg-yellow-500 text-white px-2 py-1 rounded text-xs">  <i class="fas fa-pen"></i></button>
+              <button onclick='deleteRecord("${record.Id}")' class="bg-red-600 text-white px-2 py-1 rounded text-xs"> <i class="fas fa-trash"></i></button>
+            </td>
+          </tr>`;
+                        });
+                    }
+
+                    async function fetchRecords() {
+                        const res = await fetch(`${API_URL}?action=read`);
+                        const data = await res.json();
+                        allRecords = data.records; // ✅ save for filter
+                        renderTable(allRecords);
+                    }
+
+                    function showForm(record = null) {
+                        document.getElementById("formContainer").classList.remove("hidden");
+                        document.getElementById("crudForm").reset();
+                        document.getElementById("formTitle").innerText = record ? "Edit Record" : "Add Record";
+                        editing = !!record;
+                        if (record) {
+                            Object.keys(record).forEach(key => {
+                                let input = document.querySelector(`[name="${key}"]`);
+                                if (input) input.value = record[key];
+                            });
+                        }
+                    }
+                    function hideForm() { document.getElementById("formContainer").classList.add("hidden"); }
+                    function editRecord(record) { showForm(record); }
+
+                    async function deleteRecord(id) {
+                        if (!confirm("Are you sure ?")) return;
+                        await fetch(API_URL, { method: "POST", body: new URLSearchParams({ action: "delete", Id: id }) });
+                        fetchRecords();
+                    }
+
+                    function getBase64(file) {
+                        return new Promise((resolve, reject) => {
+                            const reader = new FileReader();
+                            reader.readAsDataURL(file);
+                            reader.onload = () => resolve(reader.result);
+                            reader.onerror = err => reject(err);
+                        });
+                    }
+
+                    // 🔍 Filter logic
+                    document.getElementById("searchInput").addEventListener("input", applyFilter);
+                    document.getElementById("filterField").addEventListener("change", applyFilter);
+
+                    function applyFilter() {
+                        const query = document.getElementById("searchInput").value.toLowerCase().trim();
+                        const field = document.getElementById("filterField").value;
+                        let filtered = allRecords.filter(record => {
+                            if (!query) return true;
+                            if (field) return String(record[field] || "").toLowerCase().includes(query);
+                            return Object.values(record).some(val => String(val).toLowerCase().includes(query));
+                        });
+                        renderTable(filtered);
+                    }
+
+                    document.getElementById("crudForm").addEventListener("submit", async (e) => {
+                        e.preventDefault();
+                        const formData = new FormData(e.target);
+                        let payload = { action: editing ? "update" : "create" };
+                        for (const [key, val] of formData.entries()) payload[key] = val;
+                        const fileInput = document.getElementById("ImageInput");
+                        if (fileInput.files.length > 0) {
+                            payload.Image = await getBase64(fileInput.files[0]);
+                            payload.ImageName = fileInput.files[0].name;
+                        }
+                        await fetch(API_URL, { method: "POST", body: new URLSearchParams(payload) });
+                        hideForm();
+                        fetchRecords();
+                    });
+
+                    fetchRecords();
+                </script>
             </section>
 
             <section id="message" class="hidden">
