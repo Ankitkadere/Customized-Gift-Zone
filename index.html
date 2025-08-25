@@ -2,25 +2,51 @@
 
 <head>
   <meta charset="utf-8" />
-  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Gift Zone : Customized Gift Zone</title>
   <meta name="description" content="Gift Zone : Photo Frame's App" />
+
+  <!-- Favicon -->
   <link rel="icon" href="fav.jpg" type="image/jpeg" />
-  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+
+  <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- OneSignal Notifications -->
+  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js"></script>
   <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-  <!-- Link Manifest -->
-  <link rel="manifest" href="manifest.json">
+
+  <!-- Web App Manifest -->
+  <link rel="manifest" href="manifest.json" />
+
+  <!-- Theme Colors -->
   <meta name="theme-color" content="#f5fdf7" />
   <meta name="background-color" content="#f5fdf7" />
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Gift Zone">
-  <link rel="apple-touch-icon" href="fav.jpg">
 
+  <!-- Apple iOS PWA Settings -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Gift Zone" />
+  <link rel="apple-touch-icon" href="fav.jpg" />
+
+  <!-- Global Background & Text Color -->
+  <style>
+    html,
+    body {
+      background-color: #f5fdf7;
+      color: black;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
 </head>
+
 <script>
   /*
   window.OneSignalDeferred = window.OneSignalDeferred || [];
