@@ -6,6 +6,7 @@
   <title>Gift Zone : Customized Zone</title>
   <meta name="description" content="Apna Course Learning App" />
   <link rel="apple-touch-icon" href="fav.jpg" />
+  <meta name="theme-color" content="#f5fdf7">
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" href="fav.jpg" type="image/jpeg" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -240,59 +241,7 @@
       setInterval(() => showSlide(index + 1), 3000);
     })();
   </script>
-
-  <script>
-    let deferredPrompt;
-    const installBtn = document.getElementById('installBtn');
-
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      installBtn.style.display = 'block';
-
-      installBtn.addEventListener('click', () => {
-        installBtn.style.display = 'none';
-
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then((choiceResult) => {
-          if (choiceResult.outcome === 'accepted') {
-            console.log('User accepted the install prompt');
-            document.getElementById('appDownload').style.display = 'block';
-            const statusText = document.getElementById("installStatus");
-            setTimeout(() => {
-              statusText.innerText = "Installed";
-            }, 4000);
-          } else {
-            console.log('User dismissed the install prompt');
-            setTimeout(() => {
-              statusText.innerText = "Not Install";
-            }, 4000);
-          }
-          deferredPrompt = null;
-        });
-      });
-    });
-
-    // Register service worker
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
-          .then(reg => console.log('Service Worker registered:', reg))
-          .catch(err => console.error('Service Worker registration failed:', err));
-      });
-    }
-
-    self.addEventListener("install", function (event) {
-      console.log("Service Worker installing.");
-    });
-
-    self.addEventListener("fetch", function (event) {
-      // You can handle caching if you want here
-    });
-
-  </script>
-
+ 
   <div id="courselist"></div>
   <script>
     // Load CSS dynamically

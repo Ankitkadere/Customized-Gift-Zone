@@ -7,7 +7,7 @@
     <link rel="apple-touch-icon" href="fav.jpg" />
     <link rel="icon" href="fav.jpg" type="image/jpeg/jpg" />
     <meta charset="utf-8" />
-      <meta name="theme-color" content="#f5fdf7">
+    <meta name="theme-color" content="#f5fdf7">
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <title>Gift Zone : Photo Frame</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -34,6 +34,112 @@
             }
         }
     </style>
+    <style>
+        /* Overlay background */
+        #appDownload {
+            display: none;
+            /* initially hidden */
+            z-index: 9999;
+        }
+
+        /* Centered modal box */
+        #appDownload .modal-box {
+            width: 320px;
+            background: #fff;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            text-align: center;
+        }
+
+        /* App logo */
+        #appDownload img {
+            border-radius: 50%;
+            margin-bottom: 1rem;
+        }
+
+        /* Progress bar container */
+        .progress-container {
+            width: 100%;
+            background-color: #e5e7eb;
+            /* Tailwind gray-200 */
+            border-radius: 9999px;
+            height: 1.5rem;
+            overflow: hidden;
+            position: relative;
+            margin-top: 1rem;
+        }
+
+        /* Progress bar fill */
+        #progress-bar {
+            background-color: #2563eb;
+            /* Tailwind blue-600 */
+            height: 100%;
+            width: 0%;
+            border-radius: 9999px;
+            transition: width 0.3s ease-in-out;
+        }
+
+        /* Progress text */
+        #progress-text {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.875rem;
+            /* text-sm */
+            pointer-events: none;
+        }
+
+        /* Install button */
+        #installBtn {
+            margin-top: 1rem;
+            width: 100%;
+            padding: 0.5rem 1rem;
+            background-color: #2563eb;
+            /* blue-600 */
+            color: #fff;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        #installBtn:hover {
+            background-color: #1d4ed8;
+            /* blue-700 */
+        }
+
+        /* Status text */
+        #status-text {
+            margin-top: 1rem;
+            font-weight: 500;
+            color: #374151;
+            /* gray-700 */
+        }
+
+        /* Keyframes animation (optional) */
+        @keyframes fillWidth {
+            from {
+                width: 0%;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+    </style>
+
 </head>
 
 <body class=" bg-[#f5fdf7] text-gray-900">
@@ -44,8 +150,8 @@
                     class="sm:hidden text-gray-700 hover:text-gray-900   focus:outline-none">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
-                <img alt="Gift Zone" class=" hidden w-28 h-10  md:block object-contain"
-                    height="32" src="favll.jpg" width="32" />
+                <img alt="Gift Zone" class=" hidden w-28 h-10  md:block object-contain" height="32" src="favll.jpg"
+                    width="32" />
                 <h1 class="font-extrabold w-full pt-0 md:pt-3 flex text-black md:text-1x1 text-2xl leading-none">
                     Gift Zone
                     <span class="font-normal hidden pt-1 px-1 md:block text-gray-500   sm:text-sm md:text-sm ">
@@ -63,7 +169,7 @@
                     <!-- Menu -->
                     <div id="menu"
                         class="hidden absolute right-0 mt-2 w-40 bg-white border z-[150] rounded-lg shadow-lg">
-                        <script src="https://cdn.tailwindcss.com"></script>
+                     
                         <link rel="stylesheet"
                             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
                         <style>
@@ -100,9 +206,7 @@
                                 }
                             }
                         </style>
-
-                        <body class="bg-gray-100 flex items-center justify-center w-full p-4 mx-4">
-
+ 
                             <div id="modalOverlay"
                                 class="fixed inset-0 p-4 bg-black bg-opacity-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
                                 <!-- Modal Box -->
@@ -125,18 +229,15 @@
                                         Thank you for your order! Your order has been successfully placed and is being
                                         processed. You will receive a confirmation email shortly.
                                     </p>
-                                    <button onclick="document.getElementById('appDownload').style.display='flex'"
-                                        class="px-8 py-3 mx-auto bg-green-600 hover:bg-blue-700 text-white font-semibold rounded-md flex items-center gap-2 transition">
+                                    <button id="installBtn" onclick="document.getElementById('appDownload').style.display='flex'"
+                                        class="px-2 py-3 w-20 mx-auto bg-green-600 hover:bg-blue-700 text-white font-semibold rounded-md flex items-center gap-2 transition">
                                         <i class="fas fa-download"></i>
                                         <span>Download App</span>
                                     </button>
 
                                 </div>
                             </div>
-
-
-                        </body>
-
+  
 
                         <a href="#" class="hidden block px-4 py-2 text-gray-700 hover:bg-gray-100">
                             <i class="fas fa-trash mr-2"></i> Delete
@@ -181,7 +282,8 @@
         </div>
         <nav aria-label="Primary Navigation"
             class="hidden sm:flex mx-auto items-center justify-between px-4 py-2 text-xs sm:text-sm text-gray-700">
-            <div onclick="window.location.href='Job.html'" class="flex items-center space-x-2 cursor-pointer select-none">
+            <div onclick="window.location.href='Job.html'"
+                class="flex items-center space-x-2 cursor-pointer select-none">
                 <span class="font-semibold">SHOP BY CATEGORIES</span>
                 <i class="fas fa-chevron-down text-xs"></i>
             </div>
@@ -207,10 +309,10 @@
     <div id="mobile-nav"
         class=" bg-[#f5fdf7] z-[100]  fixed inset-y-0 left-0 w-80  shadow-lg transform -translate-x-full transition-transform duration-300 ease-in-out z-50 overflow-y-auto">
         <div class="flex items-center justify-between px-4 py-3 border-b border-gray-200">
-            <div class="flex items-center space-x-2">
-                <img alt="ClassyShop logo blue square with white text ClassyShop" class="w-28 h-10 object-contain"
+            <div class="flex items-center space-x-2 pt-2">
+                <img alt="ClassyShop logo blue square with white text ClassyShop" class="w-28 h-8 object-contain"
                     height="32" src="fav.jpg" width="32" />
-                <h1 class="font-extrabold w-full pt-3 text-black text-2xl leading-none">
+                <h1 class="font-extrabold w-full text-black text-2xl leading-none">
                     Gift Zone
                     <span class="font-normal text-gray-500 text-base sm:text-lg ">
                         Store
@@ -235,7 +337,8 @@
         </div>
 
         <nav class="px-4 py-4 text-gray-700 text-lg">
-            <div onclick="window.location.href='Job.html'" class="mb-3 flex items-center space-x-2 cursor-pointer select-none font-semibold">
+            <div onclick="window.location.href='Job.html'"
+                class="mb-3 flex items-center space-x-2 cursor-pointer select-none font-semibold">
                 <span>SHOP BY CATEGORIES</span>
                 <i class="fas fa-chevron-down text-xs"></i>
             </div>
@@ -318,25 +421,28 @@
     <!-- Overlay -->
     <div id="overlay" class="fixed inset-0 bg-black bg-opacity-30 hidden z-[50]" aria-hidden="true"></div>
 
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+        });
+    </script>
+ 
+        <!-- App Download Modal -->
+        <section id="appDownload" class="fixed inset-0 bg-black/60 flex items-center justify-center hidden z-[9999]">
+            <div class="bg-white rounded-xl shadow-xl p-6 w-80 flex flex-col items-center relative">
+                <img src="fav.jpg" alt="App Logo" class="w-24 h-24 rounded-full mb-3">
+                <p id="installStatus" class="text-green-700 font-semibold text-lg mb-3">Processing...</p>
 
-    <section style="display: none ;" id="appDownload" style="z-index: 99999999999999999rem;"
-        class="fixed w-full z-[160] top-0 left-0 bg-black/60 flex items-center justify-center min-h-screen transition-opacity">
-        <div
-            class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 bg-white rounded-xl p-6 flex flex-col items-center shadow-l">
-            <img alt="App Logo" src="fav.jpg" width="90" height="90" class="mb-3 rounded-full" />
-            <p id="installStatus" class="text-green-700 font-semibold text-lg mb-3"
-                style="font-family: 'Montserrat', sans-serif;">
-                Processing...
-
-            <div class="w-full max-w-md bg-white rounded-lg shadow-lg p-6">
-                <h1 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center justify-center space-x-3">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center justify-center space-x-2">
                     <i class="fas fa-download text-blue-600"></i>
-
-                </h1>
+                    <span>App Download</span>
+                </h2>
 
                 <div class="w-full bg-gray-200 rounded-full h-6 overflow-hidden relative">
-                    <div id="progress-bar" class="bg-blue-600 h-6 rounded-full"
-                        style="width: 0%; animation: fillWidth 4s linear forwards;"></div>
+                    <div id="progress-bar" class="bg-blue-600 h-full w-0 transition-all"></div>
                     <span id="progress-text"
                         class="absolute inset-0 flex items-center justify-center text-white font-semibold text-sm select-none">0%</span>
                 </div>
@@ -344,132 +450,132 @@
                 <p id="status-text" class="mt-4 text-center text-gray-700 font-medium">
                     Downloading your App...
                 </p>
+ 
+                <audio id="audioPlayer" src="bell.wav" class="hidden"></audio>
             </div>
-            <style>
-                @keyframes fillWidth {
-                    from {
-                        width: 0%;
-                    }
+        </section>
 
-                    to {
-                        width: 100%;
-                    }
+        <script>
+            const progressBar = document.getElementById("progress-bar");
+            const progressText = document.getElementById("progress-text");
+            const statusText = document.getElementById("status-text");
+            const installStatus = document.getElementById("installStatus");
+            const audio = document.getElementById("audioPlayer");
+            const installBtn = document.getElementById("installBtn");
+            const appDownload = document.getElementById("appDownload");
+
+            // Show modal
+            appDownload.classList.remove('hidden');
+
+            let duration = 5000; // total duration in ms
+            let startTime = null;
+
+            function animateProgress(timestamp) {
+                if (!startTime) startTime = timestamp;
+                const elapsed = timestamp - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const percent = Math.floor(progress * 100);
+
+                progressBar.style.width = percent + "%";
+                progressText.textContent = percent + "%";
+
+                if (progress < 1) {
+                    requestAnimationFrame(animateProgress);
+                } else {
+                    statusText.textContent = "Download Complete!";
+                    installStatus.textContent = "Installed";
+                    audio.play().catch(err => console.error(err));
                 }
-            </style>
-            <script>
-                const progressBar = document.getElementById("progress-bar");
-                const progressText = document.getElementById("progress-text");
-                const statusTexts = document.getElementById("status-text");
+            }
+            requestAnimationFrame(animateProgress);
 
-                let startTime = null;
-                const duration = 5000; // 4 seconds
-
-                function animateProgress(timestamp) {
-                    if (!startTime) startTime = timestamp;
-                    const elapsed = timestamp - startTime;
-                    const progress = Math.min(elapsed / duration, 1);
-                    const percent = Math.floor(progress * 100);
-
-                    progressBar.style.width = percent + "%";
-                    progressText.textContent = percent + "%";
-
-                    if (progress < 1) {
-                        requestAnimationFrame(animateProgress);
+            // Add to Home Screen button
+            installBtn.addEventListener('click', async () => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    const { outcome } = await deferredPrompt.userChoice;
+                    if (outcome === 'accepted') {
+                        console.log('User accepted the install prompt');
+                        installStatus.textContent = "App Installed!";
                     } else {
-                        statusTexts.textContent = "Download Complete!";
-                        const statusText = document.getElementById("installStatus");
-
-                        statusText.innerText = "Installed";
-                        const audio = document.getElementById("audioPlayer");
-                        audio.play().catch(err => {
-                            statusText.innerText = "Completed";
-                            console.error(err);
-                        });
-
-                        statusTexts.onclick = () => {
-                            window.location.reload();
-                        };
+                        console.log('User dismissed the install prompt');
+                        installStatus.textContent = "Install Cancelled";
                     }
+                    deferredPrompt = null;
+                    installBtn.style.display = 'none';
+                } else {
+                    alert("Your app is ready to install from browser settings.");
                 }
+            });
+        </script>
 
-                requestAnimationFrame(animateProgress);
-            </script>
-            </p>
-            <audio id="audioPlayer" class="hidden" src="bell.wav"></audio>
+        <script>
+            const mobileMenuButton = document.getElementById("mobile-menu-button");
+            const mobileMenuClose = document.getElementById("mobile-menu-close");
+            const mobileNav = document.getElementById("mobile-nav");
+            const overlay = document.getElementById("overlay");
 
-        </div>
-    </section>
-
-
-    <script>
-        const mobileMenuButton = document.getElementById("mobile-menu-button");
-        const mobileMenuClose = document.getElementById("mobile-menu-close");
-        const mobileNav = document.getElementById("mobile-nav");
-        const overlay = document.getElementById("overlay");
-
-        function openMenu() {
-            mobileNav.classList.remove("-translate-x-full");
-            overlay.classList.remove("hidden");
-            document.body.style.overflow = "hidden";
-        }
-
-        function closeMenu() {
-            mobileNav.classList.add("-translate-x-full");
-            overlay.classList.add("hidden");
-            document.body.style.overflow = "";
-        }
-
-        mobileMenuButton.addEventListener("click", openMenu);
-        mobileMenuClose.addEventListener("click", closeMenu);
-        overlay.addEventListener("click", closeMenu);
-    </script>
-
-
-    <script>
-        const openBtn = document.getElementById("openModalBtn");
-        const closeBtn = document.getElementById("closeModalBtn");
-        const closeBtnFooter = document.getElementById("closeModalBtnFooter");
-        const modalOverlay = document.getElementById("modalOverlay");
-        const modalBox = document.getElementById("modalBox");
-
-        function openModal() {
-            modalOverlay.classList.remove("opacity-0", "pointer-events-none");
-            modalOverlay.classList.add("opacity-100");
-            modalBox.classList.remove("opacity-0", "scale-95", "fade-out");
-            modalBox.classList.add("fade-in");
-        }
-
-        function closeModal() {
-            modalBox.classList.remove("fade-in");
-            modalBox.classList.add("fade-out");
-            modalOverlay.classList.remove("opacity-100");
-            modalOverlay.classList.add("opacity-0");
-            // Wait for animation to finish before disabling pointer events
-            setTimeout(() => {
-                modalOverlay.classList.add("pointer-events-none");
-                modalBox.classList.remove("fade-out");
-                modalBox.classList.add("opacity-0", "scale-95");
-            }, 300);
-        }
-
-        openBtn.addEventListener("click", openModal);
-        closeBtn.addEventListener("click", closeModal);
-        closeBtnFooter.addEventListener("click", closeModal);
-
-        // Close modal on overlay click
-        modalOverlay.addEventListener("click", (e) => {
-            if (e.target === modalOverlay) {
-                closeModal();
+            function openMenu() {
+                mobileNav.classList.remove("-translate-x-full");
+                overlay.classList.remove("hidden");
+                document.body.style.overflow = "hidden";
             }
-        });
 
-        // Close modal on ESC key press
-        document.addEventListener("keydown", (e) => {
-            if (e.key === "Escape" && !modalOverlay.classList.contains("pointer-events-none")) {
-                closeModal();
+            function closeMenu() {
+                mobileNav.classList.add("-translate-x-full");
+                overlay.classList.add("hidden");
+                document.body.style.overflow = "";
             }
-        });
-    </script>
-</body>
+
+            mobileMenuButton.addEventListener("click", openMenu);
+            mobileMenuClose.addEventListener("click", closeMenu);
+            overlay.addEventListener("click", closeMenu);
+        </script>
+        <script>
+            const openBtn = document.getElementById("openModalBtn");
+            const closeBtn = document.getElementById("closeModalBtn");
+            const closeBtnFooter = document.getElementById("closeModalBtnFooter");
+            const modalOverlay = document.getElementById("modalOverlay");
+            const modalBox = document.getElementById("modalBox");
+
+            function openModal() {
+                modalOverlay.classList.remove("opacity-0", "pointer-events-none");
+                modalOverlay.classList.add("opacity-100");
+                modalBox.classList.remove("opacity-0", "scale-95", "fade-out");
+                modalBox.classList.add("fade-in");
+            }
+
+            function closeModal() {
+                modalBox.classList.remove("fade-in");
+                modalBox.classList.add("fade-out");
+                modalOverlay.classList.remove("opacity-100");
+                modalOverlay.classList.add("opacity-0");
+                // Wait for animation to finish before disabling pointer events
+                setTimeout(() => {
+                    modalOverlay.classList.add("pointer-events-none");
+                    modalBox.classList.remove("fade-out");
+                    modalBox.classList.add("opacity-0", "scale-95");
+                }, 300);
+            }
+
+            openBtn.addEventListener("click", openModal);
+            closeBtn.addEventListener("click", closeModal);
+            closeBtnFooter.addEventListener("click", closeModal);
+
+            // Close modal on overlay click
+            modalOverlay.addEventListener("click", (e) => {
+                if (e.target === modalOverlay) {
+                    closeModal();
+                }
+            });
+
+            // Close modal on ESC key press
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "Escape" && !modalOverlay.classList.contains("pointer-events-none")) {
+                    closeModal();
+                }
+            });
+        </script>
+    </body>
 
 </html>
