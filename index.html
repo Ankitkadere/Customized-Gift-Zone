@@ -11,19 +11,16 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
   <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-  <!-- Link Manifest -->
   <link rel="manifest" href="manifest.json">
-
-  <meta name="background-color" content="blue-600" />
+  <meta name="background-color" content="bg-blue-600" />
+    <meta name="background-color" content="#60A5FA" />
   <meta name="apple-mobile-web-app-title" content="Gift Zone">
   <link rel="apple-touch-icon" href="fav.jpg">
-
   <meta name="theme-color" content="#f5fdf7" />
   <meta name="apple-mobile-web-app-status-bar-style" content="#f5fdf7" />
   <meta name="msapplication-navbutton-color" content="#f5fdf7" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
-
 </head>
 <script>
   /*
@@ -71,39 +68,6 @@
 <body class="bg-[#f5fdf7]  flex flex-col text-sm  ">
 
   <div id="header"></div> <!-- Header will load here -->
-  <i id="installsystem" class="fas fa-download absolute top-4 text-lg right-14 hidden"></i>
-
-  <script>
-    let deferredPrompt;
-    const installBtns = document.getElementById("installsystem");
-
-    // Listen for install prompt availability
-    window.addEventListener("beforeinstallprompt", (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      installBtns.classList.remove("hidden"); // show only if installable
-    });
-
-    // Check if already installed (PWA or standalone)
-    if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
-      installBtns.classList.add("hidden"); // hide if installed
-    }
-
-    // Direct install on click
-    installBtns.addEventListener("click", async () => {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        if (outcome === "accepted") {
-          installBtns.classList.add("hidden"); // hide after install
-          setTimeout(() => window.location.reload(), 3000);
-        } else {
-          console.log("User dismissed install");
-        }
-        deferredPrompt = null;
-      }
-    });
-  </script>
 
   <script>
     let deferredPrompt; // store the event
