@@ -69,7 +69,110 @@
 </head>
 
 <body class="bg-[#f5fdf7]  flex flex-col text-sm  ">
+
   <div id="header"></div> <!-- Header will load here -->
+  <i id="installsystem" class="fas fa-download absolute top-4 text-lg right-14 hidden"></i>
+
+  <script>
+    let deferredPrompt;
+    const installBtns = document.getElementById("installsystem");
+
+    // Listen for install prompt availability
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtns.classList.remove("hidden"); // show only if installable
+    });
+
+    // Check if already installed (PWA or standalone)
+    if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
+      installBtns.classList.add("hidden"); // hide if installed
+    }
+
+    // Direct install on click
+    installBtns.addEventListener("click", async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === "accepted") {
+          installBtns.classList.add("hidden"); // hide after install
+          setTimeout(() => window.location.reload(), 3000);
+        } else {
+          console.log("User dismissed install");
+        }
+        deferredPrompt = null;
+      }
+    });
+  </script>
+
+  <script>
+    let deferredPrompt; // store the event
+
+    const progressBar = document.getElementById("progress-bar");
+    const progressText = document.getElementById("progress-text");
+    const statusText = document.getElementById("status-text");
+    const installStatus = document.getElementById("installStatus");
+    const audio = document.getElementById("audioPlayer");
+    const installBtn = document.getElementById("installsystem");
+    const appDownload = document.getElementById("appDownload");
+
+    // Wait for browser to fire install event
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      // show the install button (if hidden)
+      installBtn.classList.remove("hidden");
+    });
+
+    // Show modal immediately
+    installBtn.addEventListener("click", async () => {
+      appDownload.classList.remove("hidden");
+
+      // Start fake progress bar
+      let duration = 5000; // total ms
+      let startTime = null;
+
+      function animateProgress(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const percent = Math.floor(progress * 100);
+
+        progressBar.style.width = percent + "%";
+        progressText.textContent = percent + "%";
+
+        if (progress < 1) {
+          requestAnimationFrame(animateProgress);
+        } else {
+          statusText.textContent = "Download Complete!";
+          installStatus.textContent = "Ready to Install";
+          audio.play().catch(err => console.error(err));
+
+          // Show PWA install prompt
+          if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choice) => {
+              if (choice.outcome === "accepted") {
+                installStatus.textContent = "App Installed!";
+              } else {
+                installStatus.textContent = "Install Cancelled";
+              }
+              deferredPrompt = null;
+              setTimeout(() => {
+                window.location.reload();
+              }, 3000);
+            });
+          } else {
+            installStatus.textContent = "Already Installed";
+            setTimeout(() => {
+              window.location.reload();
+            }, 3000);
+          }
+        }
+      }
+      requestAnimationFrame(animateProgress);
+    });
+  </script>
 
   <script>
     // Load Header CSS (optional)
