@@ -169,7 +169,7 @@
                     <!-- Menu -->
                     <div id="menu"
                         class="hidden absolute right-0 mt-2 w-40 bg-white border z-[150] rounded-lg shadow-lg">
-                     
+
                         <link rel="stylesheet"
                             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
                         <style>
@@ -206,38 +206,39 @@
                                 }
                             }
                         </style>
- 
-                            <div id="modalOverlay"
-                                class="fixed inset-0 p-4 bg-black bg-opacity-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
-                                <!-- Modal Box -->
-                                <div id="modalBox"
-                                    class="bg-white rounded-lg shadow-xl max-w-md w-full p-6 transform opacity-0 scale-95"
-                                    role="dialog" aria-modal="true" aria-labelledby="modalTitle"
-                                    aria-describedby="modalDesc">
-                                    <div class="flex justify-between items-center mb-4">
-                                        <h2 id="modalTitle"
-                                            class="text-xl font-semibold text-green-700 flex items-center space-x-2">
-                                            <i class="fas fa-check-circle text-green-600 text-2xl"></i>
-                                            <span>Download Mobile App</span>
-                                        </h2>
-                                        <button id="closeModalBtn" aria-label="Close order confirmation"
-                                            class="text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-green-400 rounded">
-                                            <i class="fas fa-times text-xl"></i>
-                                        </button>
-                                    </div>
-                                    <p id="modalDesc" class="text-gray-700 mb-6">
-                                        Thank you for your order! Your order has been successfully placed and is being
-                                        processed. You will receive a confirmation email shortly.
-                                    </p>
-                                    <button id="installBtn" onclick="document.getElementById('appDownload').style.display='flex'"
-                                        class="px-2 py-3 w-20 mx-auto bg-green-600 hover:bg-blue-700 text-white font-semibold rounded-md flex items-center gap-2 transition">
-                                        <i class="fas fa-download"></i>
-                                        <span>Download App</span>
-                                    </button>
 
+                        <div id="modalOverlay"
+                            class="fixed inset-0 p-4 bg-black bg-opacity-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
+                            <!-- Modal Box -->
+                            <div id="modalBox"
+                                class="bg-white rounded-lg shadow-xl max-w-md w-full p-6 transform opacity-0 scale-95"
+                                role="dialog" aria-modal="true" aria-labelledby="modalTitle"
+                                aria-describedby="modalDesc">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h2 id="modalTitle"
+                                        class="text-xl font-semibold text-green-700 flex items-center space-x-2">
+                                        <i class="fas fa-check-circle text-green-600 text-2xl"></i>
+                                        <span>Download Mobile App</span>
+                                    </h2>
+                                    <button id="closeModalBtn" aria-label="Close order confirmation"
+                                        class="text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-green-400 rounded">
+                                        <i class="fas fa-times text-xl"></i>
+                                    </button>
                                 </div>
+                                <p id="modalDesc" class="text-gray-700 mb-6">
+                                    Thank you for your order! Your order has been successfully placed and is being
+                                    processed. You will receive a confirmation email shortly.
+                                </p>
+                                <button id="installBtn"
+                                    onclick="document.getElementById('appDownload').style.display='flex'"
+                                    class="px-2 py-3 w-20 mx-auto bg-green-600 hover:bg-blue-700 text-white font-semibold rounded-md flex items-center gap-2 transition">
+                                    <i class="fas fa-download"></i>
+                                    <span>Download App</span>
+                                </button>
+
                             </div>
-  
+                        </div>
+
 
                         <a href="#" class="hidden block px-4 py-2 text-gray-700 hover:bg-gray-100">
                             <i class="fas fa-trash mr-2"></i> Delete
@@ -429,153 +430,153 @@
             deferredPrompt = e;
         });
     </script>
- 
-        <!-- App Download Modal -->
-        <section id="appDownload" class="fixed inset-0 bg-black/60 flex items-center justify-center hidden z-[9999]">
-            <div class="bg-white rounded-xl shadow-xl p-6 w-80 flex flex-col items-center relative">
-                <img src="fav.jpg" alt="App Logo" class="w-24 h-24 rounded-full mb-3">
-                <p id="installStatus" class="text-green-700 font-semibold text-lg mb-3">Processing...</p>
 
-                <h2 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center justify-center space-x-2">
-                    <i class="fas fa-download text-blue-600"></i>
-                    <span>App Download</span>
-                </h2>
+    <!-- App Download Modal -->
+    <section id="appDownload" class="fixed inset-0 bg-black/60 flex items-center justify-center hidden z-[9999]">
+        <div class="bg-white rounded-xl shadow-xl p-6 w-80 flex flex-col items-center relative">
+            <img src="fav.jpg" alt="App Logo" class="w-24 h-24 rounded-full mb-3">
+            <p id="installStatus" class="text-green-700 font-semibold text-lg mb-3">Processing...</p>
 
-                <div class="w-full bg-gray-200 rounded-full h-6 overflow-hidden relative">
-                    <div id="progress-bar" class="bg-blue-600 h-full w-0 transition-all"></div>
-                    <span id="progress-text"
-                        class="absolute inset-0 flex items-center justify-center text-white font-semibold text-sm select-none">0%</span>
-                </div>
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center justify-center space-x-2">
+                <i class="fas fa-download text-blue-600"></i>
+                <span>App Download</span>
+            </h2>
 
-                <p id="status-text" class="mt-4 text-center text-gray-700 font-medium">
-                    Downloading your App...
-                </p>
- 
-                <audio id="audioPlayer" src="bell.wav" class="hidden"></audio>
+            <div class="w-full bg-gray-200 rounded-full h-6 overflow-hidden relative">
+                <div id="progress-bar" class="bg-blue-600 h-full w-0 transition-all"></div>
+                <span id="progress-text"
+                    class="absolute inset-0 flex items-center justify-center text-white font-semibold text-sm select-none">0%</span>
             </div>
-        </section>
 
-        <script>
-            const progressBar = document.getElementById("progress-bar");
-            const progressText = document.getElementById("progress-text");
-            const statusText = document.getElementById("status-text");
-            const installStatus = document.getElementById("installStatus");
-            const audio = document.getElementById("audioPlayer");
-            const installBtn = document.getElementById("installBtn");
-            const appDownload = document.getElementById("appDownload");
+            <p id="status-text" class="mt-4 text-center text-gray-700 font-medium">
+                Downloading your App...
+            </p>
 
-            // Show modal
-            appDownload.classList.remove('hidden');
+            <audio id="audioPlayer" src="bell.wav" class="hidden"></audio>
+        </div>
+    </section>
 
-            let duration = 5000; // total duration in ms
-            let startTime = null;
+    <script>
+        const progressBar = document.getElementById("progress-bar");
+        const progressText = document.getElementById("progress-text");
+        const statusText = document.getElementById("status-text");
+        const installStatus = document.getElementById("installStatus");
+        const audio = document.getElementById("audioPlayer");
+        const installBtn = document.getElementById("installBtn");
+        const appDownload = document.getElementById("appDownload");
 
-            function animateProgress(timestamp) {
-                if (!startTime) startTime = timestamp;
-                const elapsed = timestamp - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                const percent = Math.floor(progress * 100);
+        // Show modal
+        appDownload.classList.remove('hidden');
 
-                progressBar.style.width = percent + "%";
-                progressText.textContent = percent + "%";
+        let duration = 5000; // total duration in ms
+        let startTime = null;
 
-                if (progress < 1) {
-                    requestAnimationFrame(animateProgress);
+        function animateProgress(timestamp) {
+            if (!startTime) startTime = timestamp;
+            const elapsed = timestamp - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const percent = Math.floor(progress * 100);
+
+            progressBar.style.width = percent + "%";
+            progressText.textContent = percent + "%";
+
+            if (progress < 1) {
+                requestAnimationFrame(animateProgress);
+            } else {
+                statusText.textContent = "Download Complete!";
+                installStatus.textContent = "Installed";
+                audio.play().catch(err => console.error(err));
+            }
+        }
+        requestAnimationFrame(animateProgress);
+
+        // Add to Home Screen button
+        installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    console.log('User accepted the install prompt');
+                    installStatus.textContent = "App Installed!";
                 } else {
-                    statusText.textContent = "Download Complete!";
-                    installStatus.textContent = "Installed";
-                    audio.play().catch(err => console.error(err));
+                    console.log('User dismissed the install prompt');
+                    installStatus.textContent = "Install Cancelled";
                 }
+                deferredPrompt = null;
+                installBtn.style.display = 'none';
+            } else {
+                alert("Your app is ready to install from browser settings.");
             }
-            requestAnimationFrame(animateProgress);
+        });
+    </script>
 
-            // Add to Home Screen button
-            installBtn.addEventListener('click', async () => {
-                if (deferredPrompt) {
-                    deferredPrompt.prompt();
-                    const { outcome } = await deferredPrompt.userChoice;
-                    if (outcome === 'accepted') {
-                        console.log('User accepted the install prompt');
-                        installStatus.textContent = "App Installed!";
-                    } else {
-                        console.log('User dismissed the install prompt');
-                        installStatus.textContent = "Install Cancelled";
-                    }
-                    deferredPrompt = null;
-                    installBtn.style.display = 'none';
-                } else {
-                    alert("Your app is ready to install from browser settings.");
-                }
-            });
-        </script>
+    <script>
+        const mobileMenuButton = document.getElementById("mobile-menu-button");
+        const mobileMenuClose = document.getElementById("mobile-menu-close");
+        const mobileNav = document.getElementById("mobile-nav");
+        const overlay = document.getElementById("overlay");
 
-        <script>
-            const mobileMenuButton = document.getElementById("mobile-menu-button");
-            const mobileMenuClose = document.getElementById("mobile-menu-close");
-            const mobileNav = document.getElementById("mobile-nav");
-            const overlay = document.getElementById("overlay");
+        function openMenu() {
+            mobileNav.classList.remove("-translate-x-full");
+            overlay.classList.remove("hidden");
+            document.body.style.overflow = "hidden";
+        }
 
-            function openMenu() {
-                mobileNav.classList.remove("-translate-x-full");
-                overlay.classList.remove("hidden");
-                document.body.style.overflow = "hidden";
+        function closeMenu() {
+            mobileNav.classList.add("-translate-x-full");
+            overlay.classList.add("hidden");
+            document.body.style.overflow = "";
+        }
+
+        mobileMenuButton.addEventListener("click", openMenu);
+        mobileMenuClose.addEventListener("click", closeMenu);
+        overlay.addEventListener("click", closeMenu);
+    </script>
+    <script>
+        const openBtn = document.getElementById("openModalBtn");
+        const closeBtn = document.getElementById("closeModalBtn");
+        const closeBtnFooter = document.getElementById("closeModalBtnFooter");
+        const modalOverlay = document.getElementById("modalOverlay");
+        const modalBox = document.getElementById("modalBox");
+
+        function openModal() {
+            modalOverlay.classList.remove("opacity-0", "pointer-events-none");
+            modalOverlay.classList.add("opacity-100");
+            modalBox.classList.remove("opacity-0", "scale-95", "fade-out");
+            modalBox.classList.add("fade-in");
+        }
+
+        function closeModal() {
+            modalBox.classList.remove("fade-in");
+            modalBox.classList.add("fade-out");
+            modalOverlay.classList.remove("opacity-100");
+            modalOverlay.classList.add("opacity-0");
+            // Wait for animation to finish before disabling pointer events
+            setTimeout(() => {
+                modalOverlay.classList.add("pointer-events-none");
+                modalBox.classList.remove("fade-out");
+                modalBox.classList.add("opacity-0", "scale-95");
+            }, 300);
+        }
+
+        openBtn.addEventListener("click", openModal);
+        closeBtn.addEventListener("click", closeModal);
+        closeBtnFooter.addEventListener("click", closeModal);
+
+        // Close modal on overlay click
+        modalOverlay.addEventListener("click", (e) => {
+            if (e.target === modalOverlay) {
+                closeModal();
             }
+        });
 
-            function closeMenu() {
-                mobileNav.classList.add("-translate-x-full");
-                overlay.classList.add("hidden");
-                document.body.style.overflow = "";
+        // Close modal on ESC key press
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && !modalOverlay.classList.contains("pointer-events-none")) {
+                closeModal();
             }
-
-            mobileMenuButton.addEventListener("click", openMenu);
-            mobileMenuClose.addEventListener("click", closeMenu);
-            overlay.addEventListener("click", closeMenu);
-        </script>
-        <script>
-            const openBtn = document.getElementById("openModalBtn");
-            const closeBtn = document.getElementById("closeModalBtn");
-            const closeBtnFooter = document.getElementById("closeModalBtnFooter");
-            const modalOverlay = document.getElementById("modalOverlay");
-            const modalBox = document.getElementById("modalBox");
-
-            function openModal() {
-                modalOverlay.classList.remove("opacity-0", "pointer-events-none");
-                modalOverlay.classList.add("opacity-100");
-                modalBox.classList.remove("opacity-0", "scale-95", "fade-out");
-                modalBox.classList.add("fade-in");
-            }
-
-            function closeModal() {
-                modalBox.classList.remove("fade-in");
-                modalBox.classList.add("fade-out");
-                modalOverlay.classList.remove("opacity-100");
-                modalOverlay.classList.add("opacity-0");
-                // Wait for animation to finish before disabling pointer events
-                setTimeout(() => {
-                    modalOverlay.classList.add("pointer-events-none");
-                    modalBox.classList.remove("fade-out");
-                    modalBox.classList.add("opacity-0", "scale-95");
-                }, 300);
-            }
-
-            openBtn.addEventListener("click", openModal);
-            closeBtn.addEventListener("click", closeModal);
-            closeBtnFooter.addEventListener("click", closeModal);
-
-            // Close modal on overlay click
-            modalOverlay.addEventListener("click", (e) => {
-                if (e.target === modalOverlay) {
-                    closeModal();
-                }
-            });
-
-            // Close modal on ESC key press
-            document.addEventListener("keydown", (e) => {
-                if (e.key === "Escape" && !modalOverlay.classList.contains("pointer-events-none")) {
-                    closeModal();
-                }
-            });
-        </script>
-    </body>
+        });
+    </script>
+</body>
 
 </html>

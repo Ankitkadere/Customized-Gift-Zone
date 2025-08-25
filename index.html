@@ -3,20 +3,20 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
-  <title>Gift Zone : Customized Zone</title>
+  <title>Gift Zone : Customized Gift Zone</title>
   <meta name="description" content="Apna Course Learning App" />
   <link rel="apple-touch-icon" href="fav.jpg" />
-  <meta name="theme-color" content="#f5fdf7">
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" href="fav.jpg" type="image/jpeg" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
+  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+  <meta name="theme-color" content="#f5fdf7">
 </head>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
-<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 <script>
   /*
   window.OneSignalDeferred = window.OneSignalDeferred || [];
@@ -95,8 +95,6 @@
       })
       .catch(err => console.error("Error loading header:", err));
   </script>
-
-
 
   <a href="Inputsuggestion.html" class="inputset">
     <form id="search-form" class="w-full px-3" role="search" aria-label="Search jobs or courses" novalidate>
@@ -241,7 +239,7 @@
       setInterval(() => showSlide(index + 1), 3000);
     })();
   </script>
- 
+
   <div id="courselist"></div>
   <script>
     // Load CSS dynamically
