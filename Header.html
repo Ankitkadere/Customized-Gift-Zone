@@ -238,7 +238,7 @@
                                 </p>
                                 <button id="installBtn"
                                     onclick="document.getElementById('appDownload').style.display='flex'"
-                                    class="px-2 py-3 w-20 mx-auto bg-green-600 hover:bg-blue-700 text-white font-semibold rounded-md flex items-center gap-2 transition">
+                                    class="px-2 py-3 w-20   justify-center bg-green-600 hover:bg-blue-700 text-white font-semibold rounded-md flex items-center gap-2 transition">
                                     <i class="fas fa-download"></i>
                                     <span>Download App</span>
                                 </button>
@@ -444,10 +444,6 @@
             <img src="fav.jpg" alt="App Logo" class="w-24 h-24 rounded-full mb-3">
             <p id="installStatus" class="text-green-700 font-semibold text-lg mb-3">Processing...</p>
 
-            <h2 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center justify-center space-x-2">
-                <i class="fas fa-download text-blue-600"></i>
-                <span>App Download</span>
-            </h2>
 
             <div class="w-full bg-gray-200 rounded-full h-6 overflow-hidden relative">
                 <div id="progress-bar" class="bg-blue-600 h-full w-0 transition-all"></div>
@@ -492,6 +488,9 @@
             } else {
                 statusText.textContent = "Download Complete!";
                 installStatus.textContent = "Installed";
+                setTimeout(() => {
+                    window.location.reload();
+                }, 3000);
                 audio.play().catch(err => console.error(err));
             }
         }
@@ -512,7 +511,10 @@
                 deferredPrompt = null;
                 installBtn.style.display = 'none';
             } else {
-                alert("Your app is ready to install from browser settings.");
+                installStatus.textContent = "Already Installed";
+                setTimeout(() => {
+                    window.location.reload();
+                }, 3000);
             }
         });
     </script>
