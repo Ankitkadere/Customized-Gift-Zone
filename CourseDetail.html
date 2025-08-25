@@ -5,7 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Product Details</title>
-  <link rel="apple-touch-icon" href="fav.jpg" /> <meta name="theme-color" content="#f5fdf7">
+  <link rel="apple-touch-icon" href="fav.jpg" />
+  <meta name="theme-color" content="#f5fdf7">
   <link rel="icon" href="fav.jpg" type="image/jpeg/jpg" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
@@ -685,7 +686,7 @@
 
                   const form = document.getElementById("crudForm");
                   const formData = new FormData(form);
-                  let payload = { action: "create" }; // always create new row
+                  let payload = { action: "create" };
 
                   for (const [key, val] of formData.entries()) {
                     payload[key] = val;
@@ -701,9 +702,8 @@
                     method: "POST",
                     body: new URLSearchParams(payload),
                   });
-
-                  alert("✅ Data saved!");
                   form.reset();
+                  window.location.href = "Confirmorder.html";
                   swapback(); // return to first step
                 }
               });
