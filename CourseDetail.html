@@ -482,8 +482,6 @@
               <input type="radio" name="size" id="size-9.5" value="9.5" class="hidden" />
 
             </div>
-
-
             <form id="crudForm" onsubmit="" class="space-y-4 mb-2">
               <p class="font-semibold text-black mb-3 md:mx-auto select-text">
                 Process Details
@@ -773,43 +771,19 @@
   </main>
 
   <nav aria-label="Bottom navigation " id="orderbtn"
-    class="fixed md:hidden bottom-0 md:w-full md:flex-row justify-between bg-gray-100 left-0 right-0 border-t gap-1 border-[#d9d9d9] bg-[#f3f3f3] flex  items-center py-2 md:py-0 px-2 z-50">
+    class="fixed md:hidden bottom-0 z-[99999999999px] md:w-full md:flex-row justify-between bg-gray-100 left-0 right-0 border-t gap-1 border-[#d9d9d9] bg-[#f3f3f3] flex  items-center py-1 md:py-0 px-2 z-50">
     <button onclick="notload()"
-      class="bg-green-700 md:hidden text-white font-semibold rounded-full md:py-1 py-2 w-14 mx-auto text-center"
-      type="button">
+      class="bg-green-700  text-white font-semibold rounded-full md:py-1 py-1.5 w-14 mx-auto text-center" type="button">
       <i class="far fa-image text-2xl"></i>
     </button>
 
     <button id="openLoginBtn" onclick="openLogin()"
-      class="bg-green-700 text-white text-2xl md:mt-8 font-semibold rounded-full md:py-1 py-2 w-full md:w-full  mx-auto text-center"
+      class="bg-green-700 text-white text-2xl md:mt-8 font-semibold rounded-full md:py-1 py-1.5 w-full md:w-full  mx-auto text-center"
       type="button">
       Booking
     </button>
   </nav>
-  <div id="product-container"></div>
-  <script>
-    async function loadProductList() {
-      // Load CSS
-      const link = document.createElement("link");
-      link.rel = "stylesheet";
-      link.href = "Productlist/Productlist.css";
-      document.head.appendChild(link);
-
-      // Load HTML
-      const response = await fetch("Productlist/Productlist.html");
-      const html = await response.text();
-      document.getElementById("product-container").innerHTML = html;
-
-      // Now load JS AFTER HTML is inserted
-      const script1 = document.createElement("script");
-      script1.src = "Productlist/Productlist.js?v=" + Date.now(); // avoid cache
-      script1.defer = true;
-      document.body.appendChild(script1);
-    }
-
-    // Call function
-    loadProductList();
-  </script>
+ 
 
   <script>
     const courses = {
@@ -952,7 +926,7 @@
           { name: "Suresh Kumar", rating: 5, comment: "Looks very classy and elegant!" }
         ]
       },
-     
+
       "5": {
         id: 1,
         title: "Single Photo Frame",
@@ -1092,7 +1066,7 @@
           { name: "Suresh Kumar", rating: 5, comment: "Looks very classy and elegant!" }
         ]
       },
-       "9": {
+      "9": {
         title: "Digital Photo Frame",
         icon: "Assets/Digital/digital1.png",
         iconAlt: "Digital photo frame",
@@ -1159,7 +1133,7 @@
           { name: "Suresh Kumar", rating: 5, comment: "Looks very classy and elegant!" }
         ]
       },
-     
+
       "11": {
         id: 1,
         title: "Single Photo Frame",
@@ -1321,7 +1295,7 @@
       const section = document.getElementById("course-detail");
       const link = document.getElementById('imglink').value = course.icon;
       const frame = document.getElementById("frame");
-      const Rs = document.getElementById('openLoginBtn').innerText = course.price + " .Rs";
+      const Rs = document.getElementById('openLoginBtn').innerText = "₹ " + course.price ;
       const Order = document.getElementById('orderbtn').innerHTML;
       frame.innerHTML += `
  <img src="${link}" alt="Demo" class ="mt-10 justify-center align-center text-center mx-auto w-full h-full "> 
