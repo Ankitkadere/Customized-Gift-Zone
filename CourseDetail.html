@@ -786,201 +786,521 @@
       Booking
     </button>
   </nav>
+  <div id="product-container"></div>
+  <script>
+    async function loadProductList() {
+      // Load CSS
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = "Productlist/Productlist.css";
+      document.head.appendChild(link);
+
+      // Load HTML
+      const response = await fetch("Productlist/Productlist.html");
+      const html = await response.text();
+      document.getElementById("product-container").innerHTML = html;
+
+      // Now load JS AFTER HTML is inserted
+      const script1 = document.createElement("script");
+      script1.src = "Productlist/Productlist.js?v=" + Date.now(); // avoid cache
+      script1.defer = true;
+      document.body.appendChild(script1);
+    }
+
+    // Call function
+    loadProductList();
+  </script>
+
   <script>
     const courses = {
-      "english-speaking": {
-        title: "Single Frame",
+      "1": {
+        id: 1,
+        title: "Single Photo Frame",
         icon: "Assets/Single/single1.png",
-        iconAlt: "English Speaking course",
-        description: "Improve your communication skills and fluency in English. Improve your communication skills and fluency in English. Improve your communication.",
-        location: "Online",
-        fees: "Affordable Fees",
-        timings: "3 Months",
-        level: "Beginner",
+        iconAlt: "Single photo frame",
+        description: "Elegant single photo frame perfect for showcasing your favorite memory.",
+        location: "Available Online & Offline",
+        fees: "Affordable Price",
+        timings: "Fast Delivery",
+        level: "Beginner Collection",
         price: "399.00",
+        Demo: "5",
         features: [
-          { icon: "fas fa-chalkboard-teacher", text: "Online" },
-          { badge: "B", text: "Beginner Friendly" },
-          { icon: "fas fa-clock", text: "Flexible Timings" }
+          { icon: "fas fa-image", text: "High Quality Print" },
+          { badge: "B", text: "Best Seller" },
+          { icon: "fas fa-truck", text: "Free Delivery" }
         ],
         syllabus: [
-          "Introduction to photo frame styles and types",
-          "Understanding materials (wood, metal, acrylic, digital)",
-          "Measuring and cutting techniques for frames",
-          "Glass fitting and mounting photos",
-          "Creative decoration and painting methods",
-          "Digital photo frame setup and customization",
-          "Maintenance and care of photo frames",
-          "Final project: Designing your own custom photo frame"
+          "Premium wooden or acrylic build",
+          "Scratch-resistant glass protection",
+          "Easy wall mount & tabletop options",
+          "Photo size: 8x12 inches",
+          "Multiple color options",
+          "Durable finishing",
+          "Lightweight & stylish",
+          "Gift-ready packaging"
         ],
-
         instructors: [
-          { name: " 7 Days Restun Policy", photo: "https://placehold.co/64x64/png?text=Sarah+J", alt: " " },
-          { name: " No Waranty", photo: "https://placehold.co/64x64/png?text=Michael+L", alt: " " }
+          { name: "7 Days Return Policy", photo: "https://placehold.co/64x64/png?text=Return", alt: "Return policy" },
+          { name: "No Warranty", photo: "https://placehold.co/64x64/png?text=No+Warranty", alt: "Warranty info" }
         ],
         reviews: [
-          { name: "Anita Sharma", rating: 5, comment: "Helped me gain confidence in speaking English!" },
-          { name: "Ravi Patel", rating: 4, comment: "Good course with practical exercises." }
+          { name: "Amit Sharma", rating: 5, comment: "Beautiful quality, frame looks premium!" },
+          { name: "Riya Patel", rating: 4, comment: "Nice design, worth the price." }
         ]
       },
 
-      "telly": {
-        title: "Telly Course",
-        icon: " https://static.vecteezy.com/system/resources/previews/044/249/257/non_2x/blank-frame-for-picture-or-image-with-vintage-border-without-background-template-for-mockup-png.png",
-        iconAlt: "Telly course icon",
-        description: "Accounting and financial management training.Accounting and financial management training.Accounting and financial management training.",
-        location: "Online & Offline",
-        fees: "Affordable Fees",
-        timings: "Flexible Timings",
-        level: "Intermediate Level",
-        price: "499.00",
+      "2": {
+        title: "Collage Photo Frame",
+        icon: "Assets/Collage/collage1.png",
+        iconAlt: "Collage photo frame",
+        description: "Stylish collage frame to display multiple memories together.",
+        location: "Available Online & Offline",
+        fees: "Affordable Price",
+        timings: "Fast Delivery",
+        level: "Intermediate Collection",
+        price: "799.00",
+        Demo: "5",
         features: [
-          { icon: "fas fa-calculator", text: "Training" },
-          { badge: "I", text: "Intermediate" },
-          { icon: "fas fa-clock", text: "Flexible Timings" }
+          { icon: "fas fa-th", text: "Multi-Photo Display" },
+          { badge: "I", text: "Popular Choice" },
+          { icon: "fas fa-truck", text: "Free Delivery" }
         ],
         syllabus: [
-          "Accounting principles",
-          "Financial statements",
-          "Budgeting",
-          "Taxation",
-          "Accounting software",
-          "Case studies"
+          "Holds 5–12 photos",
+          "Sturdy wooden build",
+          "Wall-mount design",
+          "Multiple layout styles",
+          "Glass & acrylic protection",
+          "Customizable sizes",
+          "Elegant finishing",
+          "Gift-ready packaging"
         ],
         instructors: [
-          { name: "1  instructor", photo: "https://placehold.co/64x64/png?text=Rajesh+K", alt: "" }
+          { name: "7 Days Return Policy", photo: "https://placehold.co/64x64/png?text=Return", alt: "Return policy" }
         ],
         reviews: [
-          { name: "Sneha Desai", rating: 5, comment: "Excellent training!" },
-          { name: "Karan Mehta", rating: 4, comment: "Well structured course." }
+          { name: "Neha Verma", rating: 5, comment: "Perfect for family pictures!" },
+          { name: "Rohit Gupta", rating: 4, comment: "Looks great in my living room." }
         ]
       },
 
-      "dca": {
-        title: "DCA Course",
-        icon: "https://storage.googleapis.com/a1aa/image/a4423603-46d5-43bf-1247-48de95e66fb4.jpg",
-        iconAlt: "DCA course icon",
-        description: "Diploma in Computer Applications for beginners.",
-        location: "Online & Offline",
-        fees: "Affordable Fees",
-        timings: "Flexible Timings",
-        level: "Advanced Level",
-        price: "1,699.00",
+      "3": {
+        title: "Digital Photo Frame",
+        icon: "Assets/Digital/digital1.png",
+        iconAlt: "Digital photo frame",
+        description: "Modern digital photo frame to showcase memories with a slideshow.",
+        location: "Available Online",
+        fees: "Affordable Price",
+        timings: "Fast Delivery",
+        level: "Advanced Collection",
+        price: "1,999.00",
+        Demo: "5",
         features: [
-          { icon: "fas fa-graduation-cap", text: "Cirtificate" },
-          { badge: "A", text: "Advanced" },
-          { icon: "fas fa-clock", text: "Flexible Timings" }
+          { icon: "fas fa-tv", text: "HD Display" },
+          { badge: "A", text: "Tech-Advanced" },
+          { icon: "fas fa-usb", text: "USB & SD Support" }
         ],
         syllabus: [
-          "Fundamentals of Computer",
-          "MS Office (Word, Excel, PowerPoint)",
-          "Internet and Email",
-          "Basics of Programming",
-          "Database Management Systems",
-          "Project Work"
+          "10-inch HD LED display",
+          "Auto slideshow feature",
+          "USB & memory card support",
+          "Remote control operation",
+          "Multiple transition effects",
+          "Energy-efficient",
+          "Wall-mount & tabletop support",
+          "Warranty: 6 months"
         ],
         instructors: [
-          { name: "1 instructors", photo: "https://placehold.co/64x64/png?text=Neha+V", alt: " 1" }
+          { name: "7 Days Return Policy", photo: "https://placehold.co/64x64/png?text=Return", alt: "Return policy" }
         ],
         reviews: [
-          { name: "Amit Joshi", rating: 5, comment: "Great for beginners !" }
+          { name: "Arjun Malhotra", rating: 5, comment: "Amazing product, looks classy!" },
+          { name: "Shalini Tiwari", rating: 4, comment: "Good features, easy to use." }
         ]
       },
 
-      "pgdca": {
-        title: "PGDCA Course",
-        icon: "https://storage.googleapis.com/a1aa/image/f41ee155-ce03-4dff-ffbc-871097d19bba.jpg",
-        iconAlt: "PGDCA course icon",
-        description: "Post Graduate Diploma in Computer Applications.",
-        location: "Online & Offline",
-        fees: "Affordable Fees",
-        timings: "Flexible Timings",
-        level: "Advanced Level",
-        price: "1,799.00",
+      "4": {
+        title: "Wooden Photo Frame",
+        icon: "Assets/Wooden/wooden1.png",
+        iconAlt: "Wooden photo frame",
+        description: "Classic wooden frame for timeless photo displays.",
+        location: "Available Offline & Online",
+        fees: "Affordable Price",
+        timings: "Fast Delivery",
+        level: "Premium Collection",
+        price: "1,299.00",
+        Demo: "5",
         features: [
-          { icon: "fas fa-graduation-cap", text: "Crtificate" },
-          { badge: "A", text: "Advanced" },
-          { icon: "fas fa-clock", text: "Flexible Timings" }
+          { icon: "fas fa-tree", text: "Pure Wooden Finish" },
+          { badge: "P", text: "Premium Quality" },
+          { icon: "fas fa-truck", text: "Free Delivery" }
         ],
         syllabus: [
-          "Computer Organization",
-          "Data Structures",
-          "Operating Systems",
-          "Web Technologies",
-          "Database Systems",
-          "Software Engineering"
+          "Polished wooden body",
+          "Glass protection",
+          "Available in brown & black",
+          "Size options: A4, A3, A2",
+          "Durable finishing",
+          "Handmade craftsmanship",
+          "Gift-ready packaging"
         ],
         instructors: [
-          { name: "1 instructor ", photo: "https://placehold.co/64x64/png?text=Sunil+A", alt: " " }
+          { name: "7 Days Return Policy", photo: "https://placehold.co/64x64/png?text=Return", alt: "Return policy" }
         ],
         reviews: [
-          { name: "Priya Nair", rating: 5, comment: "Very detailed and useful !" }
+          { name: "Suresh Kumar", rating: 5, comment: "Looks very classy and elegant!" }
+        ]
+      },
+     
+      "5": {
+        id: 1,
+        title: "Single Photo Frame",
+        icon: "Assets/Single/single1.png",
+        iconAlt: "Single photo frame",
+        description: "Elegant single photo frame perfect for showcasing your favorite memory.",
+        location: "Available Online & Offline",
+        fees: "Affordable Price",
+        timings: "Fast Delivery",
+        level: "Beginner Collection",
+        price: "399.00",
+        Demo: "5",
+        features: [
+          { icon: "fas fa-image", text: "High Quality Print" },
+          { badge: "B", text: "Best Seller" },
+          { icon: "fas fa-truck", text: "Free Delivery" }
+        ],
+        syllabus: [
+          "Premium wooden or acrylic build",
+          "Scratch-resistant glass protection",
+          "Easy wall mount & tabletop options",
+          "Photo size: 8x12 inches",
+          "Multiple color options",
+          "Durable finishing",
+          "Lightweight & stylish",
+          "Gift-ready packaging"
+        ],
+        instructors: [
+          { name: "7 Days Return Policy", photo: "https://placehold.co/64x64/png?text=Return", alt: "Return policy" },
+          { name: "No Warranty", photo: "https://placehold.co/64x64/png?text=No+Warranty", alt: "Warranty info" }
+        ],
+        reviews: [
+          { name: "Amit Sharma", rating: 5, comment: "Beautiful quality, frame looks premium!" },
+          { name: "Riya Patel", rating: 4, comment: "Nice design, worth the price." }
         ]
       },
 
-      "11th-grade": {
-        title: "11th Grade Course",
-        icon: "https://storage.googleapis.com/a1aa/image/e19c4740-fb74-44b9-7e1f-5cf1a55c1440.jpg",
-        iconAlt: "11th grade course icon",
-        description: "Higher Secondary Education - 11th Grade.",
-        location: "Online & Offline",
-        fees: "Affordable Fees",
-        timings: "Flexible Timings",
-        level: "High School",
-        price: "299.00",
+      "6": {
+        title: "Collage Photo Frame",
+        icon: "Assets/Collage/collage1.png",
+        iconAlt: "Collage photo frame",
+        description: "Stylish collage frame to display multiple memories together.",
+        location: "Available Online & Offline",
+        fees: "Affordable Price",
+        timings: "Fast Delivery",
+        level: "Intermediate Collection",
+        price: "799.00",
+        Demo: "5",
         features: [
-          { icon: "fas fa-school", text: "Regular Classes" },
-          { badge: "H", text: "Important Q & A" },
-          { icon: "fas fa-clock", text: "Flexible Timings" }
+          { icon: "fas fa-th", text: "Multi-Photo Display" },
+          { badge: "I", text: "Popular Choice" },
+          { icon: "fas fa-truck", text: "Free Delivery" }
         ],
         syllabus: [
-          "---------- As Per Intrested Area ---------",
-          "Mathematics",
-          "Biology",
-          "Commerce",
-          "Art's",
-          "English & Hindi",
-          "Practical Labs"
+          "Holds 5–12 photos",
+          "Sturdy wooden build",
+          "Wall-mount design",
+          "Multiple layout styles",
+          "Glass & acrylic protection",
+          "Customizable sizes",
+          "Elegant finishing",
+          "Gift-ready packaging"
         ],
         instructors: [
-          { name: "1 Instructors", photo: "https://placehold.co/64x64/png?text=Rakesh+S", alt: " " }
+          { name: "7 Days Return Policy", photo: "https://placehold.co/64x64/png?text=Return", alt: "Return policy" }
         ],
         reviews: [
-          { name: "Deepak More", rating: 4, comment: "Covers school curriculum well." }
+          { name: "Neha Verma", rating: 5, comment: "Perfect for family pictures!" },
+          { name: "Rohit Gupta", rating: 4, comment: "Looks great in my living room." }
         ]
       },
 
-      "12th-grade": {
-        title: "12th Grade Course",
-        icon: "https://storage.googleapis.com/a1aa/image/83567cdb-08d8-4d10-920c-e9479b024892.jpg",
-        iconAlt: "12th grade course icon",
-        description: "Higher Secondary Education - 12th Grade.",
-        location: "Online & Offline",
-        fees: "Affordable Fees",
-        timings: "Flexible Timings",
-        level: "High School",
-        price: "299.00",
+      "7": {
+        title: "Digital Photo Frame",
+        icon: "Assets/Digital/digital1.png",
+        iconAlt: "Digital photo frame",
+        description: "Modern digital photo frame to showcase memories with a slideshow.",
+        location: "Available Online",
+        fees: "Affordable Price",
+        timings: "Fast Delivery",
+        level: "Advanced Collection",
+        price: "1,999.00",
+        Demo: "5",
         features: [
-          { icon: "fas fa-school", text: "Regular Classes" },
-          { badge: "H", text: "Important Q & A" },
-          { icon: "fas fa-clock", text: "Flexible Timings" }
+          { icon: "fas fa-tv", text: "HD Display" },
+          { badge: "A", text: "Tech-Advanced" },
+          { icon: "fas fa-usb", text: "USB & SD Support" }
         ],
         syllabus: [
-          "---------- As Per Intrested Area ---------",
-          "Mathematics",
-          "Physics / Chemistry / Biology",
-          "Accounts / Economics",
-          "English / Hindi",
-          "Board Exam Preparation",
-          "Practical Labs"
+          "10-inch HD LED display",
+          "Auto slideshow feature",
+          "USB & memory card support",
+          "Remote control operation",
+          "Multiple transition effects",
+          "Energy-efficient",
+          "Wall-mount & tabletop support",
+          "Warranty: 6 months"
         ],
         instructors: [
-          { name: "1  instructors ", photo: "https://placehold.co/64x64/png?text=Meena+G", alt: "" }
+          { name: "7 Days Return Policy", photo: "https://placehold.co/64x64/png?text=Return", alt: "Return policy" }
         ],
         reviews: [
-          { name: "Shivani Yadav", rating: 5, comment: "Helped me top my board exams !" }
+          { name: "Arjun Malhotra", rating: 5, comment: "Amazing product, looks classy!" },
+          { name: "Shalini Tiwari", rating: 4, comment: "Good features, easy to use." }
+        ]
+      },
+
+      "8": {
+        title: "Wooden Photo Frame",
+        icon: "Assets/Wooden/wooden1.png",
+        iconAlt: "Wooden photo frame",
+        description: "Classic wooden frame for timeless photo displays.",
+        location: "Available Offline & Online",
+        fees: "Affordable Price",
+        timings: "Fast Delivery",
+        level: "Premium Collection",
+        price: "1,299.00",
+        Demo: "5",
+        features: [
+          { icon: "fas fa-tree", text: "Pure Wooden Finish" },
+          { badge: "P", text: "Premium Quality" },
+          { icon: "fas fa-truck", text: "Free Delivery" }
+        ],
+        syllabus: [
+          "Polished wooden body",
+          "Glass protection",
+          "Available in brown & black",
+          "Size options: A4, A3, A2",
+          "Durable finishing",
+          "Handmade craftsmanship",
+          "Gift-ready packaging"
+        ],
+        instructors: [
+          { name: "7 Days Return Policy", photo: "https://placehold.co/64x64/png?text=Return", alt: "Return policy" }
+        ],
+        reviews: [
+          { name: "Suresh Kumar", rating: 5, comment: "Looks very classy and elegant!" }
+        ]
+      },
+       "9": {
+        title: "Digital Photo Frame",
+        icon: "Assets/Digital/digital1.png",
+        iconAlt: "Digital photo frame",
+        description: "Modern digital photo frame to showcase memories with a slideshow.",
+        location: "Available Online",
+        fees: "Affordable Price",
+        timings: "Fast Delivery",
+        level: "Advanced Collection",
+        price: "1,999.00",
+        Demo: "5",
+        features: [
+          { icon: "fas fa-tv", text: "HD Display" },
+          { badge: "A", text: "Tech-Advanced" },
+          { icon: "fas fa-usb", text: "USB & SD Support" }
+        ],
+        syllabus: [
+          "10-inch HD LED display",
+          "Auto slideshow feature",
+          "USB & memory card support",
+          "Remote control operation",
+          "Multiple transition effects",
+          "Energy-efficient",
+          "Wall-mount & tabletop support",
+          "Warranty: 6 months"
+        ],
+        instructors: [
+          { name: "7 Days Return Policy", photo: "https://placehold.co/64x64/png?text=Return", alt: "Return policy" }
+        ],
+        reviews: [
+          { name: "Arjun Malhotra", rating: 5, comment: "Amazing product, looks classy!" },
+          { name: "Shalini Tiwari", rating: 4, comment: "Good features, easy to use." }
+        ]
+      },
+
+      "10": {
+        title: "Wooden Photo Frame",
+        icon: "Assets/Wooden/wooden1.png",
+        iconAlt: "Wooden photo frame",
+        description: "Classic wooden frame for timeless photo displays.",
+        location: "Available Offline & Online",
+        fees: "Affordable Price",
+        timings: "Fast Delivery",
+        level: "Premium Collection",
+        price: "1,299.00",
+        Demo: "5",
+        features: [
+          { icon: "fas fa-tree", text: "Pure Wooden Finish" },
+          { badge: "P", text: "Premium Quality" },
+          { icon: "fas fa-truck", text: "Free Delivery" }
+        ],
+        syllabus: [
+          "Polished wooden body",
+          "Glass protection",
+          "Available in brown & black",
+          "Size options: A4, A3, A2",
+          "Durable finishing",
+          "Handmade craftsmanship",
+          "Gift-ready packaging"
+        ],
+        instructors: [
+          { name: "7 Days Return Policy", photo: "https://placehold.co/64x64/png?text=Return", alt: "Return policy" }
+        ],
+        reviews: [
+          { name: "Suresh Kumar", rating: 5, comment: "Looks very classy and elegant!" }
+        ]
+      },
+     
+      "11": {
+        id: 1,
+        title: "Single Photo Frame",
+        icon: "Assets/Single/single1.png",
+        iconAlt: "Single photo frame",
+        description: "Elegant single photo frame perfect for showcasing your favorite memory.",
+        location: "Available Online & Offline",
+        fees: "Affordable Price",
+        timings: "Fast Delivery",
+        level: "Beginner Collection",
+        price: "399.00",
+        Demo: "5",
+        features: [
+          { icon: "fas fa-image", text: "High Quality Print" },
+          { badge: "B", text: "Best Seller" },
+          { icon: "fas fa-truck", text: "Free Delivery" }
+        ],
+        syllabus: [
+          "Premium wooden or acrylic build",
+          "Scratch-resistant glass protection",
+          "Easy wall mount & tabletop options",
+          "Photo size: 8x12 inches",
+          "Multiple color options",
+          "Durable finishing",
+          "Lightweight & stylish",
+          "Gift-ready packaging"
+        ],
+        instructors: [
+          { name: "7 Days Return Policy", photo: "https://placehold.co/64x64/png?text=Return", alt: "Return policy" },
+          { name: "No Warranty", photo: "https://placehold.co/64x64/png?text=No+Warranty", alt: "Warranty info" }
+        ],
+        reviews: [
+          { name: "Amit Sharma", rating: 5, comment: "Beautiful quality, frame looks premium!" },
+          { name: "Riya Patel", rating: 4, comment: "Nice design, worth the price." }
+        ]
+      },
+
+      "12": {
+        title: "Collage Photo Frame",
+        icon: "Assets/Collage/collage1.png",
+        iconAlt: "Collage photo frame",
+        description: "Stylish collage frame to display multiple memories together.",
+        location: "Available Online & Offline",
+        fees: "Affordable Price",
+        timings: "Fast Delivery",
+        level: "Intermediate Collection",
+        price: "799.00",
+        Demo: "5",
+        features: [
+          { icon: "fas fa-th", text: "Multi-Photo Display" },
+          { badge: "I", text: "Popular Choice" },
+          { icon: "fas fa-truck", text: "Free Delivery" }
+        ],
+        syllabus: [
+          "Holds 5–12 photos",
+          "Sturdy wooden build",
+          "Wall-mount design",
+          "Multiple layout styles",
+          "Glass & acrylic protection",
+          "Customizable sizes",
+          "Elegant finishing",
+          "Gift-ready packaging"
+        ],
+        instructors: [
+          { name: "7 Days Return Policy", photo: "https://placehold.co/64x64/png?text=Return", alt: "Return policy" }
+        ],
+        reviews: [
+          { name: "Neha Verma", rating: 5, comment: "Perfect for family pictures!" },
+          { name: "Rohit Gupta", rating: 4, comment: "Looks great in my living room." }
+        ]
+      },
+
+      "13": {
+        title: "Digital Photo Frame",
+        icon: "Assets/Digital/digital1.png",
+        iconAlt: "Digital photo frame",
+        description: "Modern digital photo frame to showcase memories with a slideshow.",
+        location: "Available Online",
+        fees: "Affordable Price",
+        timings: "Fast Delivery",
+        level: "Advanced Collection",
+        price: "1,999.00",
+        Demo: "5",
+        features: [
+          { icon: "fas fa-tv", text: "HD Display" },
+          { badge: "A", text: "Tech-Advanced" },
+          { icon: "fas fa-usb", text: "USB & SD Support" }
+        ],
+        syllabus: [
+          "10-inch HD LED display",
+          "Auto slideshow feature",
+          "USB & memory card support",
+          "Remote control operation",
+          "Multiple transition effects",
+          "Energy-efficient",
+          "Wall-mount & tabletop support",
+          "Warranty: 6 months"
+        ],
+        instructors: [
+          { name: "7 Days Return Policy", photo: "https://placehold.co/64x64/png?text=Return", alt: "Return policy" }
+        ],
+        reviews: [
+          { name: "Arjun Malhotra", rating: 5, comment: "Amazing product, looks classy!" },
+          { name: "Shalini Tiwari", rating: 4, comment: "Good features, easy to use." }
+        ]
+      },
+
+      "14": {
+        title: "Wooden Photo Frame",
+        icon: "Assets/Wooden/wooden1.png",
+        iconAlt: "Wooden photo frame",
+        description: "Classic wooden frame for timeless photo displays.",
+        location: "Available Offline & Online",
+        fees: "Affordable Price",
+        timings: "Fast Delivery",
+        level: "Premium Collection",
+        price: "1,299.00",
+        Demo: "5",
+        features: [
+          { icon: "fas fa-tree", text: "Pure Wooden Finish" },
+          { badge: "P", text: "Premium Quality" },
+          { icon: "fas fa-truck", text: "Free Delivery" }
+        ],
+        syllabus: [
+          "Polished wooden body",
+          "Glass protection",
+          "Available in brown & black",
+          "Size options: A4, A3, A2",
+          "Durable finishing",
+          "Handmade craftsmanship",
+          "Gift-ready packaging"
+        ],
+        instructors: [
+          { name: "7 Days Return Policy", photo: "https://placehold.co/64x64/png?text=Return", alt: "Return policy" }
+        ],
+        reviews: [
+          { name: "Suresh Kumar", rating: 5, comment: "Looks very classy and elegant!" }
         ]
       }
+
+
     };
 
     function getCourseIdFromURL() {

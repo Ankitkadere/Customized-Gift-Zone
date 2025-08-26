@@ -309,12 +309,12 @@
                 <div class=" md:mb-80  mx-auto">
 
                     <!-- Data Table -->
-                    <div class="bg-white shadow rounded-lg md:mb-20 w-full max-h-[95vh] md:max-h-[80vh]">
+                    <div class="bg-white shadow rounded-lg md:mb-20 w-full  md:max-h-[80vh]">
                         <!-- Wrapper for scrolling -->
-                        <div class="overflow-x-auto overflow-y-auto max-h-[490px] md:max-h-[80vh]">
+                        <div class="overflow-x-auto overflow-y-auto max-h-[98vh] md:max-h-[80vh]">
                             <table class="min-w-full border border-gray-200 text-xs text-gray-700">
-                                <thead class="bg-gray-100 text-gray-600 uppercase tracking-wider">
-                                    <tr>
+                                <thead class="bg-gray-100 text-gray-600 w-full uppercase tracking-wider">
+                                    <tr class="">
                                         <th class="p-2 border">Id</th>
                                         <th class="p-2 border">Date</th>
                                         <th class="p-2 border">Time</th>
@@ -492,28 +492,30 @@
                         tbody.innerHTML = "";
                         records.forEach(record => {
                             tbody.innerHTML += `
-          <tr class="hover:bg-gray-50 overlfow-auto min-h-[80px]">
-            <td class="border p-2 ">${record.Id}</td>
-            <td class="border p-2">${formatDate(record.Date)}</td>
-            <td class="border p-2">${formatTime(record.Time)}</td>
-            <td class="border p-2">${record.Name}</td>
-            <td class="border p-2">${record.Number}</td>
-              <td class="border p-2">${record.Size}</td>
-            <td class="border p-2">${record.Material}</td>
-            <td class="border p-2">${record.Color}</td>
-            <td class="border p-2">${record.Address}</td>
-            <td class="border p-2">${record.City}</td>
-            <td class="border p-2">${record.Pincode}</td>
-            <td class="border p-2">${record.State}</td>
-            <td class="border p-2">${record.Status}</td>
-            <td class="border p-2">${record.Payment}</td>
-            <td class="border p-2">${record.Other}</td>
-            <td class="border p-2">${record.Image ? `<a href="${record.Image}" target="_blank" class="text-blue-600 underline">View</a>` : ""}</td>
-            <td class="border flex p-2 space-x-1">
-              <button onclick='editRecord(${JSON.stringify(record)})' class="bg-yellow-500 text-white px-2 py-1 rounded text-xs">  <i class="fas fa-pen"></i></button>
-              <button onclick='deleteRecord("${record.Id}")' class="bg-red-600 text-white px-2 py-1 rounded text-xs"> <i class="fas fa-trash"></i></button>
-            </td>
-          </tr>`;
+          <tr class="hover:bg-gray-50">
+          <td class="border p-2 whitespace-nowrap">${record.Id}</td>
+          <td class="border p-2 whitespace-nowrap">${formatDate(record.Date)}</td>
+          <td class="border p-2 whitespace-nowrap">${formatTime(record.Time)}</td>
+          <td class="border p-2 whitespace-nowrap">${record.Name}</td>
+          <td class="border p-2 whitespace-nowrap">${record.Number}</td>
+          <td class="border p-2 whitespace-nowrap">${record.Size}</td>
+          <td class="border p-2 whitespace-nowrap">${record.Material}</td>
+          <td class="border p-2 whitespace-nowrap">${record.Color}</td>
+          <td class="border p-2 whitespace-nowrap">${record.Address}</td>
+          <td class="border p-2 whitespace-nowrap">${record.City}</td>
+          <td class="border p-2 whitespace-nowrap">${record.Pincode}</td>
+          <td class="border p-2 whitespace-nowrap">${record.State}</td>
+          <td class="border p-2 whitespace-nowrap">${record.Status}</td>
+          <td class="border p-2 whitespace-nowrap">${record.Payment}</td>
+          <td class="border p-2 whitespace-nowrap">${record.Other}</td>
+          <td class="border p-2 whitespace-nowrap">
+            ${record.Image ? `<a href="${record.Image}" target="_blank" class="text-blue-600 underline">View</a>` : ""}
+          </td>
+          <td class="border p-2 whitespace-nowrap flex space-x-1">
+            <button onclick='editRecord(${JSON.stringify(record)})' class="bg-yellow-500 text-white px-2 py-1 rounded text-xs"> <i class="fas fa-pen"></i></button>
+            <button onclick='deleteRecord("${record.Id}")' class="bg-red-600 text-white px-2 py-1 rounded text-xs"> <i class="fas fa-trash"></i></button>
+          </td>
+        </tr>`;
                         });
                     }
 

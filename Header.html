@@ -151,16 +151,16 @@
 <body class=" bg-[#f5fdf7] text-gray-900">
     <header class="  border-gray-200 p-1">
         <div class=" mx-auto flex items-center justify-between px-3 py-1 sm:py-3">
-            <div class="flex bottom-4 items-center justify-between w-full md:w-80 space-x-2   rounded-lg">
+            <div class="flex bottom-4 items-center justify-between w-full md:w-80 space-x-2  rounded-lg">
                 <button id="mobile-menu-button" aria-label="Open menu"
                     class="sm:hidden text-gray-700 hover:text-gray-900   focus:outline-none">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
                 <img alt="Gift Zone" class=" hidden w-28 h-10  md:block object-contain" height="32" src="favll.jpg"
                     width="32" />
-                <h1 class="font-extrabold w-full pt-0 md:pt-3 flex text-black md:text-1x1 text-2xl leading-none">
+                <h1 class="font-extrabold w-full text-[#972034] pt-0 md:pt-3 flex  md:text-1x1 text-2xl leading-none">
                     Gift Zone
-                    <span class="font-normal hidden pt-1 px-1 md:block text-gray-500   sm:text-sm md:text-sm ">
+                    <span class="font-normal hidden pt-1 px-1 md:block text-[#972034   sm:text-sm md:text-sm ">
                         Store
                     </span>
                 </h1>
@@ -266,7 +266,7 @@
             <div class="hidden sm:flex flex-1 max-w-xl mx-4">
                 <div class="relative w-full">
                     <input aria-label="Search for products"
-                        class="w-full border  border-gray-600 bg-[#f5fdf7]  rounded-full py-2 px-3 text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-600 focus:border-transparent"
+                        class="w-full border text-[#972034]  border-gray-600 bg-[#f5fdf7]  rounded-full py-2 px-3 text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-600 focus:border-transparent"
                         placeholder="Search for products..." type="search" />
 
                     <span class="absolute inset-y-0 right-3 flex items-center text-gray-500">
@@ -277,25 +277,25 @@
 
             <div class="hidden sm:flex items-center space-x-4 text-xs sm:text-sm text-gray-900 font-semibold">
                 <div onclick="window.location.href='Owner.html'" class="text-right leading-tight">
-                    <div>Gift Zone</div>
-                    <div class="text-gray-600 font-normal">Giftzone@Gmail.Com</div>
+                    <div class="text-[#972034]">Gift Zone</div>
+                    <div class="text-[#972034] font-normal">Giftzone@Gmail.Com</div>
                 </div>
-                <button aria-label="Favorites" class="text-gray-600 hover:text-gray-900 transition">
-                    <i class="far fa-heart text-lg sm:text-xl"></i>
+                <button aria-label="Favorites" class="text-[#972034] hover:text-gray-900 transition">
+                    <i class="far fa-heart text-3xl "></i>
                 </button>
-                <button aria-label="Shopping cart" class="text-gray-600 hover:text-gray-900 transition">
+                <button aria-label="Shopping cart" class="hidden text-gray-600 hover:text-gray-900 transition">
                     <i class="fas fa-shopping-cart text-lg sm:text-xl"></i>
                 </button>
             </div>
         </div>
-        <nav aria-label="Primary Navigation"
+        <nav aria-label="Primary Navigation text-[#972034]"
             class="hidden sm:flex mx-auto items-center justify-between px-4 py-2 text-xs sm:text-sm text-gray-700">
             <div onclick="window.location.href='Job.html'"
                 class="flex items-center space-x-2 cursor-pointer select-none">
-                <span class="font-semibold">SHOP BY CATEGORIES</span>
-                <i class="fas fa-chevron-down text-xs"></i>
+                <span class="font-semibold text-[#972034]">SHOP BY CATEGORIES</span>
+                <i class="fas fa-chevron-down text-xs text-[#972034]"></i>
             </div>
-            <ul class="flex flex-wrap items-center space-x-3 sm:space-x-5 overflow-x-auto no-scrollbar">
+            <ul class="flex flex-wrap items-center text-[#972034] space-x-3 sm:space-x-5 overflow-x-auto no-scrollbar">
                 <li><a class="hover:text-gray-900" href="#">Home</a></li>
                 <li><a class="hover:text-gray-900" href="Adminpenel.html">Admin</a></li>
                 <li><a class="hover:text-gray-900" href="Userchat.html">Chat</a></li>
@@ -306,7 +306,7 @@
                 <li><a class="hover:text-gray-900" href="#">Wellness</a></li>
                 <li><a class="hover:text-gray-900" href="#">Jewellery</a></li>
             </ul>
-            <div class="flex items-center space-x-2 text-gray-700 text-xs sm:text-sm">
+            <div class="flex items-center space-x-2 text-[#972034] text-xs sm:text-sm">
                 <i class="fas fa-truck text-base"></i>
                 <span>Free International Delivery</span>
             </div>
@@ -320,7 +320,7 @@
             <div class="flex items-center space-x-2 pt-2">
                 <img alt="ClassyShop logo blue square with white text ClassyShop" class="w-28 h-8 object-contain"
                     height="32" src="fav.jpg" width="32" />
-                <h1 class="font-extrabold w-full text-black text-2xl leading-none">
+                <h1 class="font-extrabold w-fulltext-[#972034] text-2xl leading-none">
                     Gift Zone
                     <span class="font-normal text-gray-500 text-base sm:text-lg ">
                         Store
@@ -487,7 +487,7 @@
             } else {
                 statusText.textContent = "Download Complete!";
                 installStatus.textContent = "Installed";
-               
+
                 audio.play().catch(err => console.error(err));
             }
         }
@@ -501,9 +501,9 @@
                 if (outcome === 'accepted') {
                     console.log('User accepted the install prompt');
                     installStatus.textContent = "App Installed!";
-                     setTimeout(() => {
-                    window.location.reload();
-                }, 3000);
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 3000);
                 } else {
                     console.log('User dismissed the install prompt');
                     installStatus.textContent = "Install Cancelled";
