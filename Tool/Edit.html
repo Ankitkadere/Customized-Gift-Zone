@@ -1,0 +1,1629 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>Wedding Anniversary Calendar Editor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Mr+Dafoe&display=swap" rel="stylesheet" />
+    <style>
+        /* Disable text selection on buttons */
+        button {
+            user-select: none;
+        }
+
+        /* Cursor for draggable elements */
+        #calendar-inner {
+            cursor: grab;
+        }
+
+        #calendar-inner:active {
+            cursor: grabbing;
+        }
+    </style>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Mr+Dafoe&family=Roboto&display=swap");
+
+        #calendar-container {
+            box-shadow: inset 0 0 15px #ccc;
+            border-image-slice: 30;
+            border-image-width: 8;
+            border-image-outset: 0;
+            border-image-repeat: stretch;
+            background-color: white;
+        }
+    </style>
+</head>
+
+<body class=" bg-gray-100 flex flex-col items-center ">
+
+    <div class="px-3 pt-2 md:py-1 pb-1 rounded-b-[40px] bg-white text-black fixed w-full z-[2999px]">
+        <div class="flex items-center mb-2 justify-between">
+            <button onclick="history.back()" aria-label="Go back"
+                class="w-10 h-10 bg-white rounded-full flex justify-center items-center shadow-sm">
+                <i class="fas fa-chevron-down text-gray-700 text-lg">
+                </i>
+            </button>
+             <h1 class="text-2xl font-bold "> Anniversary Calendar Editor</h1>
+            <button onclick="window.location.href='index.html'" aria-label="Go back"
+                class="text-3xl  flex justify-center items-center shadow-sm">
+                <h1 class=" shadow-lg out text-3xl mx-auto font-extrabold leading-snug">
+                    Gift Zone
+                </h1>
+            </button>
+        </div>
+    </div>
+
+   
+    <div class="flex mt-[4%] flex-col justify-between lg:flex-row gap-2  w-full w-full">
+        <!-- Editor Panel -->
+        <div
+            class="w-full md:w-20  hidden md:block left-0 top-6 lg:w-1/5 bg-white p-4 rounded shadow space-y-6 overflow-y-auto max-h-[95vh]">
+            <h2 class="text-xl font-semibold mb-4">Edit Calendar</h2>
+
+            <!-- Image File Upload -->
+            <div>
+                <label class="block font-semibold mb-1" for="imgFile">Upload Image File</label>
+                <input id="imgFile" type="file" accept="image/*"
+                    class="w-full border border-gray-300 rounded px-3 py-2" />
+            </div>
+
+            <!-- Image URL (fallback) -->
+            <div>
+                <label class="block font-semibold mb-1" for="imgUrl">Or Enter Image URL</label>
+                <input id="imgUrl" type="url" placeholder="Enter image URL"
+                    class="w-full border border-gray-300 rounded px-3 py-2"
+                    value="https://storage.googleapis.com/a1aa/image/54ae2315-89fd-42e1-b6b3-5e232981d3c1.jpg" />
+            </div>
+
+            <!-- Month & Year -->
+            <div>
+                <label class="block font-semibold mb-1" for="monthYear">Month & Year</label>
+                <input id="monthYear" type="text" class="w-full border border-gray-300 rounded px-3 py-2"
+                    value="June 2024" />
+            </div>
+
+            <!-- Dates (comma separated, empty for blank) -->
+            <div>
+                <label class="block font-semibold mb-1" for="dates">Dates (comma separated, use empty for blank)</label>
+                <textarea id="dates" rows="4"
+                    class="w-full border border-gray-300 rounded px-3 py-2 font-mono">,,,,,,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,,,,,</textarea>
+            </div>
+
+            <!-- Highlight Date -->
+            <div>
+                <label class="block font-semibold mb-1" for="highlightDate">Highlight Date (number)</label>
+                <input id="highlightDate" type="number" min="1" max="31"
+                    class="w-full border border-gray-300 rounded px-3 py-2" value="9" />
+            </div>
+
+            <!-- Highlight Color -->
+            <div>
+                <label class="block font-semibold mb-1" for="highlightColor">Highlight Color</label>
+                <input id="highlightColor" type="color" class="w-16 h-10 p-0 border border-gray-300 rounded"
+                    value="#dc2626" />
+            </div>
+
+            <!-- Text Colors -->
+            <div>
+                <label class="block font-semibold mb-1" for="textColor">Text Color</label>
+                <input id="textColor" type="color" class="w-16 h-10 p-0 border border-gray-300 rounded"
+                    value="#000000" />
+            </div>
+
+            <!-- Background Color -->
+            <div>
+                <label class="block font-semibold mb-1" for="backgroundColor">Background Color</label>
+                <input id="backgroundColor" type="color" class="w-16 h-10 p-0 border border-gray-300 rounded"
+                    value="#ffffff" />
+            </div>
+
+            <!-- Border Color -->
+            <div>
+                <label class="block font-semibold mb-1" for="borderColor">Outer Border Color</label>
+                <input id="borderColor" type="color" class="w-16 h-10 p-0 border border-gray-300 rounded"
+                    value="#000000" />
+            </div>
+
+            <!-- Texts for bottom right -->
+            <div>
+                <label class="block font-semibold mb-1" for="textTop">Top Text (HAPPY)</label>
+                <input id="textTop" type="text" class="w-full border border-gray-300 rounded px-3 py-2" value="HAPPY" />
+            </div>
+            <div>
+                <label class="block font-semibold mb-1" for="textMiddle">Middle Text (WEDDING)</label>
+                <input id="textMiddle" type="text" class="w-full border border-gray-300 rounded px-3 py-2"
+                    value="WEDDING" />
+            </div>
+            <div>
+                <label class="block font-semibold mb-1" for="textAnniversary">Anniversary Text</label>
+                <input id="textAnniversary" type="text"
+                    class="w-full border border-gray-300 rounded px-3 py-2 italic text-red-600" value="Anniversary" />
+            </div>
+            <div>
+                <label class="block font-semibold mb-1" for="textName1">Name 1</label>
+                <input id="textName1" type="text"
+                    class="w-full border border-gray-300 rounded px-3 py-2 font-[\'Great Vibes\', cursive]"
+                    value="Sachein" />
+            </div>
+            <div>
+                <label class="block font-semibold mb-1" for="textName2">Name 2</label>
+                <input id="textName2" type="text"
+                    class="w-full border border-gray-300 rounded px-3 py-2 font-[\'Mr Dafoe\', cursive]"
+                    value="Hasini" />
+            </div>
+
+            <button id="downloadBtn" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+                title="Download calendar as PNG">
+                Download Calendar (PNG)
+            </button>
+        </div>
+
+  
+        <div>
+            <html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Resizable Calendar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Mr+Dafoe&display=swap" rel="stylesheet" />
+    <style>
+        /* Disable user select on draggable elements */
+        #calendar-container,
+        #calendar-inner,
+        #calendar-img,
+        #calendar-text-bottomright > div {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        /* Cursor for draggable text */
+        #calendar-text-bottomright {
+            cursor: grab;
+            touch-action: none;
+        }
+
+        #calendar-text-bottomright:active {
+            cursor: grabbing;
+        }
+
+        /* Cursor for draggable image */
+        #img-wrapper {
+            cursor: grab;
+            touch-action: none;
+        }
+
+        #img-wrapper:active {
+            cursor: grabbing;
+        }
+
+        /* Cursor for draggable container */
+        #calendar-container {
+            touch-action: none;
+        }
+
+        /* Prevent scroll on pinch zoom on container */
+        html,
+        body {
+            overscroll-behavior: contain;
+        }
+
+        /* Resize handles styling */
+        .resize-handle {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            background: transparent;
+            border-radius: 3px;
+            z-index: 50;
+            user-select: none;
+        }
+
+        .resize-handle:hover {
+            background: #5f0606cc;
+        }
+
+        /* Corners */
+        .resize-handle.nw {
+            top: -7px;
+            left: -7px;
+            cursor: nwse-resize;
+        }
+
+        .resize-handle.ne {
+            top: -7px;
+            right: -7px;
+            cursor: nesw-resize;
+        }
+
+        .resize-handle.sw {
+            bottom: -7px;
+            left: -7px;
+            cursor: nesw-resize;
+        }
+
+        .resize-handle.se {
+            bottom: -7px;
+            right: -7px;
+            cursor: nwse-resize;
+        }
+
+        /* Sides */
+        .resize-handle.n {
+            top: -7px;
+            left: 50%;
+            transform: translateX(-50%);
+            cursor: ns-resize;
+        }
+
+        .resize-handle.s {
+            bottom: -7px;
+            left: 50%;
+            transform: translateX(-50%);
+            cursor: ns-resize;
+        }
+
+        .resize-handle.w {
+            left: -7px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: ew-resize;
+        }
+
+        .resize-handle.e {
+            right: -7px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: ew-resize;
+        }
+    </style>
+</head>
+ 
+    <div id="calendar-container"
+        class="relative md:max-w-[400px] max-h-[600px] w-full border-8 border-black touch-none select-none"
+        style="border-image-source: url('https://placehold.co/40x40/png/000000/000000?text=+&font=roboto'); border-image-slice: 1; border-image-repeat: round;">
+        <div id="calendar-inner" class="bg-white p-4 shadow-[inset_0_0_20px_#0000] relative select-none"
+            style="background-color: #a3a3a3;">
+            <div class="relative w-full aspect-square max-w-[350px] mx-auto" id="img-wrapper">
+                <img id="calendar-img"
+                    alt="A smiling couple in traditional attire holding flowers, surrounded by black and white floral and mandala sketches"
+                    class="w-full h-full  " src="https://storage.googleapis.com/a1aa/image/54ae2315-89fd-42e1-b6b3-5e232981d3c1.jpg"
+                    width="350" height="350" />
+                <!-- Resize handles for image -->
+                <div class="resize-handle nw" data-target="img" data-dir="nw"></div>
+                <div class="resize-handle ne" data-target="img" data-dir="ne"></div>
+                <div class="resize-handle sw" data-target="img" data-dir="sw"></div>
+                <div class="resize-handle se" data-target="img" data-dir="se"></div>
+                <div class="resize-handle n" data-target="img" data-dir="n"></div>
+                <div class="resize-handle s" data-target="img" data-dir="s"></div>
+                <div class="resize-handle w" data-target="img" data-dir="w"></div>
+                <div class="resize-handle e" data-target="img" data-dir="e"></div>
+            </div>
+            <h2 id="calendar-monthYear" class="text-center font-sans font-bold text-lg mt-6 mb-2" style="color: #000000;">
+                June 2024
+            </h2>
+            <div id="calendar-daysOfWeek" class="grid grid-cols-7 text-center text-sm font-sans mb-1">
+                <div style="color: #000000;">Sun</div>
+                <div style="color: #000000;">Mon</div>
+                <div style="color: #000000;">Tue</div>
+                <div style="color: #000000;">Wed</div>
+                <div style="color: #000000;">Thu</div>
+                <div style="color: #000000;">Fri</div>
+                <div style="color: #000000;">Sat</div>
+            </div>
+            <div id="calendar-dates" class="grid grid-cols-7 text-center font-sans text-base leading-6">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div style="color: #000000;">1</div>
+                <div style="color: #000000;">2</div>
+                <div style="color: #000000;">3</div>
+                <div style="color: #000000;">4</div>
+                <div style="color: #000000;">5</div>
+                <div style="color: #000000;">6</div>
+                <div style="color: #000000;">7</div>
+                <div style="color: #000000;">8</div>
+                <div>
+                    <span class="inline-block relative">
+                        <svg viewBox="0 0 24 24" fill="#dc2626" class="absolute -top-1 -left-1 w-5 h-5">
+                            <path
+                                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z">
+                            </path>
+                        </svg>
+                        <span class="relative z-10 font-semibold" style="color: #000000;">9</span>
+                    </span>
+                </div>
+                <div style="color: #000000;">10</div>
+                <div style="color: #000000;">11</div>
+                <div style="color: #000000;">12</div>
+                <div style="color: #000000;">13</div>
+                <div style="color: #000000;">14</div>
+                <div style="color: #000000;">15</div>
+                <div style="color: #000000;">16</div>
+                <div style="color: #000000;">17</div>
+                <div style="color: #000000;">18</div>
+                <div style="color: #000000;">19</div>
+                <div style="color: #000000;">20</div>
+                <div style="color: #000000;">21</div>
+                <div style="color: #000000;">22</div>
+                <div style="color: #000000;">23</div>
+                <div style="color: #000000;">24</div>
+                <div style="color: #000000;">25</div>
+                <div style="color: #000000;">26</div>
+                <div style="color: #000000;">27</div>
+                <div style="color: #000000;">28</div>
+                <div style="color: #000000;">29</div>
+                <div style="color: #000000;">30</div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div id="calendar-text-bottomright"
+                class="absolute bottom-8 right-8 text-right max-w-[160px] select-none cursor-move touch-none">
+                <div id="textTopDisplay" class="text-black font-sans font-extrabold text-xl leading-none"
+                    style="transform: rotate(-15deg); transform-origin: left bottom; color: #000000;">
+                    HAPPY
+                </div>
+                <div id="textMiddleDisplay" class="text-black font-sans font-extrabold text-xl leading-none -mt-2"
+                    style="transform: rotate(-15deg); transform-origin: left bottom; color: #000000;">
+                    WEDDING
+                </div>
+                <div id="textAnniversaryDisplay" class="text-red-600 font-sans italic text-lg -mt-3"
+                    style="transform: rotate(-15deg); transform-origin: left bottom; font-weight: 600; color: #dc2626;">
+                    Anniversary
+                </div>
+                <div id="textName1Display" class="font-['Great Vibes',cursive] text-pink-600 text-3xl mt-1"
+                    style="line-height: 1; font-weight: 400;">
+                    Sachein
+                </div>
+                <div id="textName2Display" class="font-['Mr Dafoe',cursive] text-pink-600 text-3xl -mt-3"
+                    style="line-height: 1; font-weight: 400;">
+                    Hasini
+                </div>
+                <!-- Resize handles for text -->
+                <div class="resize-handle nw" data-target="text" data-dir="nw"></div>
+                <div class="resize-handle ne" data-target="text" data-dir="ne"></div>
+                <div class="resize-handle sw" data-target="text" data-dir="sw"></div>
+                <div class="resize-handle se" data-target="text" data-dir="se"></div>
+                <div class="resize-handle n" data-target="text" data-dir="n"></div>
+                <div class="resize-handle s" data-target="text" data-dir="s"></div>
+                <div class="resize-handle w" data-target="text" data-dir="w"></div>
+                <div class="resize-handle e" data-target="text" data-dir="e"></div>
+            </div>
+        </div>
+        <!-- Resize handles for container -->
+        <div class="resize-handle nw" data-target="container" data-dir="nw"></div>
+        <div class="resize-handle ne" data-target="container" data-dir="ne"></div>
+        <div class="resize-handle sw" data-target="container" data-dir="sw"></div>
+        <div class="resize-handle se" data-target="container" data-dir="se"></div>
+        <div class="resize-handle n" data-target="container" data-dir="n"></div>
+        <div class="resize-handle s" data-target="container" data-dir="s"></div>
+        <div class="resize-handle w" data-target="container" data-dir="w"></div>
+        <div class="resize-handle e" data-target="container" data-dir="e"></div>
+    </div>
+
+    <script>
+        (() => {
+            const container = document.getElementById('calendar-container');
+            const inner = document.getElementById('calendar-inner');
+            const imgWrapper = document.getElementById('img-wrapper');
+            const calendarImg = document.getElementById('calendar-img');
+            const textBlock = document.getElementById('calendar-text-bottomright');
+            const textElements = [
+                document.getElementById('textTopDisplay'),
+                document.getElementById('textMiddleDisplay'),
+                document.getElementById('textAnniversaryDisplay'),
+                document.getElementById('textName1Display'),
+                document.getElementById('textName2Display'),
+            ];
+
+            // Minimum and maximum sizes for elements
+            const minContainerWidth = 250;
+            const minContainerHeight = 350;
+            const maxContainerWidth = window.innerWidth - 40;
+            const maxContainerHeight = window.innerHeight - 40;
+
+            const minImgSize = 100;
+            const maxImgSize = 600;
+
+            const minTextWidth = 80;
+            const maxTextWidth = 300;
+
+            // Utility function to clamp values
+            function clamp(value, min, max) {
+                return Math.min(Math.max(value, min), max);
+            }
+
+            // --- Initialize styles for container to fixed position for drag ---
+            if (!container.style.left) container.style.left = '0px';
+            if (!container.style.top) container.style.top = '0px';
+            if (!container.style.width) container.style.width = container.offsetWidth + 'px';
+            if (!container.style.height) container.style.height = container.offsetHeight + 'px';
+            container.style.position = 'fixed';
+
+            // Initialize imgWrapper size and image size
+            imgWrapper.style.width = imgWrapper.offsetWidth + 'px';
+            imgWrapper.style.height = imgWrapper.offsetHeight + 'px';
+            calendarImg.style.width = '100%';
+            calendarImg.style.height = '100%';
+            calendarImg.style.position = 'absolute';
+            calendarImg.style.top = '0';
+            calendarImg.style.left = '0';
+            calendarImg.style.transformOrigin = 'top left';
+            calendarImg.style.transform = 'translate(0px, 0px)';
+            calendarImg.style.touchAction = 'none';
+
+            // Initialize text block position and size
+            textBlock.style.left = textBlock.offsetLeft + 'px';
+            textBlock.style.top = textBlock.offsetTop + 'px';
+            textBlock.style.width = textBlock.offsetWidth + 'px';
+            textBlock.style.height = textBlock.offsetHeight + 'px';
+            textBlock.style.position = 'absolute';
+            textBlock.style.touchAction = 'none';
+
+            // Store translate for image drag
+            let imgTranslate = { x: 0, y: 0 };
+
+            // Store font sizes for text elements
+            let textInitialFontSizes = textElements.map(el => parseFloat(window.getComputedStyle(el).fontSize));
+
+            // Drag and pinch state for container
+            let containerPointers = new Map();
+            let containerInitialDistance = 0;
+            let containerInitialRect = null;
+            let containerIsDragging = false;
+            let containerDragStart = { x: 0, y: 0 };
+            let containerDragOffset = { x: 0, y: 0 };
+
+            // Drag and pinch state for image
+            let imgPointers = new Map();
+            let imgInitialDistance = 0;
+            let imgInitialSize = { width: 0, height: 0 };
+            let imgIsDragging = false;
+            let imgDragStart = { x: 0, y: 0 };
+            let imgDragOffset = { x: 0, y: 0 };
+
+            // Drag and pinch state for text
+            let textPointers = new Map();
+            let textInitialDistance = 0;
+            let textInitialRect = null;
+            let textIsDragging = false;
+            let textDragStart = { x: 0, y: 0 };
+            let textDragOffset = { x: 0, y: 0 };
+            let textInitialFontSizesLocal = [...textInitialFontSizes];
+
+            // General drag for container
+            container.addEventListener('pointerdown', (e) => {
+                if (e.target.classList.contains('resize-handle')) return; // skip if resizing
+                e.preventDefault();
+                container.setPointerCapture(e.pointerId);
+                containerPointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+                if (containerPointers.size === 1) {
+                    containerIsDragging = true;
+                    containerDragStart = { x: e.clientX, y: e.clientY };
+                    containerDragOffset = {
+                        x: container.offsetLeft,
+                        y: container.offsetTop,
+                    };
+                } else if (containerPointers.size === 2) {
+                    containerIsDragging = false;
+                    const points = Array.from(containerPointers.values());
+                    containerInitialDistance = Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y);
+                    containerInitialRect = container.getBoundingClientRect();
+                }
+            });
+
+            container.addEventListener('pointermove', (e) => {
+                if (!containerPointers.has(e.pointerId)) return;
+                e.preventDefault();
+                containerPointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+                if (containerPointers.size === 1 && containerIsDragging) {
+                    const dx = e.clientX - containerDragStart.x;
+                    const dy = e.clientY - containerDragStart.y;
+                    let newLeft = containerDragOffset.x + dx;
+                    let newTop = containerDragOffset.y + dy;
+
+                    newLeft = clamp(newLeft, 0, window.innerWidth - container.offsetWidth);
+                    newTop = clamp(newTop, 0, window.innerHeight - container.offsetHeight);
+
+                    container.style.left = newLeft + 'px';
+                    container.style.top = newTop + 'px';
+                } else if (containerPointers.size === 2) {
+                    const points = Array.from(containerPointers.values());
+                    const currentDistance = Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y);
+                    const scale = currentDistance / containerInitialDistance;
+
+                    let newWidth = clamp(containerInitialRect.width * scale, minContainerWidth, maxContainerWidth);
+                    let newHeight = clamp(containerInitialRect.height * scale, minContainerHeight, maxContainerHeight);
+
+                    container.style.width = newWidth + 'px';
+                    container.style.height = newHeight + 'px';
+
+                    // Keep container centered between two pointers
+                    const centerX = (points[0].x + points[1].x) / 2;
+                    const centerY = (points[0].y + points[1].y) / 2;
+                    let newLeft = centerX - newWidth / 2;
+                    let newTop = centerY - newHeight / 2;
+
+                    newLeft = clamp(newLeft, 0, window.innerWidth - newWidth);
+                    newTop = clamp(newTop, 0, window.innerHeight - newHeight);
+
+                    container.style.left = newLeft + 'px';
+                    container.style.top = newTop + 'px';
+                }
+            });
+
+            container.addEventListener('pointerup', (e) => {
+                container.releasePointerCapture(e.pointerId);
+                containerPointers.delete(e.pointerId);
+                if (containerPointers.size < 2) {
+                    containerIsDragging = false;
+                }
+            });
+
+            container.addEventListener('pointercancel', (e) => {
+                container.releasePointerCapture(e.pointerId);
+                containerPointers.delete(e.pointerId);
+                if (containerPointers.size < 2) {
+                    containerIsDragging = false;
+                }
+            });
+
+            // Drag and pinch for image wrapper and image
+            imgWrapper.addEventListener('pointerdown', (e) => {
+                if (e.target.classList.contains('resize-handle')) return; // skip if resizing
+                e.preventDefault();
+                imgWrapper.setPointerCapture(e.pointerId);
+                imgPointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+                if (imgPointers.size === 1) {
+                    imgIsDragging = true;
+                    imgDragStart = { x: e.clientX, y: e.clientY };
+                    imgDragOffset = { ...imgTranslate };
+                } else if (imgPointers.size === 2) {
+                    imgIsDragging = false;
+                    const points = Array.from(imgPointers.values());
+                    imgInitialDistance = Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y);
+                    imgInitialSize = { width: imgWrapper.offsetWidth, height: imgWrapper.offsetHeight };
+                }
+            });
+
+            imgWrapper.addEventListener('pointermove', (e) => {
+                if (!imgPointers.has(e.pointerId)) return;
+                e.preventDefault();
+                imgPointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+                if (imgPointers.size === 1 && imgIsDragging) {
+                    const dx = e.clientX - imgDragStart.x;
+                    const dy = e.clientY - imgDragStart.y;
+                    let newX = imgDragOffset.x + dx;
+                    let newY = imgDragOffset.y + dy;
+
+                    const maxTranslateX = 0;
+                    const maxTranslateY = 0;
+                    const minTranslateX = imgWrapper.offsetWidth - calendarImg.offsetWidth;
+                    const minTranslateY = imgWrapper.offsetHeight - calendarImg.offsetHeight;
+
+                    newX = clamp(newX, minTranslateX, maxTranslateX);
+                    newY = clamp(newY, minTranslateY, maxTranslateY);
+
+                    imgTranslate.x = newX;
+                    imgTranslate.y = newY;
+
+                    calendarImg.style.transform = `translate(${imgTranslate.x}px, ${imgTranslate.y}px)`;
+                } else if (imgPointers.size === 2) {
+                    const points = Array.from(imgPointers.values());
+                    const currentDistance = Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y);
+                    const scale = currentDistance / imgInitialDistance;
+
+                    let newSize = clamp(imgInitialSize.width * scale, minImgSize, maxImgSize);
+
+                    imgWrapper.style.width = newSize + 'px';
+                    imgWrapper.style.height = newSize + 'px';
+
+                    calendarImg.style.width = '100%';
+                    calendarImg.style.height = '100%';
+
+                    imgTranslate = { x: 0, y: 0 };
+                    calendarImg.style.transform = `translate(0px, 0px)`;
+                }
+            });
+
+            imgWrapper.addEventListener('pointerup', (e) => {
+                imgWrapper.releasePointerCapture(e.pointerId);
+                imgPointers.delete(e.pointerId);
+                if (imgPointers.size < 2) {
+                    imgIsDragging = false;
+                }
+            });
+
+            imgWrapper.addEventListener('pointercancel', (e) => {
+                imgWrapper.releasePointerCapture(e.pointerId);
+                imgPointers.delete(e.pointerId);
+                if (imgPointers.size < 2) {
+                    imgIsDragging = false;
+                }
+            });
+
+            // Drag and pinch for text block
+            textBlock.addEventListener('pointerdown', (e) => {
+                if (e.target.classList.contains('resize-handle')) return; // skip if resizing
+                e.preventDefault();
+                textBlock.setPointerCapture(e.pointerId);
+                textPointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+                if (textPointers.size === 1) {
+                    textIsDragging = true;
+                    textDragStart = { x: e.clientX, y: e.clientY };
+                    textDragOffset = {
+                        x: textBlock.offsetLeft,
+                        y: textBlock.offsetTop,
+                    };
+                } else if (textPointers.size === 2) {
+                    textIsDragging = false;
+                    const points = Array.from(textPointers.values());
+                    textInitialDistance = Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y);
+                    textInitialRect = textBlock.getBoundingClientRect();
+                    textInitialFontSizesLocal = textElements.map(el => parseFloat(window.getComputedStyle(el).fontSize));
+                }
+            });
+
+            textBlock.addEventListener('pointermove', (e) => {
+                if (!textPointers.has(e.pointerId)) return;
+                e.preventDefault();
+                textPointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+                if (textPointers.size === 1 && textIsDragging) {
+                    const dx = e.clientX - textDragStart.x;
+                    const dy = e.clientY - textDragStart.y;
+                    let newLeft = textDragOffset.x + dx;
+                    let newTop = textDragOffset.y + dy;
+
+                    const maxLeft = inner.clientWidth - textBlock.offsetWidth;
+                    const maxTop = inner.clientHeight - textBlock.offsetHeight;
+
+                    newLeft = clamp(newLeft, 0, maxLeft);
+                    newTop = clamp(newTop, 0, maxTop);
+
+                    textBlock.style.left = newLeft + 'px';
+                    textBlock.style.top = newTop + 'px';
+                } else if (textPointers.size === 2) {
+                    const points = Array.from(textPointers.values());
+                    const currentDistance = Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y);
+                    const scale = currentDistance / textInitialDistance;
+
+                    let newWidth = clamp(textInitialRect.width * scale, minTextWidth, maxTextWidth);
+                    let newHeight = textInitialRect.height * (newWidth / textInitialRect.width);
+
+                    textBlock.style.width = newWidth + 'px';
+                    textBlock.style.height = newHeight + 'px';
+
+                    textElements.forEach((el, i) => {
+                        let newFontSize = clamp(textInitialFontSizesLocal[i] * scale, 8, 100);
+                        el.style.fontSize = newFontSize + 'px';
+                    });
+
+                    const maxLeft = inner.clientWidth - textBlock.offsetWidth;
+                    const maxTop = inner.clientHeight - textBlock.offsetHeight;
+
+                    let currentLeft = textBlock.offsetLeft;
+                    let currentTop = textBlock.offsetTop;
+
+                    if (currentLeft > maxLeft) textBlock.style.left = maxLeft + 'px';
+                    if (currentTop > maxTop) textBlock.style.top = maxTop + 'px';
+                }
+            });
+
+            textBlock.addEventListener('pointerup', (e) => {
+                textBlock.releasePointerCapture(e.pointerId);
+                textPointers.delete(e.pointerId);
+                if (textPointers.size < 2) {
+                    textIsDragging = false;
+                }
+            });
+
+            textBlock.addEventListener('pointercancel', (e) => {
+                textBlock.releasePointerCapture(e.pointerId);
+                textPointers.delete(e.pointerId);
+                if (textPointers.size < 2) {
+                    textIsDragging = false;
+                }
+            });
+
+            // --- Resize handles logic ---
+            const resizeHandles = container.querySelectorAll('.resize-handle');
+
+            let currentResize = null;
+
+            resizeHandles.forEach(handle => {
+                handle.addEventListener('pointerdown', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    currentResize = {
+                        target: handle.dataset.target,
+                        dir: handle.dataset.dir,
+                        startX: e.clientX,
+                        startY: e.clientY,
+                        containerRect: container.getBoundingClientRect(),
+                        imgRect: imgWrapper.getBoundingClientRect(),
+                        textRect: textBlock.getBoundingClientRect(),
+                        imgTranslate: { ...imgTranslate },
+                        textFontSizes: textElements.map(el => parseFloat(window.getComputedStyle(el).fontSize)),
+                        textInitialWidth: textBlock.offsetWidth,
+                        textInitialHeight: textBlock.offsetHeight,
+                    };
+                    window.addEventListener('pointermove', resizeMove);
+                    window.addEventListener('pointerup', resizeEnd);
+                    window.addEventListener('pointercancel', resizeEnd);
+                });
+            });
+
+            function resizeMove(e) {
+                if (!currentResize) return;
+                e.preventDefault();
+
+                const dx = e.clientX - currentResize.startX;
+                const dy = e.clientY - currentResize.startY;
+
+                if (currentResize.target === 'container') {
+                    let newWidth = currentResize.containerRect.width;
+                    let newHeight = currentResize.containerRect.height;
+                    let newLeft = currentResize.containerRect.left;
+                    let newTop = currentResize.containerRect.top;
+
+                    if (currentResize.dir.includes('e')) {
+                        newWidth = clamp(currentResize.containerRect.width + dx, minContainerWidth, maxContainerWidth);
+                    }
+                    if (currentResize.dir.includes('s')) {
+                        newHeight = clamp(currentResize.containerRect.height + dy, minContainerHeight, maxContainerHeight);
+                    }
+                    if (currentResize.dir.includes('w')) {
+                        newWidth = clamp(currentResize.containerRect.width - dx, minContainerWidth, maxContainerWidth);
+                        newLeft = clamp(currentResize.containerRect.left + dx, 0, window.innerWidth - newWidth);
+                    }
+                    if (currentResize.dir.includes('n')) {
+                        newHeight = clamp(currentResize.containerRect.height - dy, minContainerHeight, maxContainerHeight);
+                        newTop = clamp(currentResize.containerRect.top + dy, 0, window.innerHeight - newHeight);
+                    }
+
+                    container.style.width = newWidth + 'px';
+                    container.style.height = newHeight + 'px';
+                    container.style.left = newLeft + 'px';
+                    container.style.top = newTop + 'px';
+                } else if (currentResize.target === 'img') {
+                    let newWidth = currentResize.imgRect.width;
+                    let newHeight = currentResize.imgRect.height;
+                    let newLeft = currentResize.imgRect.left;
+                    let newTop = currentResize.imgRect.top;
+
+                    // Maintain aspect ratio 1:1 for imgWrapper
+                    if (currentResize.dir === 'n') {
+                        newHeight = clamp(currentResize.imgRect.height - dy, minImgSize, maxImgSize);
+                        newWidth = newHeight;
+                        newTop = clamp(currentResize.imgRect.top + dy, 0, window.innerHeight - newHeight);
+                    } else if (currentResize.dir === 's') {
+                        newHeight = clamp(currentResize.imgRect.height + dy, minImgSize, maxImgSize);
+                        newWidth = newHeight;
+                    } else if (currentResize.dir === 'w') {
+                        newWidth = clamp(currentResize.imgRect.width - dx, minImgSize, maxImgSize);
+                        newHeight = newWidth;
+                        newLeft = clamp(currentResize.imgRect.left + dx, 0, window.innerWidth - newWidth);
+                    } else if (currentResize.dir === 'e') {
+                        newWidth = clamp(currentResize.imgRect.width + dx, minImgSize, maxImgSize);
+                        newHeight = newWidth;
+                    } else if (currentResize.dir === 'nw') {
+                        newWidth = clamp(currentResize.imgRect.width - dx, minImgSize, maxImgSize);
+                        newHeight = newWidth;
+                        newLeft = clamp(currentResize.imgRect.left + dx, 0, window.innerWidth - newWidth);
+                        newTop = clamp(currentResize.imgRect.top + dy, 0, window.innerHeight - newHeight);
+                    } else if (currentResize.dir === 'ne') {
+                        newWidth = clamp(currentResize.imgRect.width + dx, minImgSize, maxImgSize);
+                        newHeight = newWidth;
+                        newTop = clamp(currentResize.imgRect.top + dy, 0, window.innerHeight - newHeight);
+                    } else if (currentResize.dir === 'sw') {
+                        newWidth = clamp(currentResize.imgRect.width - dx, minImgSize, maxImgSize);
+                        newHeight = newWidth;
+                        newLeft = clamp(currentResize.imgRect.left + dx, 0, window.innerWidth - newWidth);
+                    } else if (currentResize.dir === 'se') {
+                        newWidth = clamp(currentResize.imgRect.width + dx, minImgSize, maxImgSize);
+                        newHeight = newWidth;
+                    }
+
+                    imgWrapper.style.width = newWidth + 'px';
+                    imgWrapper.style.height = newHeight + 'px';
+
+                    // Reset image translate to 0 on resize to avoid weird offsets
+                    imgTranslate = { x: 0, y: 0 };
+                    calendarImg.style.transform = `translate(0px, 0px)`;
+                } else if (currentResize.target === 'text') {
+                    let newWidth = currentResize.textInitialWidth;
+                    let newHeight = currentResize.textInitialHeight;
+                    let newLeft = textBlock.offsetLeft;
+                    let newTop = textBlock.offsetTop;
+
+                    if (currentResize.dir.includes('e')) {
+                        newWidth = clamp(currentResize.textInitialWidth + dx, minTextWidth, maxTextWidth);
+                        newHeight = newWidth * (currentResize.textInitialHeight / currentResize.textInitialWidth);
+                    }
+                    if (currentResize.dir.includes('s')) {
+                        newHeight = clamp(currentResize.textInitialHeight + dy, minTextWidth, maxTextWidth);
+                        newWidth = newHeight * (currentResize.textInitialWidth / currentResize.textInitialHeight);
+                    }
+                    if (currentResize.dir.includes('w')) {
+                        newWidth = clamp(currentResize.textInitialWidth - dx, minTextWidth, maxTextWidth);
+                        newHeight = newWidth * (currentResize.textInitialHeight / currentResize.textInitialWidth);
+                        newLeft = clamp(currentResize.textRect.left + dx - container.getBoundingClientRect().left, 0, inner.clientWidth - newWidth);
+                    }
+                    if (currentResize.dir.includes('n')) {
+                        newHeight = clamp(currentResize.textInitialHeight - dy, minTextWidth, maxTextWidth);
+                        newWidth = newHeight * (currentResize.textInitialWidth / currentResize.textInitialHeight);
+                        newTop = clamp(currentResize.textRect.top + dy - container.getBoundingClientRect().top, 0, inner.clientHeight - newHeight);
+                    }
+
+                    textBlock.style.width = newWidth + 'px';
+                    textBlock.style.height = newHeight + 'px';
+                    textBlock.style.left = newLeft + 'px';
+                    textBlock.style.top = newTop + 'px';
+
+                    // Scale fonts proportionally
+                    const scale = newWidth / currentResize.textInitialWidth;
+                    textElements.forEach((el, i) => {
+                        let newFontSize = clamp(currentResize.textFontSizes[i] * scale, 8, 100);
+                        el.style.fontSize = newFontSize + 'px';
+                    });
+                }
+            }
+
+            function resizeEnd(e) {
+                if (!currentResize) return;
+                e.preventDefault();
+                window.removeEventListener('pointermove', resizeMove);
+                window.removeEventListener('pointerup', resizeEnd);
+                window.removeEventListener('pointercancel', resizeEnd);
+                currentResize = null;
+            }
+
+            // Drag text block inside calendar-inner
+            textBlock.addEventListener('mousedown', (e) => {
+                if (e.target.classList.contains('resize-handle')) return;
+                e.preventDefault();
+                let startX = e.clientX;
+                let startY = e.clientY;
+                let origLeft = textBlock.offsetLeft;
+                let origTop = textBlock.offsetTop;
+
+                function onMouseMove(ev) {
+                    ev.preventDefault();
+                    let dx = ev.clientX - startX;
+                    let dy = ev.clientY - startY;
+                    let newLeft = clamp(origLeft + dx, 0, inner.clientWidth - textBlock.offsetWidth);
+                    let newTop = clamp(origTop + dy, 0, inner.clientHeight - textBlock.offsetHeight);
+                    textBlock.style.left = newLeft + 'px';
+                    textBlock.style.top = newTop + 'px';
+                }
+
+                function onMouseUp(ev) {
+                    ev.preventDefault();
+                    window.removeEventListener('mousemove', onMouseMove);
+                    window.removeEventListener('mouseup', onMouseUp);
+                }
+
+                window.addEventListener('mousemove', onMouseMove);
+                window.addEventListener('mouseup', onMouseUp);
+            });
+
+            // Drag image inside imgWrapper
+            imgWrapper.addEventListener('mousedown', (e) => {
+                if (e.target.classList.contains('resize-handle')) return;
+                e.preventDefault();
+                let startX = e.clientX;
+                let startY = e.clientY;
+                let origX = imgTranslate.x;
+                let origY = imgTranslate.y;
+
+                function onMouseMove(ev) {
+                    ev.preventDefault();
+                    let dx = ev.clientX - startX;
+                    let dy = ev.clientY - startY;
+                    let newX = origX + dx;
+                    let newY = origY + dy;
+
+                    const maxTranslateX = 0;
+                    const maxTranslateY = 0;
+                    const minTranslateX = imgWrapper.offsetWidth - calendarImg.offsetWidth;
+                    const minTranslateY = imgWrapper.offsetHeight - calendarImg.offsetHeight;
+
+                    newX = clamp(newX, minTranslateX, maxTranslateX);
+                    newY = clamp(newY, minTranslateY, maxTranslateY);
+
+                    imgTranslate.x = newX;
+                    imgTranslate.y = newY;
+
+                    calendarImg.style.transform = `translate(${imgTranslate.x}px, ${imgTranslate.y}px)`;
+                }
+
+                function onMouseUp(ev) {
+                    ev.preventDefault();
+                    window.removeEventListener('mousemove', onMouseMove);
+                    window.removeEventListener('mouseup', onMouseUp);
+                }
+
+                window.addEventListener('mousemove', onMouseMove);
+                window.addEventListener('mouseup', onMouseUp);
+            });
+
+            // Drag container on desktop with mouse (only if not resizing)
+            container.addEventListener('mousedown', (e) => {
+                if (e.target.classList.contains('resize-handle')) return;
+                e.preventDefault();
+                let startX = e.clientX;
+                let startY = e.clientY;
+                let origLeft = container.offsetLeft;
+                let origTop = container.offsetTop;
+
+                function onMouseMove(ev) {
+                    ev.preventDefault();
+                    let dx = ev.clientX - startX;
+                    let dy = ev.clientY - startY;
+                    let newLeft = clamp(origLeft + dx, 0, window.innerWidth - container.offsetWidth);
+                    let newTop = clamp(origTop + dy, 0, window.innerHeight - container.offsetHeight);
+                    container.style.left = newLeft + 'px';
+                    container.style.top = newTop + 'px';
+                }
+
+                function onMouseUp(ev) {
+                    ev.preventDefault();
+                    window.removeEventListener('mousemove', onMouseMove);
+                    window.removeEventListener('mouseup', onMouseUp);
+                }
+
+                window.addEventListener('mousemove', onMouseMove);
+                window.addEventListener('mouseup', onMouseUp);
+            });
+
+            // Clamp container position and size on window resize
+            window.addEventListener('resize', () => {
+                let w = container.offsetWidth;
+                let h = container.offsetHeight;
+                w = clamp(w, minContainerWidth, window.innerWidth - 40);
+                h = clamp(h, minContainerHeight, window.innerHeight - 40);
+                container.style.width = w + 'px';
+                container.style.height = h + 'px';
+
+                let left = container.offsetLeft;
+                let top = container.offsetTop;
+                left = clamp(left, 0, window.innerWidth - w);
+                top = clamp(top, 0, window.innerHeight - h);
+                container.style.left = left + 'px';
+                container.style.top = top + 'px';
+            });
+        })();
+    </script>
+ 
+        </div>
+
+        <!-- Controls Panel -->
+        <div
+            class=" md:max-w-80 left-1/6  overflow-y-auto max-h-[95vh] bg-white rounded-lg shadow-lg p-2 w-full  space-y-4 z-50 font-sans text-gray-800">
+            <h3 class="text-center font-bold text-lg mb-2">Adjust Calendar</h3>
+
+            <!-- Container Size -->
+            <div>
+                <div class="flex justify-between items-center mb-1">
+                    <label for="container-width" class="font-semibold">Container Width</label>
+                    <span id="container-width-val">400px</span>
+                </div>
+                <input type="range" min="200" max="800" value="400" id="container-width" class="w-full" />
+            </div>
+            <div>
+                <div class="flex justify-between items-center mb-1">
+                    <label for="container-height" class="font-semibold">Container Height</label>
+                    <span id="container-height-val">600px</span>
+                </div>
+                <input type="range" min="300" max="900" value="600" id="container-height" class="w-full" />
+            </div>
+
+            <!-- Image Size -->
+            <div>
+                <div class="flex justify-between items-center mb-1">
+                    <label for="image-size" class="font-semibold">Image Size (Square)</label>
+                    <span id="image-size-val">350px</span>
+                </div>
+                <input type="range" min="150" max="600" value="350" id="image-size" class="w-full" />
+            </div>
+
+            <!-- Text Size Controls -->
+            <div>
+                <div class="flex justify-between items-center mb-1">
+                    <label for="monthYear-size" class="font-semibold">Month/Year Text Size</label>
+                    <span id="monthYear-size-val">18px</span>
+                </div>
+                <input type="range" min="12" max="36" value="18" id="monthYear-size" class="w-full" />
+            </div>
+            <div>
+                <div class="flex justify-between items-center mb-1">
+                    <label for="daysOfWeek-size" class="font-semibold">Days of Week Text Size</label>
+                    <span id="daysOfWeek-size-val">14px</span>
+                </div>
+                <input type="range" min="10" max="24" value="14" id="daysOfWeek-size" class="w-full" />
+            </div>
+            <div>
+                <div class="flex justify-between items-center mb-1">
+                    <label for="dates-size" class="font-semibold">Dates Text Size</label>
+                    <span id="dates-size-val">16px</span>
+                </div>
+                <input type="range" min="12" max="30" value="16" id="dates-size" class="w-full" />
+            </div>
+
+            <!-- Bottom Right Text Size -->
+            <div>
+                <div class="flex justify-between items-center mb-1">
+                    <label for="bottomright-textTop-size" class="font-semibold">Bottom Text "HAPPY" Size</label>
+                    <span id="bottomright-textTop-size-val">20px</span>
+                </div>
+                <input type="range" min="12" max="48" value="20" id="bottomright-textTop-size" class="w-full" />
+            </div>
+            <div>
+                <div class="flex justify-between items-center mb-1">
+                    <label for="bottomright-textMiddle-size" class="font-semibold">Bottom Text "WEDDING"
+                        Size</label>
+                    <span id="bottomright-textMiddle-size-val">20px</span>
+                </div>
+                <input type="range" min="12" max="48" value="20" id="bottomright-textMiddle-size" class="w-full" />
+            </div>
+            <div>
+                <div class="flex justify-between items-center mb-1">
+                    <label for="bottomright-textAnniversary-size" class="font-semibold">Bottom Text
+                        "Anniversary" Size</label>
+                    <span id="bottomright-textAnniversary-size-val">18px</span>
+                </div>
+                <input type="range" min="10" max="36" value="18" id="bottomright-textAnniversary-size" class="w-full" />
+            </div>
+            <div>
+                <div class="flex justify-between items-center mb-1">
+                    <label for="bottomright-textName1-size" class="font-semibold">Bottom Text "Sachein"
+                        Size</label>
+                    <span id="bottomright-textName1-size-val">24px</span>
+                </div>
+                <input type="range" min="12" max="72" value="24" id="bottomright-textName1-size" class="w-full" />
+            </div>
+            <div>
+                <div class="flex justify-between items-center mb-1">
+                    <label for="bottomright-textName2-size" class="font-semibold">Bottom Text "Hasini"
+                        Size</label>
+                    <span id="bottomright-textName2-size-val">24px</span>
+                </div>
+                <input type="range" min="12" max="72" value="24" id="bottomright-textName2-size" class="w-full" />
+            </div>
+
+            <!-- Position Controls for calendar-inner -->
+            <div class="flex flex-wrap justify-between gap-2">
+                <button id="pos-top-left"
+                    class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition text-sm flex-1">Top
+                    Left</button>
+                <button id="pos-top-center"
+                    class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition text-sm flex-1">Top
+                    Center</button>
+                <button id="pos-top-right"
+                    class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition text-sm flex-1">Top
+                    Right</button>
+                <button id="pos-center-left"
+                    class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition text-sm flex-1">Center
+                    Left</button>
+                <button id="pos-center-center"
+                    class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition text-sm flex-1">Center
+                    Center</button>
+                <button id="pos-center-right"
+                    class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition text-sm flex-1">Center
+                    Right</button>
+                <button id="pos-bottom-left"
+                    class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition text-sm flex-1">Bottom
+                    Left</button>
+                <button id="pos-bottom-center"
+                    class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition text-sm flex-1">Bottom
+                    Center</button>
+                <button id="pos-bottom-right"
+                    class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition text-sm flex-1">Bottom
+                    Right</button>
+            </div>
+        </div>
+
+        <script>
+            (() => {
+                // Elements
+                const calendarContainer = document.getElementById('calendar-container');
+                const calendarInner = document.getElementById('calendar-inner');
+                const calendarImg = document.getElementById('calendar-img');
+                const imgWrapper = document.getElementById('img-wrapper');
+
+                const calendarMonthYear = document.getElementById('calendar-monthYear');
+                const calendarDaysOfWeek = document.getElementById('calendar-daysOfWeek');
+                const calendarDates = document.getElementById('calendar-dates');
+
+                const textTopDisplay = document.getElementById('textTopDisplay');
+                const textMiddleDisplay = document.getElementById('textMiddleDisplay');
+                const textAnniversaryDisplay = document.getElementById('textAnniversaryDisplay');
+                const textName1Display = document.getElementById('textName1Display');
+                const textName2Display = document.getElementById('textName2Display');
+
+                // Controls
+                const containerWidthInput = document.getElementById('container-width');
+                const containerHeightInput = document.getElementById('container-height');
+                const imageSizeInput = document.getElementById('image-size');
+
+                const monthYearSizeInput = document.getElementById('monthYear-size');
+                const daysOfWeekSizeInput = document.getElementById('daysOfWeek-size');
+                const datesSizeInput = document.getElementById('dates-size');
+
+                const bottomrightTextTopSizeInput = document.getElementById('bottomright-textTop-size');
+                const bottomrightTextMiddleSizeInput = document.getElementById('bottomright-textMiddle-size');
+                const bottomrightTextAnniversarySizeInput = document.getElementById('bottomright-textAnniversary-size');
+                const bottomrightTextName1SizeInput = document.getElementById('bottomright-textName1-size');
+                const bottomrightTextName2SizeInput = document.getElementById('bottomright-textName2-size');
+
+                // Value display spans
+                const containerWidthVal = document.getElementById('container-width-val');
+                const containerHeightVal = document.getElementById('container-height-val');
+                const imageSizeVal = document.getElementById('image-size-val');
+
+                const monthYearSizeVal = document.getElementById('monthYear-size-val');
+                const daysOfWeekSizeVal = document.getElementById('daysOfWeek-size-val');
+                const datesSizeVal = document.getElementById('dates-size-val');
+
+                const bottomrightTextTopSizeVal = document.getElementById('bottomright-textTop-size-val');
+                const bottomrightTextMiddleSizeVal = document.getElementById('bottomright-textMiddle-size-val');
+                const bottomrightTextAnniversarySizeVal = document.getElementById('bottomright-textAnniversary-size-val');
+                const bottomrightTextName1SizeVal = document.getElementById('bottomright-textName1-size-val');
+                const bottomrightTextName2SizeVal = document.getElementById('bottomright-textName2-size-val');
+
+                // Position buttons
+                const posButtons = {
+                    'pos-top-left': { top: '0', left: '0', bottom: 'auto', right: 'auto', translateX: '0', translateY: '0' },
+                    'pos-top-center': { top: '0', left: '50%', bottom: 'auto', right: 'auto', translateX: '-50%', translateY: '0' },
+                    'pos-top-right': { top: '0', left: 'auto', bottom: 'auto', right: '0', translateX: '0', translateY: '0' },
+                    'pos-center-left': { top: '50%', left: '0', bottom: 'auto', right: 'auto', translateX: '0', translateY: '-50%' },
+                    'pos-center-center': { top: '50%', left: '50%', bottom: 'auto', right: 'auto', translateX: '-50%', translateY: '-50%' },
+                    'pos-center-right': { top: '50%', left: 'auto', bottom: 'auto', right: '0', translateX: '0', translateY: '-50%' },
+                    'pos-bottom-left': { top: 'auto', left: '0', bottom: '0', right: 'auto', translateX: '0', translateY: '0' },
+                    'pos-bottom-center': { top: 'auto', left: '50%', bottom: '0', right: 'auto', translateX: '-50%', translateY: '0' },
+                    'pos-bottom-right': { top: 'auto', left: 'auto', bottom: '0', right: '0', translateX: '0', translateY: '0' },
+                };
+
+                // Initialize container size
+                function updateContainerSize() {
+                    const w = containerWidthInput.value;
+                    const h = containerHeightInput.value;
+                    calendarContainer.style.width = w + 'px';
+                    calendarContainer.style.height = h + 'px';
+                    containerWidthVal.textContent = w + 'px';
+                    containerHeightVal.textContent = h + 'px';
+                }
+
+                // Initialize image size (square)
+                function updateImageSize() {
+                    const size = imageSizeInput.value;
+                    imgWrapper.style.width = size + 'px';
+                    imgWrapper.style.height = size + 'px';
+                    imageSizeVal.textContent = size + 'px';
+                }
+
+                // Update text sizes
+                function updateTextSize(element, sizePx, valSpan) {
+                    element.style.fontSize = sizePx + 'px';
+                    valSpan.textContent = sizePx + 'px';
+                }
+
+                // Update all text sizes from inputs
+                function updateAllTextSizes() {
+                    updateTextSize(calendarMonthYear, monthYearSizeInput.value, monthYearSizeVal);
+                    updateTextSize(calendarDaysOfWeek, daysOfWeekSizeInput.value, daysOfWeekSizeVal);
+                    updateTextSize(calendarDates, datesSizeInput.value, datesSizeVal);
+
+                    updateTextSize(textTopDisplay, bottomrightTextTopSizeInput.value, bottomrightTextTopSizeVal);
+                    updateTextSize(textMiddleDisplay, bottomrightTextMiddleSizeInput.value, bottomrightTextMiddleSizeVal);
+                    updateTextSize(textAnniversaryDisplay, bottomrightTextAnniversarySizeInput.value, bottomrightTextAnniversarySizeVal);
+                    updateTextSize(textName1Display, bottomrightTextName1SizeInput.value, bottomrightTextName1SizeVal);
+                    updateTextSize(textName2Display, bottomrightTextName2SizeInput.value, bottomrightTextName2SizeVal);
+                }
+
+                // Position calendar-inner inside calendar-container
+                function setCalendarInnerPosition(pos) {
+                    const p = posButtons[pos];
+                    if (!p) return;
+                    calendarInner.style.position = 'absolute';
+                    calendarInner.style.top = p.top;
+                    calendarInner.style.left = p.left;
+                    calendarInner.style.bottom = p.bottom;
+                    calendarInner.style.right = p.right;
+                    calendarInner.style.transform = `translate(${p.translateX}, ${p.translateY})`;
+                }
+
+                // Drag functionality for calendar-inner
+                function makeDraggable(element, container) {
+                    let isDragging = false;
+                    let startX, startY;
+                    let origX, origY;
+
+                    // Get numeric pixel value from style or 0
+                    function getStylePx(el, prop) {
+                        const val = window.getComputedStyle(el)[prop];
+                        return val ? parseFloat(val) : 0;
+                    }
+
+                    // On pointer down
+                    function pointerDown(e) {
+                        e.preventDefault();
+                        isDragging = true;
+                        startX = e.clientX || (e.touches && e.touches[0].clientX);
+                        startY = e.clientY || (e.touches && e.touches[0].clientY);
+
+                        // Get current position relative to container
+                        const rect = element.getBoundingClientRect();
+                        const containerRect = container.getBoundingClientRect();
+
+                        origX = rect.left - containerRect.left - getStylePx(element, 'marginLeft');
+                        origY = rect.top - containerRect.top - getStylePx(element, 'marginTop');
+
+                        // Remove transform to avoid conflict while dragging
+                        element.style.transform = 'none';
+
+                        // Set position absolute if not already
+                        element.style.position = 'absolute';
+
+                        // Set left and top explicitly
+                        element.style.left = origX + 'px';
+                        element.style.top = origY + 'px';
+                        element.style.bottom = 'auto';
+                        element.style.right = 'auto';
+
+                        // Add event listeners for move and up
+                        window.addEventListener('pointermove', pointerMove);
+                        window.addEventListener('pointerup', pointerUp);
+                        window.addEventListener('pointercancel', pointerUp);
+                    }
+
+                    // On pointer move
+                    function pointerMove(e) {
+                        if (!isDragging) return;
+                        e.preventDefault();
+                        const currentX = e.clientX || (e.touches && e.touches[0].clientX);
+                        const currentY = e.clientY || (e.touches && e.touches[0].clientY);
+
+                        let dx = currentX - startX;
+                        let dy = currentY - startY;
+
+                        // Calculate new position
+                        let newLeft = origX + dx;
+                        let newTop = origY + dy;
+
+                        // Clamp inside container boundaries
+                        const containerRect = container.getBoundingClientRect();
+                        const elemRect = element.getBoundingClientRect();
+
+                        const maxLeft = container.clientWidth - element.offsetWidth;
+                        const maxTop = container.clientHeight - element.offsetHeight;
+
+                        if (newLeft < 0) newLeft = 0;
+                        if (newTop < 0) newTop = 0;
+                        if (newLeft > maxLeft) newLeft = maxLeft;
+                        if (newTop > maxTop) newTop = maxTop;
+
+                        element.style.left = newLeft + 'px';
+                        element.style.top = newTop + 'px';
+                    }
+
+                    // On pointer up
+                    function pointerUp(e) {
+                        if (!isDragging) return;
+                        e.preventDefault();
+                        isDragging = false;
+                        window.removeEventListener('pointermove', pointerMove);
+                        window.removeEventListener('pointerup', pointerUp);
+                        window.removeEventListener('pointercancel', pointerUp);
+                    }
+
+                    element.addEventListener('pointerdown', pointerDown);
+                }
+
+                // Initialize all controls and events
+                function init() {
+                    // Set initial sizes
+                    updateContainerSize();
+                    updateImageSize();
+                    updateAllTextSizes();
+
+                    // Container size inputs
+                    containerWidthInput.addEventListener('input', () => {
+                        updateContainerSize();
+                        // Clamp calendar-inner position if needed
+                        clampCalendarInnerPosition();
+                    });
+                    containerHeightInput.addEventListener('input', () => {
+                        updateContainerSize();
+                        clampCalendarInnerPosition();
+                    });
+
+                    // Image size input
+                    imageSizeInput.addEventListener('input', () => {
+                        updateImageSize();
+                    });
+
+                    // Text size inputs
+                    monthYearSizeInput.addEventListener('input', updateAllTextSizes);
+                    daysOfWeekSizeInput.addEventListener('input', updateAllTextSizes);
+                    datesSizeInput.addEventListener('input', updateAllTextSizes);
+
+                    bottomrightTextTopSizeInput.addEventListener('input', updateAllTextSizes);
+                    bottomrightTextMiddleSizeInput.addEventListener('input', updateAllTextSizes);
+                    bottomrightTextAnniversarySizeInput.addEventListener('input', updateAllTextSizes);
+                    bottomrightTextName1SizeInput.addEventListener('input', updateAllTextSizes);
+                    bottomrightTextName2SizeInput.addEventListener('input', updateAllTextSizes);
+
+                    // Position buttons
+                    Object.keys(posButtons).forEach(id => {
+                        const btn = document.getElementById(id);
+                        btn.addEventListener('click', () => {
+                            setCalendarInnerPosition(id);
+                        });
+                    });
+
+                    // Make calendar-inner draggable inside calendar-container
+                    makeDraggable(calendarInner, calendarContainer);
+
+                    // Responsive: On window resize clamp position
+                    window.addEventListener('resize', clampCalendarInnerPosition);
+                }
+
+                // Clamp calendar-inner position inside container if dragged outside
+                function clampCalendarInnerPosition() {
+                    if (calendarInner.style.position !== 'absolute') return;
+
+                    const containerRect = calendarContainer.getBoundingClientRect();
+                    const elemRect = calendarInner.getBoundingClientRect();
+
+                    let left = parseFloat(calendarInner.style.left) || 0;
+                    let top = parseFloat(calendarInner.style.top) || 0;
+
+                    const maxLeft = containerContainerWidth() - calendarInner.offsetWidth;
+                    const maxTop = containerContainerHeight() - calendarInner.offsetHeight;
+
+                    if (left < 0) left = 0;
+                    if (top < 0) top = 0;
+                    if (left > maxLeft) left = maxLeft;
+                    if (top > maxTop) top = maxTop;
+
+                    calendarInner.style.left = left + 'px';
+                    calendarInner.style.top = top + 'px';
+
+                    // Remove bottom/right to avoid conflicts
+                    calendarInner.style.bottom = 'auto';
+                    calendarInner.style.right = 'auto';
+                    calendarInner.style.transform = 'none';
+                }
+
+                // Helper to get container width (parseInt)
+                function containerContainerWidth() {
+                    return calendarContainer.clientWidth;
+                }
+
+                // Helper to get container height (parseInt)
+                function containerContainerHeight() {
+                    return calendarContainer.clientHeight;
+                }
+
+                // Initialize everything
+                init();
+            })();
+        </script>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script>
+        // Elements references
+        const imgFileInput = document.getElementById("imgFile");
+        const imgUrlInput = document.getElementById("imgUrl");
+        const monthYearInput = document.getElementById("monthYear");
+        const daysOfWeekInput = document.getElementById("daysOfWeek");
+        const datesInput = document.getElementById("dates");
+        const highlightDateInput = document.getElementById("highlightDate");
+        const highlightColorInput = document.getElementById("highlightColor");
+        const textColorInput = document.getElementById("textColor");
+        const backgroundColorInput = document.getElementById("backgroundColor");
+        const borderColorInput = document.getElementById("borderColor");
+        const textTopInput = document.getElementById("textTop");
+        const textMiddleInput = document.getElementById("textMiddle");
+        const textAnniversaryInput = document.getElementById("textAnniversary");
+        const textName1Input = document.getElementById("textName1");
+        const textName2Input = document.getElementById("textName2");
+
+        const calendarImg = document.getElementById("calendar-img");
+        const calendarMonthYear = document.getElementById("calendar-monthYear");
+        const calendarDaysOfWeek = document.getElementById("calendar-daysOfWeek");
+        const calendarDates = document.getElementById("calendar-dates");
+        const calendarContainer = document.getElementById("calendar-container");
+        const calendarInner = document.getElementById("calendar-inner");
+
+        const textTopDisplay = document.getElementById("textTopDisplay");
+        const textMiddleDisplay = document.getElementById("textMiddleDisplay");
+        const textAnniversaryDisplay = document.getElementById("textAnniversaryDisplay");
+        const textName1Display = document.getElementById("textName1Display");
+        const textName2Display = document.getElementById("textName2Display");
+
+        // Update calendar days of week
+        function updateDaysOfWeek(daysStr) {
+            const days = daysStr.split(",").map((d) => d.trim());
+            calendarDaysOfWeek.innerHTML = "";
+            days.forEach((day) => {
+                const div = document.createElement("div");
+                div.textContent = day || "";
+                calendarDaysOfWeek.appendChild(div);
+            });
+        }
+
+        // Update calendar dates grid
+        function updateDatesGrid(datesStr, highlightDate, highlightColor, textColor) {
+            const dates = datesStr.split(",").map((d) => d.trim());
+            calendarDates.innerHTML = "";
+            dates.forEach((date) => {
+                const div = document.createElement("div");
+                if (date === "") {
+                    div.textContent = "";
+                } else {
+                    const dateNum = Number(date);
+                    if (dateNum === highlightDate) {
+                        // Create heart highlight with number inside
+                        const spanWrapper = document.createElement("span");
+                        spanWrapper.className = "inline-block relative";
+
+                        const svgHeart = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                        svgHeart.setAttribute("viewBox", "0 0 24 24");
+                        svgHeart.setAttribute("fill", highlightColor);
+                        svgHeart.setAttribute("class", "absolute -top-1 -left-1 w-5 h-5");
+                        svgHeart.innerHTML =
+                            '<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>';
+
+                        const spanNum = document.createElement("span");
+                        spanNum.className = "relative z-10 font-semibold";
+                        spanNum.style.color = textColor;
+                        spanNum.textContent = dateNum;
+
+                        spanWrapper.appendChild(svgHeart);
+                        spanWrapper.appendChild(spanNum);
+                        div.appendChild(spanWrapper);
+                    } else {
+                        div.textContent = dateNum;
+                        div.style.color = textColor;
+                    }
+                }
+                calendarDates.appendChild(div);
+            });
+        }
+
+        // Update all calendar content and styles
+        function updateCalendar() {
+            // Image
+            if (imgFileInput.files && imgFileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    calendarImg.src = e.target.result;
+                };
+                reader.readAsDataURL(imgFileInput.files[0]);
+            } else {
+                calendarImg.src = imgUrlInput.value || "";
+            }
+
+            // Month & Year
+            calendarMonthYear.textContent = monthYearInput.value || "";
+            // Days of week (fixed)
+            updateDaysOfWeek("Sun,Mon,Tue,Wed,Thu,Fri,Sat");
+            // Dates grid
+            const highlightDate = Number(highlightDateInput.value) || 0;
+            updateDatesGrid(
+                datesInput.value || "",
+                highlightDate,
+                highlightColorInput.value,
+                textColorInput.value
+            );
+            // Text colors
+            calendarMonthYear.style.color = textColorInput.value;
+            calendarDaysOfWeek.querySelectorAll("div").forEach((el) => {
+                el.style.color = textColorInput.value;
+            });
+            // Background color
+            calendarInner.style.backgroundColor = backgroundColorInput.value;
+            // Outer border color
+            calendarContainer.style.borderColor = borderColorInput.value;
+            calendarContainer.style.borderImageSource = `url('https://placehold.co/40x40/png/${borderColorInput.value.slice(
+                1
+            )}/${borderColorInput.value.slice(1)}?text=+&font=roboto')`;
+
+            // Bottom right texts
+            textTopDisplay.textContent = textTopInput.value || "";
+            textTopDisplay.style.color = textColorInput.value;
+
+            textMiddleDisplay.textContent = textMiddleInput.value || "";
+            textMiddleDisplay.style.color = textColorInput.value;
+
+            textAnniversaryDisplay.textContent = textAnniversaryInput.value || "";
+            textAnniversaryDisplay.style.color = highlightColorInput.value;
+
+            textName1Display.textContent = textName1Input.value || "";
+            textName2Display.textContent = textName2Input.value || "";
+        }
+
+        // Initial update
+        updateCalendar();
+
+        // Add event listeners to inputs
+        [
+            imgFileInput,
+            imgUrlInput,
+            monthYearInput,
+            datesInput,
+            highlightDateInput,
+            highlightColorInput,
+            textColorInput,
+            backgroundColorInput,
+            borderColorInput,
+            textTopInput,
+            textMiddleInput,
+            textAnniversaryInput,
+            textName1Input,
+            textName2Input,
+        ].forEach((input) => {
+            input.addEventListener("input", updateCalendar);
+        });
+
+        // Download button logic - capture entire calendar container (full design with image)
+        document.getElementById("downloadBtn").addEventListener("click", () => {
+            // If image is from file input, ensure it's loaded before capture
+            if (imgFileInput.files && imgFileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    calendarImg.src = e.target.result;
+                    calendarImg.onload = () => {
+                        captureFullCalendar();
+                    };
+                };
+                reader.readAsDataURL(imgFileInput.files[0]);
+            } else {
+                captureFullCalendar();
+            }
+        });
+
+        function captureFullCalendar() {
+            // Temporarily remove outline/shadows for clean screenshot
+            const originalShadow = calendarInner.style.boxShadow;
+            calendarInner.style.boxShadow = "none";
+
+            html2canvas(calendarContainer, {
+                scale: 3,
+                backgroundColor: null,
+                useCORS: true,
+                allowTaint: true,
+            }).then((canvas) => {
+                calendarInner.style.boxShadow = originalShadow;
+                const link = document.createElement("a");
+                link.download = "wedding-anniversary-calendar.png";
+                link.href = canvas.toDataURL("image/png");
+                link.click();
+            });
+        }
+    </script>
+</body>
+
+</html>

@@ -126,16 +126,67 @@ const course = {
     rating: "3.9",
   },
 };
+const searchInput = document.getElementById("searchResult");
+const section = document.getElementById("courseSection");
 
+const params = new URLSearchParams(window.location.search);
+const searchValue = params.get("search"); // value from ?search=
+searchInput.value = searchValue;
 
-const section = document.getElementById("courseL");
+function renderCourses(filter = "all", search = "") {
+  section.innerHTML = ""; // clear previous
 
-function renderCourses(filter = "all") {
-  section.innerHTML = ""; // clear previous cards
+  let courseEntries = Object.entries(course); // all courses
 
-  let courseEntries = Object.entries(course);
+  // Show search value on page
+  if (searchValue) {
+    searchInput.textContent = `Showing results for: "${searchValue}"`;
+    search = searchValue; // use URL param for filtering
+  } else {
+    searchInput.textContent = "No search value provided.";
+  }
 
-  // filter by category if not "all"
+  // search filter
+  if (
+    search.trim() !== "" &&
+    search.toLowerCase() !== "all" &&
+    search.toLowerCase() !== "all type" &&
+    search.toLowerCase() !== "all frame"
+  ) {
+    if (search.toLowerCase() == "login" || search.toLowerCase() == "signup") {
+      window.location.href = "Owner.html";
+      return;
+    }
+    if (search.toLowerCase() == "Admin" || search.toLowerCase() == "owner") {
+      window.location.href = "Adminpenel.html";
+      return;
+    }
+    if (search.toLowerCase() == "" || search.toLowerCase() == "signup") {
+      window.location.href = "Owner.html";
+      return;
+    }
+    if (search.toLowerCase() == "login" || search.toLowerCase() == "signup") {
+      window.location.href = "Owner.html";
+      return;
+    }
+
+    {
+      const searchLower = search.toLowerCase();
+      courseEntries = courseEntries.filter(
+        ([id, data]) =>
+          data.category.toLowerCase().includes(searchLower) ||
+          data.title.toLowerCase().includes(searchLower) ||
+          (data.title.toLowerCase().includes(searchLower) &&
+            String(data.price).toLowerCase().includes(searchLower)) ||
+          data.description.toLowerCase().includes(searchLower) ||
+          (data.description.toLowerCase().includes(searchLower) &&
+            String(data.price).toLowerCase().includes(searchLower)) ||
+          String(data.price).toLowerCase().includes(searchLower)
+      );
+    }
+  }
+
+  // category filter
   if (filter !== "all") {
     courseEntries = courseEntries.filter(
       ([id, data]) => data.category === filter
@@ -148,34 +199,42 @@ function renderCourses(filter = "all") {
     card.className = "bg-white rounded-xl shadow-md px-2 py-1 relative";
 
     card.innerHTML = `
-      <a href="CourseDetail.html?id=${id}" class="md:block relative">
-        <div class="absolute top-2 left-2 bg-[#972034] w-7 h-7 rounded-full flex items-center justify-center">
-          <i class="fas fa-heart text-white text-xs"></i>
-        </div>
-        <img src="${data.icon}" alt="${data.title}" 
-             class="w-full h-40 mb-2 object-cover rounded-lg"/>
-        <div class="overflow-hidden ">
-          <div class="flex items-center justify-between">
-            <h3 class="text-gray-900 font-semibold text-base">${data.title}</h3>
-            <div class="flex items-center space-x-1">
-              <i class="fas fa-star text-yellow-500 text-sm"></i>
-              <span class="text-gray-800 text-sm font-semibold">(${data.rating})</span>
+        <a href="CourseDetail.html?id=${id}" class="md:block relative">
+          <div class="absolute top-2 left-2 bg-gray-100 w-7 h-7 rounded-full flex items-center justify-center">
+            <i class="fas fa-heart text-[#972034] text-xs"></i>
+          </div>
+          <img src="${data.icon}" alt="${data.title}"
+                class="w-full h-40 mb-2 object-cover rounded-lg"/>
+          <div class="overflow-hidden">
+            <div class="flex items-center justify-between">
+              <h3 class="text-gray-900 font-semibold text-base">${data.title}</h3>
+              <div class="flex items-center space-x-1">
+                <i class="fas fa-star text-yellow-500 text-sm"></i>
+                <span class="text-gray-800 text-sm font-semibold">(${data.rating})</span>
+              </div>
+            </div>
+            <p class="text-gray-500 text-sm mt-[-5px]">${data.description}</p>
+            <div class="flex items-center justify-between">
+              <span class="text-[#972034] font-extrabold text-lg">₹${data.price}</span>
+              <button aria-label="Add to cart"
+                class="w-8 h-8 rounded-full flex items-center justify-center bg-gray-100 hover:bg-gray-200">
+                <i class="fas fa-shopping-cart text-gray-700 text-lg"></i>
+              </button>
             </div>
           </div>
-          <p class="text-gray-500">${data.description}</p>
-          <div class="flex items-center justify-between">
-            <span class="text-[#972034] font-extrabold text-lg">₹${data.price}</span>
-            <button aria-label="Add to cart"
-              class="w-8 h-8 rounded-full flex items-center justify-center bg-gray-100 hover:bg-gray-200">
-              <i class="fas fa-shopping-cart text-gray-700 text-lg"></i>
-            </button>
-          </div>
-        </div>
-      </a>
-    `;
+        </a>
+      `;
     section.appendChild(card);
   });
 }
+
+// Initial render
+renderCourses();
+
+// Listen for typing in search input
+searchInput.addEventListener("input", (e) => {
+  renderCourses("all", e.target.value);
+});
 
 // initial render
 renderCourses();

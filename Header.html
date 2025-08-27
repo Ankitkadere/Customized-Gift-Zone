@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="apple-touch-icon" href="fav.jpg" />
     <link rel="icon" href="fav.jpg" type="image/jpeg/jpg" />
-
     <link rel="manifest" href="manifest.json" />
     <link rel="icon" href="fav.jpg" type="image/jpeg" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -15,7 +14,6 @@
     <meta name="msapplication-navbutton-color" content="#f5fdf7" />
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
-
     <title>Gift Zone : Photo Frame</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
@@ -160,7 +158,7 @@
                     width="32" />
                 <h1 class="font-extrabold w-full text-[#972034] pt-0 md:pt-3 flex  md:text-1x1 text-2xl leading-none">
                     Gift Zone
-                    <span class="font-normal hidden pt-1 px-1 md:block text-[#972034   sm:text-sm md:text-sm ">
+                    <span class="font-normal hidden pt-1 px-1 md:block text-[#972034] font-extrabold  sm:text-sm md:text-sm ">
                         Store
                     </span>
                 </h1>
@@ -265,23 +263,22 @@
             </div>
             <div class="hidden sm:flex flex-1 max-w-xl mx-4">
                 <div class="relative w-full">
-                    <input aria-label="Search for products"
-                        class="w-full border text-[#972034]  border-gray-600 bg-[#f5fdf7]  rounded-full py-2 px-3 text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-600 focus:border-transparent"
+                    <input aria-label="Search for products" id="firstinput"
+                        class="w-full border text-[#972034] border-gray-700 bg-[#f5fdf7]  rounded-full py-2 px-3 text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-600 focus:border-transparent"
                         placeholder="Search for products..." type="search" />
-
-                    <span class="absolute inset-y-0 right-3 flex items-center text-gray-500">
-                        🔍
+                    <span id="searchbtn" class="absolute inset-y-0 right-5 flex items-center text-gray-500">
+                        <i class="fas fa-search text-lg"></i>
                     </span>
                 </div>
             </div>
 
             <div class="hidden sm:flex items-center space-x-4 text-xs sm:text-sm text-gray-900 font-semibold">
                 <div onclick="window.location.href='Owner.html'" class="text-right leading-tight">
-                    <div class="text-[#972034]">Gift Zone</div>
-                    <div class="text-[#972034] font-normal">Giftzone@Gmail.Com</div>
+                    <div class="text-[#972034] font-extrabold">Gift Zone</div>
+                    <div class="text-[#972034] font-extrabold">Giftzone@Gmail.Com</div>
                 </div>
                 <button aria-label="Favorites" class="text-[#972034] hover:text-gray-900 transition">
-                    <i class="far fa-heart text-3xl "></i>
+                    <i class="font-extrabold far fa-heart text-3xl "></i>
                 </button>
                 <button aria-label="Shopping cart" class="hidden text-gray-600 hover:text-gray-900 transition">
                     <i class="fas fa-shopping-cart text-lg sm:text-xl"></i>
@@ -292,14 +289,14 @@
             class="hidden sm:flex mx-auto items-center justify-between px-4 py-2 text-xs sm:text-sm text-gray-700">
             <div onclick="window.location.href='Job.html'"
                 class="flex items-center space-x-2 cursor-pointer select-none">
-                <span class="font-semibold text-[#972034]">SHOP BY CATEGORIES</span>
+                <span class="font-extrabold text-[#972034]">SHOP BY CATEGORIES</span>
                 <i class="fas fa-chevron-down text-xs text-[#972034]"></i>
             </div>
-            <ul class="flex flex-wrap items-center text-[#972034] space-x-3 sm:space-x-5 overflow-x-auto no-scrollbar">
-                <li><a class="hover:text-gray-900" href="#">Home</a></li>
+            <ul class="flex flex-wrap items-center text-[#972034] font-extrabold space-x-3 sm:space-x-5 overflow-x-auto no-scrollbar">
+                <li><a class="hover:text-gray-900" href="index.html">Home</a></li>
                 <li><a class="hover:text-gray-900" href="Adminpenel.html">Admin</a></li>
                 <li><a class="hover:text-gray-900" href="Userchat.html">Chat</a></li>
-                <li><a class="hover:text-gray-900" href="#">Bags</a></li>
+                <li><a class="hover:text-gray-900" href="Tool\Edit.html">Edit</a></li>
                 <li><a class="hover:text-gray-900" href="#">Footwear</a></li>
                 <li><a class="hover:text-gray-900" href="#">Groceries</a></li>
                 <li><a class="hover:text-gray-900" href="#">Beauty</a></li>
@@ -307,8 +304,8 @@
                 <li><a class="hover:text-gray-900" href="#">Jewellery</a></li>
             </ul>
             <div class="flex items-center space-x-2 text-[#972034] text-xs sm:text-sm">
-                <i class="fas fa-truck text-base"></i>
-                <span>Free International Delivery</span>
+                <i class="font-extrabold fas fa-truck text-base"></i>
+                <span class="font-extrabold"> Free International Delivery</span>
             </div>
         </nav>
     </header>
@@ -367,8 +364,8 @@
                     </a>
                 </li>
                 <li>
-                    <a class="flex items-center gap-2 hover:text-gray-900" href="#">
-                        <i class="fas fa-shopping-bag"></i> Bags
+                    <a class="flex items-center gap-2 hover:text-gray-900" href="Tool\Edit.html">
+                        <i class="fas fa-shopping-bag"></i> Edit
                     </a>
                 </li>
                 <li>
@@ -458,6 +455,7 @@
             <audio id="audioPlayer" src="bell.wav" class="hidden"></audio>
         </div>
     </section>
+
     <script>
         const progressBar = document.getElementById("progress-bar");
         const progressText = document.getElementById("progress-text");
@@ -467,12 +465,10 @@
         const installBtn = document.getElementById("installBtn");
         const appDownload = document.getElementById("appDownload");
 
-        // Show modal
-        appDownload.classList.remove('hidden');
-
-        let duration = 5000; // total duration in ms
+        let duration = 5000; // simulate 5s "download"
         let startTime = null;
 
+        // Animate progress bar
         function animateProgress(timestamp) {
             if (!startTime) startTime = timestamp;
             const elapsed = timestamp - startTime;
@@ -486,39 +482,69 @@
                 requestAnimationFrame(animateProgress);
             } else {
                 statusText.textContent = "Download Complete!";
-                installStatus.textContent = "Installed";
-
-                audio.play().catch(err => console.error(err));
+                installStatus.textContent = "Installed ✅";
+                audio.play().catch(err => console.warn("Audio play blocked:", err));
             }
         }
-        requestAnimationFrame(animateProgress);
 
-        // Add to Home Screen button
-        installBtn.addEventListener('click', async () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
-                if (outcome === 'accepted') {
-                    console.log('User accepted the install prompt');
-                    installStatus.textContent = "App Installed!";
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 3000);
+        // On install button click
+        installBtn.addEventListener("click", async () => {
+            // Show modal
+            appDownload.classList.remove("hidden");
+            statusText.textContent = "Downloading your App...";
+            installStatus.textContent = "Processing...";
+            progressBar.style.width = "0%";
+            progressText.textContent = "0%";
+            startTime = null;
+            requestAnimationFrame(animateProgress);
+
+            // After progress finishes, trigger PWA install prompt
+            setTimeout(async () => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    const { outcome } = await deferredPrompt.userChoice;
+                    if (outcome === "accepted") {
+                        console.log("User accepted the install prompt");
+                        installStatus.textContent = "App Installed!";
+                        statusText.textContent = "Ready to use 🎉";
+                    } else {
+                        console.log("User dismissed the install prompt");
+                        installStatus.textContent = "Install Cancelled";
+                    }
+                    deferredPrompt = null;
                 } else {
-                    console.log('User dismissed the install prompt');
-                    installStatus.textContent = "Install Cancelled";
+                    installStatus.textContent = "Already Installed";
+                    statusText.textContent = "App is already on your device";
                 }
-                deferredPrompt = null;
-                installBtn.style.display = 'none';
-            } else {
-                installStatus.textContent = "Already Installed";
-                setTimeout(() => {
-                    window.location.reload();
-                }, 3000);
-            }
+            }, duration + 500);
         });
     </script>
+    <script>
+        const firstinput = document.getElementById("firstinput");
+        const searchbtn = document.getElementById("searchbtn");
+        // Focus on load
+        window.addEventListener("load", () => {
+            firstinput.focus();
+            firstinput.select();
+        });
+   
 
+        function redirectToCourse() {
+            const value = firstinput.value.trim();
+            if (value !== "") {
+                window.location.href = `Courselist.html?search=${encodeURIComponent(value)}`;
+            }
+        }
+
+        firstinput.addEventListener("keydown", function (e) {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                redirectToCourse();
+            }
+        });
+
+        searchbtn.addEventListener("click", redirectToCourse);
+    </script>
     <script>
         const mobileMenuButton = document.getElementById("mobile-menu-button");
         const mobileMenuClose = document.getElementById("mobile-menu-close");

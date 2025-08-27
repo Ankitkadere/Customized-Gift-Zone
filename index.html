@@ -171,25 +171,23 @@
       .catch(err => console.error("Error loading header:", err));
   </script>
 
-  <a href="Inputsuggestion.html" class="inputset">
-    <form id="search-form" class="w-full px-3" role="search" aria-label="Search jobs or courses" novalidate>
-      <label class="sr-only" for="search">Search courses by name</label>
-      <div class="flex items-center border-2 border-gray-400 rounded-xl py-2 px-3 relative bg-[#f5fdf7]">
-        <i class="fas fa-search text-[#1a1a1a] text-lg"></i>
-        <input class="flex-grow ml-3 text-base placeholder:text-[#1a1a1a] focus:outline-none bg-[#f5fdf7]" id="search"
-          name="search" placeholder="Search Products  " type="search" autocomplete="on" aria-autocomplete="list"
-          aria-controls="suggestions-list" aria-haspopup="listbox" aria-expanded="false" role="combobox"
-          aria-activedescendant="" oninput="filterSuggestions()" onkeydown="handleKeyDown(event)" />
-        <button aria-label="Voice search" class="text-[#0f6f61] text-xl ml-3" type="button">
-          <i class="fas fa-microphone"></i>
-        </button>
-        <ul id="suggestions-list" role="listbox"
-          class="absolute top-full left-0 right-0 bg-white border border-gray-300 rounded-b-xl max-h-48 overflow-auto z-50 hidden shadow-lg">
-        </ul>
-      </div>
-    </form>
-  </a>
-
+  <form id="search-form" class="w-full px-3 md:hidden" role="search" aria-label="Search jobs or courses" novalidate>
+    <label class="sr-only" for="search">Search courses by name</label>
+    <div class="flex items-center border-2 border-gray-400 rounded-xl py-2 px-3 relative bg-[#f5fdf7]">
+      <button aria-label="Voice search" class="text-[#0f6f61] text-xl " type="button">
+        <i class="fas fa-microphone"></i>
+      </button>
+      <input class="flex-grow ml-3 text-base placeholder:text-[#1a1a1a] focus:outline-none bg-[#f5fdf7]" id="search"
+        name="search" placeholder="Search Products  " type="search" autocomplete="on" aria-autocomplete="list"
+        aria-controls="suggestions-list" aria-haspopup="listbox" aria-expanded="false" role="combobox"
+        aria-activedescendant="" oninput="filterSuggestions()" onkeydown="handleKeyDown(event)" />
+      <i id="findtbn" class="fas fa-search text-[#1a1a1a] text-lg"></i>
+      <ul id="suggestions-list" role="listbox"
+        class="absolute top-full left-0 right-0 bg-white border border-gray-300 rounded-b-xl max-h-48 overflow-auto z-50 hidden shadow-lg">
+      </ul>
+    </div>
+  </form>
+ 
   <section class="w-full mx-auto px-3">
     <div class="relative rounded-lg overflow-hidden" style="min-height: 100px ;max-height: 250px">
       <!-- Wrapper -->
@@ -234,7 +232,8 @@
 
         <!-- Slide 2  https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZr1RbukN0c9W9y7kr0umdorvOVK8HGZafjg&s-->
         <div class="min-w-full relative">
-          <img src="https://img.freepik.com/premium-vector/red-background-with-smooth-gradient-wave-patterns_53876-630259.jpg"
+          <img
+            src="https://img.freepik.com/premium-vector/red-background-with-smooth-gradient-wave-patterns_53876-630259.jpg"
             class="w-full h-40 sm:h-48 md:h-56 lg:h-64 object-cover" alt="Fresh Vegetables">
           <div class="absolute flex top-4 left-4 sm:top-6 sm:left-6 max-w-xs sm:max-w-md text-white">
             <div class="md:h-full border-2 border-transparent">
