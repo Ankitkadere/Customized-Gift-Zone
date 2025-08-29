@@ -93,57 +93,53 @@
 
   }
 
-  #Drags {
-    left: 0;
-    top: 0;
-    z-index: 99999;
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-    background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600&auto=format&fit=crop');
+  #Wall {
+    background-image: url("https://images.unsplash.com/photo-1513694203232-719a280e022f?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bGl2aW5nJTIwcm9vbSUyMHdhbGx8ZW58MHx8MHx8fDA%3Dg");
     background-size: cover;
     background-position: center;
+    height: 400px;
   }
 </style>
 
+<body class="bg-[#f5fdf7] p-1">
+  <div id="header" class="bg-white">
+    <script>
+      // Load Header CSS (optional)
+      const headerCSS = document.createElement("link");
+      headerCSS.rel = "stylesheet";
+      headerCSS.href = "Header.css";
+      document.head.appendChild(headerCSS);
 
-<body class="bg-[#f5fdf7] mb-20 p-1">
-  <div class=" px-3 py-2  text-black">
-    <div class="flex items-center mb-2 justify-between">
-      <button onclick="history.back()" aria-label="Go back"
-        class="w-10 h-10 bg-gray-100 rounded-full flex justify-center items-center shadow-sm">
-        <i class="fas fa-chevron-down text-black text-lg">
-        </i>
-      </button>
+      // Load Header HTML
+      fetch("Header.html")
+        .then(res => res.text())
+        .then(html => {
+          const headerDiv = document.getElementById("header");
+          headerDiv.innerHTML = html;
 
-      <button onclick="window.location.href='index.html'" aria-label="Go back"
-        class="text-3xl flex justify-center items-center ">
-        <h1 class="  text-3xl mx-auto font-extrabold leading-snug">
-          Gift Zone
-        </h1>
-      </button>
-    </div>
+          // Run scripts from Header.html if any
+          headerDiv.querySelectorAll("script").forEach(oldScript => {
+            const newScript = document.createElement("script");
+            if (oldScript.src) {
+              newScript.src = oldScript.src; // external file
+            } else {
+              newScript.textContent = oldScript.textContent; // inline script
+            }
+            document.body.appendChild(newScript);
+          });
 
+          // Load external Header.js (optional)
+          const headerJS = document.createElement("script");
+          headerJS.src = "Header.js";
+          document.body.appendChild(headerJS);
+        })
+        .catch(err => console.error("Error loading header:", err));
+    </script>
   </div>
-  <section id="Drags" style="display: none;"
-    class="fixed  shadow-[inset_0_4px_5540px_rgba(0,0,0,0.4)]  w-full h-full flex flex-wrap gap-6 p-3  ">
-    <div class="flex w-full p-2 items-center z-[999999]  justify-between">
-      <button onclick="history.back()" aria-label="Go back"
-        class=" cursor-pointe w-10 h-10 bg-gray-200 rounded-full flex justify-center items-center shadow-sm">
-        <i class="fas fa-chevron-left text-black text--3x1">
-        </i>
-      </button>
-      <button onclick=" closeLogin()" aria-label="Go back" class="text-3xl  flex items-center ">
-        <h1 class=" cursor-pointe font-extrabold text-gray-200  text-2x1 leading-none  ">
-          Gift Zone
-        </h1>
-      </button>
-    </div>
-    <!-- 6 Uploaders -->
-    <div id="uploaders" class=" md:grid-cols-1 md:absolute md:left-5 md:top-28  grid grid-cols-6 gap-4"></div>
 
-    <div id="frame" class="z-[300] md:w-96 justify-center align-center text-center mx-auto  md:h-96">
-
+  <section id="Drags" class=" h-0 flex flex-wrap gap-2">
+    <div id="uploaders" class="mt-96 flex justify-center md:w-[50vw] w-[100vw]"></div>
+    <div id="frame" class="z-[300] justify-center align-center text-center mx-auto md:h-96">
     </div>
     <p id="imglink"></p>
     <script>
@@ -152,48 +148,45 @@
 
       for (let i = 1; i <= 6; i++) {
         uploaderContainer.innerHTML += `
-      <div id="aws" class="flex flex-col items-center relative">
-        <!-- Wrapper -->
-        <div id="image-wrapper${i}" 
-             class="absolute focus:border hover:border-2 border-gray-300 overflow-hidden"
-             style="width: 270px; height: 270px; display:none; user-select:none;">
-          <img id="resizable-image${i}" src="" 
-               class="absolute object-contain select-none cursor-move" 
-               style="width: 100%; height: 100%; top: 0; left: 0;" draggable="true"/>
-          <!-- Resize handles -->
-          <div id="handle-tl${i}" class="  resize-handle top-0 left-0 -translate-x-1/2 -translate-y-1/2">•</div>
-          <div id="handle-tr${i}" class="  resize-handle top-0 right-0 translate-x-1/2 -translate-y-1/2">•</div>
-          <div id="handle-bl${i}" class="  resize-handle bottom-0 left-0 -translate-x-1/2 translate-y-1/2">•</div>
-          <div id="handle-br${i}" class="  resize-handle bottom-0 right-0 translate-x-1/2 translate-y-1/2">•</div>
-        </div>
+      
+<div id="aws" class="flex w-[100%] justify-center mt-10 items-center relative">
+  <!-- Wrapper -->
+  <div id="image-wrapper${i}"  class="absolute focus:border hover:border-2 absolute  top-[-270] border-gray-300 overflow-hidden"
+    style="width: 270px; height: 270px; display:none; user-select:none;">
+    <img id="resizable-image${i}" src="" class="absolute object-contain  select-none cursor-move"
+      style="width: 100%; height: 100%; top: -640; left: 90;" draggable="true" />
+    <!-- Resize handles -->
+    <div id="handle-tl${i}" class="  resize-handle top-0 left-0 -translate-x-1/2 -translate-y-1/2">•</div>
+    <div id="handle-tr${i}" class="  resize-handle top-0 right-0 translate-x-1/2 -translate-y-1/2">•</div>
+    <div id="handle-bl${i}" class="  resize-handle bottom-0 left-0 -translate-x-1/2 translate-y-1/2">•</div>
+    <div id="handle-br${i}" class="  resize-handle bottom-0 right-0 translate-x-1/2 translate-y-1/2">•</div>
+  </div>
 
-        <!-- Buttons -->
-        <div id="buttons-container${i}" 
-             class="absolute flex gap-2 alien-center justify-center" style="display:none;">
-          <button id="increase-size${i}" 
-                  class="hidden px-2 py-1 bg-green-600 text-white rounded-md hover:bg-green-700">
-            <i class="fas fa-search-plus"></i>
-          </button>
-          <button id="decrease-size${i}" 
-                  class="hidden px-2 py-1 bg-red-600 text-white rounded-md hover:bg-red-700">
-            <i class="fas fa-search-minus"></i>
-          </button>
-          <button id="delete-image${i}" 
-                  class=" rounded-full z-[99]  ">
-             <label " 
-               class="  flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 text-gray-400  cursor-pointer shadow-md transition">
-          <i class="fas fa-trash-alt  "></i>
-        </label>
-          </button>
-        </div>
+  <!-- Buttons -->
+  <div id="buttons-container${i}" class="absolute flex gap-2 alien-center justify-center" style="display:none;">
+    <button id="increase-size${i}" class="hidden px-2 py-1 bg-green-600 text-white rounded-md hover:bg-green-700">
+      <i class="fas fa-search-plus"></i>
+    </button>
+    <button id="decrease-size${i}" class="hidden px-2 py-1 bg-red-600 text-white rounded-md hover:bg-red-700">
+      <i class="fas fa-search-minus"></i>
+    </button>
+    <button id="delete-image${i}" class=" rounded-full z-[99]  ">
+      <label " 
+               class=" flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 text-gray-400 cursor-pointer
+        shadow-md transition">
+        <i class="fas fa-trash-alt  "></i>
+      </label>
+    </button>
+  </div>
 
-        <!-- Upload button -->
-        <label for="fileInput${i}" 
-               class=" flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 text-gray-400 hover:bg-blue-700 cursor-pointer shadow-md transition">
-          <i class="fas fa-plus text-lg animate-pulse"></i>
-        </label>
-        <input type="file" id="fileInput${i}" accept="image/*" class="hidden"/>
-      </div>
+  <!-- Upload button -->
+  <label for="fileInput${i}"  
+    class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-700 cursor-pointer transition">
+    <i class="fas fa-plus text-lg animate-pulse"></i>
+  </label>
+  <input type="file" id="fileInput${i}" accept="image/*" class=" flex " />
+</div>
+
     `;
       }
 
@@ -220,11 +213,7 @@
             buttons.style.display = "flex";
           }
         });
-
-
         ///dfdfdfdfdf
-
-
         function addPinchZoom(imgWrapper) {
           let initialDistance = 0;
           let initialWidth = 0;
@@ -390,20 +379,11 @@
         initImageBlock(i);
       }
 
-      // After showing image
-      wrapper.style.display = "block";
-      buttons.style.display = "flex";
-
-      // Hide wrapper after 3s
-      setTimeout(() => {
-        wrapper.style.display = "none";
-        buttons.style.display = "none";
-      }, 3000);
 
     </script>
   </section>
 
-  <main id="mainback" class=" bg-[#f5fdf7] w-full mx-auto overflow-auto font-sans">
+  <main id="mainback" class="bg-[#f5fdf7] w-full mx-auto overflow-auto font-sans">
     <!-- Course Detail -->
     <section id="course-detail" class="bg-[#f5fdf7] shadow  space-y-6"></section>
     <br>
@@ -431,55 +411,73 @@
             </button>
           </div>
 
-          <p class="font-semibold text-black mb-3 select-text">
+          <p class="font-semibold text-black mb-3 w-full select-text">
             Product Size
           </p>
           <div class="md:flex md:gap-2 md:mx-auto">
-            <div
-              class="relative bg-gradient-to-tr from-yellow-400 to-yellow-500 rounded-3xl p-6 w-full max-w-[360px] mx-auto mb-8 shadow-lg"
+            <div style="background: linear-gradient(90deg, #b90f2a 0%, #000000 100%)"
+              class="relative bg-gradient-to-tr rounded-3xl p-6 w-full max-w-[360px] mx-auto mb-8 shadow-lg"
               style="aspect-ratio: 16 / 9;">
 
               <p
-                class="font-mono-custom text-black text-xl justify-center text-center tracking-widest py-2 select-text">
+                class="font-mono-custom font-extrabold text-white text-xl justify-center text-center tracking-widest pb-2 select-text">
                 Select Frame Size
               </p>
               <div id="sizeButtons" class="  gap-4 space-x-1 text-sm font-semibold">
                 <div class="flex gap-6">
-                  <label for="size-7"
+                  <label for="size-4x6"
                     class="w-20 h-12 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
-                    7 x 12
+                    4 x 6
                   </label>
-                  <label for="size-7.5"
+                  <label for="size-5x7"
                     class="w-20 h-12 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
-                    12 x 23
+                    5 x 7
                   </label>
-                  <label for="size-8"
+                  <label for="size-6x8"
                     class="w-20 h-12 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
-                    8 x 12
+                    6 x 8
                   </label>
                 </div>
                 <br>
                 <div class="flex gap-6">
-                  <label for="size-8.5"
+                  <label for="size-8x12"
                     class="w-20 h-12 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
-                    11 x 16
+                    8 x 12
                   </label>
-                  <label for="size-9"
+                  <label for="size-10x15"
                     class="w-20 h-12 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
-                    93 x 23
+                    10 x 15
                   </label>
-                  <label for="size-9.5"
+                  <label for="size-12x18"
                     class="w-20 h-12 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
-                    91 22
+                    12 x 18
+                  </label>
+                </div>
+                <br>
+                <div class="flex gap-6">
+                  <label for="size-16x24"
+                    class="w-20 h-12 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
+                    16 x 24
+                  </label>
+                  <label for="size-20x30"
+                    class="w-20 h-12 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
+                    20 x 30
+                  </label>
+                  <label for="size-24x36"
+                    class="w-20 h-12 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
+                    24 x 36
                   </label>
                 </div>
               </div>
-              <input type="radio" name="size" id="size-7" value="7" class="hidden" />
-              <input type="radio" name="size" id="size-7.5" value="7.5" class="hidden" />
-              <input type="radio" name="size" id="size-8" value="8" class="hidden" />
-              <input type="radio" name="size" id="size-8.5" value="8.5" class="hidden" />
-              <input type="radio" name="size" id="size-9" value="9" class="hidden" />
-              <input type="radio" name="size" id="size-9.5" value="9.5" class="hidden" />
+              <input type="radio" name="size" id="size-4x6" value="4 x 6" class="hidden" />
+              <input type="radio" name="size" id="size-5x7" value="5 x 7" class="hidden" />
+              <input type="radio" name="size" id="size-6x8" value="6 x 8" class="hidden" />
+              <input type="radio" name="size" id="size-8x12" value="8 x 12" class="hidden" />
+              <input type="radio" name="size" id="size-10x15" value="10 x 15" class="hidden" />
+              <input type="radio" name="size" id="size-12x18" value="12 x 18" class="hidden" />
+              <input type="radio" name="size" id="size-16x24" value="16 x 24" class="hidden" />
+              <input type="radio" name="size" id="size-20x30" value="20 x 30" class="hidden" />
+              <input type="radio" name="size" id="size-24x36" value="24 x 36" class="hidden" />
 
             </div>
             <form id="crudForm" onsubmit="" class="space-y-4 mb-2">
@@ -498,19 +496,19 @@
                 <input type="file" id="ImageInput" accept="image/*" class=" hidden w-full border rounded-lg">
 
                 <input
-                  class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-400 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                  class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-400"
                   placeholder="Full Name" name="Name" type="text" required />
                 <input
-                  class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-400 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                  class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
                   placeholder="Mobile Number" name="Number" type="text" required />
 
                 <input type="text" id="selectedSize" name="Size" required
-                  class="hidden w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-400 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                  class="hidden w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
                   name="Material" placeholder="Size Select" />
 
                 <div class="flex space-x-4 mb-2">
                   <select id="frameMaterial" name="Material" required name="Color"
-                    class="flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-400 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                    class="flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400">
                     <option value="" disabled selected>Select material</option>
                     <option value="wood">Wood</option>
                     <option value="metal">Metal</option>
@@ -519,7 +517,7 @@
                     <option value="bamboo">Bamboo</option>
                   </select>
                   <select id="frameColor" name="Color" required
-                    class=" flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-400 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                    class=" flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400">
                     <option value="" disabled selected>Select color</option>
                     <option value="#000000" class="text-black bg-black text-white">Black</option>
                     <option value="#A0522D" class="bg-[#A0522D] text-white">Sienna Brown</option>
@@ -532,17 +530,17 @@
               <div id="data2" style="display: none; margin-top: -5px;">
 
                 <input
-                  class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-400 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                  class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
                   placeholder="Address" type="text" name="Address" required />
                 <input
-                  class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-400 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                  class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
                   placeholder="City / House " name="City" type="text" required />
                 <div class="flex space-x-4 mb-2">
                   <input
-                    class="flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-400 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                    class="flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
                     placeholder="Pin Code" type="text" name="Pincode" required />
                   <select id="state" name="State" required name="State"
-                    class="flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-400 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                    class="flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400">
                     <option value="" disabled selected>Select State</option>
                     <option value="Andhra Pradesh">Andhra Pradesh</option>
                     <option value="Arunachal Pradesh">Arunachal Pradesh</option>
@@ -594,7 +592,7 @@
                     </span>
                     <label class="relative inline-flex items-center cursor-pointer" for="toggle">
                       <input aria-checked="true" checked="" class="sr-only peer" id="toggle" type="checkbox" />
-                      <div
+                      <div style="background: linear-gradient(90deg, #b90f2a 0%, #000000 100%)"
                         class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-yellow-400 peer-focus:ring-2 peer-focus:ring-yellow-300 transition-colors">
                       </div>
                       <div
@@ -604,14 +602,16 @@
                   </div>
                 </div>
                 <div class="flex md:mx-auto md:w-[58vw] md:justify-between justify-between w-full">
-                  <div onclick="swapback()" aria-label="Go back" style="display: none;" id="swapback"
+                  <div style="background: linear-gradient(90deg, #b90f2a 0%, #000000 100%) ; display: none;"
+                    onclick="swapback()" aria-label="Go back" id="swapback"
                     class="w-14 h-12 bg-yellow-400 rounded-full flex justify-center items-center shadow-sm">
-                    <i class="fas fa-chevron-left text-gray-700 text-lg pl-5 pt-3"></i>
+                    <i class="fas fa-chevron-left font-extrabold text-white text-lg pl-5 pt-3"></i>
                   </div>
 
 
-                  <button onclick="swap()" id="swap"
-                    class="bg-yellow-400 text-black font-semibold rounded-full py-3 w-full md:mx-0 mx-auto text-center"
+                  <button style="background: linear-gradient(90deg, #b90f2a 0%, #000000 100%)" onclick="swap()"
+                    id="swap"
+                    class="bg-yellow-400 text-white font-extrabold rounded-full py-3 w-full md:mx-0 mx-auto text-center"
                     type="submit">
                     Next
                   </button>
@@ -677,8 +677,22 @@
 
                   return;
                 }
-
+                let allEmpty = true;
+                for (let i = 1; i <= 10; i++) {
+                  const fileInput = document.getElementById(`fileInput${i}`);
+                  if (fileInput.files.length > 0) {
+                    allEmpty = false;
+                    break;
+                  }
+                }
                 if (btn.innerText == "Submit") {
+
+                  if (allEmpty) {
+                    alert("⚠️ Please upload at least one image");
+                    return false;
+                  }
+                  return true;
+
                   // 🔹 Final submit → send data to Google Sheet
                   e.preventDefault();
 
@@ -761,29 +775,26 @@
               // Initialize with no selection
               selectedSizeInput.value = "";
               selectedSizeInput.placeholder = "No size selected";
-
             </script>
-
           </div>
-
       </main>
     </div>
   </main>
 
   <nav aria-label="Bottom navigation " id="orderbtn"
-    class="fixed md:hidden bottom-0 z-[99999999999px] md:w-full md:flex-row justify-between bg-gray-100 left-0 right-0 border-t gap-1 border-[#d9d9d9] bg-[#f3f3f3] flex  items-center py-1 md:py-0 px-2 z-50">
-    <button onclick="notload()"
-      class="bg-green-700  text-white font-semibold rounded-full md:py-1 py-1.5 w-14 mx-auto text-center" type="button">
-      <i class="far fa-image text-2xl"></i>
+    class="fixed md:hidden bottom-0 z-[99999999999px] md:w-full md:flex justify-between bg-gray-100 left-0 right-0 border-t gap-1 border-[#d9d9d9]  flex  items-center py-1 md:py-0 px-2 z-50">
+    <button onclick="notload()" style="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)"
+      class="md:hidden text-white font-semibold rounded-full md:py-1 py-1.5 w-14 mx-auto text-center" type="button">
+      <i class="far fa-image text-2xl p-1"></i>
     </button>
 
-    <button id="openLoginBtn" onclick="openLogin()"
-      class="bg-green-700 text-white text-2xl md:mt-8 font-semibold rounded-full md:py-1 py-1.5 w-full md:w-full  mx-auto text-center"
+    <button id="openLoginBtn" onclick="openLogin()" style="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)"
+      class=" text-white text-2xl md:mt-4 font-semibold rounded-full md:py-1 py-1.5 w-full md:w-full  mx-auto text-center"
       type="button">
       Booking
     </button>
   </nav>
- 
+
 
   <script>
     const courses = {
@@ -800,9 +811,9 @@
         price: "399.00",
         Demo: "5",
         features: [
-          { icon: "fas fa-image", text: "High Quality Print" },
-          { badge: "B", text: "Best Seller" },
-          { icon: "fas fa-truck", text: "Free Delivery" }
+          { icon: "fas fa-tags", text: "High Quality Print" },
+          { icon: "fas fa-truck", text: "Free Delivery" },
+          { icon: "fas fa-truck", text: "7 Day Return" }
         ],
         syllabus: [
           "Premium wooden or acrylic build",
@@ -1293,21 +1304,24 @@
 
     function renderCourse(course) {
       const section = document.getElementById("course-detail");
-      const link = document.getElementById('imglink').value = course.icon;
-      const frame = document.getElementById("frame");
-      const Rs = document.getElementById('openLoginBtn').innerText = "₹ " + course.price ;
+
+      const Rs = document.getElementById('openLoginBtn').innerText = "₹ " + course.price;
       const Order = document.getElementById('orderbtn').innerHTML;
-      frame.innerHTML += `
- <img src="${link}" alt="Demo" class ="mt-10 justify-center align-center text-center mx-auto w-full h-full "> 
-          `;
-      section.innerHTML = `
-      <div class=" dragimg w-full items-center justify-center" id="dragimg">
-  <div onclick="notload()" class="flex1 flex-col items-center justify-center md:bg-none   w-full md:h-full overflow-hidden">
-    <img src="${course.icon}" alt="${course.iconAlt}" class="w-96 h-100 object-cover justify-center m-auto">
+      const Upload = document.getElementById('Drags').innerHTML;
+
+      section.innerHTML = ` 
+      <section class="md:flex w-full md:[100vw] overflow-x-hidden">
+  <div class=" dragimg  md:bg-white items-top flex flex-col   w-[100vw] md:w-[55vw]" id="dragimg">
+    <div id="Wall" onclick="notload()"
+      class="  items-center justify-center w-[100vw] md:w-[100%] md:h-full overflow-hidden">
+      <img src="${course.icon}" alt="${course.iconAlt}" class="w-40 h-100 mt-2 object-cover justify-center mx-auto">
+    </div>
+    <div class="py-4 text-white">
+    .
+    </div>
   </div>
 
-  <div
-    class="flex1 px-4 rounded-t-[40px] md:shadow-[0_0px_0px_0px_rgba(0,0,0,0.3)] shadow-[0_-6px_20px_1px_rgba(0,0,0,0.3)]   md:rounded-t-[20px] bg-white w-full py-4 z-[400px]">
+  <div class=" flex1 px-4 bg-white w-full md:w-[45vw] py-4 z-[400px]">
     <div>
       <h1 class="text-2xl text-black md:text-3xl font-extrabold">
         ${course.title}
@@ -1315,28 +1329,64 @@
       <p class="text-sm text-gray-500">${course.location} &middot; ${course.fees}</p>
     </div>
     <p class="text-gray-700 text-justify mt-4">${course.description}</p>
+    <br>
+    <div class="w-full mx-auto">
+      <p class="text-black font-semibold mb-2 text-base">Select Size</p>
+      <div class="flex flex-wrap gap-x-5 gap-y-2 md:justify-start justify-start">
+        <div class="flex flex-col items-center">
+          <button class="border border-gray-400 rounded-md px-5 py-1.5 text-black font-semibold text-sm" type="button">
+            4 x 6
+          </button>
+          <span class="text-sm font-extrabold text-gray-800 mt-1">₹ 100</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <button class="border border-gray-400 rounded-md px-5 py-1.5 text-black font-semibold text-sm" type="button">
+            5 x 7
+          </button>
+          <span class="text-sm font-extrabold text-gray-700 mt-1">₹ 140</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <button class="border border-gray-400 rounded-md px-5 py-1.5 text-black font-semibold text-sm" type="button">
+            6 x 8
+          </button>
+          <span class="text-sm font-extrabold text-gray-700 mt-1">₹ 150</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <button class="border border-gray-400 rounded-md px-4 py-1.5 text-black font-semibold text-sm" type="button">
+            8 x 12</button>
+          <span class="text-sm  font-extrabold text-gray-700 mt-1">₹ 299</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <button class="border border-gray-400 rounded-md px-3.5 py-1.5 text-black font-semibold text-sm"
+            type="button">10 x 15</button>
+          <span class="text-sm font-extrabold text-gray-700 mt-1">₹ 419</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <button class="border border-gray-400 rounded-md px-4 py-1.5 text-black font-semibold text-sm"
+            type="button">12 x 18</button>
+          <span class="text-sm font-extrabold text-gray-700 mt-1">₹ 549</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <button class="border border-gray-400 rounded-md px-3 py-1.5 text-black font-semibold text-sm"
+            type="button">16 x 24</button>
+          <span class="text-sm font-extrabold text-gray-700 mt-1">₹ 1,350</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <button class="border border-gray-400 rounded-md px-3 py-1.5 text-black font-semibold text-sm"
+            type="button">20 x 30</button>
+          <span class="text-sm  font-extrabold text-gray-700 mt-1">₹ 1,619</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <button class="border border-gray-400 rounded-md px-3 py-1.5 text-black font-semibold text-sm"
+            type="button">24 x 36</button>
+          <span class="text-sm font-extrabold text-gray-700 mt-1">₹ 1,999
+        </div>
+      </div>
+    </div>
 
-    <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-2 mt-2">
-      ${course.features.map(f => {
-        if (f.icon) {
-          return `
-      <span class="text-center mx-auto w-full bg-green-100 text-sm px-3 py-2 mt-2 rounded-full flex items-center gap-2">
-        <i class="${f.icon} text-sm text-gray-600"></i>
-        <span>${f.text}</span>
-      </span>
-      `;
-        } else {
-          return `
-      <span class="bg-green-100 mx-auto w-full text-sm px-3 py-2 mt-2 rounded-full flex items-center gap-2">
-        <span
-          class="border border-gray-500 w-5 h-5 flex justify-center items-center rounded-full text-[10px] font-bold text-gray-700">
-          ${f.badge}
-        </span>
-        <span>${f.text}</span>
-      </span>
-      `;
-        }
-      }).join("")}
+
+    <div class=" hidden md:block flex">
+      ${Order}
     </div>
 
     <hr class="border-2 mt-2 md:mt-4">
@@ -1346,12 +1396,26 @@
         ${course.syllabus.map(item => `<li>${item}</li>`).join("")}
       </ul>
     </div>
-    <div class =" hidden md:block">
-    ${Order}
+
+
+    <div class="grid grid-cols-3 border-t-2 py-1 mt-4 sm:grid-cols-3 justify-between md:grid-cols-3 gap-2 mt-2">
+      ${course.features.map(f => {
+        if (f.icon) {
+          return `
+      <div class="flex flex-col items-center ">
+        <div class="w-14 h-10 rounded-full bg-white flex justify-center items-center">
+          <i class="${f.icon} text-gray-600 text-lg"></i>
+        </div>
+        <span class="text-gray-600 text-xs font-sans font-extrabold">${f.text}</span>
       </div>
+      `;
+        }
+      }).join("")}
+    </div>
+
     <hr class="border-2 mt-2">
   </div>
-</div>
+</section>
 <div class="instructors justify-between mx-1 px-2 py-2 bg-white">
   <div class=" flex1 ">
     <h2 class="text-lg font-semibold py-2 mb-2">Order Process</h2>
@@ -1360,10 +1424,10 @@
       <div class="flex items-center space-x-4">
         <!-- Ordered -->
         <div class="flex flex-col items-center space-y-1">
-          <div class="w-10 h-10 rounded-full bg-green-500 flex justify-center items-center">
+          <div class="w-10 h-10 rounded-full bg-gray-500 flex justify-center items-center">
             <i class="fas fa-clipboard-list text-white text-lg"></i>
           </div>
-          <span class="text-green-500 text-xs font-sans">Ordered</span>
+          <span class="text-gray-600 text-xs font-bold font-sans">Ordered</span>
         </div>
 
         <!-- Line -->
@@ -1371,10 +1435,10 @@
 
         <!-- Packed -->
         <div class="flex flex-col items-center space-y-1">
-          <div class="w-10 h-10 rounded-full bg-green-500 flex justify-center items-center">
+          <div class="w-10 h-10 rounded-full bg-gray-500 flex justify-center items-center">
             <i class="fas fa-box-open text-white text-lg"></i>
           </div>
-          <span class="text-green-500 text-xs font-sans">Packed</span>
+          <span class="text-gray-600 text-xs font-bold font-sans">Packed</span>
         </div>
 
         <!-- Line -->
@@ -1382,10 +1446,10 @@
 
         <!-- In Transit -->
         <div class="flex flex-col items-center space-y-1">
-          <div class="w-10 h-10 rounded-full bg-green-500 flex justify-center items-center">
+          <div class="w-10 h-10 rounded-full bg-gray-500 flex justify-center items-center">
             <i class="fas fa-truck-moving text-white text-lg"></i>
           </div>
-          <span class="text-green-500 text-xs font-sans">Transit</span>
+          <span class="text-gray-600 text-xs font-bold font-sans">Transit</span>
         </div>
 
         <!-- Dotted Line -->
@@ -1402,7 +1466,7 @@
           <div class="w-10 h-10 rounded-full bg-gray-500 flex justify-center items-center">
             <i class="fas fa-home text-white text-lg"></i>
           </div>
-          <span class="text-gray-600 text-xs font-sans">Delivered</span>
+          <span class="text-gray-600 text-xs font-bold font-sans">Delivered</span>
         </div>
       </div>
       ${course.instructors.map(inst => `
@@ -1473,7 +1537,7 @@
 
 
       if (!course) {
-        alert("Invalid course selected.");
+        alert("Invalid Product selected.");
         return;
       }
 
@@ -1608,6 +1672,14 @@
       overlay.classList.add("hidden");
     }
 
+    function Drags() {
+      document.getElementById("Drags").style.display = "none";
+      loginFormContainer.style.opacity = "0";
+      loginFormContainer.style.transform = "translateY(100%)";
+      loginFormContainer.style.pointerEvents = "none";
+      overlay.classList.add("hidden");
+    }
+
     openBtn.addEventListener("click", openLogin);
     closeBtn.addEventListener("click", closeLogin);
     overlay.addEventListener("click", closeLogin);
@@ -1615,7 +1687,7 @@
 </body>
 <script>
   function notload() {
-    document.getElementById('Drags').style.display = 'block';
+
     // 1. Block reload/close attempts (F5, ctrl+r, etc.)
     window.onbeforeunload = function (e) {
       e.preventDefault();
