@@ -17,8 +17,9 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
 
+
     .font-mono-custom {
-      font-family: 'Roboto Mono', monospace;
+      font-family: 'Inter', sans-serif;
     }
   </style>
 </head>
@@ -101,8 +102,8 @@
   }
 </style>
 
-<body class="bg-[#f5fdf7] p-1">
-  <div id="header" class="bg-white">
+<body class="bg-[#f5fdf7] ">
+  <div id="header" class="bg-white hidden">
     <script>
       // Load Header CSS (optional)
       const headerCSS = document.createElement("link");
@@ -136,10 +137,25 @@
         .catch(err => console.error("Error loading header:", err));
     </script>
   </div>
+  <div class="flex w-full md:hidden bg-white items-center justify-between p-2">
+    <button onclick="history.back()" aria-label="Go back"
+      style="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)"
+      class="w-10 h-10 bg-white rounded-full flex justify-center items-center shadow-sm">
+      <i class="fas fa-chevron-down text-white font-extrabold text-lg">
+      </i>
+    </button>
+    <button onclick="window.location.href='index.html'" aria-label="Go back" class="flex justify-center items-center">
+      <h1 class="mx-auto text-4xl sm:text-5xl font-black leading-none
+             bg-gradient-to-r from-[#b90f2a] to-[#2e143a] bg-clip-text text-transparent">
+        Gift Zone
+      </h1>
+    </button>
+  </div>
 
-  <section id="Drags" class=" h-0 flex flex-wrap gap-2">
-    <div id="uploaders" class="mt-96 flex justify-center md:w-[50vw] w-[100vw]"></div>
-    <div id="frame" class="z-[300] justify-center align-center text-center mx-auto md:h-96">
+
+  <section id="Drags" class=" h-0 flex flex-wrap gap-2 ">
+    <div id="frame" class="z-[3px] justify-center align-top text-center mx-auto md:h-96  ">
+      <div id="uploaders" class="mt-96 flex justify-center md:w-[50vw] w-[100vw]"></div>
     </div>
     <p id="imglink"></p>
     <script>
@@ -383,7 +399,7 @@
     </script>
   </section>
 
-  <main id="mainback" class="bg-[#f5fdf7] w-full mx-auto overflow-auto font-sans">
+  <main id="mainback" class="bg-[#f5fdf7] w-full mx-auto overflow-auto font-Inter">
     <!-- Course Detail -->
     <section id="course-detail" class="bg-[#f5fdf7] shadow  space-y-6"></section>
     <br>
@@ -403,7 +419,7 @@
               <i class="fas fa-chevron-down text-gray-700 text-lg">
               </i>
             </button>
-            <button onclick=" closeLogin()" aria-label="Go back"
+            <button onclick="window.location.href ='inddex.html'" aria-label="Go back"
               class="text-3xl  flex justify-center items-center shadow-sm">
               <h1 class="font-extrabold text-black text-2x1 mx-auto sm:text-base leading-none">
                 Gift Zone
@@ -785,7 +801,8 @@
     class="fixed md:hidden bottom-0 z-[99999999999px] md:w-full md:flex justify-between bg-gray-100 left-0 right-0 border-t gap-1 border-[#d9d9d9]  flex  items-center py-1 md:py-0 px-2 z-50">
     <button onclick="notload()" style="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)"
       class="md:hidden text-white font-semibold rounded-full md:py-1 py-1.5 w-14 mx-auto text-center" type="button">
-      <i class="far fa-image text-2xl p-1"></i>
+      <i class="fab fa-whatsapp text-2xl p-1"></i>
+
     </button>
 
     <button id="openLoginBtn" onclick="openLogin()" style="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)"
@@ -1333,50 +1350,50 @@
     <div class="w-full mx-auto">
       <p class="text-black font-semibold mb-2 text-base">Select Size</p>
       <div class="flex flex-wrap gap-x-5 gap-y-2 md:justify-start justify-start">
-        <div class="flex flex-col items-center">
+        <div class="max-w-[25%] flex flex-col items-center">
           <button class="border border-gray-400 rounded-md px-5 py-1.5 text-black font-semibold text-sm" type="button">
             4 x 6
           </button>
           <span class="text-sm font-extrabold text-gray-800 mt-1">₹ 100</span>
         </div>
-        <div class="flex flex-col items-center">
+        <div class="max-w-[25%] flex flex-col items-center">
           <button class="border border-gray-400 rounded-md px-5 py-1.5 text-black font-semibold text-sm" type="button">
             5 x 7
           </button>
           <span class="text-sm font-extrabold text-gray-700 mt-1">₹ 140</span>
         </div>
-        <div class="flex flex-col items-center">
+        <div class="max-w-[25%] flex flex-col items-center">
           <button class="border border-gray-400 rounded-md px-5 py-1.5 text-black font-semibold text-sm" type="button">
             6 x 8
           </button>
           <span class="text-sm font-extrabold text-gray-700 mt-1">₹ 150</span>
         </div>
-        <div class="flex flex-col items-center">
+        <div class="max-w-[25%] flex flex-col items-center">
           <button class="border border-gray-400 rounded-md px-4 py-1.5 text-black font-semibold text-sm" type="button">
             8 x 12</button>
           <span class="text-sm  font-extrabold text-gray-700 mt-1">₹ 299</span>
         </div>
-        <div class="flex flex-col items-center">
-          <button class="border border-gray-400 rounded-md px-3.5 py-1.5 text-black font-semibold text-sm"
+        <div class="max-w-[25%] flex flex-col items-center">
+          <button class="border border-gray-400 rounded-md px-3 py-1.5 text-black font-semibold text-sm"
             type="button">10 x 15</button>
           <span class="text-sm font-extrabold text-gray-700 mt-1">₹ 419</span>
         </div>
-        <div class="flex flex-col items-center">
-          <button class="border border-gray-400 rounded-md px-4 py-1.5 text-black font-semibold text-sm"
+        <div class="max-w-[25%] flex flex-col items-center">
+          <button class="border border-gray-400 rounded-md px-3 py-1.5 text-black font-semibold text-sm"
             type="button">12 x 18</button>
           <span class="text-sm font-extrabold text-gray-700 mt-1">₹ 549</span>
         </div>
-        <div class="flex flex-col items-center">
+        <div class="max-w-[25%] flex flex-col items-center">
           <button class="border border-gray-400 rounded-md px-3 py-1.5 text-black font-semibold text-sm"
             type="button">16 x 24</button>
           <span class="text-sm font-extrabold text-gray-700 mt-1">₹ 1,350</span>
         </div>
-        <div class="flex flex-col items-center">
+        <div class="max-w-[25%] flex flex-col items-center">
           <button class="border border-gray-400 rounded-md px-3 py-1.5 text-black font-semibold text-sm"
             type="button">20 x 30</button>
           <span class="text-sm  font-extrabold text-gray-700 mt-1">₹ 1,619</span>
         </div>
-        <div class="flex flex-col items-center">
+        <div class="max-w-[25%] flex flex-col items-center">
           <button class="border border-gray-400 rounded-md px-3 py-1.5 text-black font-semibold text-sm"
             type="button">24 x 36</button>
           <span class="text-sm font-extrabold text-gray-700 mt-1">₹ 1,999
@@ -1653,10 +1670,16 @@
   </script>
 
   <script>
+
     const openBtn = document.getElementById("openLoginBtn");
     const closeBtn = document.getElementById("closeLoginBtn");
     const loginFormContainer = document.getElementById("loginFormContainer");
     const overlay = document.getElementById("overlay");
+
+    loginFormContainer.style.opacity = "0";
+    loginFormContainer.style.transform = "translateY(100%)";
+    loginFormContainer.style.pointerEvents = "none";
+    overlay.classList.add("hidden");
 
     function openLogin() {
       overlay.classList.remove("hidden");
