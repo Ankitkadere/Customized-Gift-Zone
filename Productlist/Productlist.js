@@ -150,7 +150,9 @@ function renderCourses(filter = "all", search = "") {
   if (
     search.trim() !== "" &&
     search.toLowerCase() !== "all" &&
+    search.toLowerCase() !== "All Type" &&
     search.toLowerCase() !== "all type" &&
+    search.toLowerCase() !== "All" &&
     search.toLowerCase() !== "all frame"
   ) {
     if (search.toLowerCase() == "login" || search.toLowerCase() == "signup") {

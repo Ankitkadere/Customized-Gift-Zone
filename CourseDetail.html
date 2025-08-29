@@ -17,7 +17,6 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
 
-
     .font-mono-custom {
       font-family: 'Inter', sans-serif;
     }
@@ -102,8 +101,8 @@
   }
 </style>
 
-<body class="bg-[#f5fdf7] ">
-  <div id="header" class="bg-white hidden">
+<body class="bg-[#f5fdf7] mb-10">
+  <div id="header" class="bg-white md:block hidden">
     <script>
       // Load Header CSS (optional)
       const headerCSS = document.createElement("link");
@@ -152,58 +151,78 @@
     </button>
   </div>
 
+  <section id="Drags"
+    class="h-screen  absolute flex-wrap gap-2 bg-[url('https://via.placeholder.com/1200x800')] bg-cover bg-center bg-no-repeat">
 
-  <section id="Drags" class=" h-0 flex flex-wrap gap-2 ">
-    <div id="frame" class="z-[3px] justify-center align-top text-center mx-auto md:h-96  ">
-      <div id="uploaders" class="mt-96 flex justify-center md:w-[50vw] w-[100vw]"></div>
+    <!-- Frame (with overflow hidden) -->
+    <div
+      class="w-[100vw] md:w-[54.5vw] h-[15%] mt-10 md:h-[30%] top-20 md:mt-2 flex items-center justify-center mx-auto">
+      <div id="frame"
+        class="z-[343434343] overflow-hidden relative md:h-[150px] md:w-[110px] w-[29%] h-[120%] bg-white/70 flex items-center justify-center">
+      </div>
     </div>
+    <div id="uploaders" class="md:top-[35%] top-[30%] relative flex justify-between items-center"></div>
+    <div id="add" class=" inset-0 flex justify-center items-center"></div>
     <p id="imglink"></p>
+
     <script>
       // Generate 6 upload blocks
-      const uploaderContainer = document.getElementById("uploaders");
+      const uploaderContainer = document.getElementById("frame");
+      const uploaders = document.getElementById("uploaders");
 
       for (let i = 1; i <= 6; i++) {
         uploaderContainer.innerHTML += `
-      
-<div id="aws" class="flex w-[100%] justify-center mt-10 items-center relative">
+<div id="aws" class="flex w-full justify-center  items-center relative">
   <!-- Wrapper -->
-  <div id="image-wrapper${i}"  class="absolute focus:border hover:border-2 absolute  top-[-270] border-gray-300 overflow-hidden"
-    style="width: 270px; height: 270px; display:none; user-select:none;">
-    <img id="resizable-image${i}" src="" class="absolute object-contain  select-none cursor-move"
-      style="width: 100%; height: 100%; top: -640; left: 90;" draggable="true" />
+  <div id="image-wrapper${i}"  
+    class="absolute focus:border overflow-hidden hover:border-2 border-gray-300   "
+    style="width: 130px; height: 200px; display:none; user-select:none;">
+    
+    <img id="resizable-image${i}" src="" 
+      class="absolute object-contain select-none cursor-move"
+      style="width: 100%; height: 100%; top: -10px; left: 0px;" draggable="true" />
+
     <!-- Resize handles -->
-    <div id="handle-tl${i}" class="  resize-handle top-0 left-0 -translate-x-1/2 -translate-y-1/2">•</div>
-    <div id="handle-tr${i}" class="  resize-handle top-0 right-0 translate-x-1/2 -translate-y-1/2">•</div>
-    <div id="handle-bl${i}" class="  resize-handle bottom-0 left-0 -translate-x-1/2 translate-y-1/2">•</div>
-    <div id="handle-br${i}" class="  resize-handle bottom-0 right-0 translate-x-1/2 translate-y-1/2">•</div>
+    <div id="handle-tl${i}" class="z-[99999999999] p-8 resize-handle top-0 left-0 -translate-x-1/2 -translate-y-1/2">•</div>
+    <div id="handle-tr${i}" class="resize-handle top-0 right-0 translate-x-1/2 -translate-y-1/2">•</div>
+    <div id="handle-bl${i}" class="resize-handle bottom-0 left-0 -translate-x-1/2 translate-y-1/2">•</div>
+    <div id="handle-br${i}" class="resize-handle bottom-0 right-0 translate-x-1/2 translate-y-1/2">•</div>
   </div>
 
   <!-- Buttons -->
-  <div id="buttons-container${i}" class="absolute flex gap-2 alien-center justify-center" style="display:none;">
+  <div id="buttons-container${i}" class="absolute flex gap-2 items-center justify-center" style="display:none;">
     <button id="increase-size${i}" class="hidden px-2 py-1 bg-green-600 text-white rounded-md hover:bg-green-700">
       <i class="fas fa-search-plus"></i>
     </button>
     <button id="decrease-size${i}" class="hidden px-2 py-1 bg-red-600 text-white rounded-md hover:bg-red-700">
       <i class="fas fa-search-minus"></i>
     </button>
-    <button id="delete-image${i}" class=" rounded-full z-[99]  ">
-      <label " 
-               class=" flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 text-gray-400 cursor-pointer
-        shadow-md transition">
-        <i class="fas fa-trash-alt  "></i>
-      </label>
-    </button>
-  </div>
 
+  </div>
+ 
+      `;
+      }
+
+      for (let i = 1; i <= 6; i++) {
+        uploaders.innerHTML += `
+<div id="aws" class="flex w-full justify-center items-center relative">
   <!-- Upload button -->
-  <label for="fileInput${i}"  
+  <label for="fileInput${i}" id="addBtn${i}"
     class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-700 cursor-pointer transition">
     <i class="fas fa-plus text-lg animate-pulse"></i>
   </label>
-  <input type="file" id="fileInput${i}" accept="image/*" class=" flex " />
-</div>
 
-    `;
+  <!-- Delete button (hidden by default) -->
+  <button id="delete-image${i}" class="hidden rounded-full z-[99] ml-2">
+    <label class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 text-gray-400 cursor-pointer shadow-md transition">
+      <i class="fas fa-trash-alt"></i>
+    </label>
+  </button>
+
+  <!-- File input -->
+  <input type="file" id="fileInput${i}" accept="image/*" class="hidden" />
+</div>
+      `;
       }
 
       // --- Logic for Dragging, Resizing, Zoom, Delete ---
@@ -219,6 +238,22 @@
         const btnIncrease = document.getElementById(`increase-size${i}`);
         const btnDecrease = document.getElementById(`decrease-size${i}`);
         const btnDelete = document.getElementById(`delete-image${i}`);
+        const addBtn = document.getElementById(`addBtn${i}`);
+
+        ///add and hidden
+        fileInput.addEventListener("change", () => {
+          if (fileInput.files.length > 0) {
+            addBtn.classList.add("hidden");    // Hide add button
+            btnDelete.classList.remove("hidden"); // Show delete button
+          }
+        });
+
+        // When delete button is clicked
+        btnDelete.addEventListener("click", () => {
+          fileInput.value = "";                 // Clear input
+          deleteBtn.classList.add("hidden");    // Hide delete button
+          addBtn.classList.remove("hidden");    // Show add button
+        });
 
         // Upload
         fileInput.addEventListener("change", (e) => {
@@ -229,40 +264,6 @@
             buttons.style.display = "flex";
           }
         });
-        ///dfdfdfdfdf
-        function addPinchZoom(imgWrapper) {
-          let initialDistance = 0;
-          let initialWidth = 0;
-          let initialHeight = 0;
-
-          imgWrapper.addEventListener("touchstart", (e) => {
-            if (e.touches.length === 2) {
-              // store initial pinch distance
-              const dx = e.touches[0].clientX - e.touches[1].clientX;
-              const dy = e.touches[0].clientY - e.touches[1].clientY;
-              initialDistance = Math.sqrt(dx * dx + dy * dy);
-
-              // store wrapper size
-              initialWidth = imgWrapper.offsetWidth;
-              initialHeight = imgWrapper.offsetHeight;
-            }
-          });
-
-          imgWrapper.addEventListener("touchmove", (e) => {
-            if (e.touches.length === 2) {
-              e.preventDefault();
-              const dx = e.touches[0].clientX - e.touches[1].clientX;
-              const dy = e.touches[0].clientY - e.touches[1].clientY;
-              const newDistance = Math.sqrt(dx * dx + dy * dy);
-
-              if (initialDistance > 0) {
-                const scale = newDistance / initialDistance;
-                imgWrapper.style.width = initialWidth * scale + "px";
-                imgWrapper.style.height = initialHeight * scale + "px";
-              }
-            }
-          });
-        }
 
         // Dragging (mouse)
         img.addEventListener("mousedown", (e) => {
@@ -394,10 +395,9 @@
       for (let i = 1; i <= 6; i++) {
         initImageBlock(i);
       }
-
-
     </script>
   </section>
+
 
   <main id="mainback" class="bg-[#f5fdf7] w-full mx-auto overflow-auto font-Inter">
     <!-- Course Detail -->
@@ -415,13 +415,15 @@
 
           <div class="flex items-center mb-6 justify-between">
             <button onclick=" closeLogin()" aria-label="Go back"
+              style="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)"
               class="w-10 h-10 bg-white rounded-full flex justify-center items-center shadow-sm">
-              <i class="fas fa-chevron-down text-gray-700 text-lg">
+              <i class="fas fa-chevron-down text-white text-lg">
               </i>
             </button>
             <button onclick="window.location.href ='inddex.html'" aria-label="Go back"
-              class="text-3xl  flex justify-center items-center shadow-sm">
-              <h1 class="font-extrabold text-black text-2x1 mx-auto sm:text-base leading-none">
+              class="text-4xl  flex justify-center items-center ">
+              <h1
+                class="font-extrabold bg-gradient-to-r from-[#b90f2a] to-[#2e143a] bg-clip-text text-transparent   text-2x1 mx-auto sm:text-base leading-none">
                 Gift Zone
               </h1>
             </button>
@@ -431,10 +433,9 @@
             Product Size
           </p>
           <div class="md:flex md:gap-2 md:mx-auto">
-            <div style="background: linear-gradient(90deg, #b90f2a 0%, #000000 100%)"
+            <div style="background: linear-gradient(90deg, #9c0d24 0%, #000000 100%)"
               class="relative bg-gradient-to-tr rounded-3xl p-6 w-full max-w-[360px] mx-auto mb-8 shadow-lg"
               style="aspect-ratio: 16 / 9;">
-
               <p
                 class="font-mono-custom font-extrabold text-white text-xl justify-center text-center tracking-widest pb-2 select-text">
                 Select Frame Size
@@ -512,19 +513,19 @@
                 <input type="file" id="ImageInput" accept="image/*" class=" hidden w-full border rounded-lg">
 
                 <input
-                  class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-400"
+                  class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none  "
                   placeholder="Full Name" name="Name" type="text" required />
                 <input
-                  class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                  class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
                   placeholder="Mobile Number" name="Number" type="text" required />
 
                 <input type="text" id="selectedSize" name="Size" required
-                  class="hidden w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                  class="hidden w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
                   name="Material" placeholder="Size Select" />
 
                 <div class="flex space-x-4 mb-2">
                   <select id="frameMaterial" name="Material" required name="Color"
-                    class="flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                    class="flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none ">
                     <option value="" disabled selected>Select material</option>
                     <option value="wood">Wood</option>
                     <option value="metal">Metal</option>
@@ -533,7 +534,7 @@
                     <option value="bamboo">Bamboo</option>
                   </select>
                   <select id="frameColor" name="Color" required
-                    class=" flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                    class=" flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none ">
                     <option value="" disabled selected>Select color</option>
                     <option value="#000000" class="text-black bg-black text-white">Black</option>
                     <option value="#A0522D" class="bg-[#A0522D] text-white">Sienna Brown</option>
@@ -546,17 +547,17 @@
               <div id="data2" style="display: none; margin-top: -5px;">
 
                 <input
-                  class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                  class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
                   placeholder="Address" type="text" name="Address" required />
                 <input
-                  class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                  class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
                   placeholder="City / House " name="City" type="text" required />
                 <div class="flex space-x-4 mb-2">
                   <input
-                    class="flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                    class="flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none "
                     placeholder="Pin Code" type="text" name="Pincode" required />
                   <select id="state" name="State" required name="State"
-                    class="flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                    class="flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none ">
                     <option value="" disabled selected>Select State</option>
                     <option value="Andhra Pradesh">Andhra Pradesh</option>
                     <option value="Arunachal Pradesh">Arunachal Pradesh</option>
@@ -619,9 +620,9 @@
                 </div>
                 <div class="flex md:mx-auto md:w-[58vw] md:justify-between justify-between w-full">
                   <div style="background: linear-gradient(90deg, #b90f2a 0%, #000000 100%) ; display: none;"
-                    onclick="swapback()" aria-label="Go back" id="swapback"
-                    class="w-14 h-12 bg-yellow-400 rounded-full flex justify-center items-center shadow-sm">
-                    <i class="fas fa-chevron-left font-extrabold text-white text-lg pl-5 pt-3"></i>
+                    onclick="window.location.href='https://wa.me/918251092973'" aria-label="Go back" id="swapback"
+                    class="w-14 h-12 rounded-full flex justify-center items-center shadow-sm">
+                    <i class="fas fa-chevron-left font-extrabold text-white text-3x1 pl-5 pt-3"></i>
                   </div>
 
 
@@ -812,8 +813,8 @@
     </button>
   </nav>
 
-
   <script>
+
     const courses = {
       "1": {
         id: 1,
@@ -1321,7 +1322,7 @@
 
     function renderCourse(course) {
       const section = document.getElementById("course-detail");
-
+      const uploaderContainer = document.getElementById("frame").innerHTML;
       const Rs = document.getElementById('openLoginBtn').innerText = "₹ " + course.price;
       const Order = document.getElementById('orderbtn').innerHTML;
       const Upload = document.getElementById('Drags').innerHTML;
@@ -1330,7 +1331,8 @@
       <section class="md:flex w-full md:[100vw] overflow-x-hidden">
   <div class=" dragimg  md:bg-white items-top flex flex-col   w-[100vw] md:w-[55vw]" id="dragimg">
     <div id="Wall" onclick="notload()"
-      class="  items-center justify-center w-[100vw] md:w-[100%] md:h-full overflow-hidden">
+      class=" items-center justify-center w-[100vw] md:w-[100%] md:h-full overflow-hidden">
+      ${uploaderContainer}
       <img src="${course.icon}" alt="${course.iconAlt}" class="w-40 h-100 mt-2 object-cover justify-center mx-auto">
     </div>
     <div class="py-4 text-white">
@@ -1374,7 +1376,7 @@
           <span class="text-sm  font-extrabold text-gray-700 mt-1">₹ 299</span>
         </div>
         <div class="max-w-[25%] flex flex-col items-center">
-          <button class="border border-gray-400 rounded-md px-3 py-1.5 text-black font-semibold text-sm"
+          <button class="border border-gray-400 rounded-md px-3.5 py-1.5 text-black font-semibold text-sm"
             type="button">10 x 15</button>
           <span class="text-sm font-extrabold text-gray-700 mt-1">₹ 419</span>
         </div>
