@@ -1,0 +1,23 @@
+{
+  "short_name": "Gift Zone",
+  "name": "Customized  Gift  Zone",
+  "icons": [
+    {
+      "src": "app.jpg",
+      "type": "image/jpeg",
+      "sizes": "192x192"
+    },
+    {
+      "src": "fav.jpg",
+      "type": "image/jpeg",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5fdf7",
+  "dark_background_color": "#f5fdf7",
+  "theme_color": "#f5fdf7",
+  "orientation": "portrait",
+  "dark_theme_color": "#f5fdf7"
+}

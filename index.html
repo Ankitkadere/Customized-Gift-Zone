@@ -1,0 +1,503 @@
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>Gift Zone : Customized Gift Zone</title>
+  <meta name="description" content="Gift Zone : Photo Frame's App" />
+  <link rel="icon" href="fav.jpg" type="image/jpeg" />
+  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
+  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+  <link rel="manifest" href="manifest.json">
+  <meta name="background-color" content="bg-blue-600" />
+  <meta name="background-color" content="#60A5FA" />
+  <meta name="apple-mobile-web-app-title" content="Gift Zone">
+  <link rel="apple-touch-icon" href="fav.jpg">
+  <meta name="theme-color" content="#f5fdf7" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="#f5fdf7" />
+  <meta name="msapplication-navbutton-color" content="#f5fdf7" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+</head>
+<script>
+  /*
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function (OneSignal) {
+    await OneSignal.init({
+      appId: "3fa7f09b-cf8a-43dd-9ec7-8defe4142b00",
+      notifyButton: {
+        enable: true
+      }
+    });
+  });*/
+</script>
+<style>
+  body {
+
+    font-family: "Inter", sans-serif;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
+
+  @media screen and (min-width: 768px) {
+    .navbars {
+
+      position: relative;
+      display: none;
+    }
+
+    .inputset {
+      display: none;
+    }
+  }
+</style>
+</head>
+
+<body class="  flex flex-col text-sm  ">
+
+  <div id="header"></div> <!-- Header will load here -->
+
+  <script>
+    let deferredPrompt; // store the event
+
+    const progressBar = document.getElementById("progress-bar");
+    const progressText = document.getElementById("progress-text");
+    const statusText = document.getElementById("status-text");
+    const installStatus = document.getElementById("installStatus");
+    const audio = document.getElementById("audioPlayer");
+    const installBtn = document.getElementById("installsystem");
+    const appDownload = document.getElementById("appDownload");
+
+    // Wait for browser to fire install event
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      // show the install button (if hidden)
+      installBtn.classList.remove("hidden");
+    });
+
+    // Show modal immediately
+    installBtn.addEventListener("click", async () => {
+      appDownload.classList.remove("hidden");
+
+      // Start fake progress bar
+      let duration = 5000; // total ms
+      let startTime = null;
+
+      function animateProgress(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const percent = Math.floor(progress * 100);
+
+        progressBar.style.width = percent + "%";
+        progressText.textContent = percent + "%";
+
+        if (progress < 1) {
+          requestAnimationFrame(animateProgress);
+        } else {
+          statusText.textContent = "Download Complete!";
+          installStatus.textContent = "Ready to Install";
+          audio.play().catch(err => console.error(err));
+
+          // Show PWA install prompt
+          if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choice) => {
+              if (choice.outcome === "accepted") {
+                installStatus.textContent = "App Installed!";
+              } else {
+                installStatus.textContent = "Install Cancelled";
+              }
+              deferredPrompt = null;
+              setTimeout(() => {
+                window.location.reload();
+              }, 3000);
+            });
+          } else {
+            installStatus.textContent = "Already Installed";
+            setTimeout(() => {
+              window.location.reload();
+            }, 3000);
+          }
+        }
+      }
+      requestAnimationFrame(animateProgress);
+    });
+  </script>
+
+  <script>
+    // Load Header CSS (optional)
+    const headerCSS = document.createElement("link");
+    headerCSS.rel = "stylesheet";
+    headerCSS.href = "Header.css";
+    document.head.appendChild(headerCSS);
+
+    // Load Header HTML
+    fetch("Header.html")
+      .then(res => res.text())
+      .then(html => {
+        const headerDiv = document.getElementById("header");
+        headerDiv.innerHTML = html;
+
+        // Run scripts from Header.html if any
+        headerDiv.querySelectorAll("script").forEach(oldScript => {
+          const newScript = document.createElement("script");
+          if (oldScript.src) {
+            newScript.src = oldScript.src; // external file
+          } else {
+            newScript.textContent = oldScript.textContent; // inline script
+          }
+          document.body.appendChild(newScript);
+        });
+
+        // Load external Header.js (optional)
+        const headerJS = document.createElement("script");
+        headerJS.src = "Header.js";
+        document.body.appendChild(headerJS);
+      })
+      .catch(err => console.error("Error loading header:", err));
+  </script>
+
+  <form id="search-form" class="w-full px-3 md:hidden" role="search" aria-label="Search jobs or courses" novalidate>
+    <label class="sr-only" for="search">Search courses by name</label>
+    <div class="flex items-center border-2 border-gray-400 rounded-xl py-2 px-3 relative ">
+      <button aria-label="Voice search" class="  text-xl " type="button">
+        <i class="fas fa-microphone"></i>
+      </button>
+      <input class="flex-grow ml-3 text-base placeholder:text-[#1a1a1a] focus:outline-none " id="search" name="search"
+        placeholder="Search Products  " type="search" autocomplete="on" aria-autocomplete="list"
+        aria-controls="suggestions-list" aria-haspopup="listbox" aria-expanded="false" role="combobox"
+        aria-activedescendant="" oninput="filterSuggestions()" onkeydown="handleKeyDown(event)" />
+      <i id="findtbn" class="fas fa-search text-[#1a1a1a] text-lg"></i>
+      <ul id="suggestions-list" role="listbox"
+        class="absolute top-full left-0 right-0 bg-white border border-gray-300 rounded-b-xl max-h-48 overflow-auto z-50 hidden shadow-lg">
+      </ul>
+    </div>
+  </form>
+
+  <section class="w-full mx-auto px-3">
+    <div class="relative rounded-lg overflow-hidden" style="min-height: 100px ;max-height: 250px">
+      <!-- Wrapper -->
+      <div id="bannerWrapper" class="flex transition-transform duration-700 ease-in-out">
+
+        <!-- Slide 1 -->
+        <div class="min-w-full relative">
+          <img
+            src="https://i.pinimg.com/736x/82/e3/ac/82e3ac225040163bdea332cc1d1141ed.jpg"
+            class="w-full h-40 sm:h-48 md:h-56 lg:h-64 object-cover" alt="Coconut halves">
+
+          <div class="absolute flex top-4 left-4 sm:top-6 sm:left-6 max-w-xs sm:max-w-md text-white">
+            <div class="md:h-full  border-2 border-transparent">
+              <div class="inline-block bg-gray-200 text-black text-[9px] sm:text-xs font-semibold rounded-full px-2 py-1 mb-1">
+                EXCLUSIVE OFFER -40% OFF
+              </div>
+              <h2 class="font-extrabold text-lg sm:text-2xl md:text-3xl text-black leading-tight mb-1">
+                Quality Freshness Guaranteed!
+              </h2>
+              <p class="text-xs sm:text-sm font-normal text-black mb-2">
+                Only this week. Don't miss…
+              </p>
+              <p class="text-red-600 font-semibold text-sm sm:text-base mb-2 mr-8">
+                from 300 Rs
+              </p>
+              <button
+                class="bg-gray-500 text-white text-sm font-semibold rounded-full px-4 py-1 md:mt-6 hover:bg-gray-100 transition">
+                Shop Now
+              </button>
+            </div>
+
+            <!-- Product Image -->
+            <div class="flex-1 flex flex-col items-center justify-center w-full">
+              <img
+                src="https://static.vecteezy.com/system/resources/thumbnails/050/817/791/small/smiling-young-man-standing-with-hands-in-pockets-standing-front-view-isolate-on-transparent-background-png.png"
+                alt="Photo Frame" width="700px"
+                class="absolute w-7xl ml-20 md:ml-[300%] h-7xl mt-40 md:mt-72 md:w-full md:h- object-contain mx-auto" />
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Slide 2  https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZr1RbukN0c9W9y7kr0umdorvOVK8HGZafjg&s-->
+        <div class="min-w-full relative">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkj2v-6lo0fZDd-YbH8qOkvVh9O69KdUk1ChbTIWkWHwSIqOzq4dPcod1RwDQEpC2N5D0&usqp=CAU"
+            class="w-full h-40 sm:h-48 md:h-56 lg:h-64 object-cover" alt="Fresh Vegetables">
+          <div class="absolute flex top-4 left-4 sm:top-6 sm:left-6 max-w-xs sm:max-w-md text-white">
+            <div class="md:h-full border-2 border-transparent">
+              <div class="inline-block bg-gray-200 text-black text-[9px] sm:text-xs font-semibold rounded-full px-2 py-1 mb-1">
+                EXCLUSIVE OFFER -40% OFF
+              </div>
+              <h2 class="font-extrabold text-lg sm:text-2xl md:text-3xl text-black leading-tight mb-1">
+                Quality Freshness Guaranteed!
+              </h2>
+              <p class="text-xs sm:text-sm font-normal text-black mb-2">
+                Only this week. Don't miss…
+              </p>
+              <p class="text-red-600 font-semibold text-sm sm:text-base mb-2 mr-8">
+                from 300 Rs
+              </p>
+              <button
+                class="bg-gray-500 text-white text-sm font-semibold rounded-full px-4 py-1 md:mt-6 hover:bg-gray-200 transition">
+                Shop Now
+              </button>
+            </div>
+
+            <!-- Product Image -->
+            <div class="flex-1 flex flex-col items-center justify-center w-full">
+              <img
+                src="https://static.vecteezy.com/system/resources/thumbnails/050/817/791/small/smiling-young-man-standing-with-hands-in-pockets-standing-front-view-isolate-on-transparent-background-png.png"
+                alt="Photo Frame" width="700px"
+                class="absolute w-7xl ml-20 md:ml-[300%] h-7xl mt-40 md:mt-72 md:w-full md:h- object-contain mx-auto" />
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="min-w-full relative">
+          <img src="https://static.vecteezy.com/system/resources/thumbnails/022/720/515/small/abstract-background-with-smooth-lines-in-gray-colors-3d-illustration-photo.jpg"
+            class="w-full h-40 sm:h-48 md:h-56 lg:h-64 object-cover" alt="Fruit Basket">
+          <div class="absolute flex top-4 left-4 sm:top-6 sm:left-6 max-w-xs sm:max-w-md text-white">
+            <div class="md:h-full  border-2 border-transparent">
+              <div class="inline-block bg-gray-200 text-black text-[9px] sm:text-xs font-semibold rounded-full px-2 py-1 mb-1">
+                EXCLUSIVE OFFER -40% OFF
+              </div>
+              <h2 class="font-extrabold text-lg sm:text-2xl md:text-3xl text-black leading-tight mb-1">
+                Quality Freshness Guaranteed!
+              </h2>
+              <p class="text-xs sm:text-sm font-normal text-black mb-2">
+                Only this week. Don't miss…
+              </p>
+              <p class="text-red-600 font-semibold text-sm sm:text-base mb-2 mr-8">
+                from 300 Rs
+              </p>
+              <button
+                class="bg-gray-500 text-white text-sm font-semibold rounded-full px-4 py-1 md:mt-6 hover:bg-gray-200 transition">
+                Shop Now
+              </button>
+            </div>
+
+            <!-- Product Image -->
+            <div class="flex-1 flex flex-col items-center justify-center w-full">
+              <img
+                src="https://static.vecteezy.com/system/resources/thumbnails/050/817/791/small/smiling-young-man-standing-with-hands-in-pockets-standing-front-view-isolate-on-transparent-background-png.png"
+                alt="Photo Frame" width="700px"
+                class="absolute w-7xl ml-20 md:ml-[300%] h-7xl mt-40 md:mt-72 md:w-full md:h- object-contain mx-auto" />
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Controls -->
+      <button id="prevBanner"
+        class="absolute top-1/2 left-2 -translate-y-1/2 bg-white bg-opacity-30 hover:bg-opacity-90 rounded-full w-6 h-6 flex items-center justify-center text-gray-900">
+        <i class="fas fa-chevron-left text-xs"></i>
+      </button>
+      <button id="nextBanner"
+        class="absolute top-1/2 right-2 -translate-y-1/2 bg-white bg-opacity-30 hover:bg-opacity-90 rounded-full w-6 h-6 flex items-center justify-center text-gray-900">
+        <i class="fas fa-chevron-right text-xs"></i>
+      </button>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      const wrapper = document.getElementById("bannerWrapper");
+      const slides = wrapper.children;
+      let index = 0;
+
+      function showSlide(i) {
+        index = (i + slides.length) % slides.length;
+        wrapper.style.transform = `translateX(-${index * 100}%)`;
+      }
+
+      document.getElementById("prevBanner").addEventListener("click", () => showSlide(index - 1));
+      document.getElementById("nextBanner").addEventListener("click", () => showSlide(index + 1));
+
+      // Auto-slide every 3 seconds
+      setInterval(() => showSlide(index + 1), 3000);
+    })();
+  </script>
+  <div id="container"></div>
+
+  <script>
+    async function loadCourseList() {
+      // Load CSS for courselist
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = "Courselist.css";
+      document.head.appendChild(link);
+
+      // Fetch and insert HTML
+      const response = await fetch("Courselist.html");
+      const html = await response.text();
+      const container = document.getElementById("container");
+      container.innerHTML = html;
+
+      // Execute any <script> tags from Courselist.html
+      const tempDiv = document.createElement("div");
+      tempDiv.innerHTML = html;
+      tempDiv.querySelectorAll("script").forEach(oldScript => {
+        const newScript = document.createElement("script");
+        if (oldScript.src) {
+          newScript.src = oldScript.src;   // external JS
+        } else {
+          newScript.textContent = oldScript.textContent; // inline JS
+        }
+        document.body.appendChild(newScript);
+      });
+
+      // Load extra JS file (if you keep it separate)
+      const script = document.createElement("script");
+      script.src = "Courselist.js";
+      document.body.appendChild(script);
+    }
+
+    // Run function
+    loadCourseList();
+  </script>
+
+  <nav aria-label="Bottom navigation"
+    class="navbars hidden fixed bottom-0 left-0 right-0 border-t border-[#d9d9d9] bg-white flex justify-around items-center py-2 text-xs font-semibold text-[#8a8a9f] z-50"
+    role="navigation">
+
+    <!-- Home -->
+    <a href="index.html" class="flex flex-col items-center  ">
+      <img src="https://img.icons8.com/ios-filled/50/000000/home.png" alt="Home Icon" class="w-6 h-6" />
+      Home
+      <div class="w-12 border-b-2 border-[#0f6f61] mt-1"></div>
+    </a>
+
+    <!-- Course -->
+    <a href="Courselist.html" class="flex flex-col items-center relative text-[#8a8a9f]">
+      <img src="https://img.icons8.com/ios-filled/50/000000/open-book--v1.png" alt="Course Icon" class="w-5 h-5 mb-1" />
+      Frames
+      <span
+        class="absolute -top-1 hidden right-3 bg-[#e11d48] text-white rounded-full text-[8px] font-bold w-4 h-4 flex items-center justify-center leading-none">1</span>
+    </a>
+
+    <!-- Job -->
+    <a href="Job.html" class="flex flex-col items-center text-[#8a8a9f]">
+      <img src="https://img.icons8.com/ios-filled/50/000000/job.png" alt="Job Icon" class="w-5 h-5 mb-1" />
+      Job
+    </a>
+
+    <!-- My -->
+    <a href="Mycourse.html" class="flex flex-col items-center text-[#8a8a9f]">
+      <img src="https://img.icons8.com/ios-filled/50/000000/controller.png" alt="Game Icon" class="w-5 h-5 mb-1" />
+      Quiz
+    </a>
+
+  </nav>
+  <script>
+    const courses = [
+      "English Speaking",
+      "Telly",
+      "DCA",
+      "PGDCA",
+      "11th",
+      "12th"
+    ];
+
+    const input = document.getElementById("search");
+    const suggestionsList = document.getElementById("suggestions-list");
+
+    function filterSuggestions() {
+      const value = input.value.toLowerCase();
+      suggestionsList.innerHTML = "";
+      if (!value) {
+        suggestionsList.classList.add("hidden");
+        input.setAttribute("aria-expanded", "false");
+        return;
+      }
+      const filtered = courses.filter(course => course.toLowerCase().startsWith(value));
+      if (filtered.length === 0) {
+        suggestionsList.classList.add("hidden");
+        input.setAttribute("aria-expanded", "false");
+        return;
+      }
+      filtered.forEach((course, index) => {
+        const li = document.createElement("li");
+        li.setAttribute("role", "option");
+        li.id = `suggestion-${index}`;
+        li.className = "px-3 py-1 cursor-pointer hover:bg-[#e6f4f1]";
+        li.textContent = course;
+        li.addEventListener("click", () => {
+          input.value = course;
+          suggestionsList.classList.add("hidden");
+          input.setAttribute("aria-expanded", "false");
+          input.focus();
+        });
+        suggestionsList.appendChild(li);
+      });
+      suggestionsList.classList.remove("hidden");
+      input.setAttribute("aria-expanded", "true");
+    }
+
+    function handleKeyDown(e) {
+      const active = document.activeElement;
+      const options = Array.from(suggestionsList.querySelectorAll("li"));
+      if (suggestionsList.classList.contains("hidden")) return;
+
+      let currentIndex = options.findIndex(option => option === active);
+
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        if (currentIndex < options.length - 1) {
+          options[currentIndex + 1].focus();
+          input.setAttribute("aria-activedescendant", options[currentIndex + 1].id);
+        } else if (currentIndex === -1 && options.length > 0) {
+          options[0].focus();
+          input.setAttribute("aria-activedescendant", options[0].id);
+        }
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        if (currentIndex > 0) {
+          options[currentIndex - 1].focus();
+          input.setAttribute("aria-activedescendant", options[currentIndex - 1].id);
+        }
+      } else if (e.key === "Enter") {
+        if (currentIndex >= 0) {
+          e.preventDefault();
+          input.value = options[currentIndex].textContent;
+          suggestionsList.classList.add("hidden");
+          input.setAttribute("aria-expanded", "false");
+          input.setAttribute("aria-activedescendant", "");
+          input.focus();
+        }
+      } else if (e.key === "Escape") {
+        suggestionsList.classList.add("hidden");
+        input.setAttribute("aria-expanded", "false");
+        input.setAttribute("aria-activedescendant", "");
+      }
+    }
+
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest("#search") && !e.target.closest("#suggestions-list")) {
+        suggestionsList.classList.add("hidden");
+        input.setAttribute("aria-expanded", "false");
+        input.setAttribute("aria-activedescendant", "");
+      }
+    });
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,258 @@
+<html lang="en">
+
+<head>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/a2d04d6c7b.js" crossorigin="anonymous"></script>
+    <style>
+        .resize-handle {
+            width: 12px;
+            height: 12px;
+            background: #2563eb;
+            border: 2px solid white;
+            border-radius: 50%;
+            position: absolute;
+            cursor: nwse-resize;
+        }
+
+      
+    </style>
+</head>
+
+<body id="body" class="flex flex-wrap gap-6 p-3  ">
+  <header class="px-3 py-1 flex items-center justify-between shadow-md z-50">
+    <a onclick="document.getElementById('body').style.display='none' ">
+      <img src="https://img.icons8.com/ios-filled/24/1e40af/left.png" alt="Back Arrow"
+        class="w-10 h-10 group-hover:brightness-800 transition duration-200" />
+    </a>
+    <a href="index.html">
+      <h1 class="text-xl font-extrabold text-[#1a1a1a] leading-none">
+        <span>Gift</span>
+        <span class="text-[#0f6f61]">Zone</span>
+      </h1>
+    </a>
+    <a href="Owner.html">
+      <img alt="Profile picture of a young man with short hair wearing a blue shirt"
+        class="w-8 h-8 rounded-full border-2 border-[#0f6f61]" height="32" src="User.jpg" width="32" />
+    </a>
+  </header>
+    <!-- 6 Uploaders -->
+    <div id="uploaders" class="mt-8 grid grid-cols-6 gap-4"></div>
+
+    <script>
+        // Generate 6 upload blocks
+        const uploaderContainer = document.getElementById("uploaders");
+
+        for (let i = 1; i <= 6; i++) {
+            uploaderContainer.innerHTML += `
+      <div class="flex flex-col items-center relative">
+        <!-- Wrapper -->
+        <div id="image-wrapper${i}" 
+             class="absolute focus:border hover:border-2 border-gray-300 overflow-hidden"
+             style="width: 270px; height: 270px; display:none; user-select:none;">
+          <img id="resizable-image${i}" src="" 
+               class="absolute object-contain select-none cursor-move" 
+               style="width: 100%; height: 100%; top: 0; left: 0;" draggable="false"/>
+          <!-- Resize handles -->
+          <div id="handle-tl${i}" class="resize-handle top-0 left-0 -translate-x-1/2 -translate-y-1/2"></div>
+          <div id="handle-tr${i}" class="resize-handle top-0 right-0 translate-x-1/2 -translate-y-1/2"></div>
+          <div id="handle-bl${i}" class="resize-handle bottom-0 left-0 -translate-x-1/2 translate-y-1/2"></div>
+          <div id="handle-br${i}" class="resize-handle bottom-0 right-0 translate-x-1/2 translate-y-1/2"></div>
+        </div>
+
+        <!-- Buttons -->
+        <div id="buttons-container${i}" 
+             class="absolute flex gap-2 alien-center justify-center" style="display:none;">
+          <button id="increase-size${i}" 
+                  class="px-2 py-1 bg-green-600 text-white rounded-md hover:bg-green-700">
+            <i class="fas fa-search-plus"></i>
+          </button>
+          <button id="decrease-size${i}" 
+                  class="px-2 py-1 bg-red-600 text-white rounded-md hover:bg-red-700">
+            <i class="fas fa-search-minus"></i>
+          </button>
+          <button id="delete-image${i}" 
+                  class="px-2 py-1 bg-gray-600 text-white rounded-md hover:bg-gray-700">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </div>
+
+        <!-- Upload button -->
+        <label for="fileInput${i}" 
+               class="  flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 text-gray-400 hover:bg-blue-700 cursor-pointer shadow-md transition">
+          <i class="fas fa-plus text-lg animate-pulse"></i>
+        </label>
+        <input type="file" id="fileInput${i}" accept="image/*" class="hidden"/>
+      </div>
+    `;
+        }
+
+        // --- Logic for Dragging, Resizing, Zoom, Delete ---
+        let dragTarget = null, offsetX = 0, offsetY = 0;
+        let resizeTarget = null, startX = 0, startY = 0, startW = 0, startH = 0;
+
+        // Initialize each image block
+        function initImageBlock(i) {
+            const wrapper = document.getElementById(`image-wrapper${i}`);
+            const img = document.getElementById(`resizable-image${i}`);
+            const fileInput = document.getElementById(`fileInput${i}`);
+            const buttons = document.getElementById(`buttons-container${i}`);
+            const btnIncrease = document.getElementById(`increase-size${i}`);
+            const btnDecrease = document.getElementById(`decrease-size${i}`);
+            const btnDelete = document.getElementById(`delete-image${i}`);
+
+            // Upload
+            fileInput.addEventListener("change", (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    img.src = URL.createObjectURL(file);
+                    wrapper.style.display = "block";
+                    buttons.style.display = "flex";
+                }
+            });
+
+            // Dragging (mouse)
+            img.addEventListener("mousedown", (e) => {
+                dragTarget = wrapper;
+                offsetX = e.clientX - wrapper.offsetLeft;
+                offsetY = e.clientY - wrapper.offsetTop;
+                document.addEventListener("mousemove", dragMove);
+                document.addEventListener("mouseup", dragEnd);
+            });
+
+            // Dragging (touch)
+            img.addEventListener("touchstart", (e) => {
+                dragTarget = wrapper;
+                offsetX = e.touches[0].clientX - wrapper.offsetLeft;
+                offsetY = e.touches[0].clientY - wrapper.offsetTop;
+                document.addEventListener("touchmove", dragMoveTouch);
+                document.addEventListener("touchend", dragEndTouch);
+            });
+
+            // Zoom In
+            btnIncrease.addEventListener("click", () => {
+                wrapper.style.width = wrapper.offsetWidth * 1.1 + "px";
+                wrapper.style.height = wrapper.offsetHeight * 1.1 + "px";
+            });
+
+            // Zoom Out
+            btnDecrease.addEventListener("click", () => {
+                wrapper.style.width = wrapper.offsetWidth * 0.9 + "px";
+                wrapper.style.height = wrapper.offsetHeight * 0.9 + "px";
+            });
+
+            // Delete
+            btnDelete.addEventListener("click", () => {
+                img.src = "";
+                wrapper.style.display = "none";
+                buttons.style.display = "none";
+                fileInput.value = "";
+            });
+
+            // Resize Handles
+            ["tl", "tr", "bl", "br"].forEach(pos => {
+                const handle = document.getElementById(`handle-${pos}${i}`);
+                handle.addEventListener("mousedown", (e) => startResize(e, wrapper, pos));
+                handle.addEventListener("touchstart", (e) => startResizeTouch(e, wrapper, pos));
+            });
+        }
+
+        // Dragging functions (mouse)
+        function dragMove(e) {
+            if (!dragTarget) return;
+            dragTarget.style.left = e.clientX - offsetX + "px";
+            dragTarget.style.top = e.clientY - offsetY + "px";
+        }
+        function dragEnd() {
+            dragTarget = null;
+            document.removeEventListener("mousemove", dragMove);
+            document.removeEventListener("mouseup", dragEnd);
+        }
+
+        // Dragging functions (touch)
+        function dragMoveTouch(e) {
+            if (!dragTarget) return;
+            dragTarget.style.left = e.touches[0].clientX - offsetX + "px";
+            dragTarget.style.top = e.touches[0].clientY - offsetY + "px";
+        }
+        function dragEndTouch() {
+            dragTarget = null;
+            document.removeEventListener("touchmove", dragMoveTouch);
+            document.removeEventListener("touchend", dragEndTouch);
+        }
+
+        // Resize functions (mouse)
+        function startResize(e, wrapper, pos) {
+            e.preventDefault();
+            resizeTarget = { wrapper, pos };
+            startX = e.clientX;
+            startY = e.clientY;
+            startW = wrapper.offsetWidth;
+            startH = wrapper.offsetHeight;
+
+            document.addEventListener("mousemove", doResize);
+            document.addEventListener("mouseup", stopResize);
+        }
+        function doResize(e) {
+            if (!resizeTarget) return;
+            const { wrapper, pos } = resizeTarget;
+            let newW = startW + (e.clientX - startX) * (pos.includes("r") ? 1 : -1);
+            let newH = startH + (e.clientY - startY) * (pos.includes("b") ? 1 : -1);
+            if (newW > 50 && newH > 50) {
+                wrapper.style.width = newW + "px";
+                wrapper.style.height = newH + "px";
+            }
+        }
+        function stopResize() {
+            resizeTarget = null;
+            document.removeEventListener("mousemove", doResize);
+            document.removeEventListener("mouseup", stopResize);
+        }
+
+        // Resize functions (touch)
+        function startResizeTouch(e, wrapper, pos) {
+            e.preventDefault();
+            resizeTarget = { wrapper, pos };
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+            startW = wrapper.offsetWidth;
+            startH = wrapper.offsetHeight;
+
+            document.addEventListener("touchmove", doResizeTouch);
+            document.addEventListener("touchend", stopResizeTouch);
+        }
+        function doResizeTouch(e) {
+            if (!resizeTarget) return;
+            const { wrapper, pos } = resizeTarget;
+            let newW = startW + (e.touches[0].clientX - startX) * (pos.includes("r") ? 1 : -1);
+            let newH = startH + (e.touches[0].clientY - startY) * (pos.includes("b") ? 1 : -1);
+            if (newW > 50 && newH > 50) {
+                wrapper.style.width = newW + "px";
+                wrapper.style.height = newH + "px";
+            }
+        }
+        function stopResizeTouch() {
+            resizeTarget = null;
+            document.removeEventListener("touchmove", doResizeTouch);
+            document.removeEventListener("touchend", stopResizeTouch);
+        }
+
+        // Initialize all 6
+        for (let i = 1; i <= 6; i++) {
+            initImageBlock(i);
+        }
+
+        // After showing image
+        wrapper.style.display = "block";
+        buttons.style.display = "flex";
+
+        // Hide wrapper after 3s
+        setTimeout(() => {
+            wrapper.style.display = "none";
+            buttons.style.display = "none";
+        }, 3000);
+
+    </script>
+</body>
+
+</html>
