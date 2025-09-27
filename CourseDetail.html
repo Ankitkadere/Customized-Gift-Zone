@@ -101,7 +101,11 @@
   }
 </style>
 
+<<<<<<< HEAD
 <body class=" mb-10">
+=======
+<body class="bg-[#f5fdf7] mb-10">
+>>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
   <div id="header" class="bg-white md:block hidden">
     <script>
       // Load Header CSS (optional)
@@ -149,10 +153,264 @@
         Gift Zone
       </h1>
     </button>
+<<<<<<< HEAD
   </div> 
 
 
   <main id="mainback" class="  w-full mx-auto overflow-auto font-Inter">
+=======
+  </div>
+
+  <section id="Drags"
+    class="h-screen  absolute flex-wrap gap-2 bg-[url('https://via.placeholder.com/1200x800')] bg-cover bg-center bg-no-repeat">
+
+    <!-- Frame (with overflow hidden) -->
+    <div
+      class="w-[100vw] md:w-[54.5vw] h-[15%] mt-10 md:h-[30%] top-20 md:mt-2 flex items-center justify-center mx-auto">
+      <div id="frame"
+        class="z-[43] overflow-hidden relative md:h-[150px] md:w-[110px] w-[29%] h-[120%] bg-white/70 flex items-center justify-center">
+      </div>
+    </div>
+    <div id="uploaders" class="md:top-[35%] top-[30%] relative flex justify-between items-center"></div>
+    <div id="add" class=" inset-0 flex justify-center items-center"></div>
+    <p id="imglink"></p>
+
+    <script>
+      // Generate 6 upload blocks
+      const uploaderContainer = document.getElementById("frame");
+      const uploaders = document.getElementById("uploaders");
+
+      for (let i = 1; i <= 6; i++) {
+        uploaderContainer.innerHTML += `
+<div id="aws" class="flex w-full justify-center  items-center relative">
+  <!-- Wrapper -->
+  <div id="image-wrapper${i}"  
+    class="absolute focus:border overflow-hidden hover:border-2 border-gray-300   "
+    style="width: 130px; height: 200px; display:none; user-select:none;">
+    
+    <img id="resizable-image${i}" src="" 
+      class="absolute object-contain select-none cursor-move"
+      style="width: 100%; height: 100%; top: -10px; left: 0px;" draggable="true" />
+
+    <!-- Resize handles -->
+    <div id="handle-tl${i}" class="z-[99999999999] p-8 resize-handle top-0 left-0 -translate-x-1/2 -translate-y-1/2">•</div>
+    <div id="handle-tr${i}" class="resize-handle top-0 right-0 translate-x-1/2 -translate-y-1/2">•</div>
+    <div id="handle-bl${i}" class="resize-handle bottom-0 left-0 -translate-x-1/2 translate-y-1/2">•</div>
+    <div id="handle-br${i}" class="resize-handle bottom-0 right-0 translate-x-1/2 translate-y-1/2">•</div>
+  </div>
+
+  <!-- Buttons -->
+  <div id="buttons-container${i}" class="absolute flex gap-2 items-center justify-center" style="display:none;">
+    <button id="increase-size${i}" class="hidden px-2 py-1 bg-green-600 text-white rounded-md hover:bg-green-700">
+      <i class="fas fa-search-plus"></i>
+    </button>
+    <button id="decrease-size${i}" class="hidden px-2 py-1 bg-red-600 text-white rounded-md hover:bg-red-700">
+      <i class="fas fa-search-minus"></i>
+    </button>
+
+  </div>
+ 
+      `;
+      }
+
+      for (let i = 1; i <= 6; i++) {
+        uploaders.innerHTML += `
+<div id="aws" class="flex w-full justify-center items-center relative">
+  <!-- Upload button -->
+  <label for="fileInput${i}" id="addBtn${i}"
+    class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-700 cursor-pointer transition">
+    <i class="fas fa-plus text-lg animate-pulse"></i>
+  </label>
+
+  <!-- Delete button (hidden by default) -->
+  <button id="delete-image${i}" class="hidden rounded-full z-[99] ml-2">
+    <label class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 text-gray-400 cursor-pointer shadow-md transition">
+      <i class="fas fa-trash-alt"></i>
+    </label>
+  </button>
+
+  <!-- File input -->
+  <input type="file" id="fileInput${i}" accept="image/*" class="hidden" />
+</div>
+      `;
+      }
+
+      // --- Logic for Dragging, Resizing, Zoom, Delete ---
+      let dragTarget = null, offsetX = 0, offsetY = 0;
+      let resizeTarget = null, startX = 0, startY = 0, startW = 0, startH = 0;
+
+      // Initialize each image block
+      function initImageBlock(i) {
+        const wrapper = document.getElementById(`image-wrapper${i}`);
+        const img = document.getElementById(`resizable-image${i}`);
+        const fileInput = document.getElementById(`fileInput${i}`);
+        const buttons = document.getElementById(`buttons-container${i}`);
+        const btnIncrease = document.getElementById(`increase-size${i}`);
+        const btnDecrease = document.getElementById(`decrease-size${i}`);
+        const btnDelete = document.getElementById(`delete-image${i}`);
+        const addBtn = document.getElementById(`addBtn${i}`);
+
+        ///add and hidden
+        fileInput.addEventListener("change", () => {
+          if (fileInput.files.length > 0) {
+            addBtn.classList.add("hidden");    // Hide add button
+            btnDelete.classList.remove("hidden"); // Show delete button
+          }
+        });
+
+        // When delete button is clicked
+        btnDelete.addEventListener("click", () => {
+          fileInput.value = "";                 // Clear input
+          deleteBtn.classList.add("hidden");    // Hide delete button
+          addBtn.classList.remove("hidden");    // Show add button
+        });
+
+        // Upload
+        fileInput.addEventListener("change", (e) => {
+          const file = e.target.files[0];
+          if (file) {
+            img.src = URL.createObjectURL(file);
+            wrapper.style.display = "block";
+            buttons.style.display = "flex";
+          }
+        });
+
+        // Dragging (mouse)
+        img.addEventListener("mousedown", (e) => {
+          dragTarget = wrapper;
+          offsetX = e.clientX - wrapper.offsetLeft;
+          offsetY = e.clientY - wrapper.offsetTop;
+          document.addEventListener("mousemove", dragMove);
+          document.addEventListener("mouseup", dragEnd);
+        });
+
+        // Dragging (touch)
+        img.addEventListener("touchstart", (e) => {
+          dragTarget = wrapper;
+          offsetX = e.touches[0].clientX - wrapper.offsetLeft;
+          offsetY = e.touches[0].clientY - wrapper.offsetTop;
+          document.addEventListener("touchmove", dragMoveTouch);
+          document.addEventListener("touchend", dragEndTouch);
+        });
+
+        // Zoom In
+        btnIncrease.addEventListener("click", () => {
+          wrapper.style.width = wrapper.offsetWidth * 1.1 + "px";
+          wrapper.style.height = wrapper.offsetHeight * 1.1 + "px";
+        });
+
+        // Zoom Out
+        btnDecrease.addEventListener("click", () => {
+          wrapper.style.width = wrapper.offsetWidth * 0.9 + "px";
+          wrapper.style.height = wrapper.offsetHeight * 0.9 + "px";
+        });
+
+        // Delete
+        btnDelete.addEventListener("click", () => {
+          img.src = "";
+          wrapper.style.display = "none";
+          buttons.style.display = "none";
+          fileInput.value = "";
+        });
+
+        // Resize Handles
+        ["tl", "tr", "bl", "br"].forEach(pos => {
+          const handle = document.getElementById(`handle-${pos}${i}`);
+          handle.addEventListener("mousedown", (e) => startResize(e, wrapper, pos));
+          handle.addEventListener("touchstart", (e) => startResizeTouch(e, wrapper, pos));
+        });
+      }
+
+      // Dragging functions (mouse)
+      function dragMove(e) {
+        if (!dragTarget) return;
+        dragTarget.style.left = e.clientX - offsetX + "px";
+        dragTarget.style.top = e.clientY - offsetY + "px";
+      }
+      function dragEnd() {
+        dragTarget = null;
+        document.removeEventListener("mousemove", dragMove);
+        document.removeEventListener("mouseup", dragEnd);
+      }
+
+      // Dragging functions (touch)
+      function dragMoveTouch(e) {
+        if (!dragTarget) return;
+        dragTarget.style.left = e.touches[0].clientX - offsetX + "px";
+        dragTarget.style.top = e.touches[0].clientY - offsetY + "px";
+      }
+      function dragEndTouch() {
+        dragTarget = null;
+        document.removeEventListener("touchmove", dragMoveTouch);
+        document.removeEventListener("touchend", dragEndTouch);
+      }
+
+      // Resize functions (mouse)
+      function startResize(e, wrapper, pos) {
+        e.preventDefault();
+        resizeTarget = { wrapper, pos };
+        startX = e.clientX;
+        startY = e.clientY;
+        startW = wrapper.offsetWidth;
+        startH = wrapper.offsetHeight;
+
+        document.addEventListener("mousemove", doResize);
+        document.addEventListener("mouseup", stopResize);
+      }
+      function doResize(e) {
+        if (!resizeTarget) return;
+        const { wrapper, pos } = resizeTarget;
+        let newW = startW + (e.clientX - startX) * (pos.includes("r") ? 1 : -1);
+        let newH = startH + (e.clientY - startY) * (pos.includes("b") ? 1 : -1);
+        if (newW > 50 && newH > 50) {
+          wrapper.style.width = newW + "px";
+          wrapper.style.height = newH + "px";
+        }
+      }
+      function stopResize() {
+        resizeTarget = null;
+        document.removeEventListener("mousemove", doResize);
+        document.removeEventListener("mouseup", stopResize);
+      }
+
+      // Resize functions (touch)
+      function startResizeTouch(e, wrapper, pos) {
+        e.preventDefault();
+        resizeTarget = { wrapper, pos };
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        startW = wrapper.offsetWidth;
+        startH = wrapper.offsetHeight;
+
+        document.addEventListener("touchmove", doResizeTouch);
+        document.addEventListener("touchend", stopResizeTouch);
+      }
+      function doResizeTouch(e) {
+        if (!resizeTarget) return;
+        const { wrapper, pos } = resizeTarget;
+        let newW = startW + (e.touches[0].clientX - startX) * (pos.includes("r") ? 1 : -1);
+        let newH = startH + (e.touches[0].clientY - startY) * (pos.includes("b") ? 1 : -1);
+        if (newW > 50 && newH > 50) {
+          wrapper.style.width = newW + "px";
+          wrapper.style.height = newH + "px";
+        }
+      }
+      function stopResizeTouch() {
+        resizeTarget = null;
+        document.removeEventListener("touchmove", doResizeTouch);
+        document.removeEventListener("touchend", stopResizeTouch);
+      }
+
+      // Initialize all 6
+      for (let i = 1; i <= 6; i++) {
+        initImageBlock(i);
+      }
+    </script>
+  </section>
+
+
+  <main id="mainback" class="bg-[#f5fdf7] w-full mx-auto overflow-auto font-Inter">
+>>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
     <!-- Course Detail -->
     <section id="course-detail" class="bg-[#f5fdf7] shadow  space-y-6"></section>
     <br>
@@ -239,6 +497,7 @@
                   </label>
                 </div>
               </div>
+<<<<<<< HEAD
               <input type="radio" name="size" id="size-4x6" value="4 x 6 => Rs. 100" class="hidden" />
               <input type="radio" name="size" id="size-5x7" value="5 x 7 => Rs. 140" class="hidden" />
               <input type="radio" name="size" id="size-6x8" value="6 x 8 => Rs. 150" class="hidden" />
@@ -251,6 +510,20 @@
 
             </div>
             <form id="crudForm" class="space-y-4 mb-2">
+=======
+              <input type="radio" name="size" id="size-4x6" value="4 x 6" class="hidden" />
+              <input type="radio" name="size" id="size-5x7" value="5 x 7" class="hidden" />
+              <input type="radio" name="size" id="size-6x8" value="6 x 8" class="hidden" />
+              <input type="radio" name="size" id="size-8x12" value="8 x 12" class="hidden" />
+              <input type="radio" name="size" id="size-10x15" value="10 x 15" class="hidden" />
+              <input type="radio" name="size" id="size-12x18" value="12 x 18" class="hidden" />
+              <input type="radio" name="size" id="size-16x24" value="16 x 24" class="hidden" />
+              <input type="radio" name="size" id="size-20x30" value="20 x 30" class="hidden" />
+              <input type="radio" name="size" id="size-24x36" value="24 x 36" class="hidden" />
+
+            </div>
+            <form id="crudForm" onsubmit="" class="space-y-4 mb-2">
+>>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
               <p class="font-semibold text-black mb-3 md:mx-auto select-text">
                 Process Details
               </p>
@@ -260,6 +533,7 @@
                   placeholder="YYYY-MM-DD">
                 <input type="text" name="Time" id="times" class=" hidden w-full p-2 border rounded-lg"
                   placeholder="HH:MM AM/PM">
+<<<<<<< HEAD
                 <input type="text" name="Payment" id="Payment" value="WhatsApp"
                   class="hidden w-full p-2 border rounded-lg">
                 <input type="text" name="Other" value="Online" class="hidden w-full p-2 border rounded-lg">
@@ -274,6 +548,19 @@
                 <input
                   class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
                   placeholder="Mobile Number" id="number" name="Number" type="text" required />
+=======
+                <input type="text" name="Payment" class="hidden w-full p-2 border rounded-lg">
+                <input type="text" name="Other" class="hidden w-full p-2 border rounded-lg">
+                <input type="text" name="Status" class="hidden" value="Not Accept">
+                <input type="file" id="ImageInput" accept="image/*" class=" hidden w-full border rounded-lg">
+
+                <input
+                  class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none  "
+                  placeholder="Full Name" name="Name" type="text" required />
+                <input
+                  class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
+                  placeholder="Mobile Number" name="Number" type="text" required />
+>>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
 
                 <input type="text" id="selectedSize" name="Size" required
                   class="hidden w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
@@ -282,20 +569,35 @@
                 <div class="flex space-x-4 mb-2">
                   <select id="frameMaterial" name="Material" required name="Color"
                     class="flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none ">
+<<<<<<< HEAD
                     <option value="" disabled selected>Select Material</option>
                     <option value="Wooden">Wooden</option>
                     <option value="metal">Polystyrene</option>
+=======
+                    <option value="" disabled selected>Select material</option>
+                    <option value="wood">Wood</option>
+                    <option value="metal">Metal</option>
+>>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
                     <option value="plastic">Plastic</option>
                     <option value="acrylic">Acrylic</option>
                     <option value="bamboo">Bamboo</option>
                   </select>
                   <select id="frameColor" name="Color" required
                     class=" flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none ">
+<<<<<<< HEAD
                     <option value="" disabled selected>Select Color</option>
                     <option value="Black" class="text-black bg-black text-white">Black</option>
                     <option value="Brown" class="bg-[#361403] text-white"> Brown</option>
                     <option value="White" class="bg-white text-black">White</option>
                     <option value="Goldden" class="bg-[#FFD700] text-black">Goldden</option>
+=======
+                    <option value="" disabled selected>Select color</option>
+                    <option value="#000000" class="text-black bg-black text-white">Black</option>
+                    <option value="#A0522D" class="bg-[#A0522D] text-white">Sienna Brown</option>
+                    <option value="#FFFFFF" class="bg-white text-black">White</option>
+                    <option value="#708090" class="bg-[#708090] text-white">Slate Gray</option>
+                    <option value="#FFD700" class="bg-[#FFD700] text-black">Gold</option>
+>>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
                   </select>
                 </div>
               </div>
@@ -375,10 +677,19 @@
                 </div>
                 <div class="flex md:mx-auto md:w-[58vw] md:justify-between justify-between w-full">
                   <div style="background: linear-gradient(90deg, #b90f2a 0%, #000000 100%) ; display: none;"
+<<<<<<< HEAD
                     onclick="swapback() " aria-label="Go back" id="swapback"
                     class="w-14 h-12 rounded-full flex justify-center items-center shadow-sm">
                     <i class="fas fa-chevron-left font-extrabold text-white text-3x1 pl-5 pt-4"></i>
                   </div>
+=======
+                    onclick="window.location.href='https://wa.me/918251092973'" aria-label="Go back" id="swapback"
+                    class="w-14 h-12 rounded-full flex justify-center items-center shadow-sm">
+                    <i class="fas fa-chevron-left font-extrabold text-white text-3x1 pl-5 pt-3"></i>
+                  </div>
+
+
+>>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
                   <button style="background: linear-gradient(90deg, #b90f2a 0%, #000000 100%)" onclick="swap()"
                     id="swap"
                     class="bg-yellow-400 text-white font-extrabold rounded-full py-3 w-full md:mx-0 mx-auto text-center"
@@ -388,8 +699,13 @@
                 </div>
               </nav>
             </form>
+<<<<<<< HEAD
 
             <script>
+=======
+            <script>
+
+>>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
               // Generate 6-digit random number
               function generateCode() {
                 let randomCode = Math.floor(100000 + Math.random() * 900000);
@@ -417,6 +733,11 @@
               }
               showLocalDate();
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
               const API_URL = "https://script.google.com/macros/s/AKfycby_gJSJorghtpLgbZjHKO4eJ4f0S1HwDF89FpmFng4CcMedA7L--y8flV_HCaRb2LE-/exec";
 
               function getBase64(file) {
@@ -428,11 +749,19 @@
                 });
               }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
               // 🔹 Handle button click (Next → Submit)
               document.getElementById("swap").addEventListener("click", async (e) => {
                 const btn = document.getElementById("swap");
 
+<<<<<<< HEAD
                 if (btn.innerText === "Next") {
+=======
+                if (btn.innerText == "Next") {
+>>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
                   // Step 1 → Step 2
                   e.preventDefault();
                   swap();
@@ -441,6 +770,7 @@
                   showTime();
                   setInterval(showTime, 1000); // Update every second
                   setInterval(generateCode, 1000);
+<<<<<<< HEAD
                   return;
                 }
                 // Check if all inputs are empty
@@ -464,6 +794,30 @@
                   }
 
                   // 🔹 Final submit → send data to Google Sheet
+=======
+
+                  return;
+                }
+                let allEmpty = true;
+                for (let i = 1; i <= 10; i++) {
+                  const fileInput = document.getElementById(`fileInput${i}`);
+                  if (fileInput.files.length > 0) {
+                    allEmpty = false;
+                    break;
+                  }
+                }
+                if (btn.innerText == "Submit") {
+
+                  if (allEmpty) {
+                    alert("⚠️ Please upload at least one image");
+                    return false;
+                  }
+                  return true;
+
+                  // 🔹 Final submit → send data to Google Sheet
+                  e.preventDefault();
+
+>>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
                   const form = document.getElementById("crudForm");
                   const formData = new FormData(form);
                   let payload = { action: "create" };
@@ -482,6 +836,7 @@
                     method: "POST",
                     body: new URLSearchParams(payload),
                   });
+<<<<<<< HEAD
 
 
                   const date = document.getElementById("dates").value;
@@ -498,12 +853,22 @@
                 }
               });
 
+=======
+                  form.reset();
+                  window.location.href = "Confirmorder.html";
+                  swapback(); // return to first step
+                }
+              });
+>>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
             </script>
 
           </div>
           <div>
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
             <script>
 
               function swap() {
@@ -529,7 +894,11 @@
 
               function updateSelection(selectedId) {
                 radios.forEach(radio => {
+<<<<<<< HEAD
                   if (radio.id == selectedId) {
+=======
+                  if (radio.id === selectedId) {
+>>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
                     radio.checked = true;
                     selectedSizeInput.value = radio.value;
                     selectedSizeInput.placeholder = "";
@@ -537,7 +906,11 @@
                 });
 
                 labels.forEach(label => {
+<<<<<<< HEAD
                   if (label.getAttribute('for') == selectedId) {
+=======
+                  if (label.getAttribute('for') === selectedId) {
+>>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
                     label.classList.add('bg-black', 'text-white');
                     label.classList.remove('border', 'border-gray-400', 'text-black');
                   } else {
@@ -545,8 +918,12 @@
                     label.classList.add('border', 'border-gray-400', 'text-black');
                   }
                 });
+<<<<<<< HEAD
 
               };
+=======
+              }
+>>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
 
               labels.forEach(label => {
                 label.addEventListener('click', () => {
@@ -565,8 +942,12 @@
 
   <nav aria-label="Bottom navigation " id="orderbtn"
     class="fixed md:hidden bottom-0 z-[99999999999px] md:w-full md:flex justify-between bg-gray-100 left-0 right-0 border-t gap-1 border-[#d9d9d9]  flex  items-center py-1 md:py-0 px-2 z-50">
+<<<<<<< HEAD
     <button onclick="window.location.href='https://wa.me/918251092973'"
       style="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)"
+=======
+    <button onclick="notload()" style="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)"
+>>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
       class="md:hidden text-white font-semibold rounded-full md:py-1 py-1.5 w-14 mx-auto text-center" type="button">
       <i class="fab fa-whatsapp text-2xl p-1"></i>
 
@@ -592,7 +973,11 @@
         fees: "Affordable Price",
         timings: "Fast Delivery",
         level: "Beginner Collection",
+<<<<<<< HEAD
         price: "299.00",
+=======
+        price: "399.00",
+>>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
         Demo: "5",
         features: [
           { icon: "fas fa-tags", text: "High Quality Print" },
@@ -1075,6 +1460,7 @@
     function getCourseIdFromURL() {
       return new URLSearchParams(location.search).get("id");
     }
+<<<<<<< HEAD
     window.addEventListener("DOMContentLoaded", () => {
       const courseId = getCourseIdFromURL();
       const course = courses[courseId];
@@ -1085,6 +1471,8 @@
         document.getElementById("course-detail").innerHTML = `<p class="text-red-600">Products not found.</p>`;
       }
     });
+=======
+>>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
 
     function renderStars(rating) {
       let stars = "";
@@ -1098,18 +1486,35 @@
 
     function renderCourse(course) {
       const section = document.getElementById("course-detail");
+<<<<<<< HEAD
       const Rs = document.getElementById('openLoginBtn').innerText = "₹ " + course.price;
 
       const Order = document.getElementById('orderbtn').innerHTML;
+=======
+      const uploaderContainer = document.getElementById("frame").innerHTML;
+      const Rs = document.getElementById('openLoginBtn').innerText = "₹ " + course.price;
+      const Order = document.getElementById('orderbtn').innerHTML;
+      const Upload = document.getElementById('Drags').innerHTML;
+
+>>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
       section.innerHTML = ` 
       <section class="md:flex w-full md:[100vw] overflow-x-hidden">
   <div class=" dragimg  md:bg-white items-top flex flex-col   w-[100vw] md:w-[55vw]" id="dragimg">
     <div id="Wall" onclick="notload()"
       class=" items-center justify-center w-[100vw] md:w-[100%] md:h-full overflow-hidden">
+<<<<<<< HEAD
 
       <img src="${course.icon}" alt="${course.iconAlt}" class="w-40 h-100 mt-2 object-cover justify-center mx-auto">
     </div>
    
+=======
+      ${uploaderContainer}
+      <img src="${course.icon}" alt="${course.iconAlt}" class="w-40 h-100 mt-2 object-cover justify-center mx-auto">
+    </div>
+    <div class="py-4 text-white">
+    .
+    </div>
+>>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
   </div>
 
   <div class=" flex1 px-4 bg-white w-full md:w-[45vw] py-4 z-[400px]">
@@ -1122,55 +1527,93 @@
     <p class="text-gray-700 text-justify mt-4">${course.description}</p>
     <br>
     <div class="w-full mx-auto">
+<<<<<<< HEAD
       <div class="flex">
       <p class="text-black font-semibold mb-2 text-base">Select Size</p>
         
     </div>
       <div class="flex flex-wrap gap-x-5 gap-y-2 md:justify-start justify-start">
         <div  onclick="openLogin()" class="max-w-[25%] flex flex-col items-center">
+=======
+      <p class="text-black font-semibold mb-2 text-base">Select Size</p>
+      <div class="flex flex-wrap gap-x-5 gap-y-2 md:justify-start justify-start">
+        <div class="max-w-[25%] flex flex-col items-center">
+>>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
           <button class="border border-gray-400 rounded-md px-5 py-1.5 text-black font-semibold text-sm" type="button">
             4 x 6
           </button>
           <span class="text-sm font-extrabold text-gray-800 mt-1">₹ 100</span>
         </div>
+<<<<<<< HEAD
         <div  onclick="openLogin()" class="max-w-[25%] flex flex-col items-center">
+=======
+        <div class="max-w-[25%] flex flex-col items-center">
+>>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
           <button class="border border-gray-400 rounded-md px-5 py-1.5 text-black font-semibold text-sm" type="button">
             5 x 7
           </button>
           <span class="text-sm font-extrabold text-gray-700 mt-1">₹ 140</span>
         </div>
+<<<<<<< HEAD
         <div  onclick="openLogin()" class="max-w-[25%] flex flex-col items-center">
+=======
+        <div class="max-w-[25%] flex flex-col items-center">
+>>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
           <button class="border border-gray-400 rounded-md px-5 py-1.5 text-black font-semibold text-sm" type="button">
             6 x 8
           </button>
           <span class="text-sm font-extrabold text-gray-700 mt-1">₹ 150</span>
         </div>
+<<<<<<< HEAD
         <div  onclick="openLogin()" class="max-w-[25%] flex flex-col items-center">
+=======
+        <div class="max-w-[25%] flex flex-col items-center">
+>>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
           <button class="border border-gray-400 rounded-md px-4 py-1.5 text-black font-semibold text-sm" type="button">
             8 x 12</button>
           <span class="text-sm  font-extrabold text-gray-700 mt-1">₹ 299</span>
         </div>
+<<<<<<< HEAD
         <div  onclick="openLogin()" class="max-w-[25%] flex flex-col items-center">
+=======
+        <div class="max-w-[25%] flex flex-col items-center">
+>>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
           <button class="border border-gray-400 rounded-md px-3.5 py-1.5 text-black font-semibold text-sm"
             type="button">10 x 15</button>
           <span class="text-sm font-extrabold text-gray-700 mt-1">₹ 419</span>
         </div>
+<<<<<<< HEAD
         <div  onclick="openLogin()"  class="max-w-[25%] flex flex-col items-center">
+=======
+        <div class="max-w-[25%] flex flex-col items-center">
+>>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
           <button class="border border-gray-400 rounded-md px-3 py-1.5 text-black font-semibold text-sm"
             type="button">12 x 18</button>
           <span class="text-sm font-extrabold text-gray-700 mt-1">₹ 549</span>
         </div>
+<<<<<<< HEAD
         <div  onclick="openLogin()"  class="max-w-[25%] flex flex-col items-center">
+=======
+        <div class="max-w-[25%] flex flex-col items-center">
+>>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
           <button class="border border-gray-400 rounded-md px-3 py-1.5 text-black font-semibold text-sm"
             type="button">16 x 24</button>
           <span class="text-sm font-extrabold text-gray-700 mt-1">₹ 1,350</span>
         </div>
+<<<<<<< HEAD
         <div  onclick="openLogin()"  class="max-w-[25%] flex flex-col items-center">
+=======
+        <div class="max-w-[25%] flex flex-col items-center">
+>>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
           <button class="border border-gray-400 rounded-md px-3 py-1.5 text-black font-semibold text-sm"
             type="button">20 x 30</button>
           <span class="text-sm  font-extrabold text-gray-700 mt-1">₹ 1,619</span>
         </div>
+<<<<<<< HEAD
         <div  onclick="openLogin()"  class="max-w-[25%] flex flex-col items-center">
+=======
+        <div class="max-w-[25%] flex flex-col items-center">
+>>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
           <button class="border border-gray-400 rounded-md px-3 py-1.5 text-black font-semibold text-sm"
             type="button">24 x 36</button>
           <span class="text-sm font-extrabold text-gray-700 mt-1">₹ 1,999
@@ -1290,7 +1733,20 @@
       `;
     }
 
+<<<<<<< HEAD
 
+=======
+    window.addEventListener("DOMContentLoaded", () => {
+      const courseId = getCourseIdFromURL();
+      const course = courses[courseId];
+
+      if (course) {
+        renderCourse(course);
+      } else {
+        document.getElementById("course-detail").innerHTML = `<p class="text-red-600">Course not found.</p>`;
+      }
+    });
+>>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
 
     function updateEndDate() {
       const startInput = document.getElementById("Start");
