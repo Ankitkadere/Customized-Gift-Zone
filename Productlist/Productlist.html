@@ -54,11 +54,7 @@
 
         /* Remove button default styles */
         .category-btn {
-<<<<<<< HEAD
-            background: rgb(240, 239, 239);
-=======
-            background: transparent;
->>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
+            background: rgb(255, 255, 255);
             padding-left: 1%;
             padding-right: 1%;
             cursor: pointer;
@@ -67,13 +63,8 @@
         }
 
         .category-btn:hover {
-<<<<<<< HEAD
             color: #363636;
             border: #a1a1a1 solid 2px;
-=======
-            color: #ad5050;
-            border: #b15d5d solid 2px;
->>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
         }
 
         .hide-scrollbar::-webkit-scrollbar {
@@ -128,34 +119,20 @@
         class="w-full flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mx-auto px-4 md:mt-4">
 
         <div aria-label="Photo frame categories"
-<<<<<<< HEAD
             class="hidden sm:flex overflow-auto hide-scrollbar py-2 md:py-1 flex-nowrap items-center gap-2 md:gap-8 overflow-x-auto px-2"
-=======
-            class="overflow-auto hide-scrollbar  py-2 md:py-1 flex flex-nowrap items-center gap-2 md:gap-8 overflow-x-auto px-2"
->>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
             style="-webkit-overflow-scrolling: touch;">
 
             <!-- All Frames -->
-
             <button aria-pressed="true"
-<<<<<<< HEAD
-                class="category-btn flex items-center ml-[-10] md: ml-[-6] gap-2 border-2 border-transparent px-4 py-2 rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
-=======
-                class="category-btn bg-[#972034]  flex items-center ml-[-10] md: ml-[-6] gap-2 border-2 border-transparent px-4 py-2 rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
->>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
+                class="category-btn bg-[#972034] flex items-center ml-[-10px] md:ml-[-6px] gap-2 border-2 border-transparent px-4 py-2 rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
                 data-filter="all" type="button">
                 <i class="fas fa-th-large text-lg text-green-600"></i>
                 <span>All Frames</span>
             </button>
 
             <!-- Single Frame -->
-
             <button aria-pressed="false"
-<<<<<<< HEAD
-                class=" category-btn flex items-center gap-2 border-2 border-transparent px-4 py-2 rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
-=======
                 class="category-btn flex items-center gap-2 border-2 border-transparent px-4 py-2 rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
->>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
                 data-filter="single" type="button">
                 <i class="fas fa-square text-lg text-blue-600"></i>
                 <span>Single Frame</span>
@@ -187,7 +164,7 @@
 
             <!-- Calendar Frames -->
             <button aria-pressed="false"
-                class="category-btn flex items-center gap-2 border-2 border-transparent px-4 py-2 rounded-lg bg-[#972034]  text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
+                class="category-btn flex items-center gap-2 border-2 border-transparent px-4 py-2 rounded-lg bg-[#972034] text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
                 data-filter="calendar" type="button">
                 <i class="fas fa-calendar-alt text-lg text-teal-600"></i>
                 <span>Calendar Frames</span>
@@ -208,21 +185,22 @@
                 <i class="fas fa-heart text-lg text-pink-500"></i>
                 <span>Lovely Frames</span>
             </button>
-<<<<<<< HEAD
         </div>
+
         <div aria-label="Photo frame categories"
-            class="overflow-auto hide-scrollbar md:hidden py-2 md:py-1 flex flex-nowrap items-center gap-8 md:gap-8 overflow-x-auto px-0"
+            class="overflow-auto hide-scrollbar md:hidden px-1 py-2 md:py-1 flex flex-nowrap items-center gap-10 md:gap-8 overflow-x-auto px-0"
             style="-webkit-overflow-scrolling: touch;">
 
             <!-- All Frames -->
-            <div class="flex flex-col items-center text-center">
+            <div class="flex  flex-col items-center text-center">
                 <button aria-pressed="true"
-                    class="category-btn bg-gray-400 w-10 h-10 flex justify-center items-center border-2 border-transparent rounded-full hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
+                    class="category-btn  w-10 h-10 flex justify-center items-center border-2 border-transparent rounded-full hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
                     data-filter="all" type="button">
                     <i class="fas fa-th-large text-lg text-green-600"></i>
                 </button>
-                <span class="mt-1 text-xs font-semibold text-[#1a1a1a]">All </span>
+                <span class="mt-1 text-xs font-semibold text-[#1a1a1a]">All</span>
             </div>
+
             <!-- Trending -->
             <div class="flex flex-col items-center text-center">
                 <button aria-pressed="false"
@@ -240,7 +218,7 @@
                     data-filter="single" type="button">
                     <i class="fas fa-square text-lg text-blue-600"></i>
                 </button>
-                <span class="mt-1 text-xs font-semibold text-[#1a1a1a]">Single </span>
+                <span class="mt-1 text-xs font-semibold text-[#1a1a1a]">Single</span>
             </div>
 
             <!-- Double Frame -->
@@ -250,7 +228,7 @@
                     data-filter="double" type="button">
                     <i class="fas fa-columns text-lg text-purple-600"></i>
                 </button>
-                <span class="mt-1 text-xs font-semibold text-[#1a1a1a]">Double </span>
+                <span class="mt-1 text-xs font-semibold text-[#1a1a1a]">Double</span>
             </div>
 
             <!-- Triple Frame -->
@@ -260,7 +238,7 @@
                     data-filter="triple" type="button">
                     <i class="fas fa-border-all text-lg text-pink-600"></i>
                 </button>
-                <span class="mt-1 text-xs font-semibold text-[#1a1a1a]">Triple </span>
+                <span class="mt-1 text-xs font-semibold text-[#1a1a1a]">Triple</span>
             </div>
 
             <!-- Multiple Frames -->
@@ -270,7 +248,7 @@
                     data-filter="multiple" type="button">
                     <i class="fas fa-th text-lg text-orange-600"></i>
                 </button>
-                <span class="mt-1 text-xs font-semibold text-[#1a1a1a]">Multiple </span>
+                <span class="mt-1 text-xs font-semibold text-[#1a1a1a]">Multiple</span>
             </div>
 
             <!-- Calendar Frames -->
@@ -280,10 +258,8 @@
                     data-filter="calendar" type="button">
                     <i class="fas fa-calendar-alt text-lg text-teal-600"></i>
                 </button>
-                <span class="mt-1 text-xs font-semibold text-[#1a1a1a]">Calendar </span>
+                <span class="mt-1 text-xs font-semibold text-[#1a1a1a]">Calendar</span>
             </div>
-
-
 
             <!-- Lovely Frames -->
             <div class="flex flex-col items-center text-center">
@@ -292,61 +268,16 @@
                     data-filter="lovely" type="button">
                     <i class="fas fa-heart text-lg text-pink-500"></i>
                 </button>
-                <span class="mt-1 text-xs font-semibold text-[#1a1a1a]">Lovely </span>
+                <span class="mt-1 text-xs font-semibold text-[#1a1a1a]">Lovely</span>
             </div>
-=======
->>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
-
         </div>
-
     </section>
     <input type="text" id="searchResult" placeholder="Search courses..."
         class="hidden border p-2 rounded-md w-full mb-4" />
-<<<<<<< HEAD
-    <section id="courseSection" class="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-7 gap-2 p-2">
-    </section>
-    <nav aria-label="Bottom navigation"
-        class="navbars hidden fixed md:hidden bottom-0 left-0 right-0 border-t border-[#d9d9d9] bg-white flex justify-around items-center py-2 text-xs font-semibold text-[#8a8a9f] z-50"
-=======
 
     <section id="courseSection" class="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-7 gap-2 p-2">
     </section>
-    <nav aria-label="Bottom navigation"
-        class="navbars fixed md:hidden bottom-0 left-0 right-0 border-t border-[#d9d9d9] bg-white flex justify-around items-center py-2 text-xs font-semibold text-[#8a8a9f] z-50"
->>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
-        role="navigation">
 
-        <!-- Home -->
-        <a href="index.html" class="flex flex-col items-center  ">
-            <img src="https://img.icons8.com/ios-filled/50/000000/home.png" alt="Home Icon" class="w-6 h-6" />
-            Home
-
-        </a>
-
-        <!-- Course -->
-        <a href="Courselist.html" class="flex flex-col items-center relative text-[#8a8a9f]">
-            <img src="https://img.icons8.com/ios-filled/50/000000/open-book--v1.png" alt="Course Icon"
-                class="w-5 h-5 mb-1" />
-            Frame
-            <span
-                class="absolute -top-1 hidden right-3 bg-[#e11d48] text-white rounded-full text-[8px] font-bold w-4 h-4 flex items-center justify-center leading-none">1</span>
-            <div class="w-12 border-b-2 border-[#0f6f61] mt-1"></div>
-        </a>
-
-        <!-- Job -->
-        <a href="Job.html" class="flex flex-col items-center text-[#8a8a9f]">
-            <img src="https://img.icons8.com/ios-filled/50/000000/job.png" alt="Job Icon" class="w-5 h-5 mb-1" />
-            Catalog
-        </a>
-
-        <!-- My -->
-        <a href="Mycourse.html" class="flex flex-col items-center text-[#8a8a9f]">
-            <img src="https://img.icons8.com/ios-filled/50/000000/controller.png" alt="Game Icon"
-                class="w-5 h-5 mb-1" />
-            Quiz
-        </a>
-
-    </nav>
 </body>
 
 </html>

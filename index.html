@@ -65,11 +65,7 @@
 </style>
 </head>
 
-<<<<<<< HEAD
-<body class="  flex flex-col text-sm  ">
-=======
-<body class="bg-[#f5fdf7]  flex flex-col text-sm  ">
->>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
+<body class="bg-gray-100 flex flex-col text-sm  ">
 
   <div id="header"></div> <!-- Header will load here -->
 
@@ -175,23 +171,14 @@
       .catch(err => console.error("Error loading header:", err));
   </script>
 
-  <form id="search-form" class="w-full px-3 md:hidden" role="search" aria-label="Search jobs or courses" novalidate>
+  <form id="search-form" class=" w-full px-3 md:hidden" role="search" aria-label="Search jobs or courses" novalidate>
     <label class="sr-only" for="search">Search courses by name</label>
-<<<<<<< HEAD
-    <div class="flex items-center border-2 border-gray-400 rounded-xl py-2 px-3 relative ">
+    <div class="flex bg-white items-center border-2 border-gray-400 rounded-xl py-2 px-3 relative ">
       <button aria-label="Voice search" class="  text-xl " type="button">
         <i class="fas fa-microphone"></i>
       </button>
       <input class="flex-grow ml-3 text-base placeholder:text-[#1a1a1a] focus:outline-none " id="search" name="search"
         placeholder="Search Products  " type="search" autocomplete="on" aria-autocomplete="list"
-=======
-    <div class="flex items-center border-2 border-gray-400 rounded-xl py-2 px-3 relative bg-[#f5fdf7]">
-      <button aria-label="Voice search" class="text-[#0f6f61] text-xl " type="button">
-        <i class="fas fa-microphone"></i>
-      </button>
-      <input class="flex-grow ml-3 text-base placeholder:text-[#1a1a1a] focus:outline-none bg-[#f5fdf7]" id="search"
-        name="search" placeholder="Search Products  " type="search" autocomplete="on" aria-autocomplete="list"
->>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
         aria-controls="suggestions-list" aria-haspopup="listbox" aria-expanded="false" role="combobox"
         aria-activedescendant="" oninput="filterSuggestions()" onkeydown="handleKeyDown(event)" />
       <i id="findtbn" class="fas fa-search text-[#1a1a1a] text-lg"></i>
@@ -207,22 +194,13 @@
       <div id="bannerWrapper" class="flex transition-transform duration-700 ease-in-out">
 
         <!-- Slide 1 -->
-        <div class="min-w-full relative">
-          <img
-<<<<<<< HEAD
-            src="https://i.pinimg.com/736x/82/e3/ac/82e3ac225040163bdea332cc1d1141ed.jpg"
-=======
-            src="https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcm0yMjJiYXRjaDUta3VsLTA2LmpwZw.jpg"
->>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
-            class="w-full h-40 sm:h-48 md:h-56 lg:h-64 object-cover" alt="Coconut halves">
+        <div class="min-w-full relative object-cover">
+          <img src="Assets/Other/01.jpg" class="w-full h-40 sm:h-48 md:h-56 lg:h-64  " alt="Coconut halves">
 
           <div class="absolute flex top-4 left-4 sm:top-6 sm:left-6 max-w-xs sm:max-w-md text-white">
             <div class="md:h-full  border-2 border-transparent">
-<<<<<<< HEAD
-              <div class="inline-block bg-gray-200 text-black text-[9px] sm:text-xs font-semibold rounded-full px-2 py-1 mb-1">
-=======
-              <div class="inline-block bg-green-600 text-[9px] sm:text-xs font-semibold rounded-full px-2 py-1 mb-1">
->>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
+              <div
+                class="inline-block bg-gray-300 text-black text-[9px] sm:text-xs font-semibold rounded-full px-2 py-1 mb-1">
                 EXCLUSIVE OFFER -40% OFF
               </div>
               <h2 class="font-extrabold text-lg sm:text-2xl md:text-3xl text-black leading-tight mb-1">
@@ -231,46 +209,25 @@
               <p class="text-xs sm:text-sm font-normal text-black mb-2">
                 Only this week. Don't miss…
               </p>
-              <p class="text-red-600 font-semibold text-sm sm:text-base mb-2 mr-8">
+              <p class="text-white font-semibold text-sm sm:text-base mb-2 mr-8">
                 from 300 Rs
               </p>
               <button
-<<<<<<< HEAD
-                class="bg-gray-500 text-white text-sm font-semibold rounded-full px-4 py-1 md:mt-6 hover:bg-gray-100 transition">
-=======
-                class="bg-green-500 text-white text-sm font-semibold rounded-full px-4 py-1 md:mt-6 hover:bg-green-600 transition">
->>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
+                class="bg-gray-500 text-white text-sm font-semibold rounded-full px-4 py-1 md:mt-6 hover:bg-green-600 transition">
                 Shop Now
               </button>
-            </div>
-
-            <!-- Product Image -->
-            <div class="flex-1 flex flex-col items-center justify-center w-full">
-              <img
-                src="https://static.vecteezy.com/system/resources/thumbnails/050/817/791/small/smiling-young-man-standing-with-hands-in-pockets-standing-front-view-isolate-on-transparent-background-png.png"
-                alt="Photo Frame" width="700px"
-                class="absolute w-7xl ml-20 md:ml-[300%] h-7xl mt-40 md:mt-72 md:w-full md:h- object-contain mx-auto" />
             </div>
 
           </div>
         </div>
 
         <!-- Slide 2  https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZr1RbukN0c9W9y7kr0umdorvOVK8HGZafjg&s-->
-        <div class="min-w-full relative">
-          <img
-<<<<<<< HEAD
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkj2v-6lo0fZDd-YbH8qOkvVh9O69KdUk1ChbTIWkWHwSIqOzq4dPcod1RwDQEpC2N5D0&usqp=CAU"
-            class="w-full h-40 sm:h-48 md:h-56 lg:h-64 object-cover" alt="Fresh Vegetables">
+        <div class="min-w-full relative object-cover">
+          <img src="Assets/Other/02.jpg" class="w-full h-40  md:h-56 lg:h-64 " alt="Fresh Vegetables">
           <div class="absolute flex top-4 left-4 sm:top-6 sm:left-6 max-w-xs sm:max-w-md text-white">
             <div class="md:h-full border-2 border-transparent">
-              <div class="inline-block bg-gray-200 text-black text-[9px] sm:text-xs font-semibold rounded-full px-2 py-1 mb-1">
-=======
-            src="https://img.freepik.com/premium-vector/red-background-with-smooth-gradient-wave-patterns_53876-630259.jpg"
-            class="w-full h-40 sm:h-48 md:h-56 lg:h-64 object-cover" alt="Fresh Vegetables">
-          <div class="absolute flex top-4 left-4 sm:top-6 sm:left-6 max-w-xs sm:max-w-md text-white">
-            <div class="md:h-full border-2 border-transparent">
-              <div class="inline-block bg-green-600 text-[9px] sm:text-xs font-semibold rounded-full px-2 py-1 mb-1">
->>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
+              <div
+                class="inline-block bg-gray-300 text-black text-[9px] sm:text-xs font-semibold rounded-full px-2 py-1 mb-1">
                 EXCLUSIVE OFFER -40% OFF
               </div>
               <h2 class="font-extrabold text-lg sm:text-2xl md:text-3xl text-black leading-tight mb-1">
@@ -279,25 +236,13 @@
               <p class="text-xs sm:text-sm font-normal text-black mb-2">
                 Only this week. Don't miss…
               </p>
-              <p class="text-red-600 font-semibold text-sm sm:text-base mb-2 mr-8">
+              <p class="text-white font-semibold text-sm sm:text-base mb-2 mr-8">
                 from 300 Rs
               </p>
               <button
-<<<<<<< HEAD
-                class="bg-gray-500 text-white text-sm font-semibold rounded-full px-4 py-1 md:mt-6 hover:bg-gray-200 transition">
-=======
-                class="bg-green-500 text-white text-sm font-semibold rounded-full px-4 py-1 md:mt-6 hover:bg-green-600 transition">
->>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
+                class="bg-gray-500 text-white text-sm font-semibold rounded-full px-4 py-1 md:mt-6 hover:bg-green-600 transition">
                 Shop Now
               </button>
-            </div>
-
-            <!-- Product Image -->
-            <div class="flex-1 flex flex-col items-center justify-center w-full">
-              <img
-                src="https://static.vecteezy.com/system/resources/thumbnails/050/817/791/small/smiling-young-man-standing-with-hands-in-pockets-standing-front-view-isolate-on-transparent-background-png.png"
-                alt="Photo Frame" width="700px"
-                class="absolute w-7xl ml-20 md:ml-[300%] h-7xl mt-40 md:mt-72 md:w-full md:h- object-contain mx-auto" />
             </div>
 
           </div>
@@ -305,20 +250,12 @@
         </div>
 
         <!-- Slide 3 -->
-        <div class="min-w-full relative">
-<<<<<<< HEAD
-          <img src="https://static.vecteezy.com/system/resources/thumbnails/022/720/515/small/abstract-background-with-smooth-lines-in-gray-colors-3d-illustration-photo.jpg"
-            class="w-full h-40 sm:h-48 md:h-56 lg:h-64 object-cover" alt="Fruit Basket">
+        <div class="min-w-full relative object-cover">
+          <img src="Assets/Other/04.jpg" class="w-full h-40 sm:h-48 md:h-56 lg:h-64 " alt="Fruit Basket">
           <div class="absolute flex top-4 left-4 sm:top-6 sm:left-6 max-w-xs sm:max-w-md text-white">
             <div class="md:h-full  border-2 border-transparent">
-              <div class="inline-block bg-gray-200 text-black text-[9px] sm:text-xs font-semibold rounded-full px-2 py-1 mb-1">
-=======
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_WB-eekcctsQk85Ap1FfMRvOF6mttvzAD8g&s"
-            class="w-full h-40 sm:h-48 md:h-56 lg:h-64 object-cover" alt="Fruit Basket">
-          <div class="absolute flex top-4 left-4 sm:top-6 sm:left-6 max-w-xs sm:max-w-md text-white">
-            <div class="md:h-full  border-2 border-transparent">
-              <div class="inline-block bg-green-600 text-[9px] sm:text-xs font-semibold rounded-full px-2 py-1 mb-1">
->>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
+              <div
+                class="inline-block bg-gray-300 text-black text-[9px] sm:text-xs font-semibold rounded-full px-2 py-1 mb-1">
                 EXCLUSIVE OFFER -40% OFF
               </div>
               <h2 class="font-extrabold text-lg sm:text-2xl md:text-3xl text-black leading-tight mb-1">
@@ -327,21 +264,17 @@
               <p class="text-xs sm:text-sm font-normal text-black mb-2">
                 Only this week. Don't miss…
               </p>
-              <p class="text-red-600 font-semibold text-sm sm:text-base mb-2 mr-8">
+              <p class="text-white font-semibold text-sm sm:text-base mb-2 mr-8">
                 from 300 Rs
               </p>
               <button
-<<<<<<< HEAD
-                class="bg-gray-500 text-white text-sm font-semibold rounded-full px-4 py-1 md:mt-6 hover:bg-gray-200 transition">
-=======
-                class="bg-green-500 text-white text-sm font-semibold rounded-full px-4 py-1 md:mt-6 hover:bg-green-600 transition">
->>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
+                class="bg-gray-500 text-white text-sm font-semibold rounded-full px-4 py-1 md:mt-6 hover:bg-green-600 transition">
                 Shop Now
               </button>
             </div>
 
             <!-- Product Image -->
-            <div class="flex-1 flex flex-col items-center justify-center w-full">
+            <div class=" hidden flex-1 flex flex-col items-center justify-center w-full">
               <img
                 src="https://static.vecteezy.com/system/resources/thumbnails/050/817/791/small/smiling-young-man-standing-with-hands-in-pockets-standing-front-view-isolate-on-transparent-background-png.png"
                 alt="Photo Frame" width="700px"
@@ -351,9 +284,7 @@
           </div>
 
         </div>
-
       </div>
-
       <!-- Controls -->
       <button id="prevBanner"
         class="absolute top-1/2 left-2 -translate-y-1/2 bg-white bg-opacity-30 hover:bg-opacity-90 rounded-full w-6 h-6 flex items-center justify-center text-gray-900">
@@ -424,11 +355,7 @@
   </script>
 
   <nav aria-label="Bottom navigation"
-<<<<<<< HEAD
-    class="navbars hidden fixed bottom-0 left-0 right-0 border-t border-[#d9d9d9] bg-white flex justify-around items-center py-2 text-xs font-semibold text-[#8a8a9f] z-50"
-=======
-    class="navbars fixed bottom-0 left-0 right-0 border-t border-[#d9d9d9] bg-white flex justify-around items-center py-2 text-xs font-semibold text-[#8a8a9f] z-50"
->>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1
+    class="navbars hiddenfixed bottom-0 left-0 right-0 border-t border-[#d9d9d9] bg-white flex justify-around items-center py-2 text-xs font-semibold text-[#8a8a9f] z-50"
     role="navigation">
 
     <!-- Home -->
@@ -459,98 +386,6 @@
     </a>
 
   </nav>
-  <script>
-    const courses = [
-      "English Speaking",
-      "Telly",
-      "DCA",
-      "PGDCA",
-      "11th",
-      "12th"
-    ];
-
-    const input = document.getElementById("search");
-    const suggestionsList = document.getElementById("suggestions-list");
-
-    function filterSuggestions() {
-      const value = input.value.toLowerCase();
-      suggestionsList.innerHTML = "";
-      if (!value) {
-        suggestionsList.classList.add("hidden");
-        input.setAttribute("aria-expanded", "false");
-        return;
-      }
-      const filtered = courses.filter(course => course.toLowerCase().startsWith(value));
-      if (filtered.length === 0) {
-        suggestionsList.classList.add("hidden");
-        input.setAttribute("aria-expanded", "false");
-        return;
-      }
-      filtered.forEach((course, index) => {
-        const li = document.createElement("li");
-        li.setAttribute("role", "option");
-        li.id = `suggestion-${index}`;
-        li.className = "px-3 py-1 cursor-pointer hover:bg-[#e6f4f1]";
-        li.textContent = course;
-        li.addEventListener("click", () => {
-          input.value = course;
-          suggestionsList.classList.add("hidden");
-          input.setAttribute("aria-expanded", "false");
-          input.focus();
-        });
-        suggestionsList.appendChild(li);
-      });
-      suggestionsList.classList.remove("hidden");
-      input.setAttribute("aria-expanded", "true");
-    }
-
-    function handleKeyDown(e) {
-      const active = document.activeElement;
-      const options = Array.from(suggestionsList.querySelectorAll("li"));
-      if (suggestionsList.classList.contains("hidden")) return;
-
-      let currentIndex = options.findIndex(option => option === active);
-
-      if (e.key === "ArrowDown") {
-        e.preventDefault();
-        if (currentIndex < options.length - 1) {
-          options[currentIndex + 1].focus();
-          input.setAttribute("aria-activedescendant", options[currentIndex + 1].id);
-        } else if (currentIndex === -1 && options.length > 0) {
-          options[0].focus();
-          input.setAttribute("aria-activedescendant", options[0].id);
-        }
-      } else if (e.key === "ArrowUp") {
-        e.preventDefault();
-        if (currentIndex > 0) {
-          options[currentIndex - 1].focus();
-          input.setAttribute("aria-activedescendant", options[currentIndex - 1].id);
-        }
-      } else if (e.key === "Enter") {
-        if (currentIndex >= 0) {
-          e.preventDefault();
-          input.value = options[currentIndex].textContent;
-          suggestionsList.classList.add("hidden");
-          input.setAttribute("aria-expanded", "false");
-          input.setAttribute("aria-activedescendant", "");
-          input.focus();
-        }
-      } else if (e.key === "Escape") {
-        suggestionsList.classList.add("hidden");
-        input.setAttribute("aria-expanded", "false");
-        input.setAttribute("aria-activedescendant", "");
-      }
-    }
-
-    document.addEventListener("click", (e) => {
-      if (!e.target.closest("#search") && !e.target.closest("#suggestions-list")) {
-        suggestionsList.classList.add("hidden");
-        input.setAttribute("aria-expanded", "false");
-        input.setAttribute("aria-activedescendant", "");
-      }
-    });
-  </script>
-
 </body>
 
 </html>
