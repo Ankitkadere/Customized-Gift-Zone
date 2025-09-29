@@ -188,13 +188,13 @@
         </div>
 
         <div aria-label="Photo frame categories"
-            class="overflow-auto hide-scrollbar md:hidden px-1 py-2 md:py-1 flex flex-nowrap items-center gap-10 md:gap-8 overflow-x-auto px-0"
+            class="overflow-auto hide-scrollbar md:hidden px-1 py-2 md:py-1 flex flex-nowrap items-center gap-7 md:gap-8 overflow-x-auto px-0"
             style="-webkit-overflow-scrolling: touch;">
 
             <!-- All Frames -->
             <div class="flex  flex-col items-center text-center">
                 <button aria-pressed="true"
-                    class="category-btn  w-10 h-10 flex justify-center items-center border-2 border-transparent rounded-full hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
+                    class="category-btn  w-12 h-12 flex justify-center items-center border-2 border-transparent rounded-full hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
                     data-filter="all" type="button">
                     <i class="fas fa-th-large text-lg text-green-600"></i>
                 </button>
@@ -204,7 +204,7 @@
             <!-- Trending -->
             <div class="flex flex-col items-center text-center">
                 <button aria-pressed="false"
-                    class="category-btn w-10 h-10 flex justify-center items-center border-2 border-transparent rounded-full hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
+                    class="category-btn w-12 h-12 flex justify-center items-center border-2 border-transparent rounded-full hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
                     data-filter="trending" type="button">
                     <i class="fas fa-fire text-lg text-red-600"></i>
                 </button>
@@ -214,7 +214,7 @@
             <!-- Single Frame -->
             <div class="flex flex-col items-center text-center">
                 <button aria-pressed="false"
-                    class="category-btn w-10 h-10 flex justify-center items-center border-2 border-transparent rounded-full hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
+                    class="category-btn w-12 h-12 flex justify-center items-center border-2 border-transparent rounded-full hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
                     data-filter="single" type="button">
                     <i class="fas fa-square text-lg text-blue-600"></i>
                 </button>
@@ -224,7 +224,7 @@
             <!-- Double Frame -->
             <div class="flex flex-col items-center text-center">
                 <button aria-pressed="false"
-                    class="category-btn w-10 h-10 flex justify-center items-center border-2 border-transparent rounded-full hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
+                    class="category-btn w-12 h-12 flex justify-center items-center border-2 border-transparent rounded-full hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
                     data-filter="double" type="button">
                     <i class="fas fa-columns text-lg text-purple-600"></i>
                 </button>
@@ -234,7 +234,7 @@
             <!-- Triple Frame -->
             <div class="flex flex-col items-center text-center">
                 <button aria-pressed="false"
-                    class="category-btn w-10 h-10 flex justify-center items-center border-2 border-transparent rounded-full hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
+                    class="category-btn w-12 h-12 flex justify-center items-center border-2 border-transparent rounded-full hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
                     data-filter="triple" type="button">
                     <i class="fas fa-border-all text-lg text-pink-600"></i>
                 </button>
@@ -244,7 +244,7 @@
             <!-- Multiple Frames -->
             <div class="flex flex-col items-center text-center">
                 <button aria-pressed="false"
-                    class="category-btn w-10 h-10 flex justify-center items-center border-2 border-transparent rounded-full hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
+                    class="category-btn w-12 h-12 flex justify-center items-center border-2 border-transparent rounded-full hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
                     data-filter="multiple" type="button">
                     <i class="fas fa-th text-lg text-orange-600"></i>
                 </button>
@@ -254,7 +254,7 @@
             <!-- Calendar Frames -->
             <div class="flex flex-col items-center text-center">
                 <button aria-pressed="false"
-                    class="category-btn bg-[#972034] w-10 h-10 flex justify-center items-center border-2 border-transparent rounded-full hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
+                    class="category-btn bg-[#972034] w-12 h-12 flex justify-center items-center border-2 border-transparent rounded-full hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
                     data-filter="calendar" type="button">
                     <i class="fas fa-calendar-alt text-lg text-teal-600"></i>
                 </button>
@@ -264,7 +264,7 @@
             <!-- Lovely Frames -->
             <div class="flex flex-col items-center text-center">
                 <button aria-pressed="false"
-                    class="category-btn w-10 h-10 flex justify-center items-center border-2 border-transparent rounded-full hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
+                    class="category-btn w-12 h-12 flex justify-center items-center border-2 border-transparent rounded-full hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
                     data-filter="lovely" type="button">
                     <i class="fas fa-heart text-lg text-pink-500"></i>
                 </button>
@@ -274,10 +274,9 @@
     </section>
     <input type="text" id="searchResult" placeholder="Search courses..."
         class="hidden border p-2 rounded-md w-full mb-4" />
-
+    <script src="Productlist/Productlist.js"></script>
     <section id="courseSection" class="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-7 gap-2 p-2">
     </section>
 
 </body>
-
 </html>

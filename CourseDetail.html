@@ -308,7 +308,7 @@
                 <input
                   class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
                   placeholder="Mobile Number" id="number" name="Number" type="text" required />
- 
+
                 <input type="text" id="selectedSize" name="Size" required
                   class="hidden w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
                   name="Material" placeholder="Size Select" />
@@ -319,7 +319,7 @@
                     <option value="" disabled selected>Select Material</option>
                     <option value="Wooden">Wooden</option>
                     <option value="metal">Polystyrene</option>
-               
+
                   </select>
                   <select id="frameColor" name="Color" required
                     class=" flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none ">
@@ -329,8 +329,6 @@
                     <option value="Brown" class="bg-[#361403] text-white"> Brown</option>
                     <option value="White" class="bg-white text-black">White</option>
                     <option value="Goldden" class="bg-[#FFD700] text-black">Goldden</option>
- 
-
                   </select>
                 </div>
               </div>
@@ -614,7 +612,6 @@
 
     <button onclick="window.location.href='https://wa.me/918251092973'"
       style="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)" onclick="notload()"
-      style="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)"
       class="md:hidden text-white font-semibold rounded-full md:py-1 py-1.5 w-14 mx-auto text-center" type="button">
       <i class="fab fa-whatsapp text-2xl p-1"></i>
 
@@ -629,501 +626,7 @@
 
   <script>
 
-    const courses = {
-      "1": {
-        id: 1,
-        title: "Single Photo Frame",
-        icon: "Assets/Single/single1.png",
-        iconAlt: "Single photo frame",
-        description: "Elegant single photo frame perfect for showcasing your favorite memory.",
-        location: "Available Online & Offline",
-        fees: "Affordable Price",
-        timings: "Fast Delivery",
-        level: "Beginner Collection",
-
-        price: "299.00",
-
-        price: "399.00",
-
-        Demo: "5",
-        features: [
-          { icon: "fas fa-tags", text: "High Quality Print" },
-          { icon: "fas fa-truck", text: "Free Delivery" },
-          { icon: "fas fa-truck", text: "7 Day Return" }
-        ],
-        syllabus: [
-          "Premium wooden or acrylic build",
-          "Scratch-resistant glass protection",
-          "Easy wall mount & tabletop options",
-          "Photo size: 8x12 inches",
-          "Multiple color options",
-          "Durable finishing",
-          "Lightweight & stylish",
-          "Gift-ready packaging"
-        ],
-        instructors: [
-          { name: "7 Days Return Policy", photo: "https://placehold.co/64x64/png?text=Return", alt: "Return policy" },
-          { name: "No Warranty", photo: "https://placehold.co/64x64/png?text=No+Warranty", alt: "Warranty info" }
-        ],
-        reviews: [
-          { name: "Amit Sharma", rating: 5, comment: "Beautiful quality, frame looks premium!" },
-          { name: "Riya Patel", rating: 4, comment: "Nice design, worth the price." }
-        ]
-      },
-
-      "2": {
-        title: "Collage Photo Frame",
-        icon: "Assets/Collage/collage1.png",
-        iconAlt: "Collage photo frame",
-        description: "Stylish collage frame to display multiple memories together.",
-        location: "Available Online & Offline",
-        fees: "Affordable Price",
-        timings: "Fast Delivery",
-        level: "Intermediate Collection",
-        price: "799.00",
-        Demo: "5",
-        features: [
-          { icon: "fas fa-th", text: "Multi-Photo Display" },
-          { badge: "I", text: "Popular Choice" },
-          { icon: "fas fa-truck", text: "Free Delivery" }
-        ],
-        syllabus: [
-          "Holds 5–12 photos",
-          "Sturdy wooden build",
-          "Wall-mount design",
-          "Multiple layout styles",
-          "Glass & acrylic protection",
-          "Customizable sizes",
-          "Elegant finishing",
-          "Gift-ready packaging"
-        ],
-        instructors: [
-          { name: "7 Days Return Policy", photo: "https://placehold.co/64x64/png?text=Return", alt: "Return policy" }
-        ],
-        reviews: [
-          { name: "Neha Verma", rating: 5, comment: "Perfect for family pictures!" },
-          { name: "Rohit Gupta", rating: 4, comment: "Looks great in my living room." }
-        ]
-      },
-
-      "3": {
-        title: "Digital Photo Frame",
-        icon: "Assets/Digital/digital1.png",
-        iconAlt: "Digital photo frame",
-        description: "Modern digital photo frame to showcase memories with a slideshow.",
-        location: "Available Online",
-        fees: "Affordable Price",
-        timings: "Fast Delivery",
-        level: "Advanced Collection",
-        price: "1,999.00",
-        Demo: "5",
-        features: [
-          { icon: "fas fa-tv", text: "HD Display" },
-          { badge: "A", text: "Tech-Advanced" },
-          { icon: "fas fa-usb", text: "USB & SD Support" }
-        ],
-        syllabus: [
-          "10-inch HD LED display",
-          "Auto slideshow feature",
-          "USB & memory card support",
-          "Remote control operation",
-          "Multiple transition effects",
-          "Energy-efficient",
-          "Wall-mount & tabletop support",
-          "Warranty: 6 months"
-        ],
-        instructors: [
-          { name: "7 Days Return Policy", photo: "https://placehold.co/64x64/png?text=Return", alt: "Return policy" }
-        ],
-        reviews: [
-          { name: "Arjun Malhotra", rating: 5, comment: "Amazing product, looks classy!" },
-          { name: "Shalini Tiwari", rating: 4, comment: "Good features, easy to use." }
-        ]
-      },
-
-      "4": {
-        title: "Wooden Photo Frame",
-        icon: "Assets/Wooden/wooden1.png",
-        iconAlt: "Wooden photo frame",
-        description: "Classic wooden frame for timeless photo displays.",
-        location: "Available Offline & Online",
-        fees: "Affordable Price",
-        timings: "Fast Delivery",
-        level: "Premium Collection",
-        price: "1,299.00",
-        Demo: "5",
-        features: [
-          { icon: "fas fa-tree", text: "Pure Wooden Finish" },
-          { badge: "P", text: "Premium Quality" },
-          { icon: "fas fa-truck", text: "Free Delivery" }
-        ],
-        syllabus: [
-          "Polished wooden body",
-          "Glass protection",
-          "Available in brown & black",
-          "Size options: A4, A3, A2",
-          "Durable finishing",
-          "Handmade craftsmanship",
-          "Gift-ready packaging"
-        ],
-        instructors: [
-          { name: "7 Days Return Policy", photo: "https://placehold.co/64x64/png?text=Return", alt: "Return policy" }
-        ],
-        reviews: [
-          { name: "Suresh Kumar", rating: 5, comment: "Looks very classy and elegant!" }
-        ]
-      },
-
-      "5": {
-        id: 1,
-        title: "Single Photo Frame",
-        icon: "Assets/Single/single1.png",
-        iconAlt: "Single photo frame",
-        description: "Elegant single photo frame perfect for showcasing your favorite memory.",
-        location: "Available Online & Offline",
-        fees: "Affordable Price",
-        timings: "Fast Delivery",
-        level: "Beginner Collection",
-        price: "399.00",
-        Demo: "5",
-        features: [
-          { icon: "fas fa-image", text: "High Quality Print" },
-          { badge: "B", text: "Best Seller" },
-          { icon: "fas fa-truck", text: "Free Delivery" }
-        ],
-        syllabus: [
-          "Premium wooden or acrylic build",
-          "Scratch-resistant glass protection",
-          "Easy wall mount & tabletop options",
-          "Photo size: 8x12 inches",
-          "Multiple color options",
-          "Durable finishing",
-          "Lightweight & stylish",
-          "Gift-ready packaging"
-        ],
-        instructors: [
-          { name: "7 Days Return Policy", photo: "https://placehold.co/64x64/png?text=Return", alt: "Return policy" },
-          { name: "No Warranty", photo: "https://placehold.co/64x64/png?text=No+Warranty", alt: "Warranty info" }
-        ],
-        reviews: [
-          { name: "Amit Sharma", rating: 5, comment: "Beautiful quality, frame looks premium!" },
-          { name: "Riya Patel", rating: 4, comment: "Nice design, worth the price." }
-        ]
-      },
-
-      "6": {
-        title: "Collage Photo Frame",
-        icon: "Assets/Collage/collage1.png",
-        iconAlt: "Collage photo frame",
-        description: "Stylish collage frame to display multiple memories together.",
-        location: "Available Online & Offline",
-        fees: "Affordable Price",
-        timings: "Fast Delivery",
-        level: "Intermediate Collection",
-        price: "799.00",
-        Demo: "5",
-        features: [
-          { icon: "fas fa-th", text: "Multi-Photo Display" },
-          { badge: "I", text: "Popular Choice" },
-          { icon: "fas fa-truck", text: "Free Delivery" }
-        ],
-        syllabus: [
-          "Holds 5–12 photos",
-          "Sturdy wooden build",
-          "Wall-mount design",
-          "Multiple layout styles",
-          "Glass & acrylic protection",
-          "Customizable sizes",
-          "Elegant finishing",
-          "Gift-ready packaging"
-        ],
-        instructors: [
-          { name: "7 Days Return Policy", photo: "https://placehold.co/64x64/png?text=Return", alt: "Return policy" }
-        ],
-        reviews: [
-          { name: "Neha Verma", rating: 5, comment: "Perfect for family pictures!" },
-          { name: "Rohit Gupta", rating: 4, comment: "Looks great in my living room." }
-        ]
-      },
-
-      "7": {
-        title: "Digital Photo Frame",
-        icon: "Assets/Digital/digital1.png",
-        iconAlt: "Digital photo frame",
-        description: "Modern digital photo frame to showcase memories with a slideshow.",
-        location: "Available Online",
-        fees: "Affordable Price",
-        timings: "Fast Delivery",
-        level: "Advanced Collection",
-        price: "1,999.00",
-        Demo: "5",
-        features: [
-          { icon: "fas fa-tv", text: "HD Display" },
-          { badge: "A", text: "Tech-Advanced" },
-          { icon: "fas fa-usb", text: "USB & SD Support" }
-        ],
-        syllabus: [
-          "10-inch HD LED display",
-          "Auto slideshow feature",
-          "USB & memory card support",
-          "Remote control operation",
-          "Multiple transition effects",
-          "Energy-efficient",
-          "Wall-mount & tabletop support",
-          "Warranty: 6 months"
-        ],
-        instructors: [
-          { name: "7 Days Return Policy", photo: "https://placehold.co/64x64/png?text=Return", alt: "Return policy" }
-        ],
-        reviews: [
-          { name: "Arjun Malhotra", rating: 5, comment: "Amazing product, looks classy!" },
-          { name: "Shalini Tiwari", rating: 4, comment: "Good features, easy to use." }
-        ]
-      },
-
-      "8": {
-        title: "Wooden Photo Frame",
-        icon: "Assets/Wooden/wooden1.png",
-        iconAlt: "Wooden photo frame",
-        description: "Classic wooden frame for timeless photo displays.",
-        location: "Available Offline & Online",
-        fees: "Affordable Price",
-        timings: "Fast Delivery",
-        level: "Premium Collection",
-        price: "1,299.00",
-        Demo: "5",
-        features: [
-          { icon: "fas fa-tree", text: "Pure Wooden Finish" },
-          { badge: "P", text: "Premium Quality" },
-          { icon: "fas fa-truck", text: "Free Delivery" }
-        ],
-        syllabus: [
-          "Polished wooden body",
-          "Glass protection",
-          "Available in brown & black",
-          "Size options: A4, A3, A2",
-          "Durable finishing",
-          "Handmade craftsmanship",
-          "Gift-ready packaging"
-        ],
-        instructors: [
-          { name: "7 Days Return Policy", photo: "https://placehold.co/64x64/png?text=Return", alt: "Return policy" }
-        ],
-        reviews: [
-          { name: "Suresh Kumar", rating: 5, comment: "Looks very classy and elegant!" }
-        ]
-      },
-      "9": {
-        title: "Digital Photo Frame",
-        icon: "Assets/Digital/digital1.png",
-        iconAlt: "Digital photo frame",
-        description: "Modern digital photo frame to showcase memories with a slideshow.",
-        location: "Available Online",
-        fees: "Affordable Price",
-        timings: "Fast Delivery",
-        level: "Advanced Collection",
-        price: "1,999.00",
-        Demo: "5",
-        features: [
-          { icon: "fas fa-tv", text: "HD Display" },
-          { badge: "A", text: "Tech-Advanced" },
-          { icon: "fas fa-usb", text: "USB & SD Support" }
-        ],
-        syllabus: [
-          "10-inch HD LED display",
-          "Auto slideshow feature",
-          "USB & memory card support",
-          "Remote control operation",
-          "Multiple transition effects",
-          "Energy-efficient",
-          "Wall-mount & tabletop support",
-          "Warranty: 6 months"
-        ],
-        instructors: [
-          { name: "7 Days Return Policy", photo: "https://placehold.co/64x64/png?text=Return", alt: "Return policy" }
-        ],
-        reviews: [
-          { name: "Arjun Malhotra", rating: 5, comment: "Amazing product, looks classy!" },
-          { name: "Shalini Tiwari", rating: 4, comment: "Good features, easy to use." }
-        ]
-      },
-
-      "10": {
-        title: "Wooden Photo Frame",
-        icon: "Assets/Wooden/wooden1.png",
-        iconAlt: "Wooden photo frame",
-        description: "Classic wooden frame for timeless photo displays.",
-        location: "Available Offline & Online",
-        fees: "Affordable Price",
-        timings: "Fast Delivery",
-        level: "Premium Collection",
-        price: "1,299.00",
-        Demo: "5",
-        features: [
-          { icon: "fas fa-tree", text: "Pure Wooden Finish" },
-          { badge: "P", text: "Premium Quality" },
-          { icon: "fas fa-truck", text: "Free Delivery" }
-        ],
-        syllabus: [
-          "Polished wooden body",
-          "Glass protection",
-          "Available in brown & black",
-          "Size options: A4, A3, A2",
-          "Durable finishing",
-          "Handmade craftsmanship",
-          "Gift-ready packaging"
-        ],
-        instructors: [
-          { name: "7 Days Return Policy", photo: "https://placehold.co/64x64/png?text=Return", alt: "Return policy" }
-        ],
-        reviews: [
-          { name: "Suresh Kumar", rating: 5, comment: "Looks very classy and elegant!" }
-        ]
-      },
-
-      "11": {
-        id: 1,
-        title: "Single Photo Frame",
-        icon: "Assets/Single/single1.png",
-        iconAlt: "Single photo frame",
-        description: "Elegant single photo frame perfect for showcasing your favorite memory.",
-        location: "Available Online & Offline",
-        fees: "Affordable Price",
-        timings: "Fast Delivery",
-        level: "Beginner Collection",
-        price: "399.00",
-        Demo: "5",
-        features: [
-          { icon: "fas fa-image", text: "High Quality Print" },
-          { badge: "B", text: "Best Seller" },
-          { icon: "fas fa-truck", text: "Free Delivery" }
-        ],
-        syllabus: [
-          "Premium wooden or acrylic build",
-          "Scratch-resistant glass protection",
-          "Easy wall mount & tabletop options",
-          "Photo size: 8x12 inches",
-          "Multiple color options",
-          "Durable finishing",
-          "Lightweight & stylish",
-          "Gift-ready packaging"
-        ],
-        instructors: [
-          { name: "7 Days Return Policy", photo: "https://placehold.co/64x64/png?text=Return", alt: "Return policy" },
-          { name: "No Warranty", photo: "https://placehold.co/64x64/png?text=No+Warranty", alt: "Warranty info" }
-        ],
-        reviews: [
-          { name: "Amit Sharma", rating: 5, comment: "Beautiful quality, frame looks premium!" },
-          { name: "Riya Patel", rating: 4, comment: "Nice design, worth the price." }
-        ]
-      },
-
-      "12": {
-        title: "Collage Photo Frame",
-        icon: "Assets/Collage/collage1.png",
-        iconAlt: "Collage photo frame",
-        description: "Stylish collage frame to display multiple memories together.",
-        location: "Available Online & Offline",
-        fees: "Affordable Price",
-        timings: "Fast Delivery",
-        level: "Intermediate Collection",
-        price: "799.00",
-        Demo: "5",
-        features: [
-          { icon: "fas fa-th", text: "Multi-Photo Display" },
-          { badge: "I", text: "Popular Choice" },
-          { icon: "fas fa-truck", text: "Free Delivery" }
-        ],
-        syllabus: [
-          "Holds 5–12 photos",
-          "Sturdy wooden build",
-          "Wall-mount design",
-          "Multiple layout styles",
-          "Glass & acrylic protection",
-          "Customizable sizes",
-          "Elegant finishing",
-          "Gift-ready packaging"
-        ],
-        instructors: [
-          { name: "7 Days Return Policy", photo: "https://placehold.co/64x64/png?text=Return", alt: "Return policy" }
-        ],
-        reviews: [
-          { name: "Neha Verma", rating: 5, comment: "Perfect for family pictures!" },
-          { name: "Rohit Gupta", rating: 4, comment: "Looks great in my living room." }
-        ]
-      },
-
-      "13": {
-        title: "Digital Photo Frame",
-        icon: "Assets/Digital/digital1.png",
-        iconAlt: "Digital photo frame",
-        description: "Modern digital photo frame to showcase memories with a slideshow.",
-        location: "Available Online",
-        fees: "Affordable Price",
-        timings: "Fast Delivery",
-        level: "Advanced Collection",
-        price: "1,999.00",
-        Demo: "5",
-        features: [
-          { icon: "fas fa-tv", text: "HD Display" },
-          { badge: "A", text: "Tech-Advanced" },
-          { icon: "fas fa-usb", text: "USB & SD Support" }
-        ],
-        syllabus: [
-          "10-inch HD LED display",
-          "Auto slideshow feature",
-          "USB & memory card support",
-          "Remote control operation",
-          "Multiple transition effects",
-          "Energy-efficient",
-          "Wall-mount & tabletop support",
-          "Warranty: 6 months"
-        ],
-        instructors: [
-          { name: "7 Days Return Policy", photo: "https://placehold.co/64x64/png?text=Return", alt: "Return policy" }
-        ],
-        reviews: [
-          { name: "Arjun Malhotra", rating: 5, comment: "Amazing product, looks classy!" },
-          { name: "Shalini Tiwari", rating: 4, comment: "Good features, easy to use." }
-        ]
-      },
-
-      "14": {
-        title: "Wooden Photo Frame",
-        icon: "Assets/Wooden/wooden1.png",
-        iconAlt: "Wooden photo frame",
-        description: "Classic wooden frame for timeless photo displays.",
-        location: "Available Offline & Online",
-        fees: "Affordable Price",
-        timings: "Fast Delivery",
-        level: "Premium Collection",
-        price: "1,299.00",
-        Demo: "5",
-        features: [
-          { icon: "fas fa-tree", text: "Pure Wooden Finish" },
-          { badge: "P", text: "Premium Quality" },
-          { icon: "fas fa-truck", text: "Free Delivery" }
-        ],
-        syllabus: [
-          "Polished wooden body",
-          "Glass protection",
-          "Available in brown & black",
-          "Size options: A4, A3, A2",
-          "Durable finishing",
-          "Handmade craftsmanship",
-          "Gift-ready packaging"
-        ],
-        instructors: [
-          { name: "7 Days Return Policy", photo: "https://placehold.co/64x64/png?text=Return", alt: "Return policy" }
-        ],
-        reviews: [
-          { name: "Suresh Kumar", rating: 5, comment: "Looks very classy and elegant!" }
-        ]
-      }
-
-
-    };
-
+   
     function getCourseIdFromURL() {
       return new URLSearchParams(location.search).get("id");
     }
@@ -1138,6 +641,16 @@
         document.getElementById("course-detail").innerHTML = `<p class="text-red-600">Products not found.</p>`;
       }
     });
+ 
+  fetch('courses.json')
+    .then(res => res.json())
+    .then(courses => {
+      // Replace with the ID you want to render dynamically
+      const courseId = "1";
+      renderCourse(courses[courseId]);
+    })
+    .catch(err => console.error('Error loading courses:', err));   
+
 
     function renderStars(rating) {
       let stars = "";
@@ -1148,6 +661,7 @@
       }
       return stars;
     }
+  
     function renderCourse(course) {
       const section = document.getElementById("course-detail");
       const uploaderContainer = document.getElementById("frame").innerHTML;
@@ -1322,7 +836,6 @@
   `;
     }
 
-
     window.addEventListener("DOMContentLoaded", () => {
       const courseId = getCourseIdFromURL();
       const course = courses[courseId];
@@ -1338,9 +851,7 @@
     function updateEndDate() {
       const startInput = document.getElementById("Start");
       const endInput = document.getElementById("End");
-
       if (!startInput.value) return;
-
       const startDate = new Date(startInput.value);
       startDate.setMonth(startDate.getMonth() + 1);
 
@@ -1507,4 +1018,5 @@
 
   </script>
 
+<script src="courses.json"></script>
 </html>
