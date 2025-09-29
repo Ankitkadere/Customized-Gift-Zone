@@ -103,7 +103,7 @@
 
 
 <body class="bg-gray-100 mb-10">
-
+  <script>// style="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)"</script>
   <div id="header" class="bg-white md:block hidden">
     <script>
       // Load Header CSS (optional)
@@ -140,14 +140,13 @@
   </div>
   <div class="flex w-full md:hidden bg-white items-center justify-between p-2">
     <button onclick="history.back()" aria-label="Go back"
-      style="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)"
-      class="w-10 h-10 bg-white rounded-full flex justify-center items-center shadow-sm">
+      class="w-10 h-10 bg-black text-white rounded-full flex justify-center items-center shadow-sm">
       <i class="fas fa-chevron-down text-white font-extrabold text-lg">
       </i>
     </button>
     <button onclick="window.location.href='index.html'" aria-label="Go back" class="flex justify-center items-center">
       <h1 class="mx-auto text-4xl sm:text-5xl font-black leading-none
-             bg-gradient-to-r from-[#b90f2a] to-[#2e143a] bg-clip-text text-transparent">
+             text-black">
         Gift Zone
       </h1>
     </button>
@@ -299,7 +298,7 @@
                 <input type="text" name="Other" value="Online" class="hidden w-full p-2 border rounded-lg">
                 <input type="text" name="Status" id="Status" class="hidden" value="Not Accept">
                 <input type="text" name="Price" class="hidden">
-                <input type="file" id="ImageInput" accept="image/jpg*" src="fav.jpg"
+                <input type="file" id="ImageInput" accept="image/jpg/png*" src= ""
                   class=" hidden w-full border rounded-lg">
 
                 <input
@@ -332,7 +331,7 @@
                   </select>
                 </div>
               </div>
-              <div id="data2" style="display: none; margin-top: -5px;">
+              <div id="data2" style="display: none; margin-top: mt-2;">
 
                 <input
                   class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
@@ -412,11 +411,7 @@
                     class="w-14 h-12 rounded-full flex justify-center items-center shadow-sm">
                     <i class="fas fa-chevron-left font-extrabold text-white text-3x1 pl-5 pt-4"></i>
                   </div>
-
-                  <div onclick="window.location.href='https://wa.me/918251092973'" aria-label="Go back" id="swapback"
-                    class="w-14 h-12 rounded-full flex justify-center items-center shadow-sm">
-                    <i class="fas fa-chevron-left font-extrabold text-white text-3x1 pl-5 pt-3"></i>
-                  </div>
+ 
                   <button style="background: linear-gradient(90deg, #b90f2a 0%, #000000 100%)" onclick="swap()"
                     id="swap"
                     class="bg-yellow-400 text-white font-extrabold rounded-full py-3 w-full md:mx-0 mx-auto text-center"
@@ -494,10 +489,10 @@
                     }
                   }
 
-                  if (allEmpty) {
+              /*    if (allEmpty) {
                     alert("⚠️ Please Upload All Details");
                     return false;
-                  }
+                  }*/
 
                   btn.innerText = "Please Wait...";
 
@@ -611,14 +606,14 @@
     class="fixed md:hidden bottom-0 z-[99999999999px] md:w-full md:flex justify-between bg-gray-100 left-0 right-0 border-t gap-1 border-[#d9d9d9]  flex  items-center py-1 md:py-0 px-2 z-50">
 
     <button onclick="window.location.href='https://wa.me/918251092973'"
-      style="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)" onclick="notload()"
-      class="md:hidden text-white font-semibold rounded-full md:py-1 py-1.5 w-14 mx-auto text-center" type="button">
+   onclick="notload()"
+      class="md:hidden text-white bg-black font-semibold rounded-full md:py-1 py-1.5 w-14 mx-auto text-center" type="button">
       <i class="fab fa-whatsapp text-2xl p-1"></i>
 
     </button>
 
-    <button id="openLoginBtn" onclick="openLogin()" style="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)"
-      class=" text-white text-2xl md:mt-4 font-semibold rounded-full md:py-1 py-1.5 w-full md:w-full  mx-auto text-center"
+    <button id="openLoginBtn" onclick="openLogin()" 
+      class=" text-white bg-black text-2xl md:mt-4 font-semibold rounded-full md:py-1 py-1.5 w-full md:w-full  mx-auto text-center"
       type="button">
       Booking
     </button>
@@ -626,7 +621,7 @@
 
   <script>
 
-   
+
     function getCourseIdFromURL() {
       return new URLSearchParams(location.search).get("id");
     }
@@ -641,15 +636,15 @@
         document.getElementById("course-detail").innerHTML = `<p class="text-red-600">Products not found.</p>`;
       }
     });
- 
-  fetch('courses.json')
-    .then(res => res.json())
-    .then(courses => {
-      // Replace with the ID you want to render dynamically
-      const courseId = "1";
-      renderCourse(courses[courseId]);
-    })
-    .catch(err => console.error('Error loading courses:', err));   
+
+    fetch('courses.json')
+      .then(res => res.json())
+      .then(courses => {
+        // Replace with the ID you want to render dynamically
+        const courseId = "1";
+        renderCourse(courses[courseId]);
+      })
+      .catch(err => console.error('Error loading courses:', err));
 
 
     function renderStars(rating) {
@@ -661,7 +656,7 @@
       }
       return stars;
     }
-  
+
     function renderCourse(course) {
       const section = document.getElementById("course-detail");
       const uploaderContainer = document.getElementById("frame").innerHTML;
@@ -1018,5 +1013,6 @@
 
   </script>
 
-<script src="courses.json"></script>
+  <script src="courses.json"></script>
+
 </html>
