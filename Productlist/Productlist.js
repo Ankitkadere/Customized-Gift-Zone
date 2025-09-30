@@ -70,16 +70,16 @@ fetch("courses.json")
         card.innerHTML = `
           <a href="CourseDetail.html?id=${id}" class="md:block relative">
             <div class="absolute top-2 left-2 bg-gray-50 w-7 h-7 rounded-full flex items-center justify-center">
-              <i class="fas fa-heart text-black text-xs"></i>
+              <i class="fas fa-heart text-black text-lg"></i>
             </div>
 
-            <div class="h-40 bg-[#526474] justify-center p-2 align-center object-cover">
+            <div class="h-40 bg-[#526474] justify-center p-1 align-center object-cover">
               <img src="${data.icon}" alt="${data.title}" class="w-full h-full object-cover rounded-lg"/>
             </div>
 
             <div class="overflow-hidden">
               <div class="flex items-center justify-between">
-                <h3 class="text-gray-900 font-semibold text-sm">${data.title}</h3>
+                <h3 class="text-gray-900 font-semibold text-base">${data.title}</h3>
                 <div class="flex items-center space-x-1 text-sm">
                   <i class="fas fa-star text-yellow-500 text-sm"></i>
                   <span class="text-gray-800 font-semibold">(${data.rating})</span>
@@ -87,10 +87,10 @@ fetch("courses.json")
               </div>
               <p style="font-size: 10px;" class="w-40 overflow-hidden h-5 text-gray-500 text-green-900 mt-[-5px]">${data.description} : ${data.size}</p>
               <div class="flex items-center justify-between mt-[-5px]">
-                <span class="font-extrabold text-base">₹${data.price}</span>
+                <span class="font-extrabold text-lg">₹${data.price}</span>
                 <button aria-label="Add to cart"
                   class="w-6 h-6 rounded-full flex items-center justify-center bg-gray-50 hover:bg-gray-400">
-                  <i class="fas fa-shopping-cart text-gray-700 text-sm"></i>
+                  <i class="fas fa-shopping-cart text-gray-700 text-base"></i>
                 </button>
               </div>
             </div>

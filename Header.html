@@ -69,9 +69,9 @@
 
         /* Progress bar container */
         .progress-container {
-          
+
             background-color: #e5e7eb;
-          
+
             border-radius: 9999px;
             height: 1.5rem;
             overflow: hidden;
@@ -81,7 +81,7 @@
 
         /* Progress bar fill */
         #progress-bar {
-          
+
             height: 100%;
             width: 0%;
             border-radius: 9999px;
@@ -110,7 +110,7 @@
             margin-top: 1rem;
             width: 100%;
             padding: 0.5rem 1rem;
-            background-color: #2563eb;
+            background-color: #1f1f1f;
             /* blue-600 */
             color: #fff;
             font-weight: 600;
@@ -153,14 +153,16 @@
                     class="sm:hidden text-gray-700 hover:text-gray-900   focus:outline-none">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
-                <img alt="Gift Zone" class=" hidden w-28 h-10  md:block object-contain" height="32" src="favll.jpg"
-                    width="32" />
-                <h1 class="font-extrabold w-full  pt-0 md:pt-3 flex  md:text-1x1 text-2xl leading-none">
-                    Gift Zone
-                    <span class="font-normal hidden pt-1 px-1 md:block  font-extrabold  sm:text-sm md:text-sm ">
-                        Store
-                    </span>
-                </h1>
+                <a href="index.html" class="flex">
+                    <img alt="Gift Zone" class=" hidden w-28 h-10  md:block object-contain" height="32" src="favll.jpg"
+                        width="32" />
+                    <h1 class="font-extrabold w-full  pt-0 md:pt-3 flex  md:text-1x1 text-2xl leading-none">
+                        Gift Zone
+                        <span class="font-normal hidden pt-1 px-1 md:block  font-extrabold  sm:text-sm md:text-sm ">
+                            Store
+                        </span>
+                    </h1>
+                </a>
 
                 <div class="  text-left">
                     <!-- Trigger -->
@@ -210,39 +212,148 @@
                             }
                         </style>
 
+                        <!-- Modal Overlay -->
                         <div id="modalOverlay"
-                            class="fixed inset-0 p-4 bg-black bg-opacity-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
+                            class="fixed inset-0 p-4 bg-black bg-opacity-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 z-50">
                             <!-- Modal Box -->
                             <div id="modalBox"
-                                class="bg-white rounded-lg shadow-xl max-w-md w-full p-6 transform opacity-0 scale-95"
+                                class="bg-gray-100 rounded-lg shadow-xl max-w-md w-full p-6 transform opacity-0 scale-95 transition-all"
                                 role="dialog" aria-modal="true" aria-labelledby="modalTitle"
                                 aria-describedby="modalDesc">
+
                                 <div class="flex justify-between items-center mb-4">
                                     <h2 id="modalTitle"
-                                        class="text-xl font-semibold text-green-700 flex items-center space-x-2">
+                                        class="text-xl font-semibold text-green-700 flex items-center justify-center w-full space-x-2 text-center">
                                         <i class="fas fa-check-circle text-green-600 text-2xl"></i>
                                         <span>Download Mobile App</span>
                                     </h2>
-                                    <button id="closeModalBtn" aria-label="Close order confirmation"
-                                        class="text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-green-400 rounded">
+                                    <button id="closeModalBtn" aria-label="Close"
+                                        class="text-gray-400 hover:text-gray-600 absolute top-4 right-4">
                                         <i class="fas fa-times text-xl"></i>
                                     </button>
                                 </div>
-                                <p id="modalDesc" class="text-gray-700 mb-6">
-                                    Thank you for Download App! Your Downloading has been successfully placed and is
-                                    being
-                                    processed. You will receive a confirmation message shortly.
+
+                                <p id="modalDesc" class="text-gray-700 mb-6 text-center">
+                                    Thank you for choosing our app ! Click the button below to start the download and
+                                    install the app.
                                 </p>
-                                <button id="installBtn"
-                                    onclick="document.getElementById('appDownload').style.display='flex'"
-                                    class="px-2 py-3 w-20   justify-center bg-green-600 hover:bg-blue-700 text-white font-semibold rounded-md flex items-center gap-2 transition">
+
+                                <div class="flex justify-center">
+                                    <button id="installBtn"
+                                    class="px-4 py-2 bg-black hover:bg-gray-800 text-white font-semibold rounded-md flex items-center justify-center gap-2 transition duration-300">
                                     <i class="fas fa-download"></i>
                                     <span>Download App</span>
                                 </button>
-
+                                
+                                </div>
                             </div>
                         </div>
 
+                        <!-- App Download Modal -->
+                        <section id="appDownload"
+                            class="fixed inset-0 bg-black/60 flex items-center justify-center hidden z-50">
+                            <div class="bg-white rounded-xl shadow-xl p-6 w-80 flex flex-col items-center relative">
+                                <img src="fav.jpg" alt="App Logo" class="w-24 h-24 rounded-full mb-3">
+                                <p id="installStatus" class="text-green-700 font-semibold text-lg mb-3">Processing...
+                                </p>
+                                <div class="w-full bg-gray-200 rounded-full h-6 overflow-hidden relative">
+                                    <div id="progress-bar" class="bg-blue-600 h-full w-0 transition-all duration-300">
+                                    </div>
+                                    <span id="progress-text"
+                                        class="absolute inset-0 flex items-center justify-center text-white font-semibold text-sm select-none">0%</span>
+                                </div>
+                                <p id="status-text" class="mt-4 text-center text-gray-700 font-medium">
+                                    Downloading your App...
+                                </p>
+                                <audio id="audioPlayer" src="bell.wav" class="hidden"></audio>
+                            </div>
+                        </section>
+                        <script>
+                            let deferredPrompt = null;
+                            let appInstalled = false;
+
+                            // Listen for beforeinstallprompt event
+                            window.addEventListener('beforeinstallprompt', (e) => {
+                                e.preventDefault();
+                                deferredPrompt = e;
+                                appInstalled = false;
+                                showModal(); // Show install modal
+                            });
+
+                            // Listen for appinstalled event (already installed)
+                            window.addEventListener('appinstalled', () => {
+                                appInstalled = true;
+                            });
+
+                            // Show modal
+                            function showModal() {
+                                const overlay = document.getElementById('modalOverlay');
+                                const box = document.getElementById('modalBox');
+                                overlay.classList.remove('opacity-0', 'pointer-events-none');
+                                box.classList.remove('opacity-0', 'scale-95');
+                                overlay.classList.add('opacity-100');
+                                box.classList.add('opacity-100', 'scale-100');
+                            }
+
+                            // Close modal
+                            document.getElementById('closeModalBtn').addEventListener('click', () => {
+                                document.getElementById('modalOverlay').classList.add('opacity-0', 'pointer-events-none');
+                            });
+
+                            // Install button click
+                            document.getElementById('installBtn').addEventListener('click', async () => {
+                                if (appInstalled) {
+                                    alert('App is already installed.');
+                                    return;
+                                }
+
+                                if (deferredPrompt) {
+                                    // Show download animation
+                                    document.getElementById('modalOverlay').classList.add('opacity-0', 'pointer-events-none');
+                                    document.getElementById('appDownload').style.display = 'flex';
+                                    simulateProgress(async () => {
+                                        deferredPrompt.prompt();
+                                        const choiceResult = await deferredPrompt.userChoice;
+                                        if (choiceResult.outcome === 'accepted') {
+                                            console.log('User accepted the A2HS prompt');
+                                        } else {
+                                            console.log('User dismissed the A2HS prompt');
+                                        }
+                                        deferredPrompt = null;
+                                    });
+                                } else {
+                                    alert('Install prompt not available. Please try again later.');
+                                }
+                            });
+
+                            // Simulate progress bar
+                            function simulateProgress(callback) {
+                                const bar = document.getElementById('progress-bar');
+                                const text = document.getElementById('progress-text');
+                                const status = document.getElementById('status-text');
+                                const audio = document.getElementById('audioPlayer');
+
+                                let progress = 0;
+                                const interval = setInterval(() => {
+                                    if (progress >= 100) {
+                                        clearInterval(interval);
+                                        text.innerText = '100%';
+                                        status.innerText = 'App Installed!';
+                                        bar.style.width = '100%';
+                                        audio.play();
+                                        setTimeout(() => {
+                                            document.getElementById('appDownload').style.display = 'none';
+                                        }, 2000);
+                                        callback();
+                                    } else {
+                                        progress += 5 + Math.random() * 10; // Simulate random speed
+                                        if (progress > 100) progress = 100;
+                                        bar.style.width = `${progress}%`;
+                                        text.innerText = `${Math.floor(progress)}%`;
+                                    }
+                                }, 200);
+                            }
+                        </script>
 
                         <a href="#" class="hidden block px-4 py-2 text-gray-700 hover:bg-gray-100">
                             <i class="fas fa-trash mr-2"></i> Delete
@@ -276,11 +387,12 @@
                     <div class=" font-extrabold">Gift Zone</div>
                     <div class=" font-extrabold">Giftzone@Gmail.Com</div>
                 </div>
-                <button aria-label="Favorites" class=" hover:text-gray-900 transition">
+                <button aria-label="Favorites" class="hidden hover:text-gray-900 transition">
                     <i class="font-extrabold far fa-heart text-3xl "></i>
                 </button>
-                <button aria-label="Shopping cart" class="hidden text-gray-600 hover:text-gray-900 transition">
-                    <i class="fas fa-shopping-cart text-lg sm:text-xl"></i>
+                <button aria-label="Shopping cart" class=" text-gray-600 hover:text-gray-900 transition">
+                    <a href="Orderlist.html"><i class="fas fa-shopping-cart  text-3xl"></i>
+                    </a>
                 </button>
             </div>
         </div>
@@ -313,7 +425,7 @@
     <div id="mobile-nav"
         class="bg-white z-[100]  fixed inset-y-0 left-0 w-80  shadow-lg transform -translate-x-full transition-transform duration-300 ease-in-out z-50 overflow-y-auto">
         <div class="flex items-center justify-between px-4 py-3 border-b border-gray-200">
-            <div class="flex items-center space-x-2 pt-2">
+            <a href="index.html" class="flex items-center space-x-2 pt-2">
                 <img alt="ClassyShop logo blue square with white text ClassyShop" class="w-28 h-8 object-contain"
                     height="32" src="fav.jpg" width="32" />
                 <h1 class="font-extrabold w-full text-2xl leading-none">
@@ -322,7 +434,7 @@
                         Store
                     </span>
                 </h1>
-            </div>
+            </a>
 
             <button id="mobile-menu-close" aria-label="Close menu"
                 class="text-gray-700 hover:text-gray-900 focus:outline-none">
@@ -335,7 +447,7 @@
                     placeholder="Search For Products..." type="search" />
 
                 <span class="absolute inset-y-0 right-3 flex items-center text-gray-500">
-                    <i  class="fas fa-search text-[#1a1a1a] text-lg"></i>
+                    <i class="fas fa-search text-[#1a1a1a] text-lg"></i>
                 </span>
             </div>
         </div>
@@ -404,7 +516,7 @@
                 <div onclick="window.location.href='Owner.html'">
                     <div>Gift Zone</div>
                     <div class="text-gray-600 font-normal text-xs">
-                     Giftzone@Gmail.Com
+                        Giftzone@Gmail.Com
                     </div>
                 </div>
 
@@ -426,14 +538,7 @@
     <div id="overlay" class="fixed inset-0 bg-black bg-opacity-30 hidden z-[50]" aria-hidden="true"></div>
 
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    <script>
-        let deferredPrompt;
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-        });
-    </script>
-
+ 
     <!-- App Download Modal -->
     <section id="appDownload" class="fixed inset-0 bg-black/60 flex items-center justify-center hidden z-[9999]">
         <div class="bg-white rounded-xl shadow-xl p-6 w-80 flex flex-col items-center relative">
@@ -526,7 +631,7 @@
             firstinput.focus();
             firstinput.select();
         });
-   
+
 
         function redirectToCourse() {
             const value = firstinput.value.trim();

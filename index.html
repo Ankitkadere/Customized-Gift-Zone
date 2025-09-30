@@ -66,111 +66,7 @@
 </head>
 
 <body class="bg-gray-100 flex flex-col text-sm  ">
-
   <div id="header"></div> <!-- Header will load here -->
-
-  <script>
-    let deferredPrompt; // store the event
-
-    const progressBar = document.getElementById("progress-bar");
-    const progressText = document.getElementById("progress-text");
-    const statusText = document.getElementById("status-text");
-    const installStatus = document.getElementById("installStatus");
-    const audio = document.getElementById("audioPlayer");
-    const installBtn = document.getElementById("installsystem");
-    const appDownload = document.getElementById("appDownload");
-
-    // Wait for browser to fire install event
-    window.addEventListener("beforeinstallprompt", (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      // show the install button (if hidden)
-      installBtn.classList.remove("hidden");
-    });
-
-    // Show modal immediately
-    installBtn.addEventListener("click", async () => {
-      appDownload.classList.remove("hidden");
-
-      // Start fake progress bar
-      let duration = 5000; // total ms
-      let startTime = null;
-
-      function animateProgress(timestamp) {
-        if (!startTime) startTime = timestamp;
-        const elapsed = timestamp - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const percent = Math.floor(progress * 100);
-
-        progressBar.style.width = percent + "%";
-        progressText.textContent = percent + "%";
-
-        if (progress < 1) {
-          requestAnimationFrame(animateProgress);
-        } else {
-          statusText.textContent = "Download Complete!";
-          installStatus.textContent = "Ready to Install";
-          audio.play().catch(err => console.error(err));
-
-          // Show PWA install prompt
-          if (deferredPrompt) {
-            deferredPrompt.prompt();
-            deferredPrompt.userChoice.then((choice) => {
-              if (choice.outcome === "accepted") {
-                installStatus.textContent = "App Installed!";
-              } else {
-                installStatus.textContent = "Install Cancelled";
-              }
-              deferredPrompt = null;
-              setTimeout(() => {
-                window.location.reload();
-              }, 3000);
-            });
-          } else {
-            installStatus.textContent = "Already Installed";
-            setTimeout(() => {
-              window.location.reload();
-            }, 3000);
-          }
-        }
-      }
-      requestAnimationFrame(animateProgress);
-    });
-  </script>
-
-  <script>
-    // Load Header CSS (optional)
-    const headerCSS = document.createElement("link");
-    headerCSS.rel = "stylesheet";
-    headerCSS.href = "Header.css";
-    document.head.appendChild(headerCSS);
-
-    // Load Header HTML
-    fetch("Header.html")
-      .then(res => res.text())
-      .then(html => {
-        const headerDiv = document.getElementById("header");
-        headerDiv.innerHTML = html;
-
-        // Run scripts from Header.html if any
-        headerDiv.querySelectorAll("script").forEach(oldScript => {
-          const newScript = document.createElement("script");
-          if (oldScript.src) {
-            newScript.src = oldScript.src; // external file
-          } else {
-            newScript.textContent = oldScript.textContent; // inline script
-          }
-          document.body.appendChild(newScript);
-        });
-
-        // Load external Header.js (optional)
-        const headerJS = document.createElement("script");
-        headerJS.src = "Header.js";
-        document.body.appendChild(headerJS);
-      })
-      .catch(err => console.error("Error loading header:", err));
-  </script>
-
   <form id="search-form" class=" w-full px-3 md:hidden" role="search" aria-label="Search jobs or courses" novalidate>
     <label class="sr-only" for="search">Search courses by name</label>
     <div class="flex bg-white items-center border-2 border-gray-400 rounded-xl py-2 px-3 relative ">
@@ -353,7 +249,7 @@
     // Run function
     loadCourseList();
   </script>
- 
+
 </body>
 
 </html>

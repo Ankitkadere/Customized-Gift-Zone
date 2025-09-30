@@ -40,7 +40,7 @@
   },
   {
     "id": 2,
-    "title": "Single Frame",
+    "title": "Double Frame",
     "icon": "Assets/FourbyFour/4x4 Butterfly Theme.jpg",
     "iconAlt": "Single photo frame",
     "category": "single",
@@ -79,7 +79,7 @@
   },
   {
     "id": 3,
-    "title": "Single Frame",
+    "title": "Multi Frame",
     "icon": "Assets/FourbyFour/4x4 flower Theme.jpg",
     "iconAlt": "Single photo frame",
     "category": "single",

@@ -272,15 +272,15 @@
 
             </div>
             <form id="crudForm" class="space-y-4 mb-2">
-              <input type="radio" name="size" id="size-4x6" value="4 x 6" class="hidden" />
-              <input type="radio" name="size" id="size-5x7" value="5 x 7" class="hidden" />
-              <input type="radio" name="size" id="size-6x8" value="6 x 8" class="hidden" />
-              <input type="radio" name="size" id="size-8x12" value="8 x 12" class="hidden" />
-              <input type="radio" name="size" id="size-10x15" value="10 x 15" class="hidden" />
-              <input type="radio" name="size" id="size-12x18" value="12 x 18" class="hidden" />
-              <input type="radio" name="size" id="size-16x24" value="16 x 24" class="hidden" />
-              <input type="radio" name="size" id="size-20x30" value="20 x 30" class="hidden" />
-              <input type="radio" name="size" id="size-24x36" value="24 x 36" class="hidden" />
+              <input type="radio" name="size" id="size-4x6" value="4 x 6 => 100 Rs" class="hidden" />
+              <input type="radio" name="size" id="size-5x7" value="5 x 7 => 140 Rs" class="hidden" />
+              <input type="radio" name="size" id="size-6x8" value="6 x 8 => 150 Rs" class="hidden" />
+              <input type="radio" name="size" id="size-8x12" value="8 x 12 => 299 Rs" class="hidden" />
+              <input type="radio" name="size" id="size-10x15" value="10 x 15 => 419 Rs" class="hidden" />
+              <input type="radio" name="size" id="size-12x18" value="12 x 18 => 549 Rs" class="hidden" />
+              <input type="radio" name="size" id="size-16x24" value="16 x 24 => 1,350 Rs" class="hidden" />
+              <input type="radio" name="size" id="size-20x30" value="20 x 30 => 1,619 Rs" class="hidden" />
+              <input type="radio" name="size" id="size-24x36" value="24 x 36 => 1,999 Rs" class="hidden" />
 
 
               <p class="font-semibold text-black mb-3 md:mx-auto select-text">
@@ -297,8 +297,8 @@
                   class="hidden w-full p-2 border rounded-lg">
                 <input type="text" name="Other" value="Online" class="hidden w-full p-2 border rounded-lg">
                 <input type="text" name="Status" id="Status" class="hidden" value="Not Accept">
-                <input type="text" name="Price" class="hidden">
-                <input type="file" id="ImageInput" accept="image/jpg/png*" src= ""
+                <input type="text" name="Price" value="Size" class="hidden">
+                <input type="file" id="ImageInput" accept="image/jpg/png*" src=""
                   class=" hidden w-full border rounded-lg">
 
                 <input
@@ -395,7 +395,8 @@
                       Save Card
                     </span>
                     <label class="relative inline-flex items-center cursor-pointer" for="toggle">
-                      <input aria-checked="true" checked="" class="sr-only peer" id="toggle" type="checkbox" />
+                      <input aria-checked="true" checked="" value="check" class="sr-only peer" id="toggle"
+                        type="checkbox" />
                       <div style="background: linear-gradient(90deg, #b90f2a 0%, #000000 100%)"
                         class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-yellow-400 peer-focus:ring-2 peer-focus:ring-yellow-300 transition-colors">
                       </div>
@@ -411,7 +412,7 @@
                     class="w-14 h-12 rounded-full flex justify-center items-center shadow-sm">
                     <i class="fas fa-chevron-left font-extrabold text-white text-3x1 pl-5 pt-4"></i>
                   </div>
- 
+
                   <button style="background: linear-gradient(90deg, #b90f2a 0%, #000000 100%)" onclick="swap()"
                     id="swap"
                     class="bg-yellow-400 text-white font-extrabold rounded-full py-3 w-full md:mx-0 mx-auto text-center"
@@ -480,25 +481,27 @@
 
                 if (btn.innerText === "Submit") {
                   // 🔹 Check if all file inputs are empty
-                  let allEmpty = true;
-                  for (let i = 1; i <= 10; i++) {
-                    const fileInput = document.getElementById(`fileInput${i}`);
-                    if (fileInput && fileInput.files.length > 0) {
-                      allEmpty = false;
-                      break;
-                    }
-                  }
+                  const form = document.getElementById("crudForm");
+                  const inputs = form.querySelectorAll("input:not([type='hidden']):not([type='file'])");
 
-              /*    if (allEmpty) {
-                    alert("⚠️ Please Upload All Details");
+                  // Validate all visible inputs
+                  let isValid = true;
+                  inputs.forEach((input) => {
+                    if (!input.value || input.value.trim() === "") {
+                      isValid = false;
+                    }
+                  });
+
+                  if (!isValid) {
+                    alert("⚠️ Please Fill All Required fields.");
                     return false;
-                  }*/
+                  }
 
                   btn.innerText = "Please Wait...";
 
                   // 🔹 Final submit → send data to Google Sheet
-                  const form = document.getElementById("crudForm");
-                  const formData = new FormData(form);
+                  const Forms = document.getElementById("crudForm");
+                  const formData = new FormData(Forms);
                   let payload = { action: "create" };
 
                   for (const [key, val] of formData.entries()) {
@@ -605,14 +608,14 @@
   <nav aria-label="Bottom navigation " id="orderbtn"
     class="fixed md:hidden bottom-0 z-[99999999999px] md:w-full md:flex justify-between bg-gray-100 left-0 right-0 border-t gap-1 border-[#d9d9d9]  flex  items-center py-1 md:py-0 px-2 z-50">
 
-    <button onclick="window.location.href='https://wa.me/918251092973'"
-   onclick="notload()"
-      class="md:hidden text-white bg-black font-semibold rounded-full md:py-1 py-1.5 w-14 mx-auto text-center" type="button">
+    <button onclick="window.location.href='https://wa.me/918251092973'" onclick="notload()"
+      class="md:hidden text-white bg-black font-semibold rounded-full md:py-1 py-1.5 w-14 mx-auto text-center"
+      type="button">
       <i class="fab fa-whatsapp text-2xl p-1"></i>
 
     </button>
 
-    <button id="openLoginBtn" onclick="openLogin()" 
+    <button id="openLoginBtn" onclick="openLogin()"
       class=" text-white bg-black text-2xl md:mt-4 font-semibold rounded-full md:py-1 py-1.5 w-full md:w-full  mx-auto text-center"
       type="button">
       Booking
@@ -641,7 +644,7 @@
       .then(res => res.json())
       .then(courses => {
         // Replace with the ID you want to render dynamically
-        const courseId = "1";
+
         renderCourse(courses[courseId]);
       })
       .catch(err => console.error('Error loading courses:', err));
@@ -656,10 +659,13 @@
       }
       return stars;
     }
-
+    const code = Math.floor(1000 + Math.random() * 9000);
+    const ID = Math.floor(100000 + Math.random() * 7000);
+    const courseId = new URLSearchParams(window.location.search).get("id");
+    const course = courses[courseId];
     function renderCourse(course) {
       const section = document.getElementById("course-detail");
-      const uploaderContainer = document.getElementById("frame").innerHTML;
+
       document.getElementById('openLoginBtn').innerText = "₹ " + course.price;
       const Order = document.getElementById('orderbtn').innerHTML;
 
@@ -667,7 +673,7 @@
 <section class="md:flex w-full md:[100vw] overflow-x-hidden">
   <div class="dragimg md:bg-white items-top flex flex-col w-[100vw] md:w-[55vw]" id="dragimg">
     <div id="Wall" onclick="notload()" class="items-center justify-center w-[100vw] md:w-[100%] md:h-full overflow-hidden">
-      ${uploaderContainer}
+   
       <img src="${course.icon}" alt="${course.iconAlt}" class="w-40 h-100 mt-2 object-cover justify-center mx-auto">
     </div>
   </div>
@@ -863,10 +869,7 @@
       startInput.value = today.toISOString().split("T")[0];
       updateEndDate();
     });
-    const code = Math.floor(1000 + Math.random() * 9000);
-    const ID = Math.floor(100000 + Math.random() * 7000);
-    const courseId = new URLSearchParams(window.location.search).get("id");
-    const course = courses[courseId];
+
     function buycourse() {
 
 
