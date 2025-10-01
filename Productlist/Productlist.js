@@ -73,7 +73,7 @@ fetch("courses.json")
               <i class="fas fa-heart text-black text-lg"></i>
             </div>
 
-            <div class="h-40 bg-[#526474] justify-center p-1 align-center object-cover">
+            <div class="h-40 bg-[#526474] justify-center align-center object-cover">
               <img src="${data.icon}" alt="${data.title}" class="w-full h-full object-cover rounded-lg"/>
             </div>
 

@@ -181,22 +181,19 @@
     </div>
 
     <div id="loginFormContainer"
-      class="fixed overflow-y-auto w-full h-full top-0 right-0 bg-[#f3f3f3]  mx-auto z-[99999] opacity-0 translate-y-full pointer-events-none transition-all duration-500 ease-out">
+      class="fixed overflow-y-auto w-full h-full top-0 right-0  mx-auto z-[99999] opacity-0 translate-y-full pointer-events-none transition-all duration-500 ease-out">
       <main class="w-full h-full overflow-y-auto ">
         <div
           class="bg-gray-100 md:w-full md:px-8 md:mx-auto md:flex md:p-1 w-full h-full flex flex-col p-4 relative select-none">
-
           <div class="flex items-center mb-6 justify-between">
             <button onclick=" closeLogin()" aria-label="Go back"
-              style="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)"
-              class="w-10 h-10 bg-white rounded-full flex justify-center items-center shadow-sm">
+              class="w-10 h-10 bg-black rounded-full flex justify-center items-center shadow-sm">
               <i class="fas fa-chevron-down text-white text-lg">
               </i>
             </button>
-            <button onclick="window.location.href ='inddex.html'" aria-label="Go back"
-              class="text-4xl  flex justify-center items-center ">
-              <h1
-                class="font-extrabold bg-gradient-to-r from-[#b90f2a] to-[#2e143a] bg-clip-text text-transparent   text-2x1 mx-auto sm:text-base leading-none">
+            <button onclick="window.location.href ='index.html'" aria-label="Go back"
+              class="  flex justify-center items-center ">
+              <h1 class="font-extrabold text-lg mx-auto leading-none">
                 Gift Zone
               </h1>
             </button>
@@ -206,14 +203,14 @@
             Product Size
           </p>
           <div class="md:flex md:gap-2 md:mx-auto">
-            <div style="background: linear-gradient(90deg, #9c0d24 0%, #000000 100%)"
-              class="relative bg-gradient-to-tr rounded-3xl p-6 w-full max-w-[360px] mx-auto mb-8 shadow-lg"
+            <div
+              class="relative bg-gradient-to-tr bg-gray-900 rounded-3xl p-6 w-full max-w-[360px] mx-auto mb-8 shadow-lg"
               style="aspect-ratio: 16 / 9;">
               <p
                 class="font-mono-custom font-extrabold text-white text-xl justify-center text-center tracking-widest pb-2 select-text">
                 Select Frame Size
               </p>
-              <div id="sizeButtons" class="  gap-4 space-x-1 text-sm font-semibold">
+              <div id="sizeButtons" class=" gap-4 space-x-1 text-sm font-semibold">
                 <div class="flex gap-6">
                   <label for="size-4x6"
                     class="w-20 h-12 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
@@ -298,8 +295,7 @@
                 <input type="text" name="Other" value="Online" class="hidden w-full p-2 border rounded-lg">
                 <input type="text" name="Status" id="Status" class="hidden" value="Not Accept">
                 <input type="text" name="Price" value="Size" class="hidden">
-                <input type="file" id="ImageInput" accept="image/jpg/png*" src=""
-                  class=" hidden w-full border rounded-lg">
+                <input type="text" id="ImageInput" accept="image/jpg/png*" class=" hidden w-full border rounded-lg">
 
                 <input
                   class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none  "
@@ -397,8 +393,7 @@
                     <label class="relative inline-flex items-center cursor-pointer" for="toggle">
                       <input aria-checked="true" checked="" value="check" class="sr-only peer" id="toggle"
                         type="checkbox" />
-                      <div style="background: linear-gradient(90deg, #b90f2a 0%, #000000 100%)"
-                        class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-yellow-400 peer-focus:ring-2 peer-focus:ring-yellow-300 transition-colors">
+                      <div class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-black transition-colors">
                       </div>
                       <div
                         class="absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform peer-checked:translate-x-5">
@@ -407,15 +402,13 @@
                   </div>
                 </div>
                 <div class="flex md:mx-auto md:w-[58vw] md:justify-between justify-between w-full">
-                  <div style="background: linear-gradient(90deg, #b90f2a 0%, #000000 100%) ; display: none;"
-                    onclick="swapback() " aria-label="Go back" id="swapback"
-                    class="w-14 h-12 rounded-full flex justify-center items-center shadow-sm">
+                  <div style=" display: none;" onclick="swapback() " aria-label="Go back" id="swapback"
+                    class="w-14 h-12 bg-black rounded-full flex justify-center items-center shadow-sm">
                     <i class="fas fa-chevron-left font-extrabold text-white text-3x1 pl-5 pt-4"></i>
                   </div>
 
-                  <button style="background: linear-gradient(90deg, #b90f2a 0%, #000000 100%)" onclick="swap()"
-                    id="swap"
-                    class="bg-yellow-400 text-white font-extrabold rounded-full py-3 w-full md:mx-0 mx-auto text-center"
+                  <button onclick="swap()" id="swap"
+                    class="bg-black text-white font-extrabold rounded-full py-3 w-full md:mx-0 mx-auto text-center"
                     type="submit">
                     Next
                   </button>
@@ -476,13 +469,14 @@
                   // Avoid multiple intervals stacking up
                   // Only call setInterval once (already called above)
                   btn.innerText = "Submit";
+
                   return;
                 }
 
                 if (btn.innerText === "Submit") {
                   // 🔹 Check if all file inputs are empty
                   const form = document.getElementById("crudForm");
-                  const inputs = form.querySelectorAll("input:not([type='hidden']):not([type='file'])");
+                  const inputs = form.querySelectorAll("input:not([type='hidden']):not([type='file']),select");
 
                   // Validate all visible inputs
                   let isValid = true;
@@ -493,7 +487,10 @@
                   });
 
                   if (!isValid) {
-                    alert("⚠️ Please Fill All Required fields.");
+                    btn.innerText = "Please Fill Details...";
+                    setTimeout(() => {
+                      btn.innerText = "Submit";
+                    }, 3000);
                     return false;
                   }
 
@@ -665,7 +662,8 @@
     const course = courses[courseId];
     function renderCourse(course) {
       const section = document.getElementById("course-detail");
-
+      const src = document.getElementById("ImageInput").value = course.icon;
+      const title = document.getElementById("other").value = course.title;
       document.getElementById('openLoginBtn').innerText = "₹ " + course.price;
       const Order = document.getElementById('orderbtn').innerHTML;
 

@@ -38,9 +38,7 @@
         color: #6b7280;
     }
 </style>
-
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-
 <html lang="en">
 
 <head>
@@ -104,7 +102,6 @@
 </style>
 
 <body class=" w-full top-0 left-0 fixed font-extrabold flex items-center justify-center pb-6">
-
     <div styl="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)"
         class="  w-full flex flex-col md:flex-row overflow-hidden">
 
@@ -160,7 +157,8 @@
             <div onclick="window.location.href='index.html'"
                 class="mx-auto flex flex-col items-center justify-center text-center mb-8">
                 <i class="fas fa-user text-8xl text-black"></i>
-                <h1 class="font-bold text-xl text-gray-900">Gift Zone</h1>
+                <h1 class="font-bold text-xl text-gray-900"> <span id="loggedUserFName"></span> </h1>
+                <span id="loggedUserEmail"></span>
             </div>
             <hr>
 
@@ -228,6 +226,14 @@
                     <i class="fas fa-cog text-base"></i>
                     <span>Setting</span>
                 </button>
+
+                <button
+                    class="flex items-center space-x-3 text-gray-800 hover:text-orange-500 transition-colors px-3 py-2 rounded-md focus:outline-none text-base"
+                    id="logout" type="button">
+                    <i class="fas fa-cog text-base"></i>
+                    <span>LogOut</span>
+                </button>
+
             </nav>
 
         </aside>
@@ -552,7 +558,7 @@
                         return date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true });
                     }
 
-                    
+
                     function renderTable(records) {
                         const tbody = document.getElementById("tableBody");
                         tbody.innerHTML = "";
@@ -563,11 +569,11 @@
 
           <!-- Product Info -->
           <div class="flex items-start">
-            <img src="app.jpg" alt="Product" class="w-28 h-20 object-cover rounded border-2" />
+            <img src="${record.Image}" alt="Product" class="w-28 h-20 object-cover rounded border-2" />
             <div class="ml-4">
-              <h3 class="text-lg font-semibold text-gray-800">boAt Wireless Earbuds</h3>
+              <h3 class="text-lg font-semibold text-gray-800">${record.Other}</h3>
               <p class="text-sm text-gray-500">Order ID: <span class="font-medium">#${record.Id}</span></p>
-              <p class="text-sm text-green-600 mt-1 font-medium">Delivered on ${record.Time} : ${record.Date}</p>
+              <p class="text-sm text-green-600 mt-1 font-medium">Delivered on ${formatTime(record.Time)} : ${formatDate(record.Date)}</p>
             </div>
           </div>
  
@@ -576,17 +582,22 @@
             <button class="  text-black font-extrabold px-4 py-0 rounded-md hover:bg-blue-700 text-lg">
                 ${record.Size}
             </button>
-            <button class="bg-blue-600 text-white px-3 py-1 rounded-md hover:bg-blue-700 text-sm">
-              Track Order
+            <button onclick='deleteRecord("${record.Id}")'  class="bg-blue-600 text-white px-3 py-1 rounded-md hover:bg-blue-700 text-sm">
+              Cancle
             </button>
           </div>
         </div>
       </div>
     `;
                         });
+                        async function deleteRecord(id) {
+                            if (!confirm("Are you sure ?")) return;
+                            await fetch(API_URL, { method: "POST", body: new URLSearchParams({ action: "delete", Id: id }) });
+                            fetchRecords();
+                        }
 
                         window.addEventListener('DOMContentLoaded', () => {
-                            setTimeout(() => highlightStep(stepInputValue), 1000);
+                            setTimeout(() => highlightStep(stepInputValue), 10);
 
                             const toggleBtn = document.getElementById('toggleBtn');
                             const expandContent = document.getElementById('expandContent');
@@ -785,5 +796,85 @@
     </script>
 
 </body>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+    import {
+        getAuth,
+        onAuthStateChanged,
+        signOut
+    } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+    import {
+        getFirestore,
+        getDoc,
+        doc
+    } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+
+    // ✅ Your Firebase config (USE YOUR OWN VALUES HERE)
+    const firebaseConfig = {
+        apiKey: "AIzaSyAKN5GR18VTFrKNgVG7FenD4aSTX3Q2PbA",
+        authDomain: "gift-zone-project.firebaseapp.com",
+        projectId: "gift-zone-project",
+        storageBucket: "gift-zone-project.appspot.com",
+        messagingSenderId: "806465456032",
+        appId: "1:806465456032:web:becf8988a6dfabe43646c5",
+        measurementId: "G-1ZLMWBP61Y",
+    };
+
+    // ✅ Initialize Firebase services
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // ✅ On Auth Change: fetch and show user data
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            const loggedInUserId = localStorage.getItem("loggedInUserId");
+            if (!loggedInUserId) {
+                console.log("User ID not found in local storage.");
+                return;
+            }
+
+            const docRef = doc(db, "users", loggedInUserId);
+            getDoc(docRef)
+                .then((docSnap) => {
+                    if (docSnap.exists()) {
+                        const userData = docSnap.data();
+                        document.getElementById("loggedUserFName").innerText = userData.firstName || "N/A";
+                        document.getElementById("loggedUserEmail").innerText = userData.email || "N/A";
+
+                        // ✅ Optional: handle missing lastName gracefully
+                        const lNameElement = document.getElementById("loggedUserLName");
+                        if (userData.lastName) {
+                            lNameElement.innerText = userData.lastName;
+                        } else {
+                            lNameElement.innerText = "-";
+                        }
+                    } else {
+                        console.log("No user document found in Firestore.");
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error fetching user data:", error);
+                });
+        } else {
+            console.log("User not signed in.");
+            window.location.href = "Owner.html"; // Redirect to login
+        }
+    });
+
+    // ✅ Logout
+    const logoutButton = document.getElementById("logout");
+    logoutButton.addEventListener("click", () => {
+        localStorage.removeItem("loggedInUserId");
+        signOut(auth)
+            .then(() => {
+                window.location.href = "Owner.html";
+            })
+            .catch((error) => {
+                console.error("Error signing out:", error);
+            });
+    });
+
+</script>
 
 </html>
