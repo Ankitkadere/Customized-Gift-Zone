@@ -40,8 +40,10 @@ onAuthStateChanged(auth, (user) => {
       .then((docSnap) => {
         if (docSnap.exists()) {
           const userData = docSnap.data();
-          document.getElementById("loggedUserFName").innerText = userData.firstName || "N/A";
+          document.getElementById("loggedUserFName").innerText = userData.firstName || "Gift Zone";
           document.getElementById("loggedUserEmail").innerText = userData.email || "N/A";
+          document.getElementById("username").innerText = userData.firstName || "Gift Zone";
+          document.getElementById("usermail").innerText = userData.email || "Giftzone@mail.com";
 
           // ✅ Optional: handle missing lastName gracefully
           const lNameElement = document.getElementById("loggedUserLName");

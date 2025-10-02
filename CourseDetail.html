@@ -285,6 +285,7 @@
               </p>
               <div id="data1">
                 <input type="text" id="code" class="hidden" name="Id">
+                <input type="text" id="icon" class=" " name="Icon">
                 <input type="text" name="Date" id="dates" class=" hidden w-full p-2 border rounded-lg"
                   placeholder="YYYY-MM-DD">
                 <input type="text" name="Time" id="times" class=" hidden w-full p-2 border rounded-lg"
@@ -292,10 +293,10 @@
 
                 <input type="text" name="Payment" id="Payment" value="WhatsApp"
                   class="hidden w-full p-2 border rounded-lg">
-                <input type="text" name="Other" value="Online" class="hidden w-full p-2 border rounded-lg">
+                <input type="text" name="Other" id="Other" class="hidden w-full p-2 border rounded-lg">
                 <input type="text" name="Status" id="Status" class="hidden" value="Not Accept">
                 <input type="text" name="Price" value="Size" class="hidden">
-                <input type="text" id="ImageInput" accept="image/jpg/png*" class=" hidden w-full border rounded-lg">
+                <input type="file" id="ImageInput" accept="image/jpg/png*" class=" hidden w-full border rounded-lg">
 
                 <input
                   class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none  "
@@ -444,7 +445,7 @@
               }
               showLocalDate();
 
-              const API_URL = "https://script.google.com/macros/s/AKfycby_gJSJorghtpLgbZjHKO4eJ4f0S1HwDF89FpmFng4CcMedA7L--y8flV_HCaRb2LE-/exec";
+              const API_URL = "https://script.google.com/macros/s/AKfycbyG5foFh0_qWqUG4d2Kbg-055UsLAw8Nu-jWXCeTYVT2mfvC1PADZaixEjQmyDPeRrs/exec";
 
               function getBase64(file) {
                 return new Promise((resolve, reject) => {
@@ -660,13 +661,13 @@
     const ID = Math.floor(100000 + Math.random() * 7000);
     const courseId = new URLSearchParams(window.location.search).get("id");
     const course = courses[courseId];
+    
     function renderCourse(course) {
       const section = document.getElementById("course-detail");
-      const src = document.getElementById("ImageInput").value = course.icon;
-      const title = document.getElementById("other").value = course.title;
+      document.getElementById("icon").value = course.icon;
+      document.getElementById("Other").value = course.title;
       document.getElementById('openLoginBtn').innerText = "₹ " + course.price;
       const Order = document.getElementById('orderbtn').innerHTML;
-
       section.innerHTML = `
 <section class="md:flex w-full md:[100vw] overflow-x-hidden">
   <div class="dragimg md:bg-white items-top flex flex-col w-[100vw] md:w-[55vw]" id="dragimg">

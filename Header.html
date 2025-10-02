@@ -240,11 +240,11 @@
 
                                 <div class="flex justify-center">
                                     <button id="installBtn"
-                                    class="px-4 py-2 bg-black hover:bg-gray-800 text-white font-semibold rounded-md flex items-center justify-center gap-2 transition duration-300">
-                                    <i class="fas fa-download"></i>
-                                    <span>Download App</span>
-                                </button>
-                                
+                                        class="px-4 py-2 bg-black hover:bg-gray-800 text-white font-semibold rounded-md flex items-center justify-center gap-2 transition duration-300">
+                                        <i class="fas fa-download"></i>
+                                        <span>Download App</span>
+                                    </button>
+
                                 </div>
                             </div>
                         </div>
@@ -384,8 +384,8 @@
 
             <div class="hidden sm:flex items-center space-x-4 text-xs sm:text-sm text-gray-900 font-semibold">
                 <div onclick="window.location.href='Owner.html'" class="text-right leading-tight">
-                    <div class=" font-extrabold">Gift Zone</div>
-                    <div class=" font-extrabold">Giftzone@Gmail.Com</div>
+                    <div id="loggedUserEmails" class=" font-extrabold">Gift Zone</div>
+                    <div id="loggedUserFNames" class=" font-extrabold">Giftzone@gmail.com </div>
                 </div>
                 <button aria-label="Favorites" class="hidden hover:text-gray-900 transition">
                     <i class="font-extrabold far fa-heart text-3xl "></i>
@@ -405,7 +405,7 @@
             </div>
             <ul class="flex flex-wrap items-center  font-extrabold space-x-3 sm:space-x-5 overflow-x-auto no-scrollbar">
                 <li><a class="hover:text-gray-900" href="index.html">Home</a></li>
-                <li><a class="hover:text-gray-900" href="Adminpenel.html">Admin</a></li>
+                <li><a class="hover:text-gray-900" href="Adminpenel.html">services</a></li>
                 <li><a class="hover:text-gray-900" href="Userchat.html">Chat</a></li>
                 <li><a class="hover:text-gray-900" href="Tool\Edit.html">Edit</a></li>
                 <li><a class="hover:text-gray-900" href="#">Footwear</a></li>
@@ -466,7 +466,7 @@
                 </li>
                 <li>
                     <a class="flex items-center gap-2 hover:text-gray-900" href="Adminpenel.html">
-                        <i class="fas fa-user-shield"></i> Admin
+                        <i class="fas fa-user-shield"></i> services
                     </a>
                 </li>
                 <li>
@@ -522,10 +522,10 @@
 
                 <!-- Action Buttons -->
                 <div class="flex space-x-4">
-                    <button aria-label="Favorites" class="text-gray-600 hover:text-red-500 transition">
+                    <button aria-label="Favorites" class="hidden text-gray-600 hover:text-red-500 transition">
                         <i class="far fa-heart text-lg"></i>
                     </button>
-                    <button aria-label="Shopping cart" class="text-gray-600 hover:text-blue-600 transition">
+                    <button onclick="window.location.href='Orderlist.html'" aria-label="Shopping cart" class="text-gray-600 hover:text-blue-600 transition">
                         <i class="fas fa-shopping-cart text-lg"></i>
                     </button>
                 </div>
@@ -538,7 +538,7 @@
     <div id="overlay" class="fixed inset-0 bg-black bg-opacity-30 hidden z-[50]" aria-hidden="true"></div>
 
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
- 
+
     <!-- App Download Modal -->
     <section id="appDownload" class="fixed inset-0 bg-black/60 flex items-center justify-center hidden z-[9999]">
         <div class="bg-white rounded-xl shadow-xl p-6 w-80 flex flex-col items-center relative">
@@ -716,6 +716,87 @@
             }
         });
     </script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+        import {
+            getAuth,
+            onAuthStateChanged,
+            signOut
+        } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+        import {
+            getFirestore,
+            getDoc,
+            doc
+        } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+    
+        // ✅ Your Firebase config (USE YOUR OWN VALUES HERE)
+        const firebaseConfig = {
+            apiKey: "AIzaSyAKN5GR18VTFrKNgVG7FenD4aSTX3Q2PbA",
+            authDomain: "gift-zone-project.firebaseapp.com",
+            projectId: "gift-zone-project",
+            storageBucket: "gift-zone-project.appspot.com",
+            messagingSenderId: "806465456032",
+            appId: "1:806465456032:web:becf8988a6dfabe43646c5",
+            measurementId: "G-1ZLMWBP61Y",
+        };
+    
+        // ✅ Initialize Firebase services
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+    
+        // ✅ On Auth Change: fetch and show user data
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const loggedInUserId = localStorage.getItem("loggedInUserId");
+                if (!loggedInUserId) {
+                    console.log("User ID not found in local storage.");
+                    return;
+                }
+    
+                const docRef = doc(db, "users", loggedInUserId);
+                getDoc(docRef)
+                    .then((docSnap) => {
+                        if (docSnap.exists()) {
+                            const userData = docSnap.data();
+                            document.getElementById("loggedUserFNames").innerText = userData.firstName || "N/A";
+                            document.getElementById("loggedUserEmails").innerText = userData.email || "N/A";
+    
+                            // ✅ Optional: handle missing lastName gracefully
+                            const lNameElement = document.getElementById("loggedUserLName");
+                            if (userData.lastName) {
+                                lNameElement.innerText = userData.lastName;
+                            } else {
+                                lNameElement.innerText = "-";
+                            }
+                        } else {
+                            console.log("No user document found in Firestore.");
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Error fetching user data:", error);
+                    });
+            } else {
+                console.log("User not signed in.");
+                window.location.href = "Owner.html"; // Redirect to login
+            }
+        });
+    
+        // ✅ Logout
+        const logoutButton = document.getElementById("logout");
+        logoutButton.addEventListener("click", () => {
+            localStorage.removeItem("loggedInUserId");
+            signOut(auth)
+                .then(() => {
+                    window.location.href = "Owner.html";
+                })
+                .catch((error) => {
+                    console.error("Error signing out:", error);
+                });
+        });
+    
+    </script>
+    
 </body>
 
 </html>

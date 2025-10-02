@@ -74,7 +74,7 @@
             </div>
 
 
-            <nav class="flex flex-col space-y-3 text-gray-700 font-semibold">
+            <nav class="flex flex-col space-y-1 text-gray-700 font-semibold">
                 <button data-section="dashboard"
                     class="flex items-center space-x-3 text-gray-800 hover:text-orange-500 transition-colors px-3 py-2 rounded-md focus:outline-none text-base"
                     onclick="selectSection('dashboard', this)" type="button">
@@ -316,6 +316,7 @@
                                 <thead class="bg-gray-100 text-gray-600 w-full uppercase tracking-wider">
                                     <tr class="">
                                         <th class="p-2 border">Id</th>
+                                        <th class="p-2 border">Icon</th>
                                         <th class="p-2 border">Date</th>
                                         <th class="p-2 border">Time</th>
                                         <th class="p-2 border">Name</th>
@@ -435,7 +436,7 @@
                             <div class="md:col-span-2">
                                 <label class="block text-orange-500 font-medium mb-1" for="ImageInput">Upload
                                     Image</label>
-                                <input type="file" id="ImageInput" name="ImageInput" accept="image/*"
+                                <input type="text" id="ImageInput" name="ImageInput" accept="image/jpeg/img/png*"
                                     class="w-full border border-orange-300 rounded-lg p-2 cursor-pointer text-orange-600 hover:border-orange-400 transition" />
                             </div>
 
@@ -494,17 +495,37 @@
                             tbody.innerHTML += `
           <tr class="hover:bg-gray-50">
           <td class="border p-2 whitespace-nowrap">${record.Id}</td>
-          <td class="border p-2 whitespace-nowrap">${formatDate(record.Date)}</td>
-          <td class="border p-2 whitespace-nowrap">${formatTime(record.Time)}</td>
-          <td class="border p-2 whitespace-nowrap">${record.Name}</td>
-          <td class="border p-2 whitespace-nowrap">${record.Number}</td>
+          <td class="border p-2 whitespace-nowrap  object-cover ">
+            <img src="${record.Icon}" alt="Product" class="w-20 h-20  rounded border-2" />
+          
+          </td>
+          <td class="border p-2   flex-col">
+            <spam>${formatTime(record.Time)}</spam>
+            <spam> ${formatDate(record.Date)}</spam>
+          </td>
+          <td class="border p-2 whitespace-nowrap"></td>
+          <td class="border p-2 ">${record.Name} ${record.Number}</td>
+          <td class="border p-2 whitespace-nowrap"</td>
           <td class="border p-2 whitespace-nowrap">${record.Size}</td>
-          <td class="border p-2 whitespace-nowrap">${record.Material}</td>
-          <td class="border p-2 whitespace-nowrap">${record.Color}</td>
-          <td class="border p-2 whitespace-nowrap">${record.Address}</td>
-          <td class="border p-2 whitespace-nowrap">${record.City}</td>
-          <td class="border p-2 whitespace-nowrap">${record.Pincode}</td>
-          <td class="border p-2 whitespace-nowrap">${record.State}</td>
+
+          <td class="border p-2   flex-col">
+            <spam>Material : ${record.Material}</spam>
+            <spam>Color : ${record.Color}</spam>
+          </td>
+
+          <td class="border p-2 whitespace-nowrap"></td>
+          <td class="border p-2 whitespace-nowrap"></td>
+          <td class="border p-2   flex-col">
+            <spam>${record.Address}}</spam>
+            <spam>${record.City}</spam>
+            <spam>${record.Pincode}}</spam>
+            <spam> ${record.State}</spam>
+          </td>
+
+          <td class="border p-2 whitespace-nowrap"></td>
+          <td class="border p-2 whitespace-nowrap"</td>
+          <td class="border p-2 whitespace-nowrap"</td>
+          <td class="border p-2 whitespace-nowrap"></td>
           <td class="border p-2 whitespace-nowrap">${record.Status}</td>
           <td class="border p-2 whitespace-nowrap">${record.Payment}</td>
           <td class="border p-2 whitespace-nowrap">${record.Other}</td>

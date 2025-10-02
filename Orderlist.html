@@ -1,3 +1,17 @@
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Orders Details</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="theme-color" content="#f5fdf7">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
 <!-- Styles -->
 <style>
     .step {
@@ -38,20 +52,6 @@
         color: #6b7280;
     }
 </style>
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Orders Details</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <meta name="theme-color" content="#f5fdf7">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-</head>
 <style>
     body {
         font-family: 'Inter', sans-serif;
@@ -101,23 +101,22 @@
     }
 </style>
 
-<body class=" w-full top-0 left-0 fixed font-extrabold flex items-center justify-center pb-6">
+<body class="bg-black md:bg-gray-100 w-full top-0 left-0 fixed font-extrabold flex items-center justify-center pb-6">
     <div styl="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)"
         class="  w-full flex flex-col md:flex-row overflow-hidden">
 
         <!-- Toggle Button (Visible only on mobile) -->
-        <div class="flex items-center md:px-0 px-2 h-full justify-between">
-            <div class="flex w-full md:hidden bg-white items-center justify-between p-2">
+        <div class="flex bg-black items-center md:px-0 px-2 h-full justify-between">
+            <div class="flex bg-black w-full md:hidden  items-center justify-between p-2">
                 <button id="menuToggle" type="button"
-                    class="w-10 h-10 p-3 flex justify-center items-center rounded-full shadow-sm focus:outline-none"
-                    style="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)">
-                    <i class="fas fa-user text-xl text-white"></i>
+                    class="w-10 h-10 p-3 flex bg-white justify-center items-center rounded-full shadow-sm focus:outline-none">
+                    <i class="fas fa-user text-xl text-black"></i>
                 </button>
 
                 <button onclick="window.location.href='index.html'" aria-label="Go back"
                     class="flex justify-center items-center">
                     <h1 class="mx-auto text-4xl sm:text-5xl font-black leading-none
-                         bg-gradient-to-r from-[#b90f2a] to-[#2e143a] bg-clip-text text-transparent">
+                        text-white bg-black">
                         Gift Zone
                     </h1>
                 </button>
@@ -149,7 +148,7 @@
         <div id="overlay" class="fixed left-0 inset-0 bg-black bg-opacity-50 hidden "></div>
         <!-- Sidebar -->
 
-        <aside id="sidebar" class="fixed overflow-auto top-0 left-0 h-full w-56 bg-gray-200 font-extrabold border-r border-gray-200 flex flex-col py-8
+        <aside id="sidebar" class="fixed overflow-auto top-0 left-0 h-full w-72 bg-gray-200 font-extrabold border-r border-gray-200 flex flex-col py-8
          transform -translate-x-full transition-transform duration-300 ease-in-out
        md:-translate-x-0 md:w-40
          ">
@@ -160,9 +159,8 @@
                 <h1 class="font-bold text-xl text-gray-900"> <span id="loggedUserFName"></span> </h1>
                 <span id="loggedUserEmail"></span>
             </div>
-            <hr>
-
-            <nav class="flex flex-col space-y-3 text-gray-700 font-semibold">
+            <hr class=" border-2 border-white">
+            <nav class="flex flex-col space-y-2 text-gray-700 font-semibold">
                 <button data-section="dashboard"
                     class="flex items-center space-x-3 text-gray-800 hover:text-orange-500 transition-colors px-3 py-2 rounded-md focus:outline-none text-base"
                     onclick="selectSection('dashboard', this)" type="button">
@@ -351,7 +349,7 @@
             </section>
 
             <section id="sells" class="">
-                <div class="flex  justify-end"> <!-- 🔍 Filter Section -->
+                <div class="flex justify-end"> <!-- 🔍 Filter Section -->
 
                     <div class="mb-4 mx-1 flex justify-between md:justify-end space-x-4">
                         <select id="filterField"
@@ -390,7 +388,7 @@
                         <div class="overflow-x-auto overflow-y-auto max-h-[98vh] md:max-h-[80vh]">
                             <table class="min-w-full border border-gray-200 text-xs text-gray-700">
 
-                                <tbody id="tableBody" class="divide-y divide-gray-200">
+                                <tbody id="tableBody" class="divide-y divide-gray-200 pb-20">
                                     <div id="page-loader"
                                         class="fixed inset-0 bg-white bg-opacity-50 flex items-center justify-center z-50">
                                         <div
@@ -399,9 +397,15 @@
                                     </div>
                                     <script>setTimeout(() => {
                                             const loader = document.getElementById('page-loader');
+                                            const name = document.getElementById('loggedUserFName').innerText;
+                                            const mail = document.getElementById('loggedUserEmail').innerText;
+                                            if (name == "" || mail == "") {
+                                                window.location.href = "Owner.html";
+                                            }
                                             if (loader) {
                                                 loader.classList.add('opacity-0', 'transition-opacity', 'duration-500');
                                                 setTimeout(() => loader.remove(), 600); // Remove after fade-out
+
                                             }
                                         }, 5000);
                                     </script>
@@ -564,12 +568,13 @@
                         tbody.innerHTML = "";
                         records.forEach((record, index) => {
                             tbody.innerHTML += `
-      <div class="bg-white shadow-md m-2 rounded-lg overflow-hidden">
+      <div class="bg-white shadow-md m-2 mx-2 rounded-lg overflow-hidden">
         <div class="p-2 md:flex items-start justify-between">
 
           <!-- Product Info -->
-          <div class="flex items-start">
-            <img src="${record.Image}" alt="Product" class="w-28 h-20 object-cover rounded border-2" />
+          <div class="flex items-start object-cover">
+            
+            <img src="${record.Icon}" alt="Product" class="w-20 h-20  rounded border-2" />
             <div class="ml-4">
               <h3 class="text-lg font-semibold text-gray-800">${record.Other}</h3>
               <p class="text-sm text-gray-500">Order ID: <span class="font-medium">#${record.Id}</span></p>
@@ -582,7 +587,7 @@
             <button class="  text-black font-extrabold px-4 py-0 rounded-md hover:bg-blue-700 text-lg">
                 ${record.Size}
             </button>
-            <button onclick='deleteRecord("${record.Id}")'  class="bg-blue-600 text-white px-3 py-1 rounded-md hover:bg-blue-700 text-sm">
+            <button onclick='deleteRecord("${record.Id}")'  class="bg-black text-white px-3 py-1 rounded-md hover:bg-blue-700 text-sm">
               Cancle
             </button>
           </div>
