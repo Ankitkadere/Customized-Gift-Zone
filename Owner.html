@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gift Zone — Login & Signup</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/YOUR_KIT_CODE.js" crossorigin="anonymous"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+  </style>
+  <script type="module" src="firebase.js"></script>
+</head>
+
+<body class="flex items-center bg-black justify-center min-h-screen">
+
+  <!-- Header -->
+  <div class="px-6 pt-6 md:py-1 pb-1 top-0 rounded-b-[40px] text-white fixed w-full z-50">
+    <div class="flex items-center mb-6 justify-between">
+      <button onclick="history.back()" aria-label="Go back"
+        class="w-10 h-10 bg-white rounded-full flex justify-center items-center shadow-sm">
+        <i class="fas fa-chevron-down text-gray-700 text-lg"></i>
+      </button>
+      <button onclick="window.location.href='index.html'" aria-label="Go home"
+        class="text-3xl flex justify-center items-center shadow-sm">
+        <h1 class="shadow-lg text-3xl mx-auto font-extrabold leading-snug">Gift Zone</h1>
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Container for Forms -->
+  <div class="bg-white p-6 absolute bottom-0 md:relative shadow-md w-full max-w-md">
+    <div id="formContainer">
+
+      <!-- Login Form -->
+      <form id="loginForm" class="space-y-5" novalidate>
+        <h2 class="text-2xl font-semibold text-center">Login Your Account</h2>
+        <div>
+          <label for="number" class="block mb-1 font-medium text-gray-700">Enter Email</label>
+          <input type="tel" id="email" name="loginEmail" required placeholder="ankit@gmail.com"
+            class="w-full px-4 py-2 border rounded-md focus:outline-none" />
+          <p class="mt-1 text-sm text-red-500 hidden" id="loginEmailError">Please enter a valid email  .
+          </p>
+        </div>
+        <div>
+          <label for="password" class="block mb-1 font-medium text-gray-700">Password</label>
+          <input type="password" id="password" name="loginPassword" required placeholder="Your password"
+            class="w-full px-4 py-2 border rounded-md focus:outline-none" minlength="6" />
+          <p class="mt-1 text-sm text-red-500 hidden" id="loginPasswordError">Password must be at least 6 characters.
+          </p>
+        </div>
+        <div id="signInMessage" class="text-center text-sm text-red-500 my-2 hidden"></div>
+        <button type="submit" id="Orderlist.html"
+          class="w-full bg-black text-white py-2 rounded-md font-extrabold hover:opacity-90 transition">
+          <div id="page-loader" class="hidden  inset-0  bg-opacity-50 flex items-center justify-center z-50">
+            <div class="w-8 h-8 border-4 border-white border-t-transparent rounded-full animate-spin">
+            </div>
+          </div>
+          <script>setTimeout(() => {
+              const loader = document.getElementById('page-loader');
+              const name = document.getElementById('loggedUserFName').innerText;
+              const mail = document.getElementById('loggedUserEmail').innerText;
+              if (name == "" || mail == "") {
+                window.location.href = "Owner.html";
+              }
+              if (loader) {
+                loader.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+                setTimeout(() => loader.remove(), 600); // Remove after fade-out
+
+              }
+            }, 5000);
+          </script> Login
+        </button>
+        <div class="flex justify-between">
+          <p class="mt-4 text-center text-gray-600">
+            <button type="button" onclick="window.location.href='admin.html'"
+              class="text-black hover:underline font-semibold">Go</button>
+          </p>
+          <p class="mt-4 text-center text-gray-600">
+            Don't have an account?
+            <button type="button" id="showSignup" class="text-indigo-600 hover:underline font-semibold">Sign up</button>
+          </p>
+        </div>
+
+      </form>
+
+      <!-- Signup Form -->
+      <form id="signupForm" class="space-y-5 hidden" novalidate>
+        <h2 class="text-2xl font-semibold mb-6 text-center">Create Your Account</h2>
+        <div>
+          <label for="fName" class="block mb-1 font-medium text-gray-700">Full Name</label>
+          <input type="text" id="fName" name="signupName" required placeholder="Ankit Kadere"
+            class="w-full px-4 py-2 border rounded-md focus:outline-none" />
+          <p class="mt-1 text-sm text-red-500 hidden" id="signupNameError">Please enter your name.</p>
+        </div>
+        <div>
+          <label for="Number" class="block mb-1 font-medium text-gray-700">Mobile Number</label>
+          <input type="tel" id="rEmail" name="signupEmail" required placeholder="ankit@gmail.com"
+            class="w-full px-4 py-2 border rounded-md focus:outline-none" />
+          <p class="mt-1 text-sm text-red-500 hidden" id="signupEmailError">Please enter a valid email  .</p>
+        </div>
+        <div>
+          <label for="rPassword" class="block mb-1 font-medium text-gray-700">Password</label>
+          <input type="password" id="rPassword" name="signupPassword" required placeholder="Choose a password"
+            class="w-full px-4 py-2 border rounded-md focus:outline-none" minlength="6" />
+          <p class="mt-1 text-sm text-red-500 hidden" id="signupPasswordError">Password must be at least 6 characters.
+          </p>
+        </div>
+        <div class="">
+          <label for="signupConfirmPassword" class="block mb-1 font-medium text-gray-700">Confirm Password</label>
+          <input type="password" id="signupConfirmPassword" name="signupConfirmPassword" required
+            placeholder="Confirm your password" class="w-full px-4 py-2 border rounded-md focus:outline-none"
+            minlength="6" />
+          <p class="mt-1 text-sm text-red-500 hidden" id="signupConfirmPasswordError">Passwords do not match.</p>
+        </div>
+        <div id="signUpMessage" class="text-center text-sm text-red-500 my-2 hidden"></div>
+        <button type="submit" id="submitSignUp"
+          class="w-full bg-black text-white py-2 rounded-md font-extrabold hover:opacity-90 transition">
+          <div id="page-loaders" class="hidden  inset-0  bg-opacity-50 flex items-center justify-center z-50">
+            <div class="w-8 h-8 border-4 border-white border-t-transparent rounded-full animate-spin">
+            </div>
+          </div>
+          <script>setTimeout(() => {
+              const loader = document.getElementById('page-loader');
+              const name = document.getElementById('loggedUserFName').innerText;
+              const mail = document.getElementById('loggedUserEmail').innerText;
+              if (name == "" || mail == "") {
+                window.location.href = "Owner.html";
+              }
+              if (loader) {
+                loader.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+                setTimeout(() => loader.remove(), 600); // Remove after fade-out
+
+              }
+            }, 5000);
+          </script>  Sign Up
+        </button>
+        <p class="mt-4 text-center text-gray-600">
+          Already have an account?
+          <button type="button" id="showLogin" class="text-indigo-600 hover:underline font-semibold">Login</button>
+        </p>
+      </form>
+    </div>
+  </div>
+</body>
+
+
+
+
+

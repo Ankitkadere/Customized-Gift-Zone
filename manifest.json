@@ -1,0 +1,67 @@
+{
+  "name": "Customized Gift Zone",
+  "short_name": "Gift Zone",
+  "id": "/",
+  "scope": "/",
+  "start_url": "/?source=pwa",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f5fdf7",
+  "theme_color": "#f5fdf7",
+  "dark_theme_color": "#f5fdf7",
+  "dark_background_color": "#f5fdf7",
+  "lang": "en",
+  "dir": "ltr",
+  "description": "Create and customize unique, meaningful gifts for every occasion. Personalized items made with love at Customized Gift Zone.",
+  "icons": [
+    {
+      "src": "app.jpg",
+      "type": "image/jpeg",
+      "sizes": "192x192",
+      "purpose": "any"
+    },
+    {
+      "src": "fav.jpg",
+      "type": "image/jpeg",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": [
+    "shopping",
+    "lifestyle",
+    "gifts",
+    "custom",
+    "ecommerce"
+  ],
+  "screenshots": [
+    {
+      "src": "screenshots/home.jpg",
+      "type": "image/jpeg",
+      "sizes": "720x1280",
+      "label": "Homepage"
+    },
+    {
+      "src": "screenshots/customizer.jpg",
+      "type": "image/jpeg",
+      "sizes": "720x1280",
+      "label": "Product Customizer"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Shop Gifts",
+      "short_name": "Online & Offline Shop",
+      "description": "Browse and shop personalized gifts",
+      "url": "/shop",
+      "icons": [{ "src": "icons/shop.png", "sizes": "96x96", "type": "image/png" }]
+    },
+    {
+      "name": "My Orders",
+      "short_name": "Orders",
+      "description": "Check your recent orders",
+      "url": "/orders",
+      "icons": [{ "src": "icons/orders.png", "sizes": "96x96", "type": "image/png" }]
+    }
+  ]
+}

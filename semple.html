@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Details</title>
+    <link rel="apple-touch-icon" href="fav.jpg" />
+    <meta name="theme-color" content="#f5fdf7">
+    <link rel="icon" href="fav.jpg" type="image/jpeg/jpg" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
+        .font-mono-custom {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<div class="instructors  flex sm:reverse justify-between mx-1 px-2 py-2 bg-gray-100">
+    <div class="flex1">
+        <h2 class="text-lg font-semibold py-2 mb-2">Order Process</h2>
+        <ul class="space-y-3">
+            <div class="flex items-center space-x-4">
+                <!-- Ordered -->
+                <div class="flex flex-col items-center space-y-1">
+                    <div class="w-10 h-10 rounded-full bg-gray-500 flex justify-center items-center">
+                        <i class="fas fa-clipboard-list text-white text-lg"></i>
+                    </div>
+                    <span class="text-gray-600 text-xs font-bold font-sans">Ordered</span>
+                </div>
+
+                <!-- Line -->
+                <div class="w-8 h-0.5 bg-red-600 rounded"></div>
+
+                <!-- Packed -->
+                <div class="flex flex-col items-center space-y-1">
+                    <div class="w-10 h-10 rounded-full bg-gray-500 flex justify-center items-center">
+                        <i class="fas fa-box-open text-white text-lg"></i>
+                    </div>
+                    <span class="text-gray-600 text-xs font-bold font-sans">Packed</span>
+                </div>
+
+                <!-- Line -->
+                <div class="w-8 h-0.5 bg-red-600 rounded"></div>
+
+                <!-- In Transit -->
+                <div class="flex flex-col items-center space-y-1">
+                    <div class="w-10 h-10 rounded-full bg-gray-500 flex justify-center items-center">
+                        <i class="fas fa-truck-moving text-white text-lg"></i>
+                    </div>
+                    <span class="text-gray-600 text-xs font-bold font-sans">Transit</span>
+                </div>
+
+                <!-- Dotted Line -->
+                <div class="flex space-x-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
+                </div>
+
+                <!-- Delivered -->
+                <div class="flex flex-col items-center space-y-1">
+                    <div class="w-10 h-10 rounded-full bg-gray-500 flex justify-center items-center">
+                        <i class="fas fa-home text-white text-lg"></i>
+                    </div>
+                    <span class="text-gray-600 text-xs font-bold font-sans">Delivered</span>
+                </div>
+            </div>
+
+            ${course.instructors
+            .map(
+            inst => `
+            <li class="hidden flex items-center gap-4 ">
+                <img src="${inst.photo}" alt="${inst.alt}" class="w-12 h-12 rounded-full object-cover">
+                <span class="font-medium text-gray-800">${inst.name}</span>
+            </li>
+            `
+            )
+            .join("")}
+        </ul>
+        <div class="flex1">
+            <h2 class="text-lg font-semibold mb-2">Reviews</h2>
+            <ul class="space-y-3">
+                ${course.reviews
+                .map(
+                r => `
+                <li class="border w-full rounded p-3 bg-gray-50">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="font-semibold text-gray-800">${r.name}</span>
+                        <span class="flex gap-0.5">${renderStars(r.rating)}</span>
+                    </div>
+                    <p class="text-sm text-gray-600">${r.comment}</p>
+                </li>
+                `
+                )
+                .join("")}
+            </ul>
+        </div>
+    </div>
+    <div class="flex1">
+        <h2 class="text-lg font-semibold mt-4 mb-2">Discription Points</h2>
+        <ul class="list-disc list-inside space-y-1 text-gray-700">
+            ${course.syllabus.map(item => `<li>${item}</li>`).join("")}
+        </ul>
+    </div>
+</div>

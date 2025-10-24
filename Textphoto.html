@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Details</title>
+    <link rel="apple-touch-icon" href="fav.jpg" />
+    <link rel="icon" href="fav.jpg" type="image/jpeg/jpg" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
+        .font-mono-custom {
+            font-family: 'Roboto Mono', monospace;
+        }
+    </style>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
+    .font-mono-custom {
+      font-family: 'Roboto Mono', monospace;
+    }
+  </style>
+</head>
+
+<body>
+    <section id="Drags" class="flex flex-wrap gap-6 p-3  ">
+        <header class="w-full top-0 py-1 px-4 flex items-center justify-between shadow-md z-50">
+            <a onclick="document.getElementById('Drags').style.display='none' ">
+                <img src="https://img.icons8.com/ios-filled/24/1e40af/left.png" alt="Back Arrow"
+                    class="w-10 h-10 group-hover:brightness-800 transition duration-200" />
+            </a>
+            <a href="index.html">
+                <h1 class="text-xl font-extrabold text-[#1a1a1a] leading-none">
+                    <span>Gift</span>
+                    <span class="text-[#0f6f61]">Zone</span>
+                </h1>
+            </a>
+            <a href="Owner.html">
+                <img alt="Profile picture of a young man with short hair wearing a blue shirt"
+                    class="w-8 h-8 rounded-full border-2 border-[#0f6f61]" height="32" src="User.jpg" width="32" />
+            </a>
+        </header>
+        <!-- 6 Uploaders -->
+        <div id="uploaders" class="mt-8 grid grid-cols-6 gap-4"></div>
+
+        <script>
+            // Generate 6 upload blocks
+            const uploaderContainer = document.getElementById("uploaders");
+
+            for (let i = 1; i <= 6; i++) {
+                uploaderContainer.innerHTML += `
+      <div class="flex flex-col items-center relative">
+        <!-- Wrapper -->
+        <div id="image-wrapper${i}" 
+             class="absolute focus:border hover:border-2 border-gray-300 overflow-hidden"
+             style="width: 270px; height: 270px; display:none; user-select:none;">
+          <img id="resizable-image${i}" src="" 
+               class="absolute object-contain select-none cursor-move" 
+               style="width: 100%; height: 100%; top: 0; left: 0;" draggable="false"/>
+          <!-- Resize handles -->
+          <div id="handle-tl${i}" class="resize-handle top-0 left-0 -translate-x-1/2 -translate-y-1/2"></div>
+          <div id="handle-tr${i}" class="resize-handle top-0 right-0 translate-x-1/2 -translate-y-1/2"></div>
+          <div id="handle-bl${i}" class="resize-handle bottom-0 left-0 -translate-x-1/2 translate-y-1/2"></div>
+          <div id="handle-br${i}" class="resize-handle bottom-0 right-0 translate-x-1/2 translate-y-1/2"></div>
+        </div>
+
+        <!-- Buttons -->
+        <div id="buttons-container${i}" 
+             class="absolute flex gap-2 alien-center justify-center" style="display:none;">
+          <button id="increase-size${i}" 
+                  class="hidden px-2 py-1 bg-green-600 text-white rounded-md hover:bg-green-700">
+            <i class="fas fa-search-plus"></i>
+          </button>
+          <button id="decrease-size${i}" 
+                  class="hidden px-2 py-1 bg-red-600 text-white rounded-md hover:bg-red-700">
+            <i class="fas fa-search-minus"></i>
+          </button>
+          <button id="delete-image${i}" 
+                  class=" rounded-full z-[99]  ">
+             <label " 
+               class="  flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 text-gray-400  cursor-pointer shadow-md transition">
+          <i class="fas fa-trash-alt  "></i>
+        </label>
+          </button>
+        </div>
+
+        <!-- Upload button -->
+        <label for="fileInput${i}" 
+               class="  flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 text-gray-400 hover:bg-blue-700 cursor-pointer shadow-md transition">
+          <i class="fas fa-plus text-lg animate-pulse"></i>
+        </label>
+        <input type="file" id="fileInput${i}" accept="image/*" class="hidden"/>
+      </div>
+    `;
+            }
+
+            // --- Logic for Dragging, Resizing, Zoom, Delete ---
+            let dragTarget = null, offsetX = 0, offsetY = 0;
+            let resizeTarget = null, startX = 0, startY = 0, startW = 0, startH = 0;
+
+            // Initialize each image block
+            function initImageBlock(i) {
+                const wrapper = document.getElementById(`image-wrapper${i}`);
+                const img = document.getElementById(`resizable-image${i}`);
+                const fileInput = document.getElementById(`fileInput${i}`);
+                const buttons = document.getElementById(`buttons-container${i}`);
+                const btnIncrease = document.getElementById(`increase-size${i}`);
+                const btnDecrease = document.getElementById(`decrease-size${i}`);
+                const btnDelete = document.getElementById(`delete-image${i}`);
+
+                // Upload
+                fileInput.addEventListener("change", (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        img.src = URL.createObjectURL(file);
+                        wrapper.style.display = "block";
+                        buttons.style.display = "flex";
+                    }
+                });
+
+                // Dragging (mouse)
+                img.addEventListener("mousedown", (e) => {
+                    dragTarget = wrapper;
+                    offsetX = e.clientX - wrapper.offsetLeft;
+                    offsetY = e.clientY - wrapper.offsetTop;
+                    document.addEventListener("mousemove", dragMove);
+                    document.addEventListener("mouseup", dragEnd);
+                });
+
+                // Dragging (touch)
+                img.addEventListener("touchstart", (e) => {
+                    dragTarget = wrapper;
+                    offsetX = e.touches[0].clientX - wrapper.offsetLeft;
+                    offsetY = e.touches[0].clientY - wrapper.offsetTop;
+                    document.addEventListener("touchmove", dragMoveTouch);
+                    document.addEventListener("touchend", dragEndTouch);
+                });
+
+                // Zoom In
+                btnIncrease.addEventListener("click", () => {
+                    wrapper.style.width = wrapper.offsetWidth * 1.1 + "px";
+                    wrapper.style.height = wrapper.offsetHeight * 1.1 + "px";
+                });
+
+                // Zoom Out
+                btnDecrease.addEventListener("click", () => {
+                    wrapper.style.width = wrapper.offsetWidth * 0.9 + "px";
+                    wrapper.style.height = wrapper.offsetHeight * 0.9 + "px";
+                });
+
+                // Delete
+                btnDelete.addEventListener("click", () => {
+                    img.src = "";
+                    wrapper.style.display = "none";
+                    buttons.style.display = "none";
+                    fileInput.value = "";
+                });
+
+                // Resize Handles
+                ["tl", "tr", "bl", "br"].forEach(pos => {
+                    const handle = document.getElementById(`handle-${pos}${i}`);
+                    handle.addEventListener("mousedown", (e) => startResize(e, wrapper, pos));
+                    handle.addEventListener("touchstart", (e) => startResizeTouch(e, wrapper, pos));
+                });
+            }
+
+            // Dragging functions (mouse)
+            function dragMove(e) {
+                if (!dragTarget) return;
+                dragTarget.style.left = e.clientX - offsetX + "px";
+                dragTarget.style.top = e.clientY - offsetY + "px";
+            }
+            function dragEnd() {
+                dragTarget = null;
+                document.removeEventListener("mousemove", dragMove);
+                document.removeEventListener("mouseup", dragEnd);
+            }
+
+            // Dragging functions (touch)
+            function dragMoveTouch(e) {
+                if (!dragTarget) return;
+                dragTarget.style.left = e.touches[0].clientX - offsetX + "px";
+                dragTarget.style.top = e.touches[0].clientY - offsetY + "px";
+            }
+            function dragEndTouch() {
+                dragTarget = null;
+                document.removeEventListener("touchmove", dragMoveTouch);
+                document.removeEventListener("touchend", dragEndTouch);
+            }
+
+            // Resize functions (mouse)
+            function startResize(e, wrapper, pos) {
+                e.preventDefault();
+                resizeTarget = { wrapper, pos };
+                startX = e.clientX;
+                startY = e.clientY;
+                startW = wrapper.offsetWidth;
+                startH = wrapper.offsetHeight;
+
+                document.addEventListener("mousemove", doResize);
+                document.addEventListener("mouseup", stopResize);
+            }
+            function doResize(e) {
+                if (!resizeTarget) return;
+                const { wrapper, pos } = resizeTarget;
+                let newW = startW + (e.clientX - startX) * (pos.includes("r") ? 1 : -1);
+                let newH = startH + (e.clientY - startY) * (pos.includes("b") ? 1 : -1);
+                if (newW > 50 && newH > 50) {
+                    wrapper.style.width = newW + "px";
+                    wrapper.style.height = newH + "px";
+                }
+            }
+            function stopResize() {
+                resizeTarget = null;
+                document.removeEventListener("mousemove", doResize);
+                document.removeEventListener("mouseup", stopResize);
+            }
+
+            // Resize functions (touch)
+            function startResizeTouch(e, wrapper, pos) {
+                e.preventDefault();
+                resizeTarget = { wrapper, pos };
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+                startW = wrapper.offsetWidth;
+                startH = wrapper.offsetHeight;
+
+                document.addEventListener("touchmove", doResizeTouch);
+                document.addEventListener("touchend", stopResizeTouch);
+            }
+            function doResizeTouch(e) {
+                if (!resizeTarget) return;
+                const { wrapper, pos } = resizeTarget;
+                let newW = startW + (e.touches[0].clientX - startX) * (pos.includes("r") ? 1 : -1);
+                let newH = startH + (e.touches[0].clientY - startY) * (pos.includes("b") ? 1 : -1);
+                if (newW > 50 && newH > 50) {
+                    wrapper.style.width = newW + "px";
+                    wrapper.style.height = newH + "px";
+                }
+            }
+            function stopResizeTouch() {
+                resizeTarget = null;
+                document.removeEventListener("touchmove", doResizeTouch);
+                document.removeEventListener("touchend", stopResizeTouch);
+            }
+
+            // Initialize all 6
+            for (let i = 1; i <= 6; i++) {
+                initImageBlock(i);
+            }
+
+            // After showing image
+            wrapper.style.display = "block";
+            buttons.style.display = "flex";
+
+            // Hide wrapper after 3s
+            setTimeout(() => {
+                wrapper.style.display = "none";
+                buttons.style.display = "none";
+            }, 3000);
+
+        </script>
+
+        <script>
+            const courses = {
+                "english-speaking": {
+                    title: "Single Frame",
+                    icon: "Assets/Single/single1.png",
+                    iconAlt: "English Speaking course",
+                    description: "Improve your communication skills and fluency in English. Improve your communication skills and fluency in English. Improve your communication.",
+                    location: "Online",
+                    fees: "Affordable Fees",
+                    timings: "3 Months",
+                    level: "Beginner",
+                    price: "399.00",
+                    features: [
+                        { icon: "fas fa-chalkboard-teacher", text: "Online" },
+                        { badge: "B", text: "Beginner Friendly" },
+                        { icon: "fas fa-clock", text: "Flexible Timings" }
+                    ],
+                    syllabus: [
+                        "Introduction to photo frame styles and types",
+                        "Understanding materials (wood, metal, acrylic, digital)",
+                        "Measuring and cutting techniques for frames",
+                        "Glass fitting and mounting photos",
+                        "Creative decoration and painting methods",
+                        "Digital photo frame setup and customization",
+                        "Maintenance and care of photo frames",
+                        "Final project: Designing your own custom photo frame"
+                    ],
+
+                    instructors: [
+                        { name: " 7 Days Restun Policy", photo: "https://placehold.co/64x64/png?text=Sarah+J", alt: " " },
+                        { name: " No Waranty", photo: "https://placehold.co/64x64/png?text=Michael+L", alt: " " }
+                    ],
+                    reviews: [
+                        { name: "Anita Sharma", rating: 5, comment: "Helped me gain confidence in speaking English!" },
+                        { name: "Ravi Patel", rating: 4, comment: "Good course with practical exercises." }
+                    ]
+                },
+
+                "telly": {
+                    title: "Telly Course",
+                    icon: " https://static.vecteezy.com/system/resources/previews/044/249/257/non_2x/blank-frame-for-picture-or-image-with-vintage-border-without-background-template-for-mockup-png.png",
+                    iconAlt: "Telly course icon",
+                    description: "Accounting and financial management training.Accounting and financial management training.Accounting and financial management training.",
+                    location: "Online & Offline",
+                    fees: "Affordable Fees",
+                    timings: "Flexible Timings",
+                    level: "Intermediate Level",
+                    price: "499.00",
+                    features: [
+                        { icon: "fas fa-calculator", text: "Training" },
+                        { badge: "I", text: "Intermediate" },
+                        { icon: "fas fa-clock", text: "Flexible Timings" }
+                    ],
+                    syllabus: [
+                        "Accounting principles",
+                        "Financial statements",
+                        "Budgeting",
+                        "Taxation",
+                        "Accounting software",
+                        "Case studies"
+                    ],
+                    instructors: [
+                        { name: "1  instructor", photo: "https://placehold.co/64x64/png?text=Rajesh+K", alt: "" }
+                    ],
+                    reviews: [
+                        { name: "Sneha Desai", rating: 5, comment: "Excellent training!" },
+                        { name: "Karan Mehta", rating: 4, comment: "Well structured course." }
+                    ]
+                },
+
+                "dca": {
+                    title: "DCA Course",
+                    icon: "https://storage.googleapis.com/a1aa/image/a4423603-46d5-43bf-1247-48de95e66fb4.jpg",
+                    iconAlt: "DCA course icon",
+                    description: "Diploma in Computer Applications for beginners.",
+                    location: "Online & Offline",
+                    fees: "Affordable Fees",
+                    timings: "Flexible Timings",
+                    level: "Advanced Level",
+                    price: "1,699.00",
+                    features: [
+                        { icon: "fas fa-graduation-cap", text: "Cirtificate" },
+                        { badge: "A", text: "Advanced" },
+                        { icon: "fas fa-clock", text: "Flexible Timings" }
+                    ],
+                    syllabus: [
+                        "Fundamentals of Computer",
+                        "MS Office (Word, Excel, PowerPoint)",
+                        "Internet and Email",
+                        "Basics of Programming",
+                        "Database Management Systems",
+                        "Project Work"
+                    ],
+                    instructors: [
+                        { name: "1 instructors", photo: "https://placehold.co/64x64/png?text=Neha+V", alt: " 1" }
+                    ],
+                    reviews: [
+                        { name: "Amit Joshi", rating: 5, comment: "Great for beginners !" }
+                    ]
+                },
+
+                "pgdca": {
+                    title: "PGDCA Course",
+                    icon: "https://storage.googleapis.com/a1aa/image/f41ee155-ce03-4dff-ffbc-871097d19bba.jpg",
+                    iconAlt: "PGDCA course icon",
+                    description: "Post Graduate Diploma in Computer Applications.",
+                    location: "Online & Offline",
+                    fees: "Affordable Fees",
+                    timings: "Flexible Timings",
+                    level: "Advanced Level",
+                    price: "1,799.00",
+                    features: [
+                        { icon: "fas fa-graduation-cap", text: "Crtificate" },
+                        { badge: "A", text: "Advanced" },
+                        { icon: "fas fa-clock", text: "Flexible Timings" }
+                    ],
+                    syllabus: [
+                        "Computer Organization",
+                        "Data Structures",
+                        "Operating Systems",
+                        "Web Technologies",
+                        "Database Systems",
+                        "Software Engineering"
+                    ],
+                    instructors: [
+                        { name: "1 instructor ", photo: "https://placehold.co/64x64/png?text=Sunil+A", alt: " " }
+                    ],
+                    reviews: [
+                        { name: "Priya Nair", rating: 5, comment: "Very detailed and useful !" }
+                    ]
+                },
+
+                "11th-grade": {
+                    title: "11th Grade Course",
+                    icon: "https://storage.googleapis.com/a1aa/image/e19c4740-fb74-44b9-7e1f-5cf1a55c1440.jpg",
+                    iconAlt: "11th grade course icon",
+                    description: "Higher Secondary Education - 11th Grade.",
+                    location: "Online & Offline",
+                    fees: "Affordable Fees",
+                    timings: "Flexible Timings",
+                    level: "High School",
+                    price: "299.00",
+                    features: [
+                        { icon: "fas fa-school", text: "Regular Classes" },
+                        { badge: "H", text: "Important Q & A" },
+                        { icon: "fas fa-clock", text: "Flexible Timings" }
+                    ],
+                    syllabus: [
+                        "---------- As Per Intrested Area ---------",
+                        "Mathematics",
+                        "Biology",
+                        "Commerce",
+                        "Art's",
+                        "English & Hindi",
+                        "Practical Labs"
+                    ],
+                    instructors: [
+                        { name: "1 Instructors", photo: "https://placehold.co/64x64/png?text=Rakesh+S", alt: " " }
+                    ],
+                    reviews: [
+                        { name: "Deepak More", rating: 4, comment: "Covers school curriculum well." }
+                    ]
+                },
+
+                "12th-grade": {
+                    title: "12th Grade Course",
+                    icon: "https://storage.googleapis.com/a1aa/image/83567cdb-08d8-4d10-920c-e9479b024892.jpg",
+                    iconAlt: "12th grade course icon",
+                    description: "Higher Secondary Education - 12th Grade.",
+                    location: "Online & Offline",
+                    fees: "Affordable Fees",
+                    timings: "Flexible Timings",
+                    level: "High School",
+                    price: "299.00",
+                    features: [
+                        { icon: "fas fa-school", text: "Regular Classes" },
+                        { badge: "H", text: "Important Q & A" },
+                        { icon: "fas fa-clock", text: "Flexible Timings" }
+                    ],
+                    syllabus: [
+                        "---------- As Per Intrested Area ---------",
+                        "Mathematics",
+                        "Physics / Chemistry / Biology",
+                        "Accounts / Economics",
+                        "English / Hindi",
+                        "Board Exam Preparation",
+                        "Practical Labs"
+                    ],
+                    instructors: [
+                        { name: "1  instructors ", photo: "https://placehold.co/64x64/png?text=Meena+G", alt: "" }
+                    ],
+                    reviews: [
+                        { name: "Shivani Yadav", rating: 5, comment: "Helped me top my board exams !" }
+                    ]
+                }
+            };
+
+            function getCourseIdFromURL() {
+                return new URLSearchParams(location.search).get("id");
+            }
+
+            function renderStars(rating) {
+                let stars = "";
+                for (let i = 1; i <= 5; i++) {
+                    stars += i <= rating
+                        ? '<i class="fas fa-star text-yellow-400"></i>'
+                        : '<i class="far fa-star text-yellow-400"></i>';
+                }
+                return stars;
+            }
+
+            function renderCourse(course) {
+                const section = document.getElementById("course-detail");
+
+                section.innerHTML = `
+  <div class=" dragimg w-full items-center justify-center" id="dragimg">
+    <div class="flex1 flex-col bg-[#f5fdf7] items-center justify-center gap-1 w-full h-100 overflow-hidden">
+  <img src="${course.icon}" 
+       alt="${course.iconAlt}" 
+       class="w-80 h-100 object-cover justify-center m-auto">
+<button  onclick="window.location.href='Textphoto.html'" class="text-gray-600 hover:text-black font-bold border-2 w-full m-auto py-1 px-4 rounded-full transition">
+  + Photo
+</button>
+
+</div>
+
+
+ <div class="flex1">
+   <div>
+            <h1 class="text-lg font-bold text-gray-900">${course.title}</h1>
+            <p class="text-sm text-gray-500">${course.location} &middot; ${course.fees}</p>
+          </div>
+        <p class="text-gray-700 text-justify mt-4">${course.description}</p>
+
+        <div class="flex flex-wrap gap-2">
+          ${course.features.map(f => {
+                    if (f.icon) {
+                        return `<span class="bg-gray-200 text-xs mt-4 px-2 py-2 rounded flex items-center gap-1">
+                <i class="${f.icon} text-xs"></i> <span>${f.text}</span>
+              </span>`;
+                    } else {
+                        return `<span class="bg-gray-200 text-sm mt-4 px-2 py-2 rounded flex items-center gap-1">
+                <span class="border border-gray-500 w-4 h-4 flex justify-center items-center rounded-full text-[10px] font-bold">${f.badge}</span> <span>${f.text}</span>
+              </span>`;
+                    }
+                }).join("")}
+        </div>
+ <hr class="border-2 ">
+        <div>
+          <h2 class="text-lg font-semibold mt-4 mb-2">Discription Points</h2>
+          <ul class="list-disc list-inside space-y-1 text-gray-700">
+            ${course.syllabus.map(item => `<li>${item}</li>`).join("")}
+          </ul>
+        </div>
+ <hr class="border-2 ">
+          </div>
+            </div> 
+             <div class="instructors justify-between">
+        <div class=" flex1">
+          <h2 class="text-lg font-semibold  mb-2">Order Process</h2>
+          <ul class="space-y-3">
+   
+  <div class="flex items-center space-x-4">
+    <!-- Ordered -->
+    <div class="flex flex-col items-center space-y-1">
+      <div class="w-10 h-10 rounded-full bg-green-500 flex justify-center items-center">
+        <i class="fas fa-clipboard-list text-white text-lg"></i>
+      </div>
+      <span class="text-green-500 text-xs font-sans">Ordered</span>
+    </div>
+
+    <!-- Line -->
+    <div class="w-8 h-0.5 bg-red-600 rounded"></div>
+
+    <!-- Packed -->
+    <div class="flex flex-col items-center space-y-1">
+      <div class="w-10 h-10 rounded-full bg-green-500 flex justify-center items-center">
+        <i class="fas fa-box-open text-white text-lg"></i>
+      </div>
+      <span class="text-green-500 text-xs font-sans">Packed</span>
+    </div>
+
+    <!-- Line -->
+    <div class="w-8 h-0.5 bg-red-600 rounded"></div>
+
+    <!-- In Transit -->
+    <div class="flex flex-col items-center space-y-1">
+      <div class="w-10 h-10 rounded-full bg-green-500 flex justify-center items-center">
+        <i class="fas fa-truck-moving text-white text-lg"></i>
+      </div>
+      <span class="text-green-500 text-xs font-sans">Transit</span>
+    </div>
+
+    <!-- Dotted Line -->
+    <div class="flex space-x-1">
+      <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
+      <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
+      <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
+      
+    </div>
+
+    <!-- Delivered -->
+    <div class="flex flex-col items-center space-y-1">
+      <div class="w-10 h-10 rounded-full bg-gray-500 flex justify-center items-center">
+        <i class="fas fa-home text-white text-lg"></i>
+      </div>
+      <span class="text-gray-600 text-xs font-sans">Delivered</span>
+    </div>
+  </div> 
+            ${course.instructors.map(inst => `
+              <li class="hidden flex items-center gap-4">
+                <img src="${inst.photo}" alt="${inst.alt}" class="w-12 h-12 rounded-full object-cover">
+                <span class="font-medium text-gray-800">${inst.name}</span>
+              </li>
+            `).join("")}
+          </ul>
+        </div>
+             <br>
+        <div  class=" flex1">
+          <h2 class="text-lg font-semibold   mb-2">Reviews</h2>
+          <ul class="space-y-3">
+            ${course.reviews.map(r => `
+              <li class="border rounded p-3 bg-gray-50">
+                <div class="flex justify-between items-center mb-1">
+                  <span class="font-semibold text-gray-800">${r.name}</span>
+                  <span class="flex gap-0.5">${renderStars(r.rating)}</span>
+                </div>
+                <p class="text-sm text-gray-600">${r.comment}</p>
+              </li>
+            `).join("")}
+          </ul>
+        </div>
+         </div> 
+      `;
+            }
+
+            window.addEventListener("DOMContentLoaded", () => {
+                const courseId = getCourseIdFromURL();
+                const course = courses[courseId];
+
+                if (course) {
+                    renderCourse(course);
+                } else {
+                    document.getElementById("course-detail").innerHTML = `<p class="text-red-600">Course not found.</p>`;
+                }
+            });
+
+            function updateEndDate() {
+                const startInput = document.getElementById("Start");
+                const endInput = document.getElementById("End");
+
+                if (!startInput.value) return;
+
+                const startDate = new Date(startInput.value);
+                startDate.setMonth(startDate.getMonth() + 1);
+
+                if (startDate.getDate() !== new Date(startInput.value).getDate()) {
+                    startDate.setDate(0);
+                }
+
+                endInput.value = startDate.toISOString().split("T")[0];
+            }
+
+            window.addEventListener("DOMContentLoaded", () => {
+                const startInput = document.getElementById("Start");
+                const today = new Date();
+                startInput.value = today.toISOString().split("T")[0];
+                updateEndDate();
+            });
+            const code = Math.floor(1000 + Math.random() * 9000);
+            const ID = Math.floor(100000 + Math.random() * 7000);
+            const courseId = new URLSearchParams(window.location.search).get("id");
+            const course = courses[courseId];
+            function buycourse() {
+
+
+                if (!course) {
+                    alert("Invalid course selected.");
+                    return;
+                }
+
+                document.getElementById("Passcode").value = code;
+                document.getElementById("Id").value = ID;
+                document.getElementById("Passcode").classList.add("hidden");
+                document.getElementById("Id").classList.add("hidden");
+                document.getElementById("Price").value = course.price;
+                document.getElementById("Course").value = course.title;
+                document.getElementById("Date").classList.add("hidden");
+                document.getElementById("Time").classList.add("hidden");
+                document.getElementById("Start").classList.add("hidden");
+                document.getElementById("End").classList.add("hidden");
+                document.getElementById("Price").classList.add("hidden");
+                document.getElementById("Course").classList.add("hidden");
+                document.getElementById("Status").classList.add("hidden");
+
+            }
+
+            function handleBooking() {
+                document.getElementById("dset").classList.add("hidden");
+                document.getElementById("buttonsets").classList.add("hidden");
+
+                setTimeout(() => {
+                    document.getElementById('deletedtext').innerText = 'Processing...';
+                }, 100);
+
+                setTimeout(() => {
+                    document.getElementById("dset").classList.add("hidden");
+                    document.getElementById("buttonsets").classList.add("hidden");
+                    document.getElementById('deletedtext').innerHTML = `<p class="text-xl mt-2">Your Pass Code </p><h1 class="font-bold text-8xl text-green-700">${code}</h1><p class="text-xl mt-2">Completed</p>`;
+                    const audio = document.getElementById("audioPlayer");
+                    audio.play().catch(err => {
+                        console.error(err);
+                    });
+
+                    const utterance = new SpeechSynthesisUtterance(" Wellcome to Apna Course ");
+                    utterance.lang = "en-hi"; // Change to "hi-IN" or other for different languages
+                    utterance.rate = 0.8; // Speed (0.1 to 10), 1 is normal
+                    utterance.pitch = 5; // Pitch (0 to 2), 1 is default
+                    window.speechSynthesis.cancel(); // Cancel previous speech
+                    window.speechSynthesis.speak(utterance);
+
+                }, 8000);
+                setTimeout(() => {
+                    window.location.href = 'Owner.html';
+                }, 30000);
+
+            }
+
+
+            const form = document.getElementById("entryForm");
+            const container = document.getElementById("dataContainer");
+            const passcode = new URLSearchParams(window.location.search).get("passcode")?.trim();
+            const scriptURL = "https://script.google.com/macros/s/AKfycbwdAgLXrfkDEEIOsTIjJcm6VwLuTCGH_zo3YKmv7fpvkNwnHFyGEUb2eVIF6iuHcb2h/exec";
+            let editing = false;
+
+
+
+            async function loadData() {
+                try {
+                    const res = await fetch(scriptURL);
+                    const data = await res.json();
+                    document.getElementById("dset").classList.remove("hidden");
+                    document.getElementById("loadercircle").style.display = "none";
+
+                    if (passcode.length === 0) {
+                        container.innerHTML = `<p class="text-center text-gray-600 text-lg">No data found for Passcode: <strong>${passcode}</strong></p>`;
+                        return;
+                    }
+
+                    function formatDate(dateStr) {
+                        if (!dateStr) return "N/A";
+                        const date = new Date(dateStr);
+                        const options = {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric"
+                        };
+                        return date.toLocaleDateString("en-IN", options);
+                    }
+
+                } catch (err) {
+                    console.error(err);
+                    container.innerHTML = `<p class="text-red-600 text-center">Failed to load data.</p>`;
+                    document.getElementById("loadercircle").style.display = "none";
+                }
+            }
+
+            form.onsubmit = async (e) => {
+                e.preventDefault();
+                const formData = Object.fromEntries(new FormData(form));
+                formData.method = editing ? "update" : "create";
+
+                await fetch(scriptURL, {
+                    method: "POST",
+                    body: JSON.stringify(formData),
+                });
+
+
+                form.reset();
+                editing = false;
+                loadData();
+                window.location.href = "Confirmorder.html";
+
+                document.getElementById("dset").classList.add("hidden");
+                document.getElementById("buttonsets").classList.add("hidden");
+                document.getElementById("dset").style.display = "none";
+                document.getElementById("buttonsets").style.display = "none";
+            };
+
+            loadData();
+        </script>
+
+        <script>
+            const openBtn = document.getElementById("openLoginBtn");
+            const closeBtn = document.getElementById("closeLoginBtn");
+            const loginFormContainer = document.getElementById("loginFormContainer");
+            const overlay = document.getElementById("overlay");
+
+            function openLogin() {
+                overlay.classList.remove("hidden");
+                loginFormContainer.style.opacity = "1";
+                loginFormContainer.style.transform = "translateY(0)";
+                loginFormContainer.style.pointerEvents = "auto";
+            }
+
+            function closeLogin() {
+                loginFormContainer.style.opacity = "0";
+                loginFormContainer.style.transform = "translateY(100%)";
+                loginFormContainer.style.pointerEvents = "none";
+                overlay.classList.add("hidden");
+            }
+
+            openBtn.addEventListener("click", openLogin);
+            closeBtn.addEventListener("click", closeLogin);
+            overlay.addEventListener("click", closeLogin);
+        </script>
+    </section>
+
+</body>
+
+<<<<<<< HEAD
+</html> 
+=======
+</html>
+>>>>>>> 4b2d48e3c2e69e70493dbf6efdc7a41f2f36cbd1

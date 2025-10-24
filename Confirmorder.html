@@ -1,0 +1,238 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>
+        Payment Successful
+    </title>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link rel="apple-touch-icon" href="fav.jpg" />
+    <link rel="icon" href="fav.jpg" type="image/jpeg/jpg" />
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
+        .font-mono-custom {
+
+            font-family: 'arial', monospace;
+
+            font-family: 'Roboto Mono', monospace;
+
+        }
+    </style>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-[#f5fdf7]  flex flex-col items-center justify-center md:w-96 md:mx-auto  p-2">
+    <div class="flex w-full p-2 items-center mb-6 justify-between">
+        <button onclick="history.back()" aria-label="Go back"
+            class="w-10 h-10 bg-black rounded-full flex justify-center items-center shadow-sm">
+            <i class="fas fa-chevron-left text-white text-lg">
+            </i>
+        </button>
+        <button onclick="window.location.href='index.html';" aria-label="Go back" class="text-3xl flex justify-center items-center">
+            <h1 class="font-extrabold text-black text-3xl mx-auto leading-none">
+              Gift Zone
+            </h1>
+          </button>          
+    </div>
+    <div class="h-full w-full ">
+        <div class="flex justify-center mb-6">
+            <img alt="Illustration of a smartphone with a credit card and a green checkmark indicating payment success"
+                class="w-24 h-24" height="96"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSdcDHeFa-lzgTdqjEEM8a2LdWyxy4OpOJyA&s"
+                width="96" />
+        </div>
+        <h1 class="text-green-600 text-xl font-semibold text-center mb-2">
+            Order SuccessfulL
+        </h1>
+        <p class="text-gray-400 text-center text-sm mb-6">
+            Successful! Thanks for your order — it’s now confirmed.
+            Payment Successful! Thanks for your order — it’s now confirmed.
+        </p>
+        <div class="  border border-gray-200 rounded-xl p-4 mb-6 shadow-sm">
+            <h2 class="text-black font-semibold mb-3">
+                Payment Details
+            </h2>
+            <dl class="space-y-3 text-sm text-gray-400">
+                <div class="flex justify-between">
+                    <dt>
+                        Order ID
+                    </dt>
+                    <dd class="font-semibold text-black">
+                        <span id="orderId"></span>
+                        </dt>
+                </div>
+                <div class="flex justify-between">
+                    <dt>
+                        Date
+                    </dt>
+                    <dd class="font-semibold text-black">
+                        <span id="orderDate"></span> <span id="orderPrice"></span>
+                    </dd>
+                </div>
+                <div class="flex justify-between">
+                    <dt>
+                        Type of Transaction
+                    </dt>
+                    <dd class="font-semibold text-black">
+                        <span id="orderPaymentMethod"></span>
+                    </dd>
+                </div>
+                <div class="flex justify-between">
+                    <dt>
+                    </dt>
+                    <dd class="font-semibold text-black">
+                        <span id="orderprice"></span>
+                        </dt>
+                    <dd class="font-semibold text-black">
+                    </dd>
+                </div>
+                <div class="flex justify-between items-center">
+                    <dt>
+                        Status
+                    </dt>
+                    <dd class="flex items-center text-green-600 font-semibold">
+                        <i class="fas fa-check-circle mr-1">
+                        </i>
+                        <span id="orderStatus"></span>
+                    </dd>
+                </div>
+            </dl>
+        </div>
+
+
+        <nav aria-label="Bottom navigation"
+            class="fixed bottom-0 left-0 right-0 mx-2 border-t border-[#d9d9d9]bg-[#f3f3f3] md:w-96  md:mx-auto  justify-center items-center py-3 z-50">
+            <div>
+                <div class="flex items-center justify-between mb-8 mx-2 select-text">
+                    <span class="font-semibold text-black">
+                        Save Card
+                    </span>
+                    <label class="relative inline-flex items-center cursor-pointer" for="toggle">
+                        <input aria-checked="true" checked="" class="sr-only peer" id="toggle" type="checkbox" />
+                        <div class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-black transition-colors">
+                        </div>
+                        <div
+                            class="absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform peer-checked:translate-x-5">
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <div class="md:mx-auto space-y-4">
+                <!-- Track Your Order Button -->
+                <a href="Orderlist.html" class="block">
+                    <div class="bg-black text-white font-semibold rounded-full py-3 w-full text-center">
+                        Track Your Order
+                    </div>
+                </a>
+                <!-- Back To Home Button -->
+                <a href="index.html" class="block">
+                    <div class="bg-black text-white font-semibold rounded-full py-3 w-full text-center">
+                        Back To Home
+                    </div>
+                </a>
+            </div>
+        </nav>
+    </div>
+</body>
+
+
+</html>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const today = new Date().toISOString().split('T')[0]; // Format date as YYYY-MM-DD
+
+    document.getElementById('orderDate').innerText = today;
+    document.getElementById('orderPrice').innerText = urlParams.get('Price');
+    document.getElementById('orderId').innerText = urlParams.get('Id');
+    document.getElementById('orderStatus').innerText = urlParams.get('Status');
+    document.getElementById('orderPaymentMethod').innerText = urlParams.get('PaymentMethod');
+
+</script>
+
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+    import {
+      getAuth,
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+    import {
+      getFirestore,
+      getDoc,
+      doc
+    } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+
+    // ✅ Your Firebase config (USE YOUR OWN VALUES HERE)
+    const firebaseConfig = {
+      apiKey: "AIzaSyAKN5GR18VTFrKNgVG7FenD4aSTX3Q2PbA",
+      authDomain: "gift-zone-project.firebaseapp.com",
+      projectId: "gift-zone-project",
+      storageBucket: "gift-zone-project.appspot.com",
+      messagingSenderId: "806465456032",
+      appId: "1:806465456032:web:becf8988a6dfabe43646c5",
+      measurementId: "G-1ZLMWBP61Y",
+    };
+
+    // ✅ Initialize Firebase services
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // ✅ On Auth Change: fetch and show user data
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const loggedInUserId = localStorage.getItem("loggedInUserId");
+        if (!loggedInUserId) {
+          console.log("User ID not found in local storage.");
+          return;
+        }
+
+        const docRef = doc(db, "users", loggedInUserId);
+        getDoc(docRef)
+          .then((docSnap) => {
+
+            if (docSnap.exists()) {
+              const userData = docSnap.data();
+              let a = userData.firstName || "N/A";
+              let b =userData.email || "N/A";
+
+              // ✅ Optional: handle missing lastName gracefully
+              const lNameElement = document.getElementById("loggedUserLName");
+              if (userData.lastName) {
+                lNameElement.innerText = userData.lastName;
+              } else {
+                lNameElement.innerText = "-";
+              }
+            } else {
+              console.log("No user document found in Firestore.");
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching user data:", error);
+          });
+      } else {
+        console.log("User not signed in.");
+        window.location.href = "Owner.html"; // Redirect to login
+      }
+    });
+  
+  </script>
+
+</html>

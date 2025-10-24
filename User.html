@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Student : Apna Course</title>
+     <link rel="apple-touch-icon" href="fav.jpg" />
+  <link rel="icon" href="fav.jpg" type="image/jpeg/jpg" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
+
+</head>
+<style>
+    body {
+        font-family: "Inter", sans-serif;
+    }
+
+    .loader {
+        margin-top: 50%;
+        width: 50px;
+        padding: 8px;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: #076b18;
+        --_m:
+            conic-gradient(#0000 10%, #000),
+            linear-gradient(#000 0 0) content-box;
+        -webkit-mask: var(--_m);
+        mask: var(--_m);
+        -webkit-mask-composite: source-out;
+        mask-composite: subtract;
+        animation: l3 1s infinite linear;
+    }
+
+    @keyframes l3 {
+        to {
+            transform: rotate(1turn)
+        }
+    }
+
+    /* Remove button default styles */
+    .category-btn {
+        background: #f3f4f6;
+        /* light gray */
+        border-radius: 0.5rem;
+        /* rounded-lg */
+        padding: 0.25rem 0.5rem;
+        /* py-1 px-2 */
+        cursor: pointer;
+        transition: background-color 0.2s ease, color 0.2s ease;
+        white-space: nowrap;
+        font-size: 0.75rem;
+        /* text-xs */
+        font-weight: 600;
+        /* font-semibold */
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        /* space-x-1 */
+        color: #1a1a1a;
+        border: 1px solid transparent;
+    }
+
+    .category-btn:hover,
+    .category-btn:focus {
+        background: #d1fae5;
+        /* teal-100 */
+        color: #0f6f61;
+        outline: none;
+        border-color: #0f6f61;
+    }
+
+    .category-btn[aria-pressed="true"] {
+        background: #0f6f61;
+        color: white;
+        border-color: #0f6f61;
+    }
+
+    .category-btn[aria-pressed="true"] img,
+    .category-btn[aria-pressed="true"] i {
+        filter: brightness(0) invert(1);
+    }
+
+    /* Icon size smaller */
+    .category-btn img,
+    .category-btn i {
+        width: 1rem;
+        /* 16px */
+        height: 1rem;
+        flex-shrink: 0;
+    }
+
+    /* Container for categories: keep in a single row with horizontal scroll and hide overflow */
+    #category-container {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: max-content;
+        gap: 0.5rem;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 0.25rem;
+
+    }
+
+    #category-container::-webkit-scrollbar {
+        display: none;
+        /* Chrome, Safari */
+    }
+</style>
+
+<body class="bg-[#f5fdf7] w-full">
+
+    <div id="header"></div> <!-- Header will load here -->
+
+    <script>
+        // Load Header CSS (optional)
+        const headerCSS = document.createElement("link");
+        headerCSS.rel = "stylesheet";
+        headerCSS.href = "Header.css"; // Remove this if not using a separate CSS file
+        document.head.appendChild(headerCSS);
+
+        // Load Header HTML
+        fetch("Header.html")
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById("header").innerHTML = html;
+
+                // Load Header JS (optional)
+                const headerJS = document.createElement("script");
+                headerJS.src = "Header.js"; // Remove this if not using a separate JS file
+                document.body.appendChild(headerJS);
+            });
+    </script>
+
+    <form id="search-form" class="w-full max-w-md px-4" role="search" aria-label="Search jobs or courses" novalidate>
+        <label class="sr-only" for="search">Search courses by name</label>
+        <div class="flex items-center border-2 border-[#1a1a1a] rounded-xl py-2 px-3 relative bg-[#f5fdf7]">
+            <i class="fas fa-search text-[#1a1a1a] text-lg"></i>
+            <input id="setuser" onchange="ssetdearch()"
+                class="flex-grow ml-3 text-base placeholder:text-[#1a1a1a] focus:outline-none bg-[#f5fdf7]" id="search"
+                name="search" placeholder="Search Courses By Name" type="search" autocomplete="on"
+                aria-autocomplete="list" aria-controls="suggestions-list" aria-haspopup="listbox" aria-expanded="false"
+                role="combobox" aria-activedescendant="" oninput="filterSuggestions()"
+                onkeydown="handleKeyDown(event)" />
+            <button aria-label="Voice search" class="text-[#0f6f61] text-xl ml-3" type="button">
+                <i class="fas fa-microphone"></i>
+            </button>
+            <ul id="suggestions-list" role="listbox"
+                class="absolute top-full left-0 right-0 bg-white border border-gray-300 rounded-b-xl max-h-48 overflow-auto z-50 hidden shadow-lg">
+            </ul>
+        </div>
+    </form>
+
+    <h1 class="text-am font-semibold text-center mb-4">Student's Booking Details</h1>
+
+    <div id="dataContainer" class="grid grid-cols-1 md:grid-cols-2 ">
+        <center>
+            <div class="loader"></div>
+        </center>
+    </div>
+
+    <form id="entryForm" class=" hidden max-w-xl mx-auto mt-10 bg-white p-6 shadow rounded space-y-4">
+        <h2 class="text-xl font-bold text-center">New / Update Booking</h2>
+        <input type="text" id="Id" name="Id" placeholder="ID" class="border p-2 w-full rounded" />
+        <input type="text" id="Passcode" name="Passcode" placeholder="Passcode" class="border p-2 w-full rounded" />
+        <input type="date" id="Date" name="Date" class="border p-2 w-full rounded" />
+        <input type="time" id="Time" name="Time" class="border p-2 w-full rounded" />
+        <input type="text" id="Name" name="Name" placeholder="Name" class="border p-2 w-full rounded" />
+        <input type="text" id="Number" name="Number" placeholder="Number" class="border p-2 w-full rounded" />
+        <input type="text" id="Course" name="Course" placeholder="Course" class="border p-2 w-full rounded" />
+        <input type="text" id="Price" name="Price" placeholder="Price" class="border p-2 w-full rounded" />
+        <input type="text" id="Status" name="Status" placeholder="Status" class="border p-2 w-full rounded" />
+        <input type="text" id="Start" name="Start" placeholder="Start" class="border p-2 w-full rounded" />
+        <input type="text" id="End" name="End" placeholder="End" class="border p-2 w-full rounded" />
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded w-full">Save</button>
+    </form>
+
+    <script>
+        const form = document.getElementById("entryForm");
+        const find = document.getElementById("setuser").value.trim();
+        const container = document.getElementById("dataContainer");
+        const passcode = new URLSearchParams(window.location.search).get("passcode")?.trim();
+        const number = new URLSearchParams(window.location.search).get("number")?.trim();
+        const scriptURL = "https://script.google.com/macros/s/AKfycbwdAgLXrfkDEEIOsTIjJcm6VwLuTCGH_zo3YKmv7fpvkNwnHFyGEUb2eVIF6iuHcb2h/exec";
+        let editing = false;
+        async function loadData() {
+            try {
+                const res = await fetch(scriptURL);
+                const data = await res.json();
+
+                const filtered = data.filter(row => row.Passcode?.toString().trim() === passcode || row.Number?.toString().trim() == passcode  && row.Status.trim() === "Confirm".trim());
+                container.innerHTML = "";
+
+                if (filtered.length === 0) {
+                    container.innerHTML = `<p class="text-center text-gray-600 text-lg">No data found for Passcode: <strong>${passcode}</strong></p>`;
+                    return;
+                }
+                function formatDate(dateStr) {
+                    if (!dateStr) return "N/A";
+                    const date = new Date(dateStr);
+                    const options = {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric"
+                    };
+                    return date.toLocaleDateString("en-IN", options);
+                }
+                filtered.forEach(row => {
+                    const card = document.createElement("div");
+                    card.className = "  shadow-lg rounded-lg p-1";
+                    card.innerHTML = `
+ 
+  <section
+    aria-label="Courses list"
+    class="px-1 mt-2 max-w-lg mx-auto w-full "
+    id="courses-list"
+  > 
+ <a href="Lecture.html?course=${encodeURIComponent(row.Course)}&passcode=${encodeURIComponent(row.Passcode)}&name=${encodeURIComponent(row.Name)}" class="course-item block" data-category="${row.Course.toLowerCase().replace(/\s+/g, '-')}">
+
+      <div
+        class="border border-[#d9d9d9] rounded-xl p-3 bg-white cursor-pointer"
+        role="button"
+        tabindex="0"
+      >
+        <div class="flex justify-between items-center space-x-1 mb-1">
+             <div class="flex items-center space-x-1 mb-1">
+           <h2
+            class="font-bold text-white bg-green-700 truncate max-w-[calc(100%-20px)] px-2 text-2x1 leading-tight"
+          >
+         ${row.Passcode}
+          </h2>
+          <h2
+            class="font-semibold text-[#1a1a1a] bg-truncate max-w-[calc(100%-20px)] text-2x1 leading-tight"
+          >
+         ${row.Name}
+          </h2>
+          <i class="fas fa-chevron-right text-[#0f6f61] ml-auto text-xs"></i>
+          </div>
+           <div>
+                <p class=" text-right text-green-700 font-bold text-am">${row.Price || "0"} .Rs</p>
+          </div>
+        </div>
+        <p class="text-[#8a8a9f] text-xs mb-1 leading-tight">
+       
+        </p>
+        <div class="flex justify-between space-y-1 text-[#8a8a9f] text-xs mb-1">
+          <div class="flex items-center space-x-1">
+            <i class="fas fa-mobile text-xs"></i>
+            <span><b> Phone : </b> ${row.Number || "N/A"}</span>
+          </div>
+          <div class="flex items-center space-x-1">
+            <i class="fas fa-book text-xs"></i>
+            <span><b> Course : </b>${row.Course || "N/A"}</span>
+          </div>
+        </div>
+          <div class="flex justify-between space-y-1 text-[#8a8a9f] text-xs mb-1">
+          <div class="flex items-center space-x-1">
+            <i class="fas fa-clock text-xs"></i>
+          <span><b>Start:</b> ${formatDate(row.Start) || "N/A"}</span>
+          </div>
+          <div class="flex items-center space-x-1">
+            <i class="fas fa-clock text-xs"></i>
+            <span><b> End : </b>${formatDate(row.End) || "N/A"}</span>
+          </div>
+        </div>
+      </div>
+    </a>
+    <!-- Repeat other courses as before -->
+  </section> 
+          `;
+
+                    container.appendChild(card);
+                });
+
+            } catch (err) {
+                console.error(err);
+                container.innerHTML = `<p class="text-red-600 text-center">Failed to load data.</p>`;
+            }
+        }
+
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+            const formData = Object.fromEntries(new FormData(form));
+            formData.method = editing ? "update" : "create";
+
+            await fetch(scriptURL, {
+                method: "POST",
+                body: JSON.stringify(formData),
+            });
+
+            form.reset();
+            editing = false;
+            loadData();
+        };
+        function editEntry(row) {
+            form.display = "block";
+            for (const key in row) {
+                if (form.elements[key]) {
+                    form.elements[key].value = row[key] ?? "";
+                }
+            }
+            editing = true;
+        }
+
+
+        function deleteEntry(row) {
+            document.getElementById("entryForm").style.display = "block";
+            for (const key in row) {
+                if (form.elements[key]) {
+                    form.elements[key].value = row[key] ?? "";
+                }
+            }
+            document.getElementById("Passcode").value = "";
+            document.getElementById("Date").value = "";
+            document.getElementById("Time").value = "";
+            document.getElementById("Name").value = "";
+            document.getElementById("Number").value = "";
+            document.getElementById("Course").value = "";
+            document.getElementById("Price").value = "";
+            document.getElementById("Status").value = "";
+            document.getElementById("Start").value = "";
+            document.getElementById("End").value = "";
+            editing = true;
+        }
+
+        loadData();
+
+
+    </script>
+    <script>
+        const categoryButtons = document.querySelectorAll(".category-btn");
+        const courses = document.querySelectorAll(".course-item");
+        const noMoreCoursesText = document.querySelector("center h2");
+        const searchInput = document.getElementById("search-input");
+
+        let currentCategory = "all";
+
+        function filterCourses() {
+            const searchTerm = searchInput.value.trim().toLowerCase();
+            let anyVisible = false;
+
+            courses.forEach((course) => {
+                const courseCategory = course.dataset.category;
+                const courseName = course.querySelector("h2").textContent.toLowerCase();
+
+                const matchesCategory =
+                    currentCategory === "all" || courseCategory === currentCategory;
+                const matchesSearch = courseName.includes(searchTerm);
+
+                if (matchesCategory && matchesSearch) {
+                    course.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    course.style.display = "none";
+                }
+            });
+
+            noMoreCoursesText.style.display = anyVisible ? "none" : "block";
+        }
+
+        categoryButtons.forEach((btn) => {
+            btn.addEventListener("click", () => {
+                // Remove active styles and aria-pressed
+                categoryButtons.forEach((b) => {
+                    b.classList.remove("text-[#0f6f61]", "font-bold");
+                    b.setAttribute("aria-pressed", "false");
+                });
+                // Add active styles and aria-pressed to clicked
+                btn.classList.add("text-[#0f6f61]", "font-bold");
+                btn.setAttribute("aria-pressed", "true");
+
+                currentCategory = btn.getAttribute("data-filter");
+                filterCourses();
+            });
+        });
+
+        searchInput.addEventListener("input", () => {
+            filterCourses();
+        });
+
+        // Initialize: show all courses by default and no category selected initially
+        filterCourses();
+    </script>
+</body>
+
+</html>

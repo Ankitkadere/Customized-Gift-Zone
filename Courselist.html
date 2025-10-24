@@ -1,0 +1,77 @@
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>Product List </title>
+  <meta name="theme-color" content="#f5fdf7">
+  <link rel="apple-touch-icon" href="fav.jpg" />
+  <link rel="icon" href="fav.jpg" type="image/jpeg/jpg" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <script src="Productlist/Productlist.html"></script>
+
+<body class="mb-10 bg-gray-100 ">
+  <div id="header"></div> <!-- Header will load here -->
+  <script>
+    // Load Header CSS (optional)
+    const headerCSS = document.createElement("link");
+    headerCSS.rel = "stylesheet";
+    headerCSS.href = "Header.css";
+    document.head.appendChild(headerCSS);
+
+    // Load Header HTML
+    fetch("Header.html")
+      .then(res => res.text())
+      .then(html => {
+        const headerDiv = document.getElementById("header");
+        headerDiv.innerHTML = html;
+
+        // Run scripts from Header.html if any
+        headerDiv.querySelectorAll("script").forEach(oldScript => {
+          const newScript = document.createElement("script");
+          if (oldScript.src) {
+            newScript.src = oldScript.src; // external file
+          } else {
+            newScript.textContent = oldScript.textContent; // inline script
+          }
+          document.body.appendChild(newScript);
+        });
+
+        // Load external Header.js (optional)
+        const headerJS = document.createElement("script");
+        headerJS.src = "Header.js";
+        document.body.appendChild(headerJS);
+      })
+      .catch(err => console.error("Error loading header:", err));
+  </script>
+
+  <div id="productlist-container"></div>
+  <script>
+    async function loadProductList() {
+      // Load CSS
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = "Productlist.css";
+      document.head.appendChild(link);
+
+      // Load HTML
+      const response = await fetch("Productlist/Productlist.html");
+      const html = await response.text();
+      document.getElementById("productlist-container").innerHTML = html;
+
+      // Load Productlist.js
+      const script1 = document.createElement("script");
+      script1.src = "Productlist/Productlist.js";
+      document.body.appendChild(script1);
+
+    }
+
+    // Call function
+    loadProductList();
+  </script>
+
+</body>
+
+</html>

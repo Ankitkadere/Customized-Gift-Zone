@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>Chat : Apna Course</title>
+  <meta name="theme-color" content="#15803d" />
+  <link rel="apple-touch-icon" href="fav.jpg" />
+  <link rel="icon" href="fav.jpg" type="image/jpeg/jpg" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+    }
+
+    .loader {
+      margin-top: 50%;
+      width: 50px;
+      padding: 8px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: #076b18;
+      --_m:
+        conic-gradient(#0000 10%, #000),
+        linear-gradient(#000 0 0) content-box;
+      -webkit-mask: var(--_m);
+      mask: var(--_m);
+      -webkit-mask-composite: source-out;
+      mask-composite: subtract;
+      animation: l3 1s infinite linear;
+    }
+
+    #loader {
+      margin-top: 0%;
+      width: 40px;
+      padding: 9px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: #ffffff;
+      --_m:
+        conic-gradient(#0000 10%, #000),
+        linear-gradient(#000 0 0) content-box;
+      -webkit-mask: var(--_m);
+      mask: var(--_m);
+      -webkit-mask-composite: source-out;
+      mask-composite: subtract;
+      animation: l3 1s infinite linear;
+    }
+
+    @keyframes l3 {
+      to {
+        transform: rotate(1turn)
+      }
+    }
+  </style>
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+    }
+
+    #messages {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="chatView" class="flex flex-col h-screen">
+
+    <!-- Header -->
+    <div class="flex items-center shadow-md field top-0 bg-green-700 p-2">
+      <button onclick="history.back()" class="text-white text-lg"><i class="fas fa-arrow-left"></i></button>
+      <img src="User.jpg" class="w-10 h-10 rounded-full ml-2" />
+      <div class="ml-4">
+        <p class="text-white font-bold text-lg" id="chatName">Apna Course</p>
+        <p class="text-white text-xs" id="chatCode">Apna Course</p>
+      </div>
+      <div class="ml-auto text-white font-bold px-3"><i class="fas fa-ellipsis-v"></i></div>
+    </div>
+    <br><br><br><br>
+    <!-- Messages Area -->
+    <div id="messages" class="flex-1 overflow-y-auto p-4 space-y-3">
+      <center>
+        <div class="loader"></div>
+      </center>
+    </div>
+    <br><br><br>
+    <!-- Message Input Form -->
+    <form id="chatForm" class=" fixed bottom-4 flex bg-green-700 rounded-full px-4 py-2 shadow-md z-50"
+      style="width: 96%; margin-left: 2%;">
+      <div class=" hidden "><input id="Ocode" class=" " type="text" name="UPassocde">
+        <input id="Uname" class=" " type="text" name="Username">
+        <input id="Odata" class=" " type="text" name="UData">
+        <input id="Ucode" class=" " type="text" name="OPasscode">
+        <input id="Tname" class=" " type="text" name="Name">
+      </div>
+      <input type="text" id="userInput" name="OData"
+        class="flex-1 bg-transparent text-white placeholder-white focus:outline-none text-lg"
+        placeholder="Type a message..." required />
+
+      <button onclick="checkInput()" type="submit" class="bg-white text-green-700 rounded-full ">
+        <img id="submitbutton" src="Send.jpg" class="w-10 h-10 rounded-full" alt="Send" />
+      </button>
+      <button onclick="checkInput()" type="button" class="bg-green-700 text-green-700 rounded-full ">
+        <div class="hidden" id="loader"></div>
+      </button>
+    </form>
+  </div>
+  <script>
+    const ownerpasscode = new URLSearchParams(window.location.search).get("ownerpasscode")?.trim();
+    const userpasscode = new URLSearchParams(window.location.search).get("userpasscode")?.trim();
+    const userchatname = new URLSearchParams(window.location.search).get("userchatname")?.trim();
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get("username") || "Apna Course";
+    const Upass = document.getElementById("Ucode").value = "505050";
+    const Opass = document.getElementById("Ocode").value = ownerpasscode;
+
+    function checkInput() {
+      const input = document.getElementById("userInput");
+      if (input.value.trim().length > 0) document.getElementById("submitbutton").classList.add("hidden");
+      document.getElementById("loader").classList.remove("hidden");
+
+    }
+    const scriptURL = "https://script.google.com/macros/s/AKfycbw3KluW1F_r9uPg7aabbDw5ptkJdXzdhPoMeCbrTHV_jGRF_K4Vz8UBnWyLb40Vugwc/exec";
+    document.getElementById("chatForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const form = e.target;
+      const formData = Object.fromEntries(new FormData(form));
+
+      // UI feedback
+      document.getElementById("submitbutton").classList.add("hidden");
+      document.getElementById("loader").classList.remove("hidden");
+
+      try {
+        const res = await fetch(scriptURL, {
+          method: "POST",
+          body: JSON.stringify(formData),
+        });
+
+        const result = await res.text(); // If your script returns a message
+        document.getElementById("userInput").value = "";
+
+      } catch (err) {
+
+        console.error(err);
+      } finally {
+        document.getElementById("submitbutton").classList.remove("hidden");
+        document.getElementById("loader").classList.add("hidden");
+      }
+    });
+    window.addEventListener("load", () => {
+
+      const input = document.getElementById("userInput");
+      if (input) input.focus();
+    });
+
+
+    const chatContainer = document.getElementById("chatView");
+
+
+    function renderChatUI(row) {
+      return `
+        <div class="w-full flex flex-col fixed overflow-x-auto bg-red-899 space-y-3 bottom-20">
+          <div class="flex items-center shadow-md fixed top-0 left-0 w-full bg-green-700 p-4 z-20">
+            <button onclick="history.back()" class="text-white text-lg"><i class="fas fa-arrow-left"></i></button>
+            <img src="https://storage.googleapis.com/a1aa/image/c5c69e0f-e246-467d-91a8-d665bd99eb70.jpg" class="w-10 h-10 rounded-full ml-2" />
+            <div class="ml-4">
+              <p class="text-white font-bold text-lg">${row.Name || "No Name"}</p>
+              <p class="text-white text-xs">${row.UPassocde || "No UPasscode"}</p>
+            </div>
+            <div class="ml-auto text-white font-bold px-3"><i class="fas fa-ellipsis-v"></i></div>
+          </div>
+          <div class="h-20"></div>
+          <div id="messages" class="flex flex-col space-y-2 overflow-y-scroll flex-1 mb-24 px-2"></div>
+ 
+        </div>
+      `;
+    }
+    const inputField = document.getElementById("userInput");
+
+
+
+    inputField.addEventListener("keydown", function (event) {
+      if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault(); // prevent newline
+
+        document.getElementById("submitbutton").classList.add("hidden");
+        document.getElementById("loader").classList.remove("hidden");
+        document.getElementById("chatForm").requestSubmit();
+
+      }
+    });
+
+    async function loadData() {
+      const res = await fetch(scriptURL);
+      const data = await res.json();
+
+      if (data.length === 0) {
+        chatContainer.innerHTML = `<p class="text-center text-red-500 mt-10">No data found</p>`;
+        return;
+      }
+
+      if (!document.getElementById("messages")) {
+        chatContainer.innerHTML = renderChatUI(data[0]);
+      }
+
+      const messagesDiv = document.getElementById("messages");
+      messagesDiv.innerHTML = ""; // Clear old messages
+
+      const filtered = data.filter(row => row.OPasscode == Upass || row.UPassocde == Opass);
+
+      let oDataCount = 0;
+      let uDataCount = 0;
+      filtered.forEach(row => {
+        const count = (uDataCount++) + (oDataCount++);
+
+        if (row.OData) {
+          messagesDiv.innerHTML += `
+            <div class="flex items-start gap-2">
+              <img src="User.jpg" class="w-8 h-8 rounded-full" />
+              <div class="bg-green-700 text-white rounded-md px-4 py-2 max-w-[75%] break-words">
+                ${row.OData}
+              </div>
+            </div>`;
+        }
+
+
+        if (row.UData) {
+          messagesDiv.innerHTML += `
+            <div class="flex justify-end items-end gap-2">
+              <div class="bg-white text-green-800 rounded-md px-4 py-2 max-w-[75%] break-words shadow">
+                ${row.UData}
+              </div>
+              <img src="https://i.pravatar.cc/150?img=12" class="w-8 h-8 rounded-full" />
+            </div>`;
+        }
+        if (count++) {
+          messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+        else {
+
+        }
+      });
+
+      // 👇 Auto scroll to bottom after rendering
+
+
+    }
+
+
+
+    // Submit new message
+    document.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const a = document.getElementById("Ocode").value.trim();
+      const b = document.getElementById("Ucode").value.trim();
+      const c = document.getElementById("Tname").value.trim();
+      const d = document.getElementById("userInput").value.trim();
+      const message = input.value.trim();
+
+      if (!message) return;
+
+      const payload = {
+        OPasscode: b, // optional or static since we're not filtering
+        UPassocde: a,
+        Name: c,
+        UData: message,
+        OData: "" // for user message
+      };
+
+      const res = await fetch(scriptURL, {
+        method: "POST",
+        body: JSON.stringify(payload),
+        headers: { "Content-Type": "application/json" }
+      });
+
+      if (res.ok) {
+
+
+        loadData(); // refresh chat
+      }
+    });
+
+
+    // Auto-submit on Enter
+    document.getElementById("userInput").addEventListener("keydown", function (event) {
+      if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
+        document.getElementById("chatForm").requestSubmit();
+      }
+    });
+
+    // Load data periodically
+    setInterval(loadData, 50); // every 3 seconds
+
+    loadData(); // Initial call</script>
+</body>
+
+</html>

@@ -1,0 +1,308 @@
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>Gift Zone : Customized Gift Zone</title>
+  <meta name="description" content="Gift Zone : Photo Frame's App" />
+  <link rel="icon" href="fav.jpg" type="image/jpeg" />
+  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
+  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+  <link rel="manifest" href="manifest.json">
+  <meta name="background-color" content="bg-blue-600" />
+  <meta name="background-color" content="#60A5FA" />
+  <meta name="apple-mobile-web-app-title" content="Gift Zone">
+  <link rel="apple-touch-icon" href="fav.jpg">
+  <meta name="theme-color" content="#f5fdf7" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="#f5fdf7" />
+  <meta name="msapplication-navbutton-color" content="#f5fdf7" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <script type="module" src="firebase.js"></script>
+</head>
+<script>
+  /*
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function (OneSignal) {
+    await OneSignal.init({
+      appId: "3fa7f09b-cf8a-43dd-9ec7-8defe4142b00",
+      notifyButton: {
+        enable: true
+      }
+    });
+  });*/
+</script>
+<style>
+  body {
+
+    font-family: "Inter", sans-serif;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
+
+  @media screen and (min-width: 768px) {
+    .navbars {
+
+      position: relative;
+      display: none;
+    }
+
+    .inputset {
+      display: none;
+    }
+  }
+</style>
+</head>
+
+<body class="bg-gray-100 flex flex-col text-sm  ">
+  <div id="header"></div> <!-- Header will load here -->
+  <script>
+    (async () => {
+      try {
+        // 1️⃣ Load Header CSS
+        const headerCSS = document.createElement("link");
+        headerCSS.rel = "stylesheet";
+        headerCSS.href = "Header.css";
+        document.head.appendChild(headerCSS);
+
+        // 2️⃣ Fetch Header HTML
+        const response = await fetch("Header.html", { cache: "no-cache" });
+        if (!response.ok) throw new Error("Failed to fetch Header.html");
+        const html = await response.text();
+
+        // 3️⃣ Insert HTML into target div
+        const headerDiv = document.getElementById("header");
+        if (!headerDiv) throw new Error("Header div not found");
+        headerDiv.innerHTML = html;
+
+        // 4️⃣ Run scripts inside Header.html (inline + external)
+        headerDiv.querySelectorAll("script").forEach((oldScript) => {
+          const newScript = document.createElement("script");
+
+          // If script has src → load external file
+          if (oldScript.src) {
+            newScript.src = oldScript.src;
+            if (oldScript.type) newScript.type = oldScript.type;
+          }
+          // If script is inline → copy its content
+          else {
+            newScript.textContent = oldScript.textContent;
+            if (oldScript.type) newScript.type = oldScript.type;
+          }
+
+          // Append to body (ensures execution)
+          document.body.appendChild(newScript);
+        });
+
+        // 5️⃣ Load external Header.js (both normal and module versions)
+        const headerScriptNormal = document.createElement("script");
+        headerScriptNormal.src = "Header.js";
+        headerScriptNormal.defer = true;
+        document.body.appendChild(headerScriptNormal);
+
+        const headerScriptModule = document.createElement("script");
+        headerScriptModule.type = "module";
+        headerScriptModule.src = "HeaderModule.js"; // optional module version
+        document.body.appendChild(headerScriptModule);
+
+      } catch (err) {
+        console.error("❌ Error loading header:", err);
+      }
+    })();
+  </script>
+
+  <form id="search-form" class=" w-full px-3 md:hidden" role="search" aria-label="Search jobs or courses" novalidate>
+    <label class="sr-only" for="search">Search courses by name</label>
+    <div class="flex bg-white items-center border-2 border-gray-400 rounded-xl py-2 px-3 relative ">
+      <button aria-label="Voice search" class="  text-xl " type="button">
+        <i class="fas fa-microphone"></i>
+      </button>
+      <input class="flex-grow ml-3 text-base placeholder:text-[#1a1a1a] focus:outline-none " id="search" name="search"
+        placeholder="Search Products  " type="search" autocomplete="on" aria-autocomplete="list"
+        aria-controls="suggestions-list" aria-haspopup="listbox" aria-expanded="false" role="combobox"
+        aria-activedescendant="" oninput="filterSuggestions()" onkeydown="handleKeyDown(event)" />
+      <i id="findtbn" class="fas fa-search text-[#1a1a1a] text-lg"></i>
+      <ul id="suggestions-list" role="listbox"
+        class="absolute top-full left-0 right-0 bg-white border border-gray-300 rounded-b-xl max-h-48 overflow-auto z-50 hidden shadow-lg">
+      </ul>
+    </div>
+  </form>
+
+  <section class="w-full mx-auto px-3">
+    <div class="relative rounded-lg overflow-hidden" style="min-height: 100px ;max-height: 250px">
+      <!-- Wrapper -->
+      <div id="bannerWrapper" class="flex transition-transform duration-700 ease-in-out">
+
+        <!-- Slide 1 -->
+        <div class="min-w-full relative object-cover">
+          <img src="Assets/Other/01.jpg" class="w-full h-full sm:h-48 md:h-56 lg:h-64  " alt="Coconut halves">
+
+          <div class="absolute flex top-4 left-4 sm:top-6 sm:left-6 max-w-xs sm:max-w-md text-white">
+            <div class="md:h-full  border-2 border-transparent">
+              <div
+                class="inline-block bg-gray-300 text-black text-[9px] sm:text-xs font-semibold rounded-full px-2 py-1 mb-1">
+                EXCLUSIVE OFFER -40% OFF
+              </div>
+              <h2 class="font-extrabold text-lg sm:text-2xl md:text-3xl text-black leading-tight mb-1">
+                Quality Freshness Guaranteed!
+              </h2>
+              <p class="text-xs sm:text-sm font-normal text-black mb-2">
+                Only this week. Don't miss…
+              </p>
+              <p class="text-white font-semibold text-sm sm:text-base mb-2 mr-8">
+                from 300 Rs
+              </p>
+              <button
+                class="bg-gray-500 text-white text-sm font-semibold rounded-full px-3  py-1 md:mt-6 hover:bg-green-600 transition">
+                Shop Now
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Slide 2  https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZr1RbukN0c9W9y7kr0umdorvOVK8HGZafjg&s-->
+        <div class="min-w-full relative object-cover">
+          <img src="Assets/Other/02.jpg" class="w-full h-40  md:h-56 lg:h-64 " alt="Fresh Vegetables">
+          <div class="absolute flex top-4 left-4 sm:top-6 sm:left-6 max-w-xs sm:max-w-md text-white">
+            <div class="md:h-full border-2 border-transparent">
+              <div
+                class="inline-block bg-gray-300 text-black text-[9px] sm:text-xs font-semibold rounded-full px-2 py-1 mb-1">
+                EXCLUSIVE OFFER -40% OFF
+              </div>
+              <h2 class="font-extrabold text-lg sm:text-2xl md:text-3xl text-black leading-tight mb-1">
+                Quality Freshness Guaranteed!
+              </h2>
+              <p class="text-xs sm:text-sm font-normal text-black mb-2">
+                Only this week. Don't miss…
+              </p>
+              <p class="text-white font-semibold text-sm sm:text-base mb-2 mr-8">
+                from 300 Rs
+              </p>
+              <button
+                class="bg-gray-500 text-white text-sm font-semibold rounded-full px-4 py-1 md:mt-6 hover:bg-green-600 transition">
+                Shop Now
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="min-w-full relative object-cover">
+          <img src="Assets/Other/04.jpg" class="w-full h-40 sm:h-48 md:h-56 lg:h-64 " alt="Fruit Basket">
+          <div class="absolute flex top-4 left-4 sm:top-6 sm:left-6 max-w-xs sm:max-w-md text-white">
+            <div class="md:h-full  border-2 border-transparent">
+              <div
+                class="inline-block bg-gray-300 text-black text-[9px] sm:text-xs font-semibold rounded-full px-2 py-1 mb-1">
+                EXCLUSIVE OFFER -40% OFF
+              </div>
+              <h2 class="font-extrabold text-lg sm:text-2xl md:text-3xl text-black leading-tight mb-1">
+                Quality Freshness Guaranteed!
+              </h2>
+              <p class="text-xs sm:text-sm font-normal text-black mb-2">
+                Only this week. Don't miss…
+              </p>
+              <p class="text-white font-semibold text-sm sm:text-base mb-2 mr-8">
+                from 300 Rs
+              </p>
+              <button
+                class="bg-gray-500 text-white text-sm font-semibold rounded-full px-4 py-1 md:mt-6 hover:bg-green-600 transition">
+                Shop Now
+              </button>
+            </div>
+
+            <!-- Product Image -->
+            <div class=" hidden flex-1 flex flex-col items-center justify-center w-full">
+              <img
+                src="https://static.vecteezy.com/system/resources/thumbnails/050/817/791/small/smiling-young-man-standing-with-hands-in-pockets-standing-front-view-isolate-on-transparent-background-png.png"
+                alt="Photo Frame" width="700px"
+                class="absolute w-7xl ml-20 md:ml-[300%] h-7xl mt-40 md:mt-72 md:w-full md:h- object-contain mx-auto" />
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      <!-- Controls -->
+      <button id="prevBanner"
+        class="absolute top-1/2 left-2 -translate-y-1/2 bg-white bg-opacity-30 hover:bg-opacity-90 rounded-full w-6 h-6 flex items-center justify-center text-gray-900">
+        <i class="fas fa-chevron-left text-xs"></i>
+      </button>
+      <button id="nextBanner"
+        class="absolute top-1/2 right-2 -translate-y-1/2 bg-white bg-opacity-30 hover:bg-opacity-90 rounded-full w-6 h-6 flex items-center justify-center text-gray-900">
+        <i class="fas fa-chevron-right text-xs"></i>
+      </button>
+    </div>
+  </section>
+  <script>
+    (function () {
+      const wrapper = document.getElementById("bannerWrapper");
+      const slides = wrapper.children;
+      let index = 0;
+
+      function showSlide(i) {
+        index = (i + slides.length) % slides.length;
+        wrapper.style.transform = `translateX(-${index * 100}%)`;
+      }
+
+      document.getElementById("prevBanner").addEventListener("click", () => showSlide(index - 1));
+      document.getElementById("nextBanner").addEventListener("click", () => showSlide(index + 1));
+
+      // Auto-slide every 3 seconds
+      setInterval(() => showSlide(index + 1), 3000);
+    })();
+  </script>
+  <div id="container"></div>
+  <script>
+    async function loadCourseList() {
+      // Load CSS for courselist
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = "Courselist.css";
+      document.head.appendChild(link);
+
+      // Fetch and insert HTML
+      const response = await fetch("Courselist.html");
+      const html = await response.text();
+      const container = document.getElementById("container");
+      container.innerHTML = html;
+
+      // Execute any <script> tags from Courselist.html
+      const tempDiv = document.createElement("div");
+      tempDiv.innerHTML = html;
+      tempDiv.querySelectorAll("script").forEach(oldScript => {
+        const newScript = document.createElement("script");
+        if (oldScript.src) {
+          newScript.src = oldScript.src;   // external JS
+        } else {
+          newScript.textContent = oldScript.textContent; // inline JS
+        }
+        document.body.appendChild(newScript);
+      });
+
+      // Load extra JS file (if you keep it separate)
+      const script = document.createElement("script");
+      script.src = "Courselist.js";
+      document.body.appendChild(script);
+    }
+
+    // Run function
+    loadCourseList();
+  </script>
+</body>
+
+</html>

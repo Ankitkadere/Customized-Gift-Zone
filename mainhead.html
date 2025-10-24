@@ -1,0 +1,352 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>ClassyShop React</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+    }
+    /* Hide scrollbar for side nav */
+    #mobile-nav::-webkit-scrollbar {
+      display: none;
+    }
+    #mobile-nav {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+
+    const { useState } = React;
+
+    function ClassyShop() {
+      const [menuOpen, setMenuOpen] = useState(false);
+
+      const openMenu = () => {
+        setMenuOpen(true);
+        document.body.style.overflow = "hidden";
+      };
+
+      const closeMenu = () => {
+        setMenuOpen(false);
+        document.body.style.overflow = "";
+      };
+
+      return (
+        <>
+          <header className="border-b border-gray-200">
+            <div className="max-w-[90rem] mx-auto flex items-center justify-between px-4 py-2 sm:py-3">
+              <div className="flex items-center space-x-2">
+                <button
+                  aria-label="Open menu"
+                  className="sm:hidden text-gray-700 hover:text-gray-900 mr-2 focus:outline-none"
+                  onClick={openMenu}
+                >
+                  <i className="fas fa-bars text-xl"></i>
+                </button>
+                <img
+                  alt="ClassyShop logo blue square with white text ClassyShop"
+                  className="w-8 h-8 object-contain"
+                  height="32"
+                  src="https://storage.googleapis.com/a1aa/image/23a41313-5963-42f0-083e-2250225fea4f.jpg"
+                  width="32"
+                />
+                <h1 className="font-extrabold text-black text-sm sm:text-base leading-none">
+                  CLASSYSHOP
+                  <span className="font-normal text-gray-500 text-xs sm:text-sm ml-1">
+                    BIG MEGA STORE
+                  </span>
+                </h1>
+              </div>
+              <div className="hidden sm:flex flex-1 max-w-xl mx-4">
+                <input
+                  aria-label="Search for products"
+                  className="w-full border border-gray-300 rounded-md py-2 px-3 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                  placeholder="Search for products..."
+                  type="search"
+                />
+              </div>
+              <div className="hidden sm:flex items-center space-x-4 text-xs sm:text-sm text-gray-900 font-semibold">
+                <div className="text-right leading-tight">
+                  <div>Rinku Verma</div>
+                  <div className="text-gray-600 font-normal">
+                    Rinkuv.Planetc@Gmail.Com
+                  </div>
+                </div>
+                <button
+                  aria-label="Favorites"
+                  className="text-gray-600 hover:text-gray-900 transition"
+                >
+                  <i className="far fa-heart text-lg sm:text-xl"></i>
+                </button>
+                <button
+                  aria-label="Shopping cart"
+                  className="text-gray-600 hover:text-gray-900 transition"
+                >
+                  <i className="fas fa-shopping-cart text-lg sm:text-xl"></i>
+                </button>
+              </div>
+            </div>
+            <nav
+              aria-label="Primary Navigation"
+              className="hidden sm:flex max-w-[90rem] mx-auto items-center justify-between px-4 py-2 text-xs sm:text-sm text-gray-700"
+            >
+              <div className="flex items-center space-x-2 cursor-pointer select-none">
+                <span className="font-semibold">SHOP BY CATEGORIES</span>
+                <i className="fas fa-chevron-down text-xs"></i>
+              </div>
+              <ul className="flex flex-wrap items-center space-x-3 sm:space-x-5 overflow-x-auto no-scrollbar">
+                <li>
+                  <a className="hover:text-gray-900" href="#">
+                    Home
+                  </a>
+                </li>
+                <li>
+                  <a className="hover:text-gray-900" href="#">
+                    Fashion
+                  </a>
+                </li>
+                <li>
+                  <a className="hover:text-gray-900" href="#">
+                    Electronics
+                  </a>
+                </li>
+                <li>
+                  <a className="hover:text-gray-900" href="#">
+                    Bags
+                  </a>
+                </li>
+                <li>
+                  <a className="hover:text-gray-900" href="#">
+                    Footwear
+                  </a>
+                </li>
+                <li>
+                  <a className="hover:text-gray-900" href="#">
+                    Groceries
+                  </a>
+                </li>
+                <li>
+                  <a className="hover:text-gray-900" href="#">
+                    Beauty
+                  </a>
+                </li>
+                <li>
+                  <a className="hover:text-gray-900" href="#">
+                    Wellness
+                  </a>
+                </li>
+                <li>
+                  <a className="hover:text-gray-900" href="#">
+                    Jewellery
+                  </a>
+                </li>
+              </ul>
+              <div className="flex items-center space-x-2 text-gray-700 text-xs sm:text-sm">
+                <i className="fas fa-truck text-base"></i>
+                <span>Free International Delivery</span>
+              </div>
+            </nav>
+          </header>
+
+          {/* Mobile Side Navbar */}
+          <div
+            id="mobile-nav"
+            className={`fixed inset-y-0 left-0 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 overflow-y-auto ${
+              menuOpen ? "translate-x-0" : "-translate-x-full"
+            }`}
+          >
+            <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200">
+              <div className="flex items-center space-x-2">
+                <img
+                  alt="ClassyShop logo blue square with white text ClassyShop"
+                  className="w-8 h-8 object-contain"
+                  height="32"
+                  src="https://storage.googleapis.com/a1aa/image/23a41313-5963-42f0-083e-2250225fea4f.jpg"
+                  width="32"
+                />
+                <h1 className="font-extrabold text-black text-base leading-none">
+                  CLASSYSHOP
+                  <span className="font-normal text-gray-500 text-xs ml-1">
+                    BIG MEGA STORE
+                  </span>
+                </h1>
+              </div>
+              <button
+                aria-label="Close menu"
+                className="text-gray-700 hover:text-gray-900 focus:outline-none"
+                onClick={closeMenu}
+              >
+                <i className="fas fa-times text-xl"></i>
+              </button>
+            </div>
+            <div className="px-4 py-3 border-b border-gray-200">
+              <input
+                aria-label="Search for products"
+                className="w-full border border-gray-300 rounded-md py-2 px-3 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                placeholder="Search for products..."
+                type="search"
+              />
+            </div>
+            <nav className="px-4 py-4 text-gray-700 text-sm">
+              <div className="mb-3 flex items-center space-x-2 cursor-pointer select-none font-semibold">
+                <span>SHOP BY CATEGORIES</span>
+                <i className="fas fa-chevron-down text-xs"></i>
+              </div>
+              <ul className="space-y-3">
+                <li>
+                  <a className="block hover:text-gray-900" href="#">
+                    Home
+                  </a>
+                </li>
+                <li>
+                  <a className="block hover:text-gray-900" href="#">
+                    Fashion
+                  </a>
+                </li>
+                <li>
+                  <a className="block hover:text-gray-900" href="#">
+                    Electronics
+                  </a>
+                </li>
+                <li>
+                  <a className="block hover:text-gray-900" href="#">
+                    Bags
+                  </a>
+                </li>
+                <li>
+                  <a className="block hover:text-gray-900" href="#">
+                    Footwear
+                  </a>
+                </li>
+                <li>
+                  <a className="block hover:text-gray-900" href="#">
+                    Groceries
+                  </a>
+                </li>
+                <li>
+                  <a className="block hover:text-gray-900" href="#">
+                    Beauty
+                  </a>
+                </li>
+                <li>
+                  <a className="block hover:text-gray-900" href="#">
+                    Wellness
+                  </a>
+                </li>
+                <li>
+                  <a className="block hover:text-gray-900" href="#">
+                    Jewellery
+                  </a>
+                </li>
+              </ul>
+              <div className="mt-6 flex items-center space-x-2 text-gray-700 text-sm">
+                <i className="fas fa-truck text-base"></i>
+                <span>Free International Delivery</span>
+              </div>
+              <div className="mt-6 border-t border-gray-200 pt-4 text-gray-900 font-semibold text-sm">
+                <div>Rinku Verma</div>
+                <div className="text-gray-600 font-normal text-xs">
+                  Rinkuv.Planetc@Gmail.Com
+                </div>
+                <div className="flex space-x-4 mt-3">
+                  <button
+                    aria-label="Favorites"
+                    className="text-gray-600 hover:text-gray-900 transition"
+                  >
+                    <i className="far fa-heart text-lg"></i>
+                  </button>
+                  <button
+                    aria-label="Shopping cart"
+                    className="text-gray-600 hover:text-gray-900 transition"
+                  >
+                    <i className="fas fa-shopping-cart text-lg"></i>
+                  </button>
+                </div>
+              </div>
+            </nav>
+          </div>
+
+          {/* Overlay */}
+          {menuOpen && (
+            <div
+              onClick={closeMenu}
+              className="fixed inset-0 bg-black bg-opacity-30 z-40"
+              aria-hidden="true"
+            ></div>
+          )}
+
+          <section className="max-w-[90rem] mx-auto mt-4 px-4">
+            <div
+              aria-label="Banner with coconut halves and green leaves"
+              className="relative rounded-lg overflow-hidden"
+              style={{ minHeight: 160 }}
+            >
+              <img
+                alt="Two coconut halves with green leaves in the background"
+                className="w-full h-40 sm:h-48 md:h-56 lg:h-64 object-cover"
+                height="300"
+                src="https://storage.googleapis.com/a1aa/image/8c403861-db12-4f52-38e7-79a59ce92fca.jpg"
+                width="1200"
+              />
+              <div className="absolute top-4 left-4 sm:top-6 sm:left-6 max-w-xs sm:max-w-md text-white">
+                <div className="inline-block bg-green-600 text-[9px] sm:text-xs font-semibold rounded-full px-2 py-0.5 mb-1">
+                  EXCLUSIVE OFFER -40% OFF
+                </div>
+                <h2 className="font-extrabold text-lg sm:text-2xl md:text-3xl leading-tight mb-1">
+                  Quality Freshness Guaranteed!
+                </h2>
+                <p className="text-xs sm:text-sm font-normal mb-2">
+                  Only this week. Don't miss…
+                </p>
+                <p className="text-red-600 font-semibold text-sm sm:text-base mb-3">
+                  from $14.35
+                </p>
+                <button className="bg-blue-600 text-white text-xs sm:text-sm font-semibold rounded-full px-4 py-1.5 hover:bg-blue-700 transition">
+                  Shop Now
+                </button>
+              </div>
+              <button
+                aria-label="Previous slide"
+                className="absolute top-1/2 left-2 -translate-y-1/2 bg-white bg-opacity-70 hover:bg-opacity-90 rounded-full w-6 h-6 flex items-center justify-center text-gray-900"
+              >
+                <i className="fas fa-chevron-left text-xs"></i>
+              </button>
+              <button
+                aria-label="Next slide"
+                className="absolute top-1/2 right-2 -translate-y-1/2 bg-white bg-opacity-70 hover:bg-opacity-90 rounded-full w-6 h-6 flex items-center justify-center text-gray-900"
+              >
+                <i className="fas fa-chevron-right text-xs"></i>
+              </button>
+            </div>
+          </section>
+        </>
+      );
+    }
+
+    ReactDOM.render(<ClassyShop />, document.getElementById("root"));
+  </script>
+  <script
+    crossorigin
+    src="https://unpkg.com/react@18/umd/react.development.js"
+  ></script>
+  <script
+    crossorigin
+    src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+  ></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</body>
+</html>

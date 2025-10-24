@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Details</title>
+  <link rel="apple-touch-icon" href="fav.jpg" />
+  <meta name="theme-color" content="#f5fdf7">
+  <link rel="icon" href="fav.jpg" type="image/jpeg/jpg" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
+    .font-mono-custom {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<style>
+  img {
+    width: 80%;
+    height: 80%;
+  }
+
+  input[type="file"] {
+    display: none;
+  }
+
+  .resize-handle {
+
+    width: 16px;
+    height: 16px;
+    background-color: transparent;
+    border: 2px solid transparent;
+    /* Tailwind blue-500 */
+    position: absolute;
+    cursor: nwse-resize;
+    border-radius: 2px;
+    box-sizing: border-box;
+    z-index: 20;
+
+  }
+
+  .drag-handle {
+    width: 24px;
+    height: 24px;
+    background-color: transparent;
+    /* Tailwind blue-500 */
+    border-radius: 4px;
+    position: absolute;
+    top: -32px;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: grab;
+    z-index: 30;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+
+  }
+
+  .drag-handle:active {
+    cursor: grabbing;
+
+  }
+
+  /* Smooth slide bottom to up transition */
+  #loginFormContainer {
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    will-change: transform, opacity;
+  }
+</style>
+<style>
+  @media screen and (min-width:768px) {
+    .flex1 {
+      width: 43%;
+    }
+
+    .dragimg {
+      display: flex;
+    }
+
+  }
+
+  #Wall {
+    background-image: url("https://images.unsplash.com/photo-1513694203232-719a280e022f?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bGl2aW5nJTIwcm9vbSUyMHdhbGx8ZW58MHx8MHx8fDA%3Dg");
+    background-size: cover;
+    background-position: center;
+    height: 400px;
+  }
+</style>
+
+
+<body class="bg-gray-100 mb-10">
+  <script>// style="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)"</script>
+  <div id="header" class="  md:block hidden "></div> <!-- Header will load here -->
+  <script>
+    (async () => {
+      try {
+        // 1️⃣ Load Header CSS
+        const headerCSS = document.createElement("link");
+        headerCSS.rel = "stylesheet";
+        headerCSS.href = "Header.css";
+        document.head.appendChild(headerCSS);
+
+        // 2️⃣ Fetch Header HTML
+        const response = await fetch("Header.html", { cache: "no-cache" });
+        if (!response.ok) throw new Error("Failed to fetch Header.html");
+        const html = await response.text();
+
+        // 3️⃣ Insert HTML into target div
+        const headerDiv = document.getElementById("header");
+        if (!headerDiv) throw new Error("Header div not found");
+        headerDiv.innerHTML = html;
+
+        // 4️⃣ Run scripts inside Header.html (inline + external)
+        headerDiv.querySelectorAll("script").forEach((oldScript) => {
+          const newScript = document.createElement("script");
+
+          // If script has src → load external file
+          if (oldScript.src) {
+            newScript.src = oldScript.src;
+            if (oldScript.type) newScript.type = oldScript.type;
+          }
+          // If script is inline → copy its content
+          else {
+            newScript.textContent = oldScript.textContent;
+            if (oldScript.type) newScript.type = oldScript.type;
+          }
+
+          // Append to body (ensures execution)
+          document.body.appendChild(newScript);
+        });
+
+        // 5️⃣ Load external Header.js (both normal and module versions)
+        const headerScriptNormal = document.createElement("script");
+        headerScriptNormal.src = "Header.js";
+        headerScriptNormal.defer = true;
+        document.body.appendChild(headerScriptNormal);
+
+        const headerScriptModule = document.createElement("script");
+        headerScriptModule.type = "module";
+        headerScriptModule.src = "HeaderModule.js"; // optional module version
+        document.body.appendChild(headerScriptModule);
+
+      } catch (err) {
+        console.error("❌ Error loading header:", err);
+      }
+    })();
+  </script>
+
+  <div class="flex w-full md:hidden items-center justify-between p-2">
+    <button onclick="history.back()" aria-label="Go back"
+      class="w-10 h-10 bg-black text-white rounded-full flex justify-center items-center shadow-sm">
+      <i class="fas fa-chevron-down text-white font-extrabold text-lg">
+      </i>
+    </button>
+    <button onclick="window.location.href='index.html'" aria-label="Go back" class="flex justify-center items-center">
+      <h1 class="mx-auto text-4xl sm:text-5xl font-black leading-none
+             text-black">
+        Gift Zone
+      </h1>
+    </button>
+
+  </div>
+
+
+  <main id="mainback" class="  w-full mx-auto overflow-auto font-Inter">
+
+    </div>
+
+    <section id="Drags"
+      class="h-screen hidden absolute flex-wrap gap-2 bg-[url('https://via.placeholder.com/1200x800')] bg-cover bg-center bg-no-repeat">
+
+      <!-- Frame (with overflow hidden) -->
+      <div
+        class="w-[100vw] md:w-[54.5vw] h-[15%] mt-10 md:h-[30%] top-20 md:mt-2 flex items-center justify-center mx-auto">
+        <div id="frame"
+          class="z-[43] overflow-hidden relative md:h-[150px] md:w-[110px] w-[29%] h-[120%] bg-white/70 flex items-center justify-center">
+        </div>
+      </div>
+      <div id="uploaders" class="md:top-[35%] top-[30%] relative flex justify-between items-center"></div>
+      <div id="add" class=" inset-0 flex justify-center items-center"></div>
+      <p id="imglink"></p>
+    </section>
+
+
+    <!-- Course Detail -->
+    <section id="course-detail" class="shadow  space-y-6"></section>
+    <br>
+    <div onclick="closeLogin()" id="overlay" class="fixed inset-0 bg-black bg-opacity-60 hidden z-40 backdrop-blur-sm">
+    </div>
+
+    <div id="loginFormContainer"
+      class="fixed overflow-y-auto w-full h-full top-0 right-0  mx-auto z-[99999] opacity-0 translate-y-full pointer-events-none transition-all duration-500 ease-out">
+      <main class="w-full h-full overflow-y-auto ">
+        <div
+          class="bg-gray-100 md:w-full md:px-8 md:mx-auto md:flex md:p-1 w-full h-full flex flex-col p-4 relative select-none">
+          <div class="flex items-center mb-6 justify-between">
+            <button onclick=" closeLogin()" aria-label="Go back"
+              class="w-10 h-10 bg-black rounded-full flex justify-center items-center shadow-sm">
+              <i class="fas fa-chevron-down text-white text-lg">
+              </i>
+            </button>
+            <button onclick="window.location.href ='index.html'" aria-label="Go back"
+              class="  flex justify-center items-center ">
+              <h1 class="font-extrabold text-lg mx-auto leading-none">
+                Gift Zone
+              </h1>
+            </button>
+          </div>
+
+          <p class="font-semibold text-black mb-3 w-full select-text">
+            Product Size
+          </p>
+          <div class="md:flex md:gap-2 md:mx-auto">
+            <div
+              class="relative bg-gradient-to-tr bg-gray-900 rounded-3xl p-6 w-full max-w-[360px] mx-auto mb-8 shadow-lg"
+              style="aspect-ratio: 16 / 9;">
+              <p
+                class="font-mono-custom font-extrabold text-white text-xl justify-center text-center tracking-widest pb-2 select-text">
+                Select Frame Size
+              </p>
+              <div id="sizeButtons" class=" gap-4 space-x-1 text-sm font-semibold">
+                <div class="flex gap-6">
+                  <label for="size-4x6"
+                    class="w-20 h-12 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
+                    4 x 6
+                  </label>
+                  <label for="size-5x7"
+                    class="w-20 h-12 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
+                    5 x 7
+                  </label>
+                  <label for="size-6x8"
+                    class="w-20 h-12 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
+                    6 x 8
+                  </label>
+                </div>
+                <br>
+                <div class="flex gap-6">
+                  <label for="size-8x12"
+                    class="w-20 h-12 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
+                    8 x 12
+                  </label>
+                  <label for="size-10x15"
+                    class="w-20 h-12 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
+                    10 x 15
+                  </label>
+                  <label for="size-12x18"
+                    class="w-20 h-12 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
+                    12 x 18
+                  </label>
+                </div>
+                <br>
+                <div class="flex gap-6">
+                  <label for="size-16x24"
+                    class="w-20 h-12 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
+                    16 x 24
+                  </label>
+                  <label for="size-20x30"
+                    class="w-20 h-12 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
+                    20 x 30
+                  </label>
+                  <label for="size-24x36"
+                    class="w-20 h-12 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
+                    24 x 36
+                  </label>
+                </div>
+              </div>
+
+              <input type="radio" name="size" id="size-4x6" value="4 x 6 => Rs. 100" class="hidden" />
+              <input type="radio" name="size" id="size-5x7" value="5 x 7 => Rs. 140" class="hidden" />
+              <input type="radio" name="size" id="size-6x8" value="6 x 8 => Rs. 150" class="hidden" />
+              <input type="radio" name="size" id="size-8x12" value="8 x 12 => Rs. 299" class="hidden" />
+              <input type="radio" name="size" id="size-10x15" value="10 x 15 => Rs. 419" class="hidden" />
+              <input type="radio" name="size" id="size-12x18" value="12 x 18 => Rs. 549" class="hidden" />
+              <input type="radio" name="size" id="size-16x24" value="16 x 24 => Rs. 1,350" class="hidden" />
+              <input type="radio" name="size" id="size-20x30" value="20 x 30 => Rs. 1,619" class="hidden" />
+              <input type="radio" name="size" id="size-24x36" value="24 x 36 => Rs. 1,999" class="hidden" />
+
+            </div>
+            <form id="crudForm" class="space-y-4 mb-2">
+              <input type="radio" name="size" id="size-4x6" value="4 x 6 => 100 Rs" class="hidden" />
+              <input type="radio" name="size" id="size-5x7" value="5 x 7 => 140 Rs" class="hidden" />
+              <input type="radio" name="size" id="size-6x8" value="6 x 8 => 150 Rs" class="hidden" />
+              <input type="radio" name="size" id="size-8x12" value="8 x 12 => 299 Rs" class="hidden" />
+              <input type="radio" name="size" id="size-10x15" value="10 x 15 => 419 Rs" class="hidden" />
+              <input type="radio" name="size" id="size-12x18" value="12 x 18 => 549 Rs" class="hidden" />
+              <input type="radio" name="size" id="size-16x24" value="16 x 24 => 1,350 Rs" class="hidden" />
+              <input type="radio" name="size" id="size-20x30" value="20 x 30 => 1,619 Rs" class="hidden" />
+              <input type="radio" name="size" id="size-24x36" value="24 x 36 => 1,999 Rs" class="hidden" />
+
+
+              <p class="font-semibold text-black mb-3 md:mx-auto select-text">
+                Process Details
+              </p>
+              <div id="data1">
+                <input type="text" id="code" class="hidden" name="Id">
+                <input type="text" id="icon" class="hidden" name="Icon">
+                <input type="text" id="Filtered" class="hidden" name="Filtered">
+                <input type="text" name="Date" id="dates" class=" hidden w-full p-2 border rounded-lg"
+                  placeholder="YYYY-MM-DD">
+                <input type="text" name="Time" id="times" class=" hidden w-full p-2 border rounded-lg"
+                  placeholder="HH:MM AM/PM">
+
+                <input type="text" name="Payment" id="Payment" value="WhatsApp"
+                  class="hidden w-full p-2 border rounded-lg">
+                <input type="text" name="Other" id="Other" class="hidden w-full p-2 border rounded-lg">
+                <input type="text" name="Status" id="Status" class="hidden" value="Not Accept">
+                <input type="text" name="Price" value="Size" class="hidden">
+                <input type="file" id="ImageInput" accept="image/jpg/png*" class=" hidden w-full border rounded-lg">
+
+                <input
+                  class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none  "
+                  placeholder="Full Name" name="Name" id="name" type="text" required />
+                <input
+                  class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
+                  placeholder="Mobile Number" id="number" name="Number" type="text" required />
+
+                <input type="text" id="selectedSize" name="Size" required
+                  class="hidden w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
+                  name="Material" placeholder="Size Select" />
+
+                <div class="flex space-x-4 mb-2">
+                  <select id="frameMaterial" name="Material" required name="Color"
+                    class="flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none ">
+                    <option value="" disabled selected>Select Material</option>
+                    <option value="Wooden">Wooden</option>
+                    <option value="metal">Polystyrene</option>
+
+                  </select>
+                  <select id="frameColor" name="Color" required
+                    class=" flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none ">
+
+                    <option value="" disabled selected>Select Color</option>
+                    <option value="Black" class="text-black bg-black text-white">Black</option>
+                    <option value="Brown" class="bg-[#361403] text-white"> Brown</option>
+                    <option value="White" class="bg-white text-black">White</option>
+                    <option value="Goldden" class="bg-[#FFD700] text-black">Goldden</option>
+                  </select>
+                </div>
+              </div>
+              <div id="data2" style="display: none; margin-top: mt-2;">
+
+                <input
+                  class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
+                  placeholder="Address" type="text" name="Address" required />
+                <input
+                  class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
+                  placeholder="City / House " name="City" type="text" required />
+                <div class="flex space-x-4 mb-2">
+                  <input
+                    class="flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none "
+                    placeholder="Pin Code" type="text" name="Pincode" required />
+                  <select id="state" name="State" required name="State"
+                    class="flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none ">
+                    <option value="" disabled selected>Select State</option>
+                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                    <option value="Assam">Assam</option>
+                    <option value="Bihar">Bihar</option>
+                    <option value="Chhattisgarh">Chhattisgarh</option>
+                    <option value="Goa">Goa</option>
+                    <option value="Gujarat">Gujarat</option>
+                    <option value="Haryana">Haryana</option>
+                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                    <option value="Jharkhand">Jharkhand</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Kerala">Kerala</option>
+                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Manipur">Manipur</option>
+                    <option value="Meghalaya">Meghalaya</option>
+                    <option value="Mizoram">Mizoram</option>
+                    <option value="Nagaland">Nagaland</option>
+                    <option value="Odisha">Odisha</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="Rajasthan">Rajasthan</option>
+                    <option value="Sikkim">Sikkim</option>
+                    <option value="Tamil Nadu">Tamil Nadu</option>
+                    <option value="Telangana">Telangana</option>
+                    <option value="Tripura">Tripura</option>
+                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                    <option value="Uttarakhand">Uttarakhand</option>
+                    <option value="West Bengal">West Bengal</option>
+                    <option disabled>──────────</option>
+                    <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                    <option value="Chandigarh">Chandigarh</option>
+                    <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu
+                    </option>
+                    <option value="Delhi">Delhi (NCT)</option>
+                    <option value="Jammu & Kashmir">Jammu & Kashmir</option>
+                    <option value="Ladakh">Ladakh</option>
+                    <option value="Lakshadweep">Lakshadweep</option>
+                    <option value="Puducherry">Puducherry</option>
+                  </select>
+                </div>
+              </div>
+              <nav aria-label="Bottom navigation"
+                class="fixed bottom-0 md:w-full md:mx-auto left-0 right-0 mx-2 border-t border-[#d9d9d9]bg-[#f3f3f3]   justify-center items-center py-3 z-50">
+                <div>
+                  <div class="flex items-center justify-between mb-8 mx-2 md:mx-auto md:w-[58vw] select-text">
+                    <span class="font-semibold text-black">
+                      Cash Paymment
+                    </span>
+                    <label class="relative inline-flex items-center cursor-pointer" for="toggle">
+                      <input aria-checked="true" checked="" value="check" class="sr-only peer" id="toggle"
+                        type="checkbox" />
+                      <div class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-black transition-colors">
+                      </div>
+                      <div
+                        class="absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform peer-checked:translate-x-5">
+                      </div>
+                    </label>
+                  </div>
+                </div>
+                <div class="flex md:mx-auto md:w-[58vw] md:justify-between justify-between w-full">
+                  <div style=" display: none;" onclick="swapback() " aria-label="Go back" id="swapback"
+                    class="w-14 h-12 bg-black rounded-full flex justify-center items-center shadow-sm">
+                    <i class="fas fa-chevron-left font-extrabold text-white text-3x1 pl-5 pt-4"></i>
+                  </div>
+
+                  <button onclick="swap()" id="swap"
+                    class="bg-black text-white font-extrabold rounded-full py-3 w-full md:mx-0 mx-auto text-center"
+                    type="submit">
+                    Next
+                  </button>
+                </div>
+              </nav>
+            </form>
+            <script>
+              // Generate 6-digit random number
+              function generateCode() {
+                let randomCode = Math.floor(100000 + Math.random() * 900000);
+                document.getElementById("code").value = randomCode;
+              }
+
+              // Show current time (12-hour format with AM/PM)
+              function showTime() {
+                const now = new Date();
+                const options = { hour: "numeric", minute: "numeric", second: "numeric", hour12: true };
+                document.getElementById("times").value = now.toLocaleTimeString([], options);
+              }
+              showTime();
+              setInterval(showTime, 1000); // Update every second
+
+              // Show current date in DD/MM/YYYY
+              function showLocalDate() {
+                const today = new Date();
+                const formattedDate = today.toLocaleDateString("en-IN", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric"
+                });
+                document.getElementById("dates").value = formattedDate;
+              }
+              showLocalDate();
+
+              const API_URL = "https://script.google.com/macros/s/AKfycbyG5foFh0_qWqUG4d2Kbg-055UsLAw8Nu-jWXCeTYVT2mfvC1PADZaixEjQmyDPeRrs/exec";
+
+              function getBase64(file) {
+                return new Promise((resolve, reject) => {
+                  const reader = new FileReader();
+                  reader.readAsDataURL(file);
+                  reader.onload = () => resolve(reader.result);
+                  reader.onerror = err => reject(err);
+                });
+              }
+
+              // 🔹 Handle button click (Next → Submit)
+              document.getElementById("swap").addEventListener("click", async (e) => {
+                e.preventDefault();
+                const btn = document.getElementById("swap");
+
+                if (btn.innerText === "Next") {
+                  // Step 1 → Step 2
+                  swap();
+                  generateCode();
+                  showLocalDate();
+                  showTime();
+                  generateCode();
+                  // Avoid multiple intervals stacking up
+                  // Only call setInterval once (already called above)
+                  btn.innerText = "Submit";
+
+                  return;
+                }
+
+                if (btn.innerText === "Submit") {
+                  generateCode();
+                  // 🔹 Check if all file inputs are empty
+                  const form = document.getElementById("crudForm");
+                  const inputs = form.querySelectorAll("input:not([type='hidden']):not([type='file']),select");
+
+                  // Validate all visible inputs
+                  let isValid = true;
+                  inputs.forEach((input) => {
+                    if (!input.value || input.value.trim() === "") {
+                      isValid = false;
+                    }
+                  });
+
+                  if (!isValid) {
+                    btn.innerText = "Please Fill Details...";
+                    setTimeout(() => {
+                      btn.innerText = "Submit";
+                    }, 3000);
+                    return false;
+                  }
+
+                  btn.innerText = "Please Wait...";
+
+                  // 🔹 Final submit → send data to Google Sheet
+                  const Forms = document.getElementById("crudForm");
+                  const formData = new FormData(Forms);
+                  let payload = { action: "create" };
+
+                  for (const [key, val] of formData.entries()) {
+                    payload[key] = val;
+                  }
+
+                  // Handle single image input (ImageInput)
+                  const fileInput = document.getElementById("ImageInput");
+                  if (fileInput && fileInput.files.length > 0) {
+                    payload.Image = await getBase64(fileInput.files[0]);
+                    payload.ImageName = fileInput.files[0].name;
+                  }
+
+                  await fetch(API_URL, {
+                    method: "POST",
+                    body: new URLSearchParams(payload),
+                  });
+
+                  // Get all fields for redirect
+                  const date = document.getElementById("dates").value;
+                  const name = document.getElementById("name").value;
+                  const number = document.getElementById("number").value;
+                  const price = document.getElementById("times").value;
+                  const id = document.getElementById("code").value;
+                  const status = document.getElementById("Status").value;
+                  const method = document.getElementById("Payment").value;
+
+                  // Build URL and redirect
+                  window.location.href = `Confirmorder.html?Date=${encodeURIComponent(date)}&Name=${encodeURIComponent(name)}&Number=${encodeURIComponent(number)}&Price=${encodeURIComponent(price)}&Id=${encodeURIComponent(id)}&Status=${encodeURIComponent(status)}&PaymentMethod=${encodeURIComponent(method)}`;
+
+                  form.reset();
+                  swapback(); // return to first step
+                }
+              });
+            </script>
+          </div>
+        </div>
+        <div>
+
+          <script>
+
+            function swap() {
+              const s = document.getElementById('data1').style.display = "none";
+              const d = document.getElementById('data2').style.display = "block";
+              const f = document.getElementById('swapback').style.display = "block";
+              const j = document.getElementById('swap').style.width = "80%";
+              const e = document.getElementById('swap');
+              e.innerText = "Submit";
+            }
+            function swapback() {
+              const s = document.getElementById('data1').style.display = "block";
+              const d = document.getElementById('data2').style.display = "none";
+              const f = document.getElementById('swapback').style.display = "none";
+              const w = document.getElementById('swap').style.width = "100%";
+              const e = document.getElementById('swap');
+              e.innerText = "Next";
+            }
+
+            const radios = document.querySelectorAll('input[name="size"]');
+            const labels = document.querySelectorAll('#sizeButtons label');
+            const selectedSizeInput = document.getElementById('selectedSize');
+
+            function updateSelection(selectedId) {
+              radios.forEach(radio => {
+                if (radio.id === selectedId) {
+
+                  radio.checked = true;
+                  selectedSizeInput.value = radio.value;
+                  selectedSizeInput.placeholder = "";
+
+                }
+              });
+
+              labels.forEach(label => {
+
+                if (label.getAttribute('for') === selectedId) {
+
+                  label.classList.add('bg-black', 'text-white');
+                  label.classList.remove('border', 'border-gray-400', 'text-black');
+                } else {
+                  label.classList.remove('bg-black', 'text-white');
+                  label.classList.add('border', 'border-gray-400', 'text-black');
+
+                }
+              });
+            };
+
+
+            labels.forEach(label => {
+              label.addEventListener('click', () => {
+                updateSelection(label.getAttribute('for'));
+              });
+            });
+
+            // Initialize with no selection
+            selectedSizeInput.value = "";
+            selectedSizeInput.placeholder = "No size selected";
+          </script>
+        </div>
+      </main>
+    </div>
+  </main>
+
+  <nav aria-label="Bottom navigation " id="orderbtn"
+    class="fixed md:hidden bottom-0 z-[99999999999px] md:w-full md:flex justify-between bg-gray-100 left-0 right-0 border-t gap-1 border-[#d9d9d9]  flex  items-center py-1 md:py-0 px-2 z-50">
+
+    <button onclick="window.location.href='https://wa.me/918251092973'" onclick="notload()"
+      class="md:hidden text-white bg-black font-semibold rounded-full md:py-1 py-1.5 w-14 mx-auto text-center"
+      type="button">
+      <i class="fab fa-whatsapp text-2xl p-1"></i>
+
+    </button>
+
+    <button id="openLoginBtn" onclick="openLogin()"
+      class=" text-white bg-black text-2xl md:mt-4 font-semibold rounded-full md:py-1 py-1.5 w-full md:w-full  mx-auto text-center"
+      type="button">
+      Booking
+    </button>
+  </nav>
+
+  <script>
+
+
+    function getCourseIdFromURL() {
+      return new URLSearchParams(location.search).get("id");
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const courseId = getCourseIdFromURL();
+      const course = courses[courseId];
+
+      if (course) {
+        renderCourse(course);
+      } else {
+        document.getElementById("course-detail").innerHTML = `<p class="text-red-600">Products not found.</p>`;
+      }
+    });
+
+    fetch('courses.json')
+      .then(res => res.json())
+      .then(courses => {
+        // Replace with the ID you want to render dynamically
+
+        renderCourse(courses[courseId]);
+      })
+      .catch(err => console.error('Error loading courses:', err));
+
+
+    function renderStars(rating) {
+      let stars = "";
+      for (let i = 1; i <= 5; i++) {
+        stars += i <= rating
+          ? '<i class="fas fa-star text-yellow-400"></i>'
+          : '<i class="far fa-star text-yellow-400"></i>';
+      }
+      return stars;
+    }
+    const code = Math.floor(1000 + Math.random() * 9000);
+    const ID = Math.floor(100000 + Math.random() * 7000);
+    const courseId = new URLSearchParams(window.location.search).get("id");
+    const course = courses[courseId];
+
+    function renderCourse(course) {
+      const section = document.getElementById("course-detail");
+      document.getElementById("icon").value = course.icon;
+      document.getElementById("Other").value = course.title;
+      document.getElementById('openLoginBtn').innerText = "₹ " + course.price;
+      const Order = document.getElementById('orderbtn').innerHTML;
+      section.innerHTML = `
+<section class="md:flex w-full md:[100vw] bg-gray-100 overflow-x-hidden">
+  <div class="dragimg   items-top flex flex-col w-[100vw] md:w-[55vw]" id="dragimg">
+    <div id="Wall" onclick="notload()" class="items-center justify-center w-[100vw] md:w-[100%] md:h-full overflow-hidden">
+   
+      <img src="${course.icon}" alt="${course.iconAlt}" class="w-40 h-100 mt-2 object-cover justify-center mx-auto">
+    </div>
+  </div>
+
+  <div class="flex1 bg-gray-100 px-4  w-full md:w-[45vw] py-4 z-[400px]">
+    <div>
+      <h1 class="text-2xl text-black md:text-3xl font-extrabold">${course.title}</h1>
+      <p class="text-sm text-gray-500">${course.location} &middot; ${course.fees}</p>
+    </div>
+    <p class="text-gray-700 text-justify mt-4">${course.description}</p>
+    <br>
+
+    <div class="w-full mx-auto">
+      <div class="flex">
+        <p class="text-black font-semibold mb-2 text-base">Select Size</p>
+      </div>
+
+      <div class="flex flex-wrap gap-x-2 gap-y-2 md:justify-start justify-start">
+        ${[
+          { size: "4 x 6", price: "₹ 100" },
+          { size: "5 x 7", price: "₹ 140" },
+          { size: "6 x 8", price: "₹ 150" },
+          { size: "8 x 12", price: "₹ 299" },
+          { size: "10 x 15", price: "₹ 419" },
+          { size: "12 x 18", price: "₹ 549" },
+          { size: "16 x 24", price: "₹ 1,350" },
+          { size: "20 x 30", price: "₹ 1,619" },
+          { size: "24 x 36", price: "₹ 1,999" },
+        ]
+          .map(
+            item => `
+          <div onclick="openLogin()" class=" flex flex-col justify-between items-center">
+            <button class="border border-gray-400 rounded-md px-3  py-1.5 text-black font-semibold text-sm" type="button">${item.size}</button>
+            <span class="text-sm font-extrabold text-gray-700 mt-1">${item.price}</span>
+          </div>
+        `
+          )
+          .join("")}
+      </div>
+    </div>
+
+    <div class="hidden md:block flex">
+      ${Order}
+    </div>
+
+    <hr class="border-2 mt-2 md:mt-4">
+
+</section>
+
+<div class="instructors md:flex flex-col-reverse md:flex-row justify-between mx-1 px-2 py-2 bg-gray-100">
+    <div class="flex1 md:p-2  ">
+        <h2 class="text-lg font-semibold py-2 mb-2">Order Process</h2>
+        <ul class="space-y-3 px-4 mb-2 ">
+            <div class="flex items-center space-x-4">
+                <!-- Ordered -->
+                <div class="flex flex-col items-center space-y-1">
+                    <div class="w-10 h-10 rounded-full bg-gray-500 flex justify-center items-center">
+                        <i class="fas fa-clipboard-list text-white text-lg"></i>
+                    </div>
+                    <span class="text-gray-600 text-xs font-bold font-sans">Ordered</span>
+                </div>
+
+                <!-- Line -->
+                <div class="w-8 h-0.5 bg-red-600 rounded"></div>
+
+                <!-- Packed -->
+                <div class="flex flex-col items-center space-y-1">
+                    <div class="w-10 h-10 rounded-full bg-gray-500 flex justify-center items-center">
+                        <i class="fas fa-box-open text-white text-lg"></i>
+                    </div>
+                    <span class="text-gray-600 text-xs font-bold font-sans">Packed</span>
+                </div>
+
+                <!-- Line -->
+                <div class="w-8 h-0.5 bg-red-600 rounded"></div>
+
+                <!-- In Transit -->
+                <div class="flex flex-col items-center space-y-1">
+                    <div class="w-10 h-10 rounded-full bg-gray-500 flex justify-center items-center">
+                        <i class="fas fa-truck-moving text-white text-lg"></i>
+                    </div>
+                    <span class="text-gray-600 text-xs font-bold font-sans">Transit</span>
+                </div>
+
+                <!-- Dotted Line -->
+                <div class="flex space-x-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
+                </div>
+
+                <!-- Delivered -->
+                <div class="flex flex-col items-center space-y-1">
+                    <div class="w-10 h-10 rounded-full bg-gray-500 flex justify-center items-center">
+                        <i class="fas fa-home text-white text-lg"></i>
+                    </div>
+                    <span class="text-gray-600 text-xs font-bold font-sans">Delivered</span>
+                </div>
+            </div>
+
+            ${course.instructors
+          .map(
+            inst => `
+            <li class="hidden flex items-center gap-4 ">
+                <img src="${inst.photo}" alt="${inst.alt}" class="w-12 h-12 rounded-full object-cover">
+                <span class="font-medium text-gray-800">${inst.name}</span>
+            </li>
+            `
+          )
+          .join("")}
+        </ul>
+        <div class="">
+            <h2 class="text-lg font-semibold mb-2">Reviews</h2>
+            <ul class="space-y-3">
+                ${course.reviews
+          .map(
+            r => `
+                <li class="border w-full rounded p-3 bg-gray-50">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="font-semibold text-gray-800">${r.name}</span>
+                        <span class="flex gap-0.5">${renderStars(r.rating)}</span>
+                    </div>
+                    <p class="text-sm text-gray-600">${r.comment}</p>
+                </li>
+                `
+          )
+          .join("")}
+            </ul>
+        </div>
+     
+    </div>   <br>
+    <div class="flex1 ">
+        <h2 class="text-lg w-96 font-semibold mt-4 mb-2">Discription Points</h2>
+        <ul class="list-disc list-inside space-y-1 text-gray-700">
+            ${course.syllabus.map(item => `<li>${item}</li>`).join("")}
+        </ul>
+        
+
+    <div class="grid grid-cols-3 border-t-2 py-1 mt-4 sm:grid-cols-3 justify-between md:grid-cols-3 gap-2">
+      ${course.features
+          .map(f => {
+            if (f.icon) {
+              return `
+          <div class="flex flex-col items-center">
+            <div class="w-14 h-10 rounded-full bg-white flex justify-center items-center">
+              <i class="${f.icon} text-gray-600 text-lg"></i>
+            </div>
+            <span class="text-gray-600 text-xs font-sans font-extrabold">${f.text}</span>
+          </div>`;
+            }
+            return "";
+          })
+          .join("")}
+    </div>
+
+    <hr class="border-2 mt-2">
+  </div>
+    </div>
+    
+</div>
+  `;
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const courseId = getCourseIdFromURL();
+      const course = courses[courseId];
+
+      if (course) {
+        renderCourse(course);
+      } else {
+        document.getElementById("course-detail").innerHTML = `<p class="text-red-600">Course not found.</p>`;
+      }
+    });
+
+
+    function updateEndDate() {
+      const startInput = document.getElementById("Start");
+      const endInput = document.getElementById("End");
+      if (!startInput.value) return;
+      const startDate = new Date(startInput.value);
+      startDate.setMonth(startDate.getMonth() + 1);
+
+      if (startDate.getDate() !== new Date(startInput.value).getDate()) {
+        startDate.setDate(0);
+      }
+
+      endInput.value = startDate.toISOString().split("T")[0];
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const startInput = document.getElementById("Start");
+      const today = new Date();
+      startInput.value = today.toISOString().split("T")[0];
+      updateEndDate();
+    });
+
+    function buycourse() {
+
+
+      if (!course) {
+        alert("Invalid Product selected.");
+        return;
+      }
+
+      document.getElementById("Passcode").value = code;
+      document.getElementById("Id").value = ID;
+      document.getElementById("Passcode").classList.add("hidden");
+      document.getElementById("Id").classList.add("hidden");
+      document.getElementById("Price").value = course.price;
+      document.getElementById("Course").value = course.title;
+      document.getElementById("Date").classList.add("hidden");
+      document.getElementById("Time").classList.add("hidden");
+      document.getElementById("Start").classList.add("hidden");
+      document.getElementById("End").classList.add("hidden");
+      document.getElementById("Price").classList.add("hidden");
+      document.getElementById("Course").classList.add("hidden");
+      document.getElementById("Status").classList.add("hidden");
+
+    }
+
+    function handleBooking() {
+      document.getElementById("dset").classList.add("hidden");
+      document.getElementById("buttonsets").classList.add("hidden");
+
+      setTimeout(() => {
+        document.getElementById('deletedtext').innerText = 'Processing...';
+      }, 100);
+
+      setTimeout(() => {
+        document.getElementById("dset").classList.add("hidden");
+        document.getElementById("buttonsets").classList.add("hidden");
+        document.getElementById('deletedtext').innerHTML = `<p class="text-xl mt-2">Your Pass Code </p><h1 class="font-bold text-8xl text-green-700">${code}</h1><p class="text-xl mt-2">Completed</p>`;
+        const audio = document.getElementById("audioPlayer");
+        audio.play().catch(err => {
+          console.error(err);
+        });
+
+        const utterance = new SpeechSynthesisUtterance(" Wellcome to Apna Course ");
+        utterance.lang = "en-hi"; // Change to "hi-IN" or other for different languages
+        utterance.rate = 0.8; // Speed (0.1 to 10), 1 is normal
+        utterance.pitch = 5; // Pitch (0 to 2), 1 is default
+        window.speechSynthesis.cancel(); // Cancel previous speech
+        window.speechSynthesis.speak(utterance);
+
+      }, 8000);
+      setTimeout(() => {
+        window.location.href = 'Owner.html';
+      }, 30000);
+
+    }
+
+
+    const form = document.getElementById("entryForm");
+    const container = document.getElementById("dataContainer");
+    const passcode = new URLSearchParams(window.location.search).get("passcode")?.trim();
+    const scriptURL = "https://script.google.com/macros/s/AKfycbwdAgLXrfkDEEIOsTIjJcm6VwLuTCGH_zo3YKmv7fpvkNwnHFyGEUb2eVIF6iuHcb2h/exec";
+    let editing = false;
+
+
+
+    async function loadData() {
+      try {
+        const res = await fetch(scriptURL);
+        const data = await res.json();
+        document.getElementById("dset").classList.remove("hidden");
+        document.getElementById("loadercircle").style.display = "none";
+
+        if (passcode.length === 0) {
+          container.innerHTML = `<p class="text-center text-gray-600 text-lg">No data found for Passcode: <strong>${passcode}</strong></p>`;
+          return;
+        }
+
+        function formatDate(dateStr) {
+          if (!dateStr) return "N/A";
+          const date = new Date(dateStr);
+          const options = {
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+          };
+          return date.toLocaleDateString("en-IN", options);
+        }
+
+      } catch (err) {
+        console.error(err);
+        container.innerHTML = `<p class="text-red-600 text-center">Failed to load data.</p>`;
+        document.getElementById("loadercircle").style.display = "none";
+      }
+    }
+
+    form.onsubmit = async (e) => {
+      e.preventDefault();
+      const formData = Object.fromEntries(new FormData(form));
+      formData.method = editing ? "update" : "create";
+
+      await fetch(scriptURL, {
+        method: "POST",
+        body: JSON.stringify(formData),
+      });
+
+
+      form.reset();
+      editing = false;
+      loadData();
+      window.location.href = "Confirmorder.html";
+
+      document.getElementById("dset").classList.add("hidden");
+      document.getElementById("buttonsets").classList.add("hidden");
+      document.getElementById("dset").style.display = "none";
+      document.getElementById("buttonsets").style.display = "none";
+    };
+
+    loadData();
+  </script>
+  <script>
+
+    const openBtn = document.getElementById("openLoginBtn");
+    const closeBtn = document.getElementById("closeLoginBtn");
+    const loginFormContainer = document.getElementById("loginFormContainer");
+    const overlay = document.getElementById("overlay");
+
+    loginFormContainer.style.opacity = "0";
+    loginFormContainer.style.transform = "translateY(100%)";
+    loginFormContainer.style.pointerEvents = "none";
+    overlay.classList.add("hidden");
+
+    function openLogin() {
+      overlay.classList.remove("hidden");
+      loginFormContainer.style.opacity = "1";
+      loginFormContainer.style.transform = "translateY(0)";
+      loginFormContainer.style.pointerEvents = "auto";
+    }
+
+    function closeLogin() {
+      loginFormContainer.style.opacity = "0";
+      loginFormContainer.style.transform = "translateY(100%)";
+      loginFormContainer.style.pointerEvents = "none";
+      overlay.classList.add("hidden");
+    }
+
+  </script>
+
+  <script src="courses.json"></script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+    import {
+      getAuth,
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+    import {
+      getFirestore,
+      getDoc,
+      doc
+    } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+
+    // ✅ Your Firebase config (USE YOUR OWN VALUES HERE)
+    const firebaseConfig = {
+      apiKey: "AIzaSyAKN5GR18VTFrKNgVG7FenD4aSTX3Q2PbA",
+      authDomain: "gift-zone-project.firebaseapp.com",
+      projectId: "gift-zone-project",
+      storageBucket: "gift-zone-project.appspot.com",
+      messagingSenderId: "806465456032",
+      appId: "1:806465456032:web:becf8988a6dfabe43646c5",
+      measurementId: "G-1ZLMWBP61Y",
+    };
+
+    // ✅ Initialize Firebase services
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // ✅ On Auth Change: fetch and show user data
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const loggedInUserId = localStorage.getItem("loggedInUserId");
+        if (!loggedInUserId) {
+          console.log("User ID not found in local storage.");
+          return;
+        }
+
+        const docRef = doc(db, "users", loggedInUserId);
+        getDoc(docRef)
+          .then((docSnap) => {
+
+            if (docSnap.exists()) {
+              const userData = docSnap.data();
+              let a = userData.firstName || "N/A";
+              let b = document.getElementById("Filtered").value = userData.email || "N/A";
+              let c = document.getElementById("dam").value = userData.email || "N/A";
+
+              // ✅ Optional: handle missing lastName gracefully
+              const lNameElement = document.getElementById("loggedUserLName");
+              if (userData.lastName) {
+                lNameElement.innerText = userData.lastName;
+              } else {
+                lNameElement.innerText = "-";
+              }
+            } else {
+              console.log("No user document found in Firestore.");
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching user data:", error);
+          });
+      } else {
+        console.log("User not signed in.");
+
+      }
+    });
+
+
+  </script>
+
+</html>

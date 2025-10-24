@@ -1,0 +1,885 @@
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Orders Details</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="theme-color" content="#f5fdf7">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<!-- Styles -->
+<style>
+    .step {
+        text-align: center;
+        flex: 1 1 20%;
+    }
+
+    .icon {
+        width: 32px;
+        height: 32px;
+        background-color: #d1d5db;
+        border-radius: 9999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        margin: auto;
+    }
+
+    .line {
+        width: 32px;
+        height: 4px;
+        background-color: #d1d5db;
+        border-radius: 9999px;
+    }
+
+    .active .icon {
+        background-color: #16a34a;
+    }
+
+    .active p {
+        color: #16a34a;
+        font-weight: 600;
+    }
+
+    .step p {
+        margin-top: 4px;
+        color: #6b7280;
+    }
+</style>
+<style>
+    body {
+        font-family: 'Inter', sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+</style>
+<style>
+    .step {
+        text-align: center;
+    }
+
+    .icon {
+        width: 32px;
+        height: 32px;
+        background-color: #d1d5db;
+        /* gray-300 */
+        border-radius: 9999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        margin: auto;
+    }
+
+    .line {
+        width: 32px;
+        height: 4px;
+        background-color: #d1d5db;
+        border-radius: 9999px;
+    }
+
+    .active .icon {
+        background-color: #16a34a;
+        /* green-600 */
+    }
+
+    .active p {
+        color: #16a34a;
+        font-weight: 600;
+    }
+
+    .step p {
+        margin-top: 4px;
+        color: #6b7280;
+        /* gray-500 */
+    }
+</style>
+
+<body class="bg-black md:bg-gray-100 w-full top-0 left-0 fixed font-extrabold flex items-center justify-center pb-6">
+    <div styl="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)"
+        class="  w-full flex flex-col md:flex-row overflow-hidden">
+
+        <!-- Toggle Button (Visible only on mobile) -->
+        <div class="flex bg-black items-center md:px-0 px-2 h-full justify-between">
+            <div class="flex bg-black w-full md:hidden  items-center justify-between p-2">
+                <button id="menuToggle" type="button"
+                    class="w-10 h-10 p-3 flex bg-white justify-center items-center rounded-full shadow-sm focus:outline-none">
+                    <i class="fas fa-user text-xl text-black"></i>
+                </button>
+
+                <button onclick="window.location.href='index.html'" aria-label="Go back"
+                    class="flex justify-center items-center">
+                    <h1 class="mx-auto text-4xl sm:text-5xl font-black leading-none
+                        text-white bg-black">
+                        Gift Zone
+                    </h1>
+                </button>
+            </div>
+
+            <button onclick="toggleMenu()" class="md:hidden hidden p-3 text-gray-700 focus:outline-none0">
+                <i class="fas fa-ellipsis-v text-xl text-gray-700"></i>
+            </button>
+
+            <!-- Menu -->
+            <div id="menu" class="hidden absolute right-0 top-12 w-40 bg-white border z-50 rounded-lg shadow-lg">
+                <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    <i class="fas fa-pen mr-2"></i> Edit
+                </a>
+                <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    <i class="fas fa-trash mr-2"></i> Delete
+                </a>
+                <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    <i class="fas fa-share mr-2"></i> Share
+                </a>
+            </div>
+
+            <script>
+                function toggleMenu() {
+                    document.getElementById("menu").classList.toggle("hidden");
+                }
+            </script>
+        </div>
+        <div id="overlay" class="fixed left-0 inset-0 bg-black bg-opacity-50 hidden "></div>
+        <!-- Sidebar -->
+
+        <aside id="sidebar" class="fixed overflow-auto top-0 left-0 h-full w-72 bg-gray-200 font-extrabold border-r border-gray-200 flex flex-col py-8
+         transform -translate-x-full transition-transform duration-300 ease-in-out
+       md:-translate-x-0 md:w-40
+         ">
+
+            <div onclick="window.location.href='index.html'"
+                class="mx-auto flex flex-col items-center justify-center text-center mb-8">
+                <i class="fas fa-user text-8xl text-black"></i>
+                <h1 class="font-bold text-xl text-gray-900"> <span id="loggedUserFName"></span> </h1>
+                <span id="loggedUserEmail"></span>
+            </div>
+            <hr class=" border-2 border-white">
+            <nav class="flex flex-col space-y-2 text-gray-700 font-semibold">
+                <button data-section="dashboard"
+                    class="flex items-center space-x-3 text-gray-800 hover:text-orange-500 transition-colors px-3 py-2 rounded-md focus:outline-none text-base"
+                    onclick="selectSection('dashboard', this)" type="button">
+                    <i class="fas fa-th-large text-base"></i>
+                    <span>Dashboard</span>
+                </button>
+
+                <button data-section="objectives"
+                    class="flex items-center space-x-3 text-gray-800 hover:text-orange-500 transition-colors px-3 py-2 rounded-md focus:outline-none text-base"
+                    onclick="selectSection('objectives', this)" type="button">
+                    <i class="fas fa-bullseye text-base"></i>
+                    <span>Objectives</span>
+                </button>
+
+                <button data-section="survey"
+                    class="flex items-center space-x-3 text-gray-800 hover:text-orange-500 transition-colors px-3 py-2 rounded-md focus:outline-none text-base"
+                    onclick="selectSection('survey', this)" type="button">
+                    <i class="fas fa-check-square text-base"></i>
+                    <span>Survey</span>
+                </button>
+
+
+                <button data-section="documents"
+                    class="flex items-center space-x-3 text-gray-800 hover:text-orange-500 transition-colors px-3 py-2 rounded-md focus:outline-none text-base"
+                    onclick="selectSection('documents', this)" type="button">
+                    <i class="fas fa-file-alt text-base"></i>
+                    <span>Documents</span>
+                </button>
+
+                <button data-section="photos"
+                    class="flex items-center space-x-3 text-gray-800 hover:text-orange-500 transition-colors px-3 py-2 rounded-md focus:outline-none text-base"
+                    onclick="selectSection('photos', this)" type="button">
+                    <i class="fas fa-camera text-base"></i>
+                    <span>Photos</span>
+                </button>
+
+                <button data-section="sells"
+                    class="flex items-center space-x-3 text-orange-500 font-semibold px-3 py-2 rounded-md focus:outline-none text-base"
+                    onclick="selectSection('sells', this)" type="button">
+                    <i class="fas fa-shopping-cart text-base"></i>
+                    <span>Sells</span>
+                </button>
+
+                <button data-section="message"
+                    class="flex items-center space-x-3 text-gray-800 hover:text-orange-500 transition-colors px-3 py-2 rounded-md focus:outline-none text-base"
+                    onclick="selectSection('message', this)" type="button">
+                    <i class="fas fa-comment-alt text-base"></i>
+                    <span>Message</span>
+                </button>
+
+                <button data-section="help"
+                    class="flex items-center space-x-3 text-gray-800 hover:text-orange-500 transition-colors px-3 py-2 rounded-md focus:outline-none text-base"
+                    onclick="selectSection('help', this)" type="button">
+                    <i class="fas fa-question-circle text-base"></i>
+                    <span>Help</span>
+                </button>
+
+                <button data-section="setting"
+                    class="flex items-center space-x-3 text-gray-800 hover:text-orange-500 transition-colors px-3 py-2 rounded-md focus:outline-none text-base"
+                    onclick="selectSection('setting', this)" type="button">
+                    <i class="fas fa-cog text-base"></i>
+                    <span>Setting</span>
+                </button>
+
+                <button
+                    class="flex items-center space-x-3 text-gray-800 hover:text-orange-500 transition-colors px-3 py-2 rounded-md focus:outline-none text-base"
+                    id="logout" type="button">
+                    <i class="fas fa-cog text-base"></i>
+                    <span>LogOut</span>
+                </button>
+
+            </nav>
+
+        </aside>
+
+        <!-- Main content -->
+        <main class="flex-1 px-2 md:p-2 md:ml-32 md:mx-1 flex flex-col overflow-auto overflow-x-auto">
+
+            <!-- Sections container -->
+            <section id="dashboard" class="hidden">
+                <h2 class="text-orange-500 font-semibold text-xl mb-6">Dashboard</h2>
+                <p class="text-gray-700 text-sm">Welcome to the Dashboard section. Here you can see your
+                    overview and
+                    stats.</p>
+            </section>
+
+            <section id="objectives" class="hidden">
+                <h2 class="text-orange-500 font-semibold text-xl mb-6">Objectives</h2>
+                <!-- Right side summary and transactions -->
+                <div class="flex flex-col md:flex-row md:space-x-6">
+                    <!-- Chart and number -->
+                    <div class="flex-1 bg-gray-50 rounded-lg p-6 mb-6 md:mb-0 flex flex-col items-center">
+                        <p class="text-gray-900 font-semibold text-2xl mb-4">2.542</p>
+                        <div class="flex space-x-3">
+                            <div class="flex flex-col items-center">
+                                <div class="bg-orange-500 rounded-t-md w-3 h-10 sm:h-14" aria-label="Bar 1">
+                                </div>
+                                <div class="text-xs text-gray-400 mt-1">1</div>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div class="bg-orange-500 rounded-t-md w-3 h-8 sm:h-12" aria-label="Bar 2">
+                                </div>
+                                <div class="text-xs text-gray-400 mt-1">2</div>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div class="bg-orange-500 rounded-t-md w-3 h-12 sm:h-16" aria-label="Bar 3">
+                                </div>
+                                <div class="text-xs text-gray-400 mt-1">3</div>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div class="bg-orange-500 rounded-t-md w-3 h-10 sm:h-14" aria-label="Bar 4">
+                                </div>
+                                <div class="text-xs text-gray-400 mt-1">4</div>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div class="bg-orange-500 rounded-t-md w-3 h-8 sm:h-12" aria-label="Bar 5">
+                                </div>
+                                <div class="text-xs text-gray-400 mt-1">5</div>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div class="bg-orange-500 rounded-t-md w-3 h-10 sm:h-14" aria-label="Bar 6">
+                                </div>
+                                <div class="text-xs text-gray-400 mt-1">6</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Transactions -->
+                    <div class="flex-1 bg-gray-50 rounded-lg p-6 mb-6 md:mb-0 flex flex-col justify-between">
+                        <h3 class="text-gray-900 font-semibold mb-4 text-sm">All Transactions</h3>
+                        <ul class="space-y-4 text-gray-600 text-xs font-semibold">
+                            <li class="flex justify-between items-center">
+                                <div>
+                                    <p>Order #AB8754</p>
+                                    <p class="text-gray-400 text-[10px]">28 Oct, 2021</p>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </li>
+                            <li class="flex justify-between items-center">
+                                <div>
+                                    <p>Return #CT6759</p>
+                                    <p class="text-gray-400 text-[10px]">27 Oct, 2021</p>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </li>
+                            <li class="flex justify-between items-center">
+                                <div>
+                                    <p>Order #PF6489</p>
+                                    <p class="text-gray-400 text-[10px]">26 Oct, 2021</p>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Lorem Ipsum text -->
+                    <div class="flex-1 text-orange-500 text-xs font-semibold leading-5">
+                        <p>
+                            Lorem Ipsum
+                        </p>
+                        <p class="mt-2 text-[10px] font-normal text-orange-300 max-w-xs">
+                            Lorem ipsum lorem sit amet, consectetur adipiscing elit sed do tempor incididunt
+                            ut labore
+                            et dolore Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod
+                            tempor
+                            incididunt ut labore et dolore.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="survey" class="hidden">
+                <h2 class="text-orange-500 font-semibold text-xl mb-6">Survey</h2>
+                <p class="text-gray-700 text-sm">Survey section content goes here. View and create surveys.
+                </p>
+            </section>
+
+            <section id="documents" class="hidden">
+                <h2 class="text-orange-500 font-semibold text-xl mb-6">Documents</h2>
+                <p class="text-gray-700 text-sm">Manage your documents in this section.</p>
+            </section>
+
+            <section id="photos" class="hidden">
+                <h2 class="text-orange-500 font-semibold text-xl mb-6">Photos</h2>
+                <p class="text-gray-700 text-sm">View and upload photos here.</p>
+            </section>
+
+            <section id="sells" class="">
+                <div class="flex justify-end"> <!-- 🔍 Filter Section -->
+
+                    <div class="mb-4 mx-1 flex justify-between md:justify-end space-x-4">
+                        <select id="filterField"
+                            class=" border rounded-lg shadow-sm p-2  md:pl-2 md:px-4   focus:outline-none text-sm">
+                            <option value="">All Fields</option>
+                            <option value="Id">Id</option>
+                            <option value="Date">Date</option>
+                            <option value="Time">Time</option>
+                            <option value="Name">Name</option>
+                            <option value="Number">Number</option>
+                            <option value="Material">Material</option>
+                            <option value="Color">Color</option>
+                            <option value="State">State</option>
+                            <option value="Status">Status</option>
+                            <option value="Payment">Payment</option>
+
+                        </select>
+
+                        <input type="text" id="searchInput" placeholder="Search..."
+                            class="md:w-80 w-[66vw] p-2 border rounded-lg shadow-sm  focus:outline-none text-sm">
+                    </div>
+                </div>
+                <hr>
+                <style>
+                    .sells {
+                        height: 100vh;
+                        overflow: auto;
+                    }
+                </style>
+
+                <div class=" md:mb-80  mx-auto">
+
+                    <!-- Data Table -->
+                    <div class="bg-white shadow rounded-lg md:mb-20 w-full  md:max-h-[80vh]">
+                        <!-- Wrapper for scrolling -->
+                        <div class="overflow-x-auto overflow-y-auto max-h-[98vh] md:max-h-[80vh]">
+                            <table class="min-w-full border border-gray-200 text-xs text-gray-700">
+
+                                <tbody id="tableBody" class="divide-y divide-gray-200 pb-20">
+                                    <div id="page-loader"
+                                        class="fixed inset-0 bg-white bg-opacity-50 flex items-center justify-center z-50">
+                                        <div
+                                            class="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin">
+                                        </div>
+                                    </div>
+                                    <script>setTimeout(() => {
+                                            const loader = document.getElementById('page-loader');
+                                            const name = document.getElementById('loggedUserFName').innerText;
+                                            const mail = document.getElementById('loggedUserEmail').innerText;
+                                            if (name == "" || mail == "") {
+                                                window.location.href = "Owner.html";
+                                            }
+                                            if (loader) {
+                                                loader.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+                                                setTimeout(() => loader.remove(), 600); // Remove after fade-out
+
+                                            }
+                                        }, 5000);
+                                    </script>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- Form (hidden by default) -->
+                    <div id="formContainer" class="fixed hidden shadow-[0_8px_80px_black] inset-0 md:mx-auto m-2 mb-4 md:top-10 h-full bottom-auto md:max-h-[85vh] md:max-w-7xl overflow-y-auto 
+                           bg-white rounded-3xl shadow-2xl border border-orange-300 p-4">
+                        <h2 id="formTitle"
+                            class="text-2xl font-semibold mb-8 text-orange-500 border-b border-orange-300 pb-3 flex items-center gap-2">
+                            <i class="fas fa-plus-circle text-orange-500"></i> Add Record
+                        </h2>
+                        <form id="crudForm" class="w-full text-sm grid grid-cols-1 md:grid-cols-4   gap-x-6 gap-y-4">
+                            <input type="hidden" id="Id" name="Id" />
+
+                            <div>
+                                <label class="block text-orange-500 font-medium mb-1" for="Date">Date</label>
+                                <input type="text" id="Date" name="Date" placeholder="YYYY-MM-DD"
+                                    class="w-full  p-2.5 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
+                            </div>
+
+                            <div>
+                                <label class="block text-orange-500 font-medium mb-1" for="Time">Time</label>
+                                <input type="text" id="Time" name="Time" placeholder="HH:MM AM/PM"
+                                    class="w-full p-2.5 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
+                            </div>
+
+                            <div>
+                                <label class="block  text-orange-500 font-medium mb-1" for="Name">Name</label>
+                                <input type="text" id="Name" name="Name"
+                                    class="w-full p-2.5 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
+                            </div>
+
+                            <div>
+                                <label class="block text-orange-500 font-medium mb-1" for="Number">Number</label>
+                                <input type="text" id="Number" name="Number"
+                                    class="w-full p-2.5 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
+                            </div>
+
+                            <div>
+                                <label class="block text-orange-500 font-medium mb-1" for="Size">Size</label>
+                                <input type="text" id="Size" name="Size"
+                                    class="w-full p-2.5 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
+                            </div>
+
+                            <div>
+                                <label class="block text-orange-500 font-medium mb-1" for="Material">Material</label>
+                                <input type="text" id="Material" name="Material"
+                                    class="w-full p-2.5 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
+                            </div>
+
+                            <div>
+                                <label class="block text-orange-500 font-medium mb-1" for="Color">Color</label>
+                                <input type="text" id="Color" name="Color"
+                                    class="w-full p-2.5 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
+                            </div>
+
+                            <div>
+                                <label class="block text-orange-500 font-medium mb-1" for="Address">Address</label>
+                                <input type="text" id="Address" name="Address"
+                                    class="w-full p-2.5 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
+                            </div>
+
+                            <div>
+                                <label class="block text-orange-500 font-medium mb-1" for="City">City</label>
+                                <input type="text" id="City" name="City"
+                                    class="w-full p-2.5 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
+                            </div>
+
+                            <div>
+                                <label class="block text-orange-500 font-medium mb-1" for="Pincode">Pincode</label>
+                                <input type="text" id="Pincode" name="Pincode"
+                                    class="w-full p-2.5 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
+                            </div>
+
+                            <div>
+                                <label class="block text-orange-500 font-medium mb-1" for="State">State</label>
+                                <input type="text" id="State" name="State"
+                                    class="w-full p-2.5 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
+                            </div>
+
+                            <div>
+                                <label class="block text-orange-500 font-medium mb-1" for="Status">Status</label>
+                                <input type="text" id="Status" name="Status"
+                                    class="w-full p-2.5 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
+                            </div>
+
+                            <div>
+                                <label class="block text-orange-500 font-medium mb-1" for="Payment">Payment</label>
+                                <input type="text" id="Payment" name="Payment"
+                                    class="w-full p-2.5 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
+                            </div>
+
+                            <div>
+                                <label class="block text-orange-500 font-medium mb-1" for="Other">Other</label>
+                                <input type="text" id="Other" name="Other"
+                                    class="w-full p-2.5 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
+                            </div>
+
+                            <div class="md:col-span-2">
+                                <label class="block text-orange-500 font-medium mb-1" for="ImageInput">Upload
+                                    Image</label>
+                                <input type="file" id="ImageInput" name="ImageInput" accept="image/*"
+                                    class="w-full border border-orange-300 rounded-lg p-2 cursor-pointer text-orange-600 hover:border-orange-400 transition" />
+                            </div>
+
+                            <div
+                                class="md:col-span-2 w-full flex md:justify-end justify-between md:ml-28 space-x-4 mt-6">
+                                <button type="button" onclick="hideForm()"
+                                    class="px-6 py-2.5 bg-orange-200 text-orange-700 font-semibold rounded-lg hover:bg-orange-300 transition flex items-center gap-2">
+                                    <i class="fas fa-times"></i> Cancel
+                                </button>
+                                <button type="submit"
+                                    class="px-6 py-2.5 bg-orange-600 text-white font-semibold rounded-lg hover:bg-orange-700 transition flex items-center gap-2">
+                                    <i class="fas fa-save"></i> Save
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Add Button -->
+                </div>
+
+                <script>
+                    const API_URL = "https://script.google.com/macros/s/AKfycby_gJSJorghtpLgbZjHKO4eJ4f0S1HwDF89FpmFng4CcMedA7L--y8flV_HCaRb2LE-/exec";
+                    let editing = false;
+
+                    function formatDate(dateValue) {
+                        if (!dateValue) return "";
+                        if (!isNaN(dateValue)) {
+                            let jsDate = new Date(Math.round((dateValue - 25569) * 86400 * 1000));
+                            return jsDate.toLocaleDateString("en-GB");
+                        }
+                        let date = new Date(dateValue);
+                        if (isNaN(date)) return dateValue;
+                        return date.toLocaleDateString("en-GB");
+                    }
+
+                    function formatTime(timeValue) {
+                        if (!timeValue) return "";
+                        if (!isNaN(timeValue)) {
+                            let totalMinutes = Math.round(timeValue * 24 * 60);
+                            let hours = Math.floor(totalMinutes / 60);
+                            let minutes = totalMinutes % 60;
+                            let period = hours >= 12 ? "PM" : "AM";
+                            hours = hours % 12 || 12;
+                            return `${hours}:${minutes.toString().padStart(2, "0")} ${period}`;
+                        }
+                        let date = new Date(`1970-01-01T${timeValue}`);
+                        if (isNaN(date)) return timeValue;
+                        return date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true });
+                    }
+
+
+                    function renderTable(records) {
+                        const tbody = document.getElementById("tableBody");
+                        const mail = document.getElementById("loggedUserEmail").innerText;
+                        const filteredRecords = records.filter(record => (record.Filtered.trim() === mail));
+                        tbody.innerHTML = "";
+                        filteredRecords.forEach((record, index) => {
+                            tbody.innerHTML += `
+      <div class="bg-white shadow-md m-2 mx-2 rounded-lg overflow-hidden">
+        <div class="p-2 md:flex items-start justify-between">
+
+          <!-- Product Info -->
+          <div class="flex items-start object-cover">
+            
+            <img src="${record.Icon}" alt="Product" class="w-20 h-20  rounded border-2" />
+            <div class="ml-4">
+              <h3 class="text-lg font-semibold text-gray-800">${record.Other}</h3>
+              <p class="text-sm text-gray-500">Order ID: <span class="font-medium">#${record.Id}</span></p>
+              <p class="text-sm text-green-600 mt-1 font-medium">Delivered on ${formatTime(record.Time)} : ${formatDate(record.Date)}</p>
+            </div>
+          </div>
+ 
+          <!-- Action Buttons -->
+          <div class="mt-4 flex flex-wrap gap-2 justify-between w-full md:w-auto">
+            <button class="  text-black font-extrabold px-4 py-0 rounded-md hover:bg-blue-700 text-lg">
+                ${record.Size}
+            </button>
+            <button onclick='deleteRecord("${record.Id}")'  class="bg-black text-white px-3 py-1 rounded-md hover:bg-blue-700 text-sm">
+              Cancle
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+                        });
+                        async function deleteRecord(id) {
+                            if (!confirm("Are you sure ?")) return;
+                            await fetch(API_URL, { method: "POST", body: new URLSearchParams({ action: "delete", Id: id }) });
+                            fetchRecords();
+                        }
+
+                        window.addEventListener('DOMContentLoaded', () => {
+                            setTimeout(() => highlightStep(stepInputValue), 10);
+
+                            const toggleBtn = document.getElementById('toggleBtn');
+                            const expandContent = document.getElementById('expandContent');
+                            const stepInputValue = 2;
+
+                            function highlightStep(step) {
+                                document.querySelectorAll('.step').forEach((el, i) => {
+                                    el.classList.toggle('active', i < step);
+                                });
+                                document.querySelectorAll('.line').forEach((el, i) => {
+                                    el.style.backgroundColor = i < step - 1 ? '#16a34a' : '#d1d5db';
+                                });
+                            }
+                        });
+
+
+                        // After rendering, add toggle event listeners to all buttons
+                        document.querySelectorAll('.toggleBtn').forEach(btn => {
+                            btn.addEventListener('click', (e) => {
+                                const index = btn.getAttribute('data-index');
+                                const content = document.querySelector(`.expandContent[data-index="${index}"]`);
+                                const isCollapsed = content.classList.contains('max-h-0');
+
+                                if (isCollapsed) {
+                                    content.classList.remove('max-h-0');
+                                    content.classList.add('max-h-40'); // adjust height or use 'max-h-[999px]'
+                                    btn.textContent = 'Hide';
+                                } else {
+                                    content.classList.add('max-h-0');
+                                    content.classList.remove('max-h-40');
+                                    btn.textContent = 'Show';
+                                }
+                            });
+                        });
+                    }
+
+                    async function fetchRecords() {
+                        const res = await fetch(`${API_URL}?action=read`);
+                        const data = await res.json();
+                        allRecords = data.records; // ✅ save for filter
+                        renderTable(allRecords);
+                    }
+
+                    function showForm(record = null) {
+                        document.getElementById("formContainer").classList.remove("hidden");
+                        document.getElementById("crudForm").reset();
+                        document.getElementById("formTitle").innerText = record ? "Edit Record" : "Add Record";
+                        editing = !!record;
+                        if (record) {
+                            Object.keys(record).forEach(key => {
+                                let input = document.querySelector(`[name="${key}"]`);
+                                if (input) input.value = record[key];
+                            });
+                        }
+                    }
+                    function hideForm() { document.getElementById("formContainer").classList.add("hidden"); }
+                    function editRecord(record) { showForm(record); }
+
+                    async function deleteRecord(id) {
+                        if (!confirm("Are you sure ?")) return;
+                        await fetch(API_URL, { method: "POST", body: new URLSearchParams({ action: "delete", Id: id }) });
+                        fetchRecords();
+                    }
+
+                    function getBase64(file) {
+                        return new Promise((resolve, reject) => {
+                            const reader = new FileReader();
+                            reader.readAsDataURL(file);
+                            reader.onload = () => resolve(reader.result);
+                            reader.onerror = err => reject(err);
+                        });
+                    }
+
+                    // 🔍 Filter logic
+                    document.getElementById("searchInput").addEventListener("input", applyFilter);
+                    document.getElementById("filterField").addEventListener("change", applyFilter);
+
+                    function applyFilter() {
+                        const query = document.getElementById("searchInput").value.toLowerCase().trim();
+                        const field = document.getElementById("filterField").value;
+                        let filtered = allRecords.filter(record => {
+                            if (!query) return true;
+                            if (field) return String(record[field] || "").toLowerCase().includes(query);
+                            return Object.values(record).some(val => String(val).toLowerCase().includes(query));
+                        });
+                        renderTable(filtered);
+                    }
+
+                    document.getElementById("crudForm").addEventListener("submit", async (e) => {
+                        e.preventDefault();
+                        const formData = new FormData(e.target);
+                        let payload = { action: editing ? "update" : "create" };
+                        for (const [key, val] of formData.entries()) payload[key] = val;
+                        const fileInput = document.getElementById("ImageInput");
+                        if (fileInput.files.length > 0) {
+                            payload.Image = await getBase64(fileInput.files[0]);
+                            payload.ImageName = fileInput.files[0].name;
+                        }
+                        await fetch(API_URL, { method: "POST", body: new URLSearchParams(payload) });
+                        hideForm();
+                        fetchRecords();
+                    });
+
+                    fetchRecords();
+                </script>
+            </section>
+
+            <section id="message" class="hidden">
+                <h2 class="text-orange-500 font-semibold text-xl mb-6">Message</h2>
+                <p class="text-gray-700 text-sm">This is the Message section. View and send messages here.
+                </p>
+            </section>
+
+            <section id="help" class="hidden">
+                <h2 class="text-orange-500 font-semibold text-xl mb-6">Help</h2>
+                <p class="text-gray-700 text-sm">Help section content goes here. Find FAQs and support.</p>
+            </section>
+
+            <section id="setting" class="hidden">
+                <h2 class="text-orange-500 font-semibold text-xl mb-6">Setting</h2>
+                <p class="text-gray-700 text-sm">Manage your settings and preferences here.</p>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        //Side Navbar 
+        function selectSection(sectionId, btn) {
+            // Hide all sections
+            const sections = document.querySelectorAll('main > section');
+            sections.forEach((section) => {
+                section.classList.add('hidden');
+            });
+
+            // Show selected section
+            const selectedSection = document.getElementById(sectionId);
+            if (selectedSection) {
+                selectedSection.classList.remove('hidden');
+            }
+
+            // Update sidebar active states
+            const buttons = document.querySelectorAll('aside nav button');
+            buttons.forEach((button) => {
+                if (button === btn) {
+                    button.classList.add('text-orange-500', 'font-semibold');
+                    button.classList.remove('text-gray-400');
+                } else {
+                    button.classList.remove('text-orange-500', 'font-semibold');
+                    button.classList.add('text-gray-400');
+                }
+            });
+        }
+
+        // On page load, show "sells" section by default and highlight its menu item
+        window.addEventListener('DOMContentLoaded', () => {
+            const defaultSection = 'sells';
+            const defaultBtn = document.querySelector(`aside nav button[data-section="${defaultSection}"]`);
+            if (defaultBtn) {
+                selectSection(defaultSection, defaultBtn);
+            }
+        });
+    </script>
+
+    <script>
+        const toggleBtn = document.getElementById("menuToggle");
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("overlay");
+
+        function openSidebar() {
+            sidebar.classList.remove("-translate-x-full");
+            overlay.classList.remove("hidden");
+        }
+
+        function closeSidebar() {
+            sidebar.classList.add("-translate-x-full");
+            overlay.classList.add("hidden");
+        }
+
+        toggleBtn.addEventListener("click", () => {
+            if (sidebar.classList.contains("-translate-x-full")) {
+                openSidebar();
+            } else {
+                closeSidebar();
+            }
+        });
+
+        overlay.addEventListener("click", closeSidebar);
+
+        // Optional: close sidebar when clicking a menu item (mobile only)
+        sidebar.querySelectorAll("button").forEach(btn => {
+            btn.addEventListener("click", () => {
+                if (window.innerWidth < 768) closeSidebar();
+            });
+        });
+    </script>
+
+</body>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+    import {
+        getAuth,
+        onAuthStateChanged,
+        signOut
+    } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+    import {
+        getFirestore,
+        getDoc,
+        doc
+    } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+
+    // ✅ Your Firebase config (USE YOUR OWN VALUES HERE)
+    const firebaseConfig = {
+        apiKey: "AIzaSyAKN5GR18VTFrKNgVG7FenD4aSTX3Q2PbA",
+        authDomain: "gift-zone-project.firebaseapp.com",
+        projectId: "gift-zone-project",
+        storageBucket: "gift-zone-project.appspot.com",
+        messagingSenderId: "806465456032",
+        appId: "1:806465456032:web:becf8988a6dfabe43646c5",
+        measurementId: "G-1ZLMWBP61Y",
+    };
+
+    // ✅ Initialize Firebase services
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // ✅ On Auth Change: fetch and show user data
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            const loggedInUserId = localStorage.getItem("loggedInUserId");
+            if (!loggedInUserId) {
+                console.log("User ID not found in local storage.");
+                return;
+            }
+
+            const docRef = doc(db, "users", loggedInUserId);
+            getDoc(docRef)
+                .then((docSnap) => {
+                    if (docSnap.exists()) {
+                        const userData = docSnap.data();
+                        let filt = document.getElementById("loggedUserFName").innerText = userData.firstName || "N/A";
+                        document.getElementById("loggedUserEmail").innerText = userData.email || "N/A";
+                        document.getElementById("filter").value = filt;
+                        // ✅ Optional: handle missing lastName gracefully
+                        const lNameElement = document.getElementById("loggedUserLName");
+                        if (userData.lastName) {
+                            lNameElement.innerText = userData.lastName;
+                        } else {
+                            lNameElement.innerText = "-";
+                        }
+                    } else {
+                        console.log("No user document found in Firestore.");
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error fetching user data:", error);
+                });
+        } else {
+            console.log("User not signed in.");
+            window.location.href = "Owner.html"; // Redirect to login
+        }
+    });
+
+    // ✅ Logout
+    const logoutButton = document.getElementById("logout");
+    logoutButton.addEventListener("click", () => {
+        localStorage.removeItem("loggedInUserId");
+        signOut(auth)
+            .then(() => {
+                window.location.href = "Owner.html";
+            })
+            .catch((error) => {
+                console.error("Error signing out:", error);
+            });
+    });
+
+</script>
+
+</html>
