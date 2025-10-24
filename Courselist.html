@@ -13,39 +13,7 @@
   <script src="Productlist/Productlist.html"></script>
 
 <body class="mb-10 bg-gray-100 ">
-  <div id="header"></div> <!-- Header will load here -->
-  <script>
-    // Load Header CSS (optional)
-    const headerCSS = document.createElement("link");
-    headerCSS.rel = "stylesheet";
-    headerCSS.href = "Header.css";
-    document.head.appendChild(headerCSS);
-
-    // Load Header HTML
-    fetch("Header.html")
-      .then(res => res.text())
-      .then(html => {
-        const headerDiv = document.getElementById("header");
-        headerDiv.innerHTML = html;
-
-        // Run scripts from Header.html if any
-        headerDiv.querySelectorAll("script").forEach(oldScript => {
-          const newScript = document.createElement("script");
-          if (oldScript.src) {
-            newScript.src = oldScript.src; // external file
-          } else {
-            newScript.textContent = oldScript.textContent; // inline script
-          }
-          document.body.appendChild(newScript);
-        });
-
-        // Load external Header.js (optional)
-        const headerJS = document.createElement("script");
-        headerJS.src = "Header.js";
-        document.body.appendChild(headerJS);
-      })
-      .catch(err => console.error("Error loading header:", err));
-  </script>
+ 
 
   <div id="productlist-container"></div>
   <script>

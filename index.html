@@ -67,60 +67,743 @@
 </head>
 
 <body class="bg-gray-100 flex flex-col text-sm  ">
-  <div id="header"></div> <!-- Header will load here -->
-  <script>
-    (async () => {
-      try {
-        // 1️⃣ Load Header CSS
-        const headerCSS = document.createElement("link");
-        headerCSS.rel = "stylesheet";
-        headerCSS.href = "Header.css";
-        document.head.appendChild(headerCSS);
 
-        // 2️⃣ Fetch Header HTML
-        const response = await fetch("Header.html", { cache: "no-cache" });
-        if (!response.ok) throw new Error("Failed to fetch Header.html");
-        const html = await response.text();
+  <!DOCTYPE html>
+  <html lang="en">
 
-        // 3️⃣ Insert HTML into target div
-        const headerDiv = document.getElementById("header");
-        if (!headerDiv) throw new Error("Header div not found");
-        headerDiv.innerHTML = html;
-
-        // 4️⃣ Run scripts inside Header.html (inline + external)
-        headerDiv.querySelectorAll("script").forEach((oldScript) => {
-          const newScript = document.createElement("script");
-
-          // If script has src → load external file
-          if (oldScript.src) {
-            newScript.src = oldScript.src;
-            if (oldScript.type) newScript.type = oldScript.type;
-          }
-          // If script is inline → copy its content
-          else {
-            newScript.textContent = oldScript.textContent;
-            if (oldScript.type) newScript.type = oldScript.type;
-          }
-
-          // Append to body (ensures execution)
-          document.body.appendChild(newScript);
-        });
-
-        // 5️⃣ Load external Header.js (both normal and module versions)
-        const headerScriptNormal = document.createElement("script");
-        headerScriptNormal.src = "Header.js";
-        headerScriptNormal.defer = true;
-        document.body.appendChild(headerScriptNormal);
-
-        const headerScriptModule = document.createElement("script");
-        headerScriptModule.type = "module";
-        headerScriptModule.src = "HeaderModule.js"; // optional module version
-        document.body.appendChild(headerScriptModule);
-
-      } catch (err) {
-        console.error("❌ Error loading header:", err);
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" href="fav.jpg" />
+    <link rel="icon" href="fav.jpg" type="image/jpeg/jpg" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="fav.jpg" type="image/jpeg" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="theme-color" content="#f5fdf7" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="#f5fdf7" />
+    <meta name="msapplication-navbutton-color" content="#f5fdf7" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Gift Zone : Photo Frame</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
       }
-    })();
+
+      /* Hide scrollbar for side nav */
+      #mobile-nav::-webkit-scrollbar {
+        display: none;
+      }
+
+      #mobile-nav {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      @media screen and (max-width:768px) {
+        ul li {
+          font-size: 15px;
+        }
+      }
+    </style>
+    <style>
+      /* Overlay background */
+      #appDownload {
+        display: none;
+        /* initially hidden */
+        z-index: 9999;
+      }
+
+      /* Centered modal box */
+      #appDownload .modal-box {
+        width: 320px;
+        background: #fff;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        text-align: center;
+      }
+
+      /* App logo */
+      #appDownload img {
+        border-radius: 50%;
+        margin-bottom: 1rem;
+      }
+
+      /* Progress bar container */
+      .progress-container {
+
+        background-color: #e5e7eb;
+
+        border-radius: 9999px;
+        height: 1.5rem;
+        overflow: hidden;
+        position: relative;
+        margin-top: 1rem;
+      }
+
+      /* Progress bar fill */
+      #progress-bar {
+
+        height: 100%;
+        width: 0%;
+        border-radius: 9999px;
+        transition: width 0.3s ease-in-out;
+      }
+
+      /* Progress text */
+      #progress-text {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 600;
+        font-size: 0.875rem;
+        /* text-sm */
+        pointer-events: none;
+      }
+
+      /* Install button */
+      #installBtn {
+        margin-top: 1rem;
+        width: 100%;
+        padding: 0.5rem 1rem;
+        background-color: #1f1f1f;
+        /* blue-600 */
+        color: #fff;
+        font-weight: 600;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+
+      #installBtn:hover {
+        background-color: #1d4ed8;
+        /* blue-700 */
+      }
+
+      /* Status text */
+      #status-text {
+        margin-top: 1rem;
+        font-weight: 500;
+        color: #374151;
+        /* gray-700 */
+      }
+
+      /* Keyframes animation (optional) */
+      @keyframes fillWidth {
+        from {
+          width: 0%;
+        }
+
+        to {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+
+  <body class=" text-gray-900">
+    <header class="  border-gray-200 p-1">
+      <div class=" mx-auto flex items-center justify-between px-3 py-1 sm:py-3">
+        <div class="flex bottom-4 items-center justify-between w-full md:w-80 space-x-2  rounded-lg">
+          <button id="mobile-menu-button" aria-label="Open menu"
+            class="sm:hidden text-gray-700 hover:text-gray-900   focus:outline-none">
+            <i class="fas fa-bars text-xl"></i>
+          </button>
+          <a href="index.html" class="flex">
+            <img alt="Gift Zone" class=" hidden w-28 h-10  md:block object-contain" height="32" src="favll.jpg"
+              width="32" />
+            <h1 class="font-extrabold w-full  pt-0 md:pt-3 flex  md:text-1x1 text-2xl leading-none">
+              Gift Zone
+              <span class="font-normal hidden pt-1 px-1 md:block  font-extrabold  sm:text-sm md:text-sm ">
+                Store
+              </span>
+            </h1>
+          </a>
+
+          <div class="  text-left">
+            <!-- Trigger -->
+            <button id="openModalBtn" onclick="toggleMenu()" class="md:hidden p-2 rounded-full hover:bg-gray-200">
+              <i class="fas fa-ellipsis-v text-gray-700 text-lg"></i>
+            </button>
+
+            <!-- Menu -->
+            <div id="menu" class="hidden absolute right-0 mt-2 w-40 bg-white border z-[150] rounded-lg shadow-lg">
+
+              <link rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+              <style>
+                /* Custom animation for fade in/out */
+                .fade-in {
+                  animation: fadeInScale 0.3s forwards;
+                }
+
+                .fade-out {
+                  animation: fadeOutScale 0.3s forwards;
+                }
+
+                @keyframes fadeInScale {
+                  0% {
+                    opacity: 0;
+                    transform: scale(0.95);
+                  }
+
+                  100% {
+                    opacity: 1;
+                    transform: scale(1);
+                  }
+                }
+
+                @keyframes fadeOutScale {
+                  0% {
+                    opacity: 1;
+                    transform: scale(1);
+                  }
+
+                  100% {
+                    opacity: 0;
+                    transform: scale(0.95);
+                  }
+                }
+              </style>
+
+              <!-- Modal Overlay -->
+              <div id="modalOverlay"
+                class="fixed inset-0 p-4 bg-black bg-opacity-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 z-50">
+                <!-- Modal Box -->
+                <div id="modalBox"
+                  class="bg-gray-100 rounded-lg shadow-xl max-w-md w-full p-6 transform opacity-0 scale-95 transition-all"
+                  role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc">
+
+                  <div class="flex justify-between items-center mb-4">
+                    <h2 id="modalTitle"
+                      class="text-xl font-semibold text-green-700 flex items-center justify-center w-full space-x-2 text-center">
+                      <i class="fas fa-check-circle text-green-600 text-2xl"></i>
+                      <span>Download Mobile App</span>
+                    </h2>
+                    <button id="closeModalBtn" aria-label="Close"
+                      class="text-gray-400 hover:text-gray-600 absolute top-4 right-4">
+                      <i class="fas fa-times text-xl"></i>
+                    </button>
+                  </div>
+
+                  <p id="modalDesc" class="text-gray-700 mb-6 text-center">
+                    Thank you for choosing our app ! Click the button below to start the download and
+                    install the app.
+                  </p>
+
+                  <div class="flex justify-center">
+                    <button id="installBtn"
+                      class="px-4 py-2 bg-black hover:bg-gray-800 text-white font-semibold rounded-md flex items-center justify-center gap-2 transition duration-300">
+                      <i class="fas fa-download"></i>
+                      <span>Download App</span>
+                    </button>
+
+                  </div>
+                </div>
+              </div>
+
+              <!-- App Download Modal -->
+              <section id="appDownload" class="fixed inset-0 bg-black/60 flex items-center justify-center hidden z-50">
+                <div class="bg-white rounded-xl shadow-xl p-6 w-80 flex flex-col items-center relative">
+                  <img src="fav.jpg" alt="App Logo" class="w-24 h-24 rounded-full mb-3">
+                  <p id="installStatus" class="text-green-700 font-semibold text-lg mb-3">Processing...
+                  </p>
+                  <div class="w-full bg-gray-200 rounded-full h-6 overflow-hidden relative">
+                    <div id="progress-bar" class="bg-blue-600 h-full w-0 transition-all duration-300">
+                    </div>
+                    <span id="progress-text"
+                      class="absolute inset-0 flex items-center justify-center text-white font-semibold text-sm select-none">0%</span>
+                  </div>
+                  <p id="status-text" class="mt-4 text-center text-gray-700 font-medium">
+                    Downloading your App...
+                  </p>
+                  <audio id="audioPlayer" src="bell.wav" class="hidden"></audio>
+                </div>
+              </section>
+
+              <a href="#" class="hidden block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                <i class="fas fa-trash mr-2"></i> Delete
+              </a>
+              <a href="#" class="hidden block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                <i class="fas fa-share mr-2"></i> Share
+              </a>
+            </div>
+          </div>
+
+        </div>
+        <div class="hidden sm:flex flex-1 max-w-xl mx-4">
+          <div class="relative w-full">
+            <input aria-label="Search for products" id="firstinput"
+              class="w-full border  border-gray-700 rounded-full py-2 px-3 text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-600 focus:border-transparent"
+              placeholder="Search for products..." type="search" />
+            <span id="searchbtn" class="absolute inset-y-0 right-5 flex items-center text-gray-500">
+              <i class="fas fa-search text-lg"></i>
+            </span>
+          </div>
+        </div>
+
+        <div class="hidden sm:flex items-center space-x-4 text-xs sm:text-sm text-gray-900 font-semibold">
+          <div onclick="window.location.href='Owner.html'" class="text-right leading-tight">
+            <div id="HomeName" class=" font-extrabold">Gift Zone</div>
+            <div id="Homemails" class=" font-extrabold">Giftzone@gmail.com </div>
+          </div>
+          <button aria-label="Favorites" class="hidden hover:text-gray-900 transition">
+            <i class="font-extrabold far fa-heart text-3xl "></i>
+          </button>
+          <button aria-label="Shopping cart" class=" text-gray-600 hover:text-gray-900 transition">
+            <a href="Orderlist.html"><i class="fas fa-shopping-cart  text-3xl"></i>
+            </a>
+          </button>
+        </div>
+      </div>
+      <nav aria-label="Primary Navigation "
+        class="hidden sm:flex mx-auto items-center justify-between px-4 py-2 text-xs sm:text-sm text-gray-700">
+        <div onclick="window.location.href='Job.html'" class="flex items-center space-x-2 cursor-pointer select-none">
+          <span class="font-extrabold ">SHOP BY CATEGORIES</span>
+          <i class="fas fa-chevron-down text-xs "></i>
+        </div>
+        <ul class="flex flex-wrap items-center  font-extrabold space-x-3 sm:space-x-5 overflow-x-auto no-scrollbar">
+          <li><a class="hover:text-gray-900" href="index.html">Home</a></li>
+          <li><a class="hover:text-gray-900" href="Adminpenel.html">services</a></li>
+          <li><a class="hover:text-gray-900" href="Userchat.html">Chat</a></li>
+          <li><a class="hover:text-gray-900" href="Tool\Edit.html">Edit</a></li>
+          <li><a class="hover:text-gray-900" href="#">Footwear</a></li>
+          <li><a class="hover:text-gray-900" href="#">Groceries</a></li>
+          <li><a class="hover:text-gray-900" href="#">Beauty</a></li>
+          <li><a class="hover:text-gray-900" href="#">Wellness</a></li>
+          <li><a class="hover:text-gray-900" href="#">Jewellery</a></li>
+        </ul>
+        <div class="flex items-center space-x-2  text-xs sm:text-sm">
+          <i class="font-extrabold fas fa-truck text-base"></i>
+          <span class="font-extrabold"> Free International Delivery</span>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Mobile Side Navbar -->
+    <div id="mobile-nav"
+      class="bg-white z-[100]  fixed inset-y-0 left-0 w-80  shadow-lg transform -translate-x-full transition-transform duration-300 ease-in-out z-50 overflow-y-auto">
+      <div class="flex items-center justify-between px-4 py-3 border-b border-gray-200">
+        <a href="index.html" class="flex items-center space-x-2 pt-2">
+          <img alt="ClassyShop logo blue square with white text ClassyShop" class="w-28 h-8 object-contain" height="32"
+            src="fav.jpg" width="32" />
+          <h1 class="font-extrabold w-full text-2xl leading-none">
+            Gift Zone
+            <span class="font-normal text-gray-500 text-base sm:text-lg ">
+              Store
+            </span>
+          </h1>
+        </a>
+
+        <button id="mobile-menu-close" aria-label="Close menu"
+          class="text-gray-700 hover:text-gray-900 focus:outline-none">
+        </button>
+      </div>
+      <div class="px-1 py-1 border-b border-gray-200">
+        <div class="relative w-full">
+          <input aria-label="Search for products"
+            class="w-full  border border-gray-400 rounded-md py-2 pl-3 pr-10 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent"
+            placeholder="Search For Products..." type="search" />
+
+          <span class="absolute inset-y-0 right-3 flex items-center text-gray-500">
+            <i class="fas fa-search text-[#1a1a1a] text-lg"></i>
+          </span>
+        </div>
+      </div>
+
+      <nav class="px-4 py-4 text-gray-700 text-lg">
+        <div onclick="window.location.href='Job.html'"
+          class="mb-3 flex items-center space-x-2 cursor-pointer select-none font-semibold">
+          <span>SHOP BY CATEGORIES</span>
+          <i class="fas fa-chevron-down text-lg"></i>
+        </div>
+        <ul class="space-y-4 text-lg sm:text-sm">
+          <li>
+            <a class="flex items-center gap-2 hover:text-gray-900" href="">
+              <i class="fas fa-home"></i> Home
+            </a>
+          </li>
+          <li>
+            <a class="flex items-center gap-2 hover:text-gray-900" href="Adminpenel.html">
+              <i class="fas fa-user-shield"></i> services
+            </a>
+          </li>
+          <li>
+            <a class="flex items-center gap-2 hover:text-gray-900" href="Userchat.html">
+              <i class="fas fa-tv"></i> Chat
+            </a>
+          </li>
+
+          <li>
+            <a class="flex items-center gap-2 hover:text-gray-900" href="#">
+              <i class="fas fa-shoe-prints"></i> Footwear
+            </a>
+          </li>
+          <li>
+            <a class="flex items-center gap-2 hover:text-gray-900" href="#">
+              <i class="fas fa-apple-alt"></i> Groceries
+            </a>
+          </li>
+          <li>
+            <a class="flex items-center gap-2 hover:text-gray-900" href="#">
+              <i class="fas fa-spa"></i> Beauty
+            </a>
+          </li>
+          <li>
+            <a class="flex items-center gap-2 hover:text-gray-900" href="#">
+              <i class="fas fa-heartbeat"></i> Wellness
+            </a>
+          </li>
+          <li>
+            <a class="flex items-center gap-2 hover:text-gray-900" href="#">
+              <i class="fas fa-gem"></i> Jewellery
+            </a>
+          </li>
+        </ul>
+
+        <div class="mt-6 flex items-center space-x-2 text-gray-700 text-sm">
+          <i class="fas fa-truck text-base"></i>
+          <span>Free International Delivery</span>
+        </div>
+        <div
+          class="flex fixed bottom-0 left-0 w-full items-center justify-between  border-t border-gray-200 px-4 py-3 text-gray-900 font-semibold text-sm z-[100] shadow-lg">
+
+          <div onclick="window.location.href='Owner.html'">
+            <div id="PhoneHomeName">Gift Zone</div>
+            <div id="PhoneHomemails" class="text-gray-600 font-normal text-xs">
+              Giftzone@Gmail.Com
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex space-x-4">
+            <button aria-label="Favorites" class="hidden text-gray-600 hover:text-red-500 transition">
+              <i class="far fa-heart text-lg"></i>
+            </button>
+            <button onclick="window.location.href='Orderlist.html'" aria-label="Shopping cart"
+              class="text-gray-600 hover:text-blue-600 transition">
+              <i class="fas fa-shopping-cart text-lg"></i>
+            </button>
+          </div>
+        </div>
+
+      </nav>
+    </div>
+
+    <!-- Overlay -->
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-30 hidden z-[50]" aria-hidden="true"></div>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+    <!-- App Download Modal -->
+    <section id="appDownload" class="fixed inset-0 bg-black/60 flex items-center justify-center hidden z-[9999]">
+      <div class="bg-white rounded-xl shadow-xl p-6 w-80 flex flex-col items-center relative">
+        <img src="fav.jpg" alt="App Logo" class="w-24 h-24 rounded-full mb-3">
+        <p id="installStatus" class="text-green-700 font-semibold text-lg mb-3">Processing...</p>
+
+
+        <div class="w-full bg-gray-200 rounded-full h-6 overflow-hidden relative">
+          <div id="progress-bar" class="bg-blue-600 h-full w-0 transition-all"></div>
+          <span id="progress-text"
+            class="absolute inset-0 flex items-center justify-center text-white font-semibold text-sm select-none">0%</span>
+        </div>
+
+        <p id="status-text" class="mt-4 text-center text-gray-700 font-medium">
+          Downloading your App...
+        </p>
+
+        <audio id="audioPlayer" src="bell.wav" class="hidden"></audio>
+      </div>
+    </section>
+
+  </body>
+  <script>
+
+    const mobileMenuButton = document.getElementById("mobile-menu-button");
+    const mobileMenuClose = document.getElementById("mobile-menu-close");
+    const mobileNav = document.getElementById("mobile-nav");
+    const overlay = document.getElementById("overlay");
+
+    function openMenu() {
+      mobileNav.classList.remove("-translate-x-full");
+      overlay.classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeMenu() {
+      mobileNav.classList.add("-translate-x-full");
+      overlay.classList.add("hidden");
+      document.body.style.overflow = "";
+    }
+
+    mobileMenuButton.addEventListener("click", openMenu);
+    mobileMenuClose.addEventListener("click", closeMenu);
+    overlay.addEventListener("click", closeMenu);
+
+    // Modal
+    const openBtn = document.getElementById("openModalBtn");
+    const closeBtn = document.getElementById("closeModalBtn");
+    const closeBtnFooter = document.getElementById("closeModalBtnFooter");
+    const modalOverlay = document.getElementById("modalOverlay");
+    const modalBox = document.getElementById("modalBox");
+
+    function openModal() {
+      modalOverlay.classList.remove("opacity-0", "pointer-events-none");
+      modalOverlay.classList.add("opacity-100");
+      modalBox.classList.remove("opacity-0", "scale-95", "fade-out");
+      modalBox.classList.add("fade-in");
+    }
+
+    function closeModal() {
+      modalBox.classList.remove("fade-in");
+      modalBox.classList.add("fade-out");
+      modalOverlay.classList.remove("opacity-100");
+      modalOverlay.classList.add("opacity-0");
+
+      setTimeout(() => {
+        modalOverlay.classList.add("pointer-events-none");
+        modalBox.classList.remove("fade-out");
+        modalBox.classList.add("opacity-0", "scale-95");
+      }, 300);
+    }
+
+    openBtn.addEventListener("click", openModal);
+    closeBtn.addEventListener("click", closeModal);
+    closeBtnFooter.addEventListener("click", closeModal);
+    modalOverlay.addEventListener("click", (e) => {
+      if (e.target === modalOverlay) closeModal();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !modalOverlay.classList.contains("pointer-events-none")) {
+        closeModal();
+      }
+    });
+
+    // App install & progress
+    const progressBar = document.getElementById("progress-bar");
+    const progressText = document.getElementById("progress-text");
+    const statusText = document.getElementById("status-text");
+    const installStatus = document.getElementById("installStatus");
+    const audio = document.getElementById("audioPlayer");
+    const installBtn = document.getElementById("installBtn");
+    const appDownload = document.getElementById("appDownload");
+
+    let deferredPrompt = null;
+    let appInstalled = false;
+    let startTime = null;
+    const duration = 5000; // simulate 5s download
+
+    function animateProgress(timestamp) {
+      if (!startTime) startTime = timestamp;
+      const elapsed = timestamp - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const percent = Math.floor(progress * 100);
+
+      progressBar.style.width = percent + "%";
+      progressText.textContent = percent + "%";
+
+      if (progress < 1) {
+        requestAnimationFrame(animateProgress);
+      } else {
+        statusText.textContent = "Download Complete!";
+        installStatus.textContent = "Installed ✅";
+        audio.play().catch((err) => console.warn("Audio play blocked:", err));
+      }
+    }
+
+    // Install button click
+    installBtn.addEventListener("click", async () => {
+      if (appInstalled) {
+        alert("App is already installed.");
+        return;
+      }
+
+      // Show modal download animation
+      appDownload.classList.remove("hidden");
+      statusText.textContent = "Downloading your App...";
+      installStatus.textContent = "Processing...";
+      progressBar.style.width = "0%";
+      progressText.textContent = "0%";
+      startTime = null;
+      requestAnimationFrame(animateProgress);
+
+      setTimeout(async () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          if (outcome === "accepted") {
+            console.log("User accepted the install prompt");
+            installStatus.textContent = "App Installed!";
+            statusText.textContent = "Ready to use 🎉";
+          } else {
+            console.log("User dismissed the install prompt");
+            installStatus.textContent = "Install Cancelled";
+          }
+          deferredPrompt = null;
+        } else {
+          installStatus.textContent = "Already Installed";
+          statusText.textContent = "App is already on your device";
+        }
+      }, duration + 500);
+    });
+
+    // PWA events
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      appInstalled = false;
+      showModal();
+    });
+
+    window.addEventListener("appinstalled", () => {
+      appInstalled = true;
+    });
+
+    // Show modal
+    function showModal() {
+      modalOverlay.classList.remove("opacity-0", "pointer-events-none");
+      modalBox.classList.remove("opacity-0", "scale-95");
+      modalOverlay.classList.add("opacity-100");
+      modalBox.classList.add("opacity-100", "scale-100");
+    }
+
+    // Search input
+    const firstinput = document.getElementById("firstinput");
+    const searchbtn = document.getElementById("searchbtn");
+
+    window.addEventListener("load", () => {
+      firstinput.focus();
+      firstinput.select();
+    });
+
+    function redirectToCourse() {
+      const value = firstinput.value.trim();
+      if (value !== "") {
+        window.location.href = `Courselist.html?search=${encodeURIComponent(value)}`;
+      }
+    }
+
+    firstinput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        redirectToCourse();
+      }
+    });
+    searchbtn.addEventListener("click", redirectToCourse);
+
+    // Menu toggle
+    function toggleMenu() {
+      document.getElementById("menu").classList.toggle("hidden");
+    }
+
+    // Simulate progress (alternative random style)
+    function simulateProgress(callback) {
+      let progress = 0;
+      const interval = setInterval(() => {
+        if (progress >= 100) {
+          clearInterval(interval);
+          progress = 100;
+          progressBar.style.width = "100%";
+          progressText.innerText = "100%";
+          statusText.innerText = "App Installed!";
+          audio.play();
+          setTimeout(() => (appDownload.style.display = "none"), 2000);
+          callback();
+        } else {
+          progress += 5 + Math.random() * 10;
+          if (progress > 100) progress = 100;
+          progressBar.style.width = `${progress}%`;
+          progressText.innerText = `${Math.floor(progress)}%`;
+        }
+      }, 200);
+    }
+
+  </script>
+  <script type="module">
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+    import {
+      getAuth,
+      onAuthStateChanged,
+      signOut,
+    } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+    import {
+      getFirestore,
+      getDoc,
+      doc,
+    } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+
+    // ✅ Your Firebase config (USE YOUR OWN VALUES HERE)
+    const firebaseConfig = {
+      apiKey: "AIzaSyAKN5GR18VTFrKNgVG7FenD4aSTX3Q2PbA",
+      authDomain: "gift-zone-project.firebaseapp.com",
+      projectId: "gift-zone-project",
+      storageBucket: "gift-zone-project.appspot.com",
+      messagingSenderId: "806465456032",
+      appId: "1:806465456032:web:becf8988a6dfabe43646c5",
+      measurementId: "G-1ZLMWBP61Y",
+    };
+
+    // ✅ Initialize Firebase services
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // ✅ On Auth Change: fetch and show user data
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const loggedInUserId = localStorage.getItem("loggedInUserId");
+        if (!loggedInUserId) {
+          console.log("User ID not found in local storage.");
+          return;
+        }
+
+        const docRef = doc(db, "users", loggedInUserId);
+        getDoc(docRef)
+          .then((docSnap) => {
+            if (docSnap.exists()) {
+              const userData = docSnap.data();
+              let filt = (document.getElementById("HomeName").innerText =
+                userData.firstName || "N/A");
+              let ff = (document.getElementById("Homemails").innerText =
+                userData.email || "N/A");
+              let filts = (document.getElementById("PhoneHomeName").innerText =
+                userData.firstName || "N/A");
+              let ffd = (document.getElementById("PhoneHomemails").innerText =
+                userData.email || "N/A");
+
+              // ✅ Optional: handle missing lastName gracefully
+              const lNameElement = document.getElementById("loggedUserLName");
+              if (userData.lastName) {
+                lNameElement.innerText = userData.lastName;
+              } else {
+                lNameElement.innerText = "-";
+              }
+            } else {
+              console.log("No user document found in Firestore.");
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching user data:", error);
+          });
+      } else {
+        console.log("User not signed in.");
+      }
+    });
   </script>
 
   <form id="search-form" class=" w-full px-3 md:hidden" role="search" aria-label="Search jobs or courses" novalidate>

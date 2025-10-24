@@ -225,7 +225,7 @@ loginForm.addEventListener("submit", (e) => {
 // ownerlog
 // Login handler
 ownerlog.addEventListener("click", (e) => {
-  alert("fhfhfh");
+ 
   e.preventDefault();
   let valid = true;
   const email = loginEmailInput.value.trim();
