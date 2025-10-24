@@ -385,7 +385,7 @@
                     <!-- Data Table -->
                     <div class="bg-white shadow rounded-lg md:mb-20 w-full  md:max-h-[80vh]">
                         <!-- Wrapper for scrolling -->
-                        <div class="overflow-x-auto overflow-y-auto max-h-[98vh] md:max-h-[80vh]">
+                        <div class="overflow-x-auto overflow-y-auto max-h-[86vh] md:max-h-[80vh]">
                             <table class="min-w-full border border-gray-200 text-xs text-gray-700">
 
                                 <tbody id="tableBody" class="divide-y divide-gray-200 pb-20">
@@ -534,6 +534,7 @@
                 <script>
                     const API_URL = "https://script.google.com/macros/s/AKfycby_gJSJorghtpLgbZjHKO4eJ4f0S1HwDF89FpmFng4CcMedA7L--y8flV_HCaRb2LE-/exec";
                     let editing = false;
+                    let userRecords = []; // only records for the logged-in user
 
                     function formatDate(dateValue) {
                         if (!dateValue) return "";
@@ -561,92 +562,70 @@
                         return date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true });
                     }
 
-
                     function renderTable(records) {
                         const tbody = document.getElementById("tableBody");
-                        const mail = document.getElementById("loggedUserEmail").innerText;
-                        const filteredRecords = records.filter(record => (record.Filtered.trim() === mail));
                         tbody.innerHTML = "";
-                        filteredRecords.forEach((record, index) => {
+
+                        if (!records.length) {
+                            tbody.innerHTML = `<p class="text-center text-gray-500 py-4">No records found.</p>`;
+                            return;
+                        }
+
+                        records.forEach((record, index) => {
                             tbody.innerHTML += `
       <div class="bg-white shadow-md m-2 mx-2 rounded-lg overflow-hidden">
         <div class="p-2 md:flex items-start justify-between">
-
-          <!-- Product Info -->
           <div class="flex items-start object-cover">
-            
-            <img src="${record.Icon}" alt="Product" class="w-20 h-20  rounded border-2" />
+            <img src="${record.Icon}" alt="Product" class="w-20 h-20 rounded border-2" />
             <div class="ml-4">
               <h3 class="text-lg font-semibold text-gray-800">${record.Other}</h3>
               <p class="text-sm text-gray-500">Order ID: <span class="font-medium">#${record.Id}</span></p>
-              <p class="text-sm text-green-600 mt-1 font-medium">Delivered on ${formatTime(record.Time)} : ${formatDate(record.Date)}</p>
+              <p class="text-sm text-green-600 mt-1 font-medium">Delivered ${formatTime(record.Time)} : ${formatDate(record.Date)}</p>
             </div>
           </div>
- 
-          <!-- Action Buttons -->
           <div class="mt-4 flex flex-wrap gap-2 justify-between w-full md:w-auto">
-            <button class="  text-black font-extrabold px-4 py-0 rounded-md hover:bg-blue-700 text-lg">
-                ${record.Size}
-            </button>
-            <button onclick='deleteRecord("${record.Id}")'  class="bg-black text-white px-3 py-1 rounded-md hover:bg-blue-700 text-sm">
-              Cancle
-            </button>
+            <button class="text-black font-extrabold px-4 py-0 rounded-md hover:bg-blue-700 text-lg">${record.Size}</button>
+            <button onclick='deleteRecord("${record.Id}")' class="bg-black text-white px-3 py-1 rounded-md hover:bg-blue-700 text-sm">Cancel</button>
           </div>
         </div>
-      </div>
-    `;
-                        });
-                        async function deleteRecord(id) {
-                            if (!confirm("Are you sure ?")) return;
-                            await fetch(API_URL, { method: "POST", body: new URLSearchParams({ action: "delete", Id: id }) });
-                            fetchRecords();
-                        }
-
-                        window.addEventListener('DOMContentLoaded', () => {
-                            setTimeout(() => highlightStep(stepInputValue), 10);
-
-                            const toggleBtn = document.getElementById('toggleBtn');
-                            const expandContent = document.getElementById('expandContent');
-                            const stepInputValue = 2;
-
-                            function highlightStep(step) {
-                                document.querySelectorAll('.step').forEach((el, i) => {
-                                    el.classList.toggle('active', i < step);
-                                });
-                                document.querySelectorAll('.line').forEach((el, i) => {
-                                    el.style.backgroundColor = i < step - 1 ? '#16a34a' : '#d1d5db';
-                                });
-                            }
-                        });
-
-
-                        // After rendering, add toggle event listeners to all buttons
-                        document.querySelectorAll('.toggleBtn').forEach(btn => {
-                            btn.addEventListener('click', (e) => {
-                                const index = btn.getAttribute('data-index');
-                                const content = document.querySelector(`.expandContent[data-index="${index}"]`);
-                                const isCollapsed = content.classList.contains('max-h-0');
-
-                                if (isCollapsed) {
-                                    content.classList.remove('max-h-0');
-                                    content.classList.add('max-h-40'); // adjust height or use 'max-h-[999px]'
-                                    btn.textContent = 'Hide';
-                                } else {
-                                    content.classList.add('max-h-0');
-                                    content.classList.remove('max-h-40');
-                                    btn.textContent = 'Show';
-                                }
-                            });
+      </div>`;
                         });
                     }
 
+                    // Fetch records only for logged-in user
                     async function fetchRecords() {
                         const res = await fetch(`${API_URL}?action=read`);
                         const data = await res.json();
-                        allRecords = data.records; // ✅ save for filter
-                        renderTable(allRecords);
+                        const mail = document.getElementById("loggedUserEmail").innerText.trim();
+                        userRecords = data.records.filter(record => record.Filtered.trim() === mail); // only user records
+                        renderTable(userRecords);
                     }
 
+                    // Delete record
+                    async function deleteRecord(id) {
+                        if (!confirm("Are you sure ?")) return;
+                        await fetch(API_URL, { method: "POST", body: new URLSearchParams({ action: "delete", Id: id }) });
+                        fetchRecords();
+                    }
+
+                    // Search/filter for user's records only
+                    document.getElementById("searchInput").addEventListener("input", applyFilter);
+                    document.getElementById("filterField").addEventListener("change", applyFilter);
+
+                    function applyFilter() {
+                        const query = document.getElementById("searchInput").value.toLowerCase().trim();
+                        const field = document.getElementById("filterField").value;
+
+                        const filtered = userRecords.filter(record => {
+                            if (!query) return true;
+                            if (field) return String(record[field] || "").toLowerCase().includes(query);
+                            return Object.values(record).some(val => String(val).toLowerCase().includes(query));
+                        });
+
+                        renderTable(filtered);
+                    }
+
+                    // Form handling
                     function showForm(record = null) {
                         document.getElementById("formContainer").classList.remove("hidden");
                         document.getElementById("crudForm").reset();
@@ -660,13 +639,23 @@
                         }
                     }
                     function hideForm() { document.getElementById("formContainer").classList.add("hidden"); }
-                    function editRecord(record) { showForm(record); }
 
-                    async function deleteRecord(id) {
-                        if (!confirm("Are you sure ?")) return;
-                        await fetch(API_URL, { method: "POST", body: new URLSearchParams({ action: "delete", Id: id }) });
+                    document.getElementById("crudForm").addEventListener("submit", async (e) => {
+                        e.preventDefault();
+                        const formData = new FormData(e.target);
+                        let payload = { action: editing ? "update" : "create" };
+                        for (const [key, val] of formData.entries()) payload[key] = val;
+
+                        const fileInput = document.getElementById("ImageInput");
+                        if (fileInput && fileInput.files.length > 0) {
+                            payload.Image = await getBase64(fileInput.files[0]);
+                            payload.ImageName = fileInput.files[0].name;
+                        }
+
+                        await fetch(API_URL, { method: "POST", body: new URLSearchParams(payload) });
+                        hideForm();
                         fetchRecords();
-                    }
+                    });
 
                     function getBase64(file) {
                         return new Promise((resolve, reject) => {
@@ -677,38 +666,10 @@
                         });
                     }
 
-                    // 🔍 Filter logic
-                    document.getElementById("searchInput").addEventListener("input", applyFilter);
-                    document.getElementById("filterField").addEventListener("change", applyFilter);
-
-                    function applyFilter() {
-                        const query = document.getElementById("searchInput").value.toLowerCase().trim();
-                        const field = document.getElementById("filterField").value;
-                        let filtered = allRecords.filter(record => {
-                            if (!query) return true;
-                            if (field) return String(record[field] || "").toLowerCase().includes(query);
-                            return Object.values(record).some(val => String(val).toLowerCase().includes(query));
-                        });
-                        renderTable(filtered);
-                    }
-
-                    document.getElementById("crudForm").addEventListener("submit", async (e) => {
-                        e.preventDefault();
-                        const formData = new FormData(e.target);
-                        let payload = { action: editing ? "update" : "create" };
-                        for (const [key, val] of formData.entries()) payload[key] = val;
-                        const fileInput = document.getElementById("ImageInput");
-                        if (fileInput.files.length > 0) {
-                            payload.Image = await getBase64(fileInput.files[0]);
-                            payload.ImageName = fileInput.files[0].name;
-                        }
-                        await fetch(API_URL, { method: "POST", body: new URLSearchParams(payload) });
-                        hideForm();
-                        fetchRecords();
-                    });
-
+                    // Initial fetch
                     fetchRecords();
                 </script>
+
             </section>
 
             <section id="message" class="hidden">
