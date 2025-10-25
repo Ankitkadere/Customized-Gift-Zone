@@ -8,7 +8,6 @@ fetch(`${SHEET_API}?action=read`)
   .then((res) => res.json())
   .then((data) => {
     const courses = data.records;
-
     const urlParams = new URLSearchParams(window.location.search);
     const searchParam = urlParams.get("search");
     if (searchParam) searchInput.value = searchParam;
@@ -39,9 +38,7 @@ fetch(`${SHEET_API}?action=read`)
       filteredCourses.forEach((course) => {
         const card = document.createElement("div");
         card.className = "bg-white shadow rounded-lg overflow-hidden relative";
-
         card.innerHTML = `
-         
 <a href="CourseDetail.html?id=${course.Id}" class="md:block relative">
   <div class="absolute top-2 left-2 bg-gray-50 w-7 h-7 rounded-full flex items-center justify-center">
     <i class="fas fa-heart text-black text-lg"></i>
@@ -67,10 +64,11 @@ fetch(`${SHEET_API}?action=read`)
       style="font-size: 10px;"
       class="w-40 overflow-hidden h-5 text-gray-500 text-green-900 mt-[-5px]"
     >
-      ${course.Specification} : ${course.Size}
+      ${course.Specification} :  <p class=" text-sm ">  </p>
     </p>
-    <div class="flex items-center justify-between mt-[-5px]">
-      <span class="font-extrabold text-lg">₹${course.Price}</span>
+    <div class="flex items-center justify-between mt-[-5px]"> 
+      <span class="font-extrabold text-lg">₹${course.Price}<spam class="text-[10px] text-gray-800"> ${course.Size}</spam></span>
+      <span class="font-extrabold text-sm"></span>
       <button
         aria-label="Add to cart"
         class="w-6 h-6 rounded-full flex items-center justify-center bg-gray-50 hover:bg-gray-400"

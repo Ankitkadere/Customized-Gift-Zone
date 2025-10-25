@@ -276,6 +276,19 @@
         class="hidden border p-2 rounded-md w-full mb-4" />
     <script src="Productlist/Productlist.js"></script>
     <section id="courseSection" class="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-7 gap-1 p-2">
+        <div id="page-loader" class="relative w-[100vw] h-full inset-0 bg-gray-100 bg-opacity-50 flex items-center justify-center z-50">
+            <div class="w-12 h-12 mt-10 border-4 border-gray-900 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+
+        <script>
+            setTimeout(() => {
+                const loader = document.getElementById("page-loader");
+                if (loader) {
+                    loader.classList.add("opacity-0", "transition-opacity", "duration-500");
+                    setTimeout(() => loader.remove(), 600); // fade-out then remove
+                }
+            }, 5000);
+        </script>
     </section>
 </body>
 </html>
