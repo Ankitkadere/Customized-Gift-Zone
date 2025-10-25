@@ -658,6 +658,17 @@
       }
     });
 
+    
+    function renderStars(rating) {
+      let stars = "";
+      for (let i = 1; i <= 5; i++) {
+        stars += i <= rating
+          ? '<i class="fas fa-star text-yellow-400"></i>'
+          : '<i class="far fa-star text-yellow-400"></i>';
+      }
+      return stars;
+    }
+ 
     fetch('courses.json')
       .then(res => res.json())
       .then(courses => {
@@ -668,15 +679,6 @@
       .catch(err => console.error('Error loading courses:', err));
 
 
-    function renderStars(rating) {
-      let stars = "";
-      for (let i = 1; i <= 5; i++) {
-        stars += i <= rating
-          ? '<i class="fas fa-star text-yellow-400"></i>'
-          : '<i class="far fa-star text-yellow-400"></i>';
-      }
-      return stars;
-    }
     const code = Math.floor(1000 + Math.random() * 9000);
     const ID = Math.floor(100000 + Math.random() * 7000);
     const courseId = new URLSearchParams(window.location.search).get("id");

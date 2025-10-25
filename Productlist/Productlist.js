@@ -39,7 +39,7 @@ fetch(`${SHEET_API}?action=read`)
         const card = document.createElement("div");
         card.className = "bg-white shadow rounded-lg overflow-hidden relative";
         card.innerHTML = `
-<a href="CourseDetail.html?id=${course.Id}" class="md:block relative">
+<a href="FullpageOrder.html?id=${course.Id}" class="md:block relative">
   <div class="absolute top-2 left-2 bg-gray-50 w-7 h-7 rounded-full flex items-center justify-center">
     <i class="fas fa-heart text-black text-lg"></i>
   </div>
