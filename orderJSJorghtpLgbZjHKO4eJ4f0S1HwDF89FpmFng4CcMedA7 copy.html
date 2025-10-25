@@ -1,0 +1,284 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Orders and sells - Dynamic Sections</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="theme-color" content="#f5fdf7">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 text-sm">
+    <div class="max-w-7xl mx-auto">
+        <h1 class="text-xl font-bold text-center mb-6 text-gray-800">Google Sheet CRUD App</h1>
+
+        <!-- 🔍 Filter Section -->
+        <div class="mb-4 flex justify-end space-x-2">
+            <select id="filterField"
+                class="p-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-300 focus:outline-none text-sm">
+                <option value="">All Fields</option>
+                <option value="Id">Id</option>
+                <option value="Date">Date</option>
+                <option value="Time">Time</option>
+                <option value="Name">Name</option>
+                <option value="Number">Number</option>
+                <option value="Material">Material</option>
+                <option value="Color">Color</option>
+                <option value="Address">Address</option>
+                <option value="City">City</option>
+                <option value="Pincode">Pincode</option>
+                <option value="State">State</option>
+                <option value="Status">Status</option>
+                <option value="Payment">Payment</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <input type="text" id="searchInput" placeholder="Search..."
+                class="w-72 p-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-300 focus:outline-none text-sm">
+        </div>
+
+        <!-- Data Table -->
+        <div class="bg-white shadow rounded-lg md:mb-20 w-full  md:max-h-[80vh]">
+            <!-- Wrapper for scrolling -->
+            <div class="overflow-x-auto overflow-y-auto max-h-[98vh] md:max-h-[80vh]">
+                <table class="min-w-full border border-gray-200 text-xs text-gray-700">
+                    <thead class="bg-gray-100 text-gray-600 w-full uppercase tracking-wider">
+                        <tr class="">
+                            <th class="p-2 border">Id</th>
+                            <th class="p-2 border">Icon</th>
+                            <th class="p-2 border">Date & Time</th>
+
+                            <th class="p-2 border">Name & Number</th>
+
+                            <th class="p-2 border">Size</th>
+                            <th class="p-2 border">Material & Color</th>
+
+                            <th class="p-2 border">Address & City & Code</th>
+
+                            <th class="p-2 border">Status</th>
+
+                            <th class="p-2 border">Level</th>
+                            <th class="p-2 border"> </th>
+                            <th class="p-2 border">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody" class="divide-y divide-gray-200">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Form (hidden by default) -->
+        <div id="formContainer"
+            class="hidden max-w-3xl mx-auto bg-white shadow-lg p-6 rounded-xl border border-gray-200">
+            <h2 id="formTitle" class="text-base font-semibold mb-6 text-gray-800 border-b pb-2">Add Record</h2>
+
+            <form id="crudForm" class="grid grid-cols-2 gap-4 text-sm">
+                <input type="hidden" id="Id" name="Id">
+                <div><label class="block text-gray-600 mb-1">Date</label><input type="text" name="Date"
+                        class="w-full p-2 border rounded-lg" placeholder="YYYY-MM-DD"></div>
+                <div><label class="block text-gray-600 mb-1">Time</label><input type="text" name="Time"
+                        class="w-full p-2 border rounded-lg" placeholder="HH:MM AM/PM"></div>
+                <div><label class="block text-gray-600 mb-1">Name</label><input type="text" name="Name"
+                        class="w-full p-2 border rounded-lg"></div>
+                <div><label class="block text-gray-600 mb-1">Number</label><input type="text" name="Number"
+                        class="w-full p-2 border rounded-lg"></div>
+                <div><label class="block text-gray-600 mb-1">Material</label><input type="text" name="Material"
+                        class="w-full p-2 border rounded-lg"></div>
+                <div><label class="block text-gray-600 mb-1">Color</label><input type="text" name="Color"
+                        class="w-full p-2 border rounded-lg"></div>
+                <div><label class="block text-gray-600 mb-1">Address</label><input type="text" name="Address"
+                        class="w-full p-2 border rounded-lg"></div>
+                <div><label class="block text-gray-600 mb-1">City</label><input type="text" name="City"
+                        class="w-full p-2 border rounded-lg"></div>
+                <div><label class="block text-gray-600 mb-1">Pincode</label><input type="text" name="Pincode"
+                        class="w-full p-2 border rounded-lg"></div>
+                <div><label class="block text-gray-600 mb-1">State</label><input type="text" name="State"
+                        class="w-full p-2 border rounded-lg"></div>
+                <div><label class="block text-gray-600 mb-1">Status</label><input type="text" name="Status"
+                        class="w-full p-2 border rounded-lg"></div>
+                <div><label class="block text-gray-600 mb-1">Payment</label><input type="text" name="Payment"
+                        class="w-full p-2 border rounded-lg"></div>
+                <div class="col-span-2"><label class="block text-gray-600 mb-1">Other</label><input type="text"
+                        name="Other" class="w-full p-2 border rounded-lg"></div>
+                <div class="col-span-2"><label class="block text-gray-600 mb-1">Upload Image</label><input type="file"
+                        id="ImageInput" accept="image/*" class="w-full border rounded-lg"></div>
+                <div class="col-span-2 flex justify-end space-x-3 mt-6">
+                    <button type="button" onclick="hideForm()"
+                        class="px-4 py-2 bg-gray-500 text-white rounded-lg">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg">Save</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Add Button -->
+        <div class="mt-6 text-center">
+            <button onclick="showForm()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded shadow">+
+                Add
+                New</button>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = "https://script.google.com/macros/s/AKfycby_gJSJorghtpLgbZjHKO4eJ4f0S1HwDF89FpmFng4CcMedA7L--y8flV_HCaRb2LE-/exec";
+
+        let editing = false;
+        let allRecords = []; // ✅ global storage for filtering
+
+        function formatDate(dateValue) {
+            if (!dateValue) return "";
+            if (!isNaN(dateValue)) {
+                let jsDate = new Date(Math.round((dateValue - 25569) * 86400 * 1000));
+                return jsDate.toLocaleDateString("en-GB");
+            }
+            let date = new Date(dateValue);
+            if (isNaN(date)) return dateValue;
+            return date.toLocaleDateString("en-GB");
+        }
+
+        function formatTime(timeValue) {
+            if (!timeValue) return "";
+            if (!isNaN(timeValue)) {
+                let totalMinutes = Math.round(timeValue * 24 * 60);
+                let hours = Math.floor(totalMinutes / 60);
+                let minutes = totalMinutes % 60;
+                let period = hours >= 12 ? "PM" : "AM";
+                hours = hours % 12 || 12;
+                return `${hours}:${minutes.toString().padStart(2, "0")} ${period}`;
+            }
+            let date = new Date(`1970-01-01T${timeValue}`);
+            if (isNaN(date)) return timeValue;
+            return date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true });
+        }
+
+        function renderTable(records) {
+            const tbody = document.getElementById("tableBody");
+            tbody.innerHTML = "";
+            records.forEach(record => {
+                   tbody.innerHTML += `
+          <tr class="hover:bg-gray-50">
+          <td class="border p-2 whitespace-nowrap">${record.Id}</td>
+          <td class="border p-2 whitespace-nowrap  w-28 h-20 object-cover ">
+            <img src="${record.Icon}" alt="Product" class=" rounded border-2" />
+          </td>
+          <td class="border p-2  flex-col">
+            <div class="font-extrabold"> ${record.Other} </div>
+            <div>${formatTime(record.Time)}</div>
+            <div> ${formatDate(record.Date)}</div>
+          </td> 
+          <td class="border p-2 ">${record.Name} ${record.Number}</td>
+   
+          <td class="border p-2 whitespace-nowrap">${record.Size}</td>
+
+          <td class="border p-2  whitespace-nowrap flex-col">
+            <div><b>Material</b> : ${record.Material}</div>
+            <div><b>Color</b> : ${record.Color}</div>
+          </td>
+ 
+          <td class="border p-2  whitespace-nowrap flex-col">
+            <div>${record.Address}}</div>
+            <div>${record.City}</div>
+            <div> ${record.State}</div>
+            <div>${record.Pincode}</div>
+          </td>
+          <td class="border p-2  whitespace-nowrap flex-col">
+            <div><b>Status</b> : ${record.Status}</div>
+            <div><b>Payment</b> : ${record.Payment}</div>
+          </td>
+          <td class="border p-2  whitespace-nowrap flex-col">
+            <div><b>Level</b> : ${record.Level}</div>
+            
+          </td>
+         
+          <td class="border p-2 whitespace-nowrap">
+            ${record.Image ? `<a href="${record.Image}" target="_blank" class="text-blue-600 underline">View</a>` : ""}
+          </td>
+          <td class="border p-2 whitespace-nowrap flex space-x-1">
+            <button onclick='editRecord(${JSON.stringify(record)})' class="bg-yellow-500 text-white px-2 py-1 rounded text-xs"> <i class="fas fa-pen"></i></button>
+            <button onclick='deleteRecord("${record.Id}")' class="bg-red-600 text-white px-2 py-1 rounded text-xs"> <i class="fas fa-trash"></i></button>
+          </td>
+        </tr>`;
+            });
+        }
+
+        async function fetchRecords() {
+            const res = await fetch(`${API_URL}?action=read`);
+            const data = await res.json();
+            allRecords = data.records; // ✅ save for filter
+            renderTable(allRecords);
+        }
+
+        function showForm(record = null) {
+            document.getElementById("formContainer").classList.remove("hidden");
+            document.getElementById("crudForm").reset();
+            document.getElementById("formTitle").innerText = record ? "Edit Record" : "Add Record";
+            editing = !!record;
+            if (record) {
+                Object.keys(record).forEach(key => {
+                    let input = document.querySelector(`[name="${key}"]`);
+                    if (input) input.value = record[key];
+                });
+            }
+        }
+        function hideForm() { document.getElementById("formContainer").classList.add("hidden"); }
+        function editRecord(record) { showForm(record); }
+
+        async function deleteRecord(id) {
+            if (!confirm("Are you sure?")) return;
+            await fetch(API_URL, { method: "POST", body: new URLSearchParams({ action: "delete", Id: id }) });
+            fetchRecords();
+        }
+
+        function getBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = err => reject(err);
+            });
+        }
+
+        // 🔍 Filter logic
+        document.getElementById("searchInput").addEventListener("input", applyFilter);
+        document.getElementById("filterField").addEventListener("change", applyFilter);
+
+        function applyFilter() {
+            const query = document.getElementById("searchInput").value.toLowerCase().trim();
+            const field = document.getElementById("filterField").value;
+            let filtered = allRecords.filter(record => {
+                if (!query) return true;
+                if (field) return String(record[field] || "").toLowerCase().includes(query);
+                return Object.values(record).some(val => String(val).toLowerCase().includes(query));
+            });
+            renderTable(filtered);
+        }
+
+        document.getElementById("crudForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            let payload = { action: editing ? "update" : "create" };
+            for (const [key, val] of formData.entries()) payload[key] = val;
+            const fileInput = document.getElementById("ImageInput");
+            if (fileInput.files.length > 0) {
+                payload.Image = await getBase64(fileInput.files[0]);
+                payload.ImageName = fileInput.files[0].name;
+            }
+            await fetch(API_URL, { method: "POST", body: new URLSearchParams(payload) });
+            hideForm();
+            fetchRecords();
+        });
+
+        fetchRecords();
+    </script>
+</body>
+
+</html>

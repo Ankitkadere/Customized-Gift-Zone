@@ -68,9 +68,11 @@
          ">
             <div onclick="window.location.href='index.html'"
                 class="mx-auto flex flex-col items-center justify-center text-white text-center mb-8">
-                <img src="fav.jpg" alt="ClassyShop logo white square with white text ClassyShop"
-                    class="w-40 h-10 object-contain mb-2" width="160" height="40" />
-                <h1 class="font-bold text-xl text-white">Gift Zone</h1>
+                <img src="fav.jpg" alt="ClassyShop logo white square white text ClassyShop"
+                    class="w-32 object-contain mb-2 object-cover rounded-full border-white border-2 " width="160"
+                    height="40" />
+                <h1 id="ownername" class="font-bold text-sm text-white">Gift Zone</h1>
+                <h1 id="ownermail" class="font-bold text-sm text-white">Giftzone@gmail.com</h1>
             </div>
 
 
@@ -94,7 +96,7 @@
                     class="flex items-center space-x-3 text-gray-100 hover:text-orange-500 transition-colors px-3 py-2 rounded-md focus:outline-none text-base"
                     onclick="selectSection('survey', this)" type="button">
                     <i class="fas fa-check-square text-base"></i>
-                    <span>Survey</span>
+                    <span>Products</span>
                 </button>
 
 
@@ -180,200 +182,526 @@
                     class="text-2xl font-semibold mb-8 text-orange-500 border-b border-orange-300 pb-3 flex items-center gap-2">
                     <i class="fas fa-plus-circle text-orange-500"></i> Add Record
                 </h2>
-                <form id="crudForm" class="w-full text-sm grid grid-cols-1 md:grid-cols-4   gap-x-6 gap-y-4">
-                    <input type="hidden" id="Id" name="Id" />
+                <form id="crudForm" class="w-full text-sm grid grid-cols-4 sm:grid-cols-4 md:grid-cols-4 gap-4">
+                    <input type="hidden" id="Id" name="Id">
 
                     <div>
                         <label class="block text-orange-500 font-medium mb-1" for="Date">Date</label>
                         <input type="text" id="Date" name="Date" placeholder="YYYY-MM-DD"
-                            class="w-full  p-2.5 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
+                            class="w-full p-2 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
                     </div>
 
                     <div>
                         <label class="block text-orange-500 font-medium mb-1" for="Time">Time</label>
                         <input type="text" id="Time" name="Time" placeholder="HH:MM AM/PM"
-                            class="w-full p-2.5 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
+                            class="w-full p-2 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
                     </div>
 
                     <div>
                         <label class="block text-orange-500 font-medium mb-1" for="Name">Name</label>
                         <input type="text" id="Name" name="Name"
-                            class="w-full p-2.5 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
+                            class="w-full p-2 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
                     </div>
 
                     <div>
                         <label class="block text-orange-500 font-medium mb-1" for="Number">Number</label>
                         <input type="text" id="Number" name="Number"
-                            class="w-full p-2.5 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
+                            class="w-full p-2 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
                     </div>
 
                     <div>
                         <label class="block text-orange-500 font-medium mb-1" for="Size">Size</label>
                         <input type="text" id="Size" name="Size"
-                            class="w-full p-2.5 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
+                            class="w-full p-2 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
                     </div>
 
                     <div>
                         <label class="block text-orange-500 font-medium mb-1" for="Material">Material</label>
                         <input type="text" id="Material" name="Material"
-                            class="w-full p-2.5 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
+                            class="w-full p-2 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
                     </div>
 
                     <div>
                         <label class="block text-orange-500 font-medium mb-1" for="Color">Color</label>
                         <input type="text" id="Color" name="Color"
-                            class="w-full p-2.5 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
+                            class="w-full p-2 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
                     </div>
 
                     <div>
                         <label class="block text-orange-500 font-medium mb-1" for="Address">Address</label>
                         <input type="text" id="Address" name="Address"
-                            class="w-full p-2.5 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
+                            class="w-full p-2 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
                     </div>
 
                     <div>
                         <label class="block text-orange-500 font-medium mb-1" for="City">City</label>
                         <input type="text" id="City" name="City"
-                            class="w-full p-2.5 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
+                            class="w-full p-2 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
                     </div>
 
                     <div>
                         <label class="block text-orange-500 font-medium mb-1" for="Pincode">Pincode</label>
                         <input type="text" id="Pincode" name="Pincode"
-                            class="w-full p-2.5 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
+                            class="w-full p-2 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
                     </div>
 
                     <div>
                         <label class="block text-orange-500 font-medium mb-1" for="State">State</label>
                         <input type="text" id="State" name="State"
-                            class="w-full p-2.5 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
+                            class="w-full p-2 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
                     </div>
 
                     <div>
                         <label class="block text-orange-500 font-medium mb-1" for="Status">Status</label>
                         <input type="text" id="Status" name="Status"
-                            class="w-full p-2.5 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
+                            class="w-full p-2 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
                     </div>
 
                     <div>
                         <label class="block text-orange-500 font-medium mb-1" for="Payment">Payment</label>
                         <input type="text" id="Payment" name="Payment"
-                            class="w-full p-2.5 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
+                            class="w-full p-2 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
                     </div>
 
                     <div>
                         <label class="block text-orange-500 font-medium mb-1" for="Other">Other</label>
                         <input type="text" id="Other" name="Other"
-                            class="w-full p-2.5 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
+                            class="w-full p-2 border border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
                     </div>
 
-                    <div class="md:col-span-2">
-                        <label class="block text-orange-500 font-medium mb-1" for="ImageInput">Upload
-                            Image</label>
-                        <input type="text" id="ImageInput" name="ImageInput" accept="image/jpeg/img/png*"
-                            class="w-full border border-orange-300 rounded-lg p-2 cursor-pointer text-orange-600 hover:border-orange-400 transition" />
+                    <div class="sm:col-span-2 md:col-span-2">
+                        <label class="block text-orange-500 font-medium mb-1" for="ImageInput">Upload Image</label>
+                        <input type="file" id="ImageInput" name="ImageInput" accept="image/*"
+                            class="w-full p-2 border border-orange-300 rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
                     </div>
 
-                    <div class="md:col-span-2 w-full flex md:justify-end justify-between md:ml-28 space-x-4 mt-6">
+                    <div class="sm:col-span-2 md:col-span-4 flex justify-end gap-4 mt-4">
                         <button type="button" onclick="hideForm()"
-                            class="px-6 py-2.5 bg-orange-200 text-orange-700 font-semibold rounded-lg hover:bg-orange-300 transition flex items-center gap-2">
+                            class="px-6 py-2 bg-orange-200 text-orange-700 font-semibold rounded-lg hover:bg-orange-300 transition flex items-center gap-2">
                             <i class="fas fa-times"></i> Cancel
                         </button>
                         <button type="submit"
-                            class="px-6 py-2.5 bg-orange-600 text-white font-semibold rounded-lg hover:bg-orange-700 transition flex items-center gap-2">
+                            class="px-6 py-2 bg-orange-600 text-white font-semibold rounded-lg hover:bg-orange-700 transition flex items-center gap-2">
                             <i class="fas fa-save"></i> Save
                         </button>
                     </div>
                 </form>
+
             </div>
 
             <!-- Sections container -->
             <section id="dashboard" class="hidden">
                 <h2 class="text-orange-500 font-semibold text-xl mb-6">Dashboard</h2>
-                <p class="text-gray-700 text-sm">Welcome to the Dashboard section. Here you can see your overview and
-                    stats.</p>
+         
+                    <script src="https://cdn.tailwindcss.com"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+          
+                <body class="bg-gray-100 flex justify-center items-center min-h-screen p-4">
+
+                    <div class="bg-white p-4 rounded-lg shadow w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <h2 class="text-center font-semibold mb-2">Bar Chart</h2><canvas id="barChart"></canvas>
+                        </div>
+                        <div>
+                            <h2 class="text-center font-semibold mb-2">Line Chart</h2><canvas id="lineChart"></canvas>
+                        </div>
+                        <div>
+                            <h2 class="text-center font-semibold mb-2">Pie Chart</h2><canvas id="pieChart"></canvas>
+                        </div>
+                       
+                    </div>
+
+        
+                </body>
             </section>
 
             <section id="objectives" class="hidden">
                 <h2 class="text-orange-500 font-semibold text-xl mb-6">Objectives</h2>
-                <!-- Right side summary and transactions -->
-                <div class="flex flex-col md:flex-row md:space-x-6">
-                    <!-- Chart and number -->
-                    <div class="flex-1 bg-gray-50 rounded-lg p-6 mb-6 md:mb-0 flex flex-col items-center">
-                        <p class="text-gray-900 font-semibold text-2xl mb-4">2.542</p>
-                        <div class="flex space-x-3">
-                            <div class="flex flex-col items-center">
-                                <div class="bg-orange-500 rounded-t-md w-3 h-10 sm:h-14" aria-label="Bar 1"></div>
-                                <div class="text-xs text-gray-400 mt-1">1</div>
-                            </div>
-                            <div class="flex flex-col items-center">
-                                <div class="bg-orange-500 rounded-t-md w-3 h-8 sm:h-12" aria-label="Bar 2"></div>
-                                <div class="text-xs text-gray-400 mt-1">2</div>
-                            </div>
-                            <div class="flex flex-col items-center">
-                                <div class="bg-orange-500 rounded-t-md w-3 h-12 sm:h-16" aria-label="Bar 3"></div>
-                                <div class="text-xs text-gray-400 mt-1">3</div>
-                            </div>
-                            <div class="flex flex-col items-center">
-                                <div class="bg-orange-500 rounded-t-md w-3 h-10 sm:h-14" aria-label="Bar 4"></div>
-                                <div class="text-xs text-gray-400 mt-1">4</div>
-                            </div>
-                            <div class="flex flex-col items-center">
-                                <div class="bg-orange-500 rounded-t-md w-3 h-8 sm:h-12" aria-label="Bar 5"></div>
-                                <div class="text-xs text-gray-400 mt-1">5</div>
-                            </div>
-                            <div class="flex flex-col items-center">
-                                <div class="bg-orange-500 rounded-t-md w-3 h-10 sm:h-14" aria-label="Bar 6"></div>
-                                <div class="text-xs text-gray-400 mt-1">6</div>
-                            </div>
+               <body class="bg-gray-100 flex justify-center items-center min-h-screen p-4">
+
+                    <div class="bg-white p-4 rounded-lg shadow w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-6">
+                      
+                        <div>
+                            <h2 class="text-center font-semibold mb-2">Doughnut Chart</h2><canvas
+                                id="doughnutChart"></canvas>
+                        </div>
+                        <div>
+                            <h2 class="text-center font-semibold mb-2">Polar Area Chart</h2><canvas
+                                id="polarChart"></canvas>
+                        </div>
+                        <div>
+                            <h2 class="text-center font-semibold mb-2">Radar Chart</h2><canvas id="radarChart"></canvas>
                         </div>
                     </div>
 
-                    <!-- Transactions -->
-                    <div class="flex-1 bg-gray-50 rounded-lg p-6 mb-6 md:mb-0 flex flex-col justify-between">
-                        <h3 class="text-gray-900 font-semibold mb-4 text-sm">All Transactions</h3>
-                        <ul class="space-y-4 text-gray-600 text-xs font-semibold">
-                            <li class="flex justify-between items-center">
-                                <div>
-                                    <p>Order #AB8754</p>
-                                    <p class="text-gray-400 text-[10px]">28 Oct, 2021</p>
-                                </div>
-                                <i class="fas fa-chevron-right text-gray-400"></i>
-                            </li>
-                            <li class="flex justify-between items-center">
-                                <div>
-                                    <p>Return #CT6759</p>
-                                    <p class="text-gray-400 text-[10px]">27 Oct, 2021</p>
-                                </div>
-                                <i class="fas fa-chevron-right text-gray-400"></i>
-                            </li>
-                            <li class="flex justify-between items-center">
-                                <div>
-                                    <p>Order #PF6489</p>
-                                    <p class="text-gray-400 text-[10px]">26 Oct, 2021</p>
-                                </div>
-                                <i class="fas fa-chevron-right text-gray-400"></i>
-                            </li>
-                        </ul>
-                    </div>
+                    <script>
+                        const API_ALL = "https://script.google.com/macros/s/AKfycbzMq8ZIKjp_zbvuGStwYd7m4eizacjlrwPyu3vxuCxLCLC_iPAIiU-2imLLM0yVJxNb/exec";
 
-                    <!-- Lorem Ipsum text -->
-                    <div class="flex-1 text-orange-500 text-xs font-semibold leading-5">
-                        <p>
-                            Lorem Ipsum
-                        </p>
-                        <p class="mt-2 text-[10px] font-normal text-orange-300 max-w-xs">
-                            Lorem ipsum lorem sit amet, consectetur adipiscing elit sed do tempor incididunt ut labore
-                            et dolore Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor
-                            incididunt ut labore et dolore.
-                        </p>
-                    </div>
-                </div>
+                        async function renderAllCharts() {
+                            const res = await fetch(`${API_ALL}?action=read`).then(r => r.json());
+                            const counts = {};
+                            res.records.forEach(r => counts[r.Id] = (counts[r.Id] || 0) + 1);
+                            const labels = Object.keys(counts);
+                            const data = Object.values(counts);
+                            const colors = labels.map((_, i) => `hsl(${i * 40 % 360},70%,60%)`);
+
+                            // Bar
+                            new Chart(document.getElementById("barChart"), { type: "bar", data: { labels, datasets: [{ label: "Id Count", data, backgroundColor: colors }] }, options: { responsive: true, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } } });
+
+                            // Line
+                            new Chart(document.getElementById("lineChart"), { type: "line", data: { labels, datasets: [{ label: "Id Count", data, backgroundColor: colors, borderColor: colors, borderWidth: 2, fill: false }] }, options: { responsive: true, scales: { y: { beginAtZero: true } } } });
+
+                            // Pie
+                            new Chart(document.getElementById("pieChart"), { type: "pie", data: { labels, datasets: [{ data, backgroundColor: colors }] }, options: { responsive: true, plugins: { legend: { position: 'right' } } } });
+
+                            // Doughnut
+                            new Chart(document.getElementById("doughnutChart"), { type: "doughnut", data: { labels, datasets: [{ data, backgroundColor: colors }] }, options: { responsive: true, plugins: { legend: { position: 'right' } } } });
+
+                            // Polar Area
+                            new Chart(document.getElementById("polarChart"), { type: "polarArea", data: { labels, datasets: [{ data, backgroundColor: colors }] }, options: { responsive: true } });
+
+                            // Radar
+                            new Chart(document.getElementById("radarChart"), { type: "radar", data: { labels, datasets: [{ label: "Id Count", data, backgroundColor: "rgba(243,115,22,0.4)", borderColor: "#f97316", borderWidth: 2, pointBackgroundColor: colors }] }, options: { responsive: true, scales: { r: { beginAtZero: true } } } });
+                        }
+
+                        renderAllCharts();
+                    </script>
+
+                </body>
+ 
             </section>
 
             <section id="survey" class="hidden">
-                <h2 class="text-orange-500 font-semibold text-xl mb-6">Survey</h2>
-                <p class="text-gray-700 text-sm">Survey section content goes here. View and create surveys.</p>
+
+                <div class="max-w-7xl mx-auto">
+
+                    <!-- Filter Section -->
+                    <div class="mb-4 flex justify-between space-x-2">
+
+                        <div>
+                            <button onclick="showFormCopy()"
+                                class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded shadow">+
+                                Add New</button>
+                        </div>
+                        <div>
+                            <select id="filterFieldCopy"
+                                class="p-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-300 focus:outline-none text-sm">
+                                <option value="">All Fields</option>
+                                <option value="Id">Id</option>
+                                <option value="Date">Date</option>
+                                <option value="Time">Time</option>
+                                <option value="Name">Name</option>
+                                <option value="Number">Number</option>
+                                <option value="Material">Material</option>
+                                <option value="Color">Color</option>
+                                <option value="Address">Address</option>
+                                <option value="City">City</option>
+                                <option value="Pincode">Pincode</option>
+                                <option value="State">State</option>
+                                <option value="Status">Status</option>
+                                <option value="Payment">Payment</option>
+                                <option value="Other">Other</option>
+                            </select>
+
+                            <input type="text" id="searchInputCopy" placeholder="Search..."
+                                class="w-72 p-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-300 focus:outline-none text-sm">
+                        </div>
+                    </div>
+
+
+
+                    <div class="bg-white shadow rounded-lg md:mb-20 w-full  md:max-h-[80vh]">
+                        <!-- Wrapper for scrolling -->
+                        <div class="overflow-x-auto overflow-y-auto max-h-[98vh] md:max-h-[80vh]">
+                            <table class="min-w-full border border-gray-200 text-xs text-gray-700">
+                                <thead class="bg-gray-100 text-gray-600 w-full uppercase tracking-wider">
+                                    <tr class="">
+                                        <th class="p-2 border">Id</th>
+                                        <th class="p-2 border">Icon</th>
+                                        <th class="p-2 border">Date & Time</th>
+
+                                        <th class="p-2 border">Categories</th>
+
+                                        <th class="p-2 border">Size & Price</th>
+                                        <th class="p-2 border">Material & Color</th>
+
+                                        <th class="p-2 border">Specification</th>
+
+                                        <th class="p-2 border">Status</th>
+
+                                        <th class="p-2 border">Level</th>
+
+                                        <th class="p-2 border">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="productListCopy" class="divide-y divide-gray-200">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+                    <!-- Form (hidden by default) -->
+                    <div id="formContainerCopy" class="fixed hidden shadow-[0_8px_80px_black] inset-0 md:mx-auto m-2 mb-4 md:top-10 h-full bottom-auto md:max-h-[85vh] md:max-w-7xl overflow-y-auto 
+         bg-white rounded-3xl shadow-2xl border border-orange-300 p-4">
+                        <h2 id="formTitleCopy" class="text-base font-semibold mb-6 text-gray-800 border-b pb-2">Add
+                            Record</h2>
+
+                        <form id="crudFormCopy" class="grid grid-cols-4 gap-4 text-sm">
+
+                            <div>
+                                <label class="block text-gray-600 mb-1">ID</label>
+                                <input type="number" id="IdCopy" name="Id" class="w-full p-2 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="block text-gray-600 mb-1">Icon</label>
+                                <input type="text" name="Icon" class="w-full p-2 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="block text-gray-600 mb-1">Date</label>
+                                <input type="text" name="Date" class="w-full p-2 border rounded-lg"
+                                    placeholder="YYYY-MM-DD">
+                            </div>
+                            <div>
+                                <label class="block text-gray-600 mb-1">Time</label>
+                                <input type="text" name="Time" class="w-full p-2 border rounded-lg"
+                                    placeholder="HH:MM AM/PM">
+                            </div>
+                            <div>
+                                <label class="block text-gray-600 mb-1">Category</label>
+                                <input type="text" name="Category" class="w-full p-2 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="block text-gray-600 mb-1">Tittle</label>
+                                <input type="text" name="Tittle" class="w-full p-2 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="block text-gray-600 mb-1">SubTittle</label>
+                                <input type="text" name="SubTittle" class="w-full p-2 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="block text-gray-600 mb-1">Size</label>
+                                <input type="text" name="Size" class="w-full p-2 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="block text-gray-600 mb-1">Material</label>
+                                <input type="text" name="Material" class="w-full p-2 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="block text-gray-600 mb-1">Color</label>
+                                <input type="text" name="Color" class="w-full p-2 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="block text-gray-600 mb-1">Specification</label>
+                                <input type="text" name="Specification" class="w-full p-2 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="block text-gray-600 mb-1">Ratting</label>
+                                <input type="text" name="Ratting" class="w-full p-2 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="block text-gray-600 mb-1">Price</label>
+                                <input type="text" name="Price" class="w-full p-2 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="block text-gray-600 mb-1">Cash</label>
+                                <input type="text" name="Cash" class="w-full p-2 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="block text-gray-600 mb-1">Online</label>
+                                <input type="text" name="Online" class="w-full p-2 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="block text-gray-600 mb-1">Reviews</label>
+                                <input type="text" name="Reviews" class="w-full p-2 border rounded-lg">
+                            </div>
+                            <div class="col-span-2">
+                                <label class="block text-gray-600 mb-1">Image</label>
+                                <input type="file" id="ImageInputCopy" name="Image" accept="image/*"
+                                    class="w-full p-2 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="block text-gray-600 mb-1">Level</label>
+                                <input type="text" name="Level" class="w-full p-2 border rounded-lg">
+                            </div>
+                            <div>
+                                <label class="block text-gray-600 mb-1">Status</label>
+                                <input type="text" name="Status" class="w-full p-2 border rounded-lg">
+                            </div>
+                            <div class="col-span-2">
+                                <label class="block text-gray-600 mb-1">Filtered</label>
+                                <input type="text" name="Filtered" class="w-full p-2 border rounded-lg">
+                            </div>
+
+                            <div class="col-span-2 flex justify-end space-x-3 mt-6">
+                                <button type="button" onclick="hideFormCopy()"
+                                    class="px-4 py-2 bg-gray-500 text-white rounded-lg">Cancel</button>
+                                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg">Save</button>
+                            </div>
+                        </form>
+
+                    </div>
+
+                    <!-- Add Button -->
+
+                </div>
+
+                <script>
+                    const API_URL_COPY = "https://script.google.com/macros/s/AKfycbzMq8ZIKjp_zbvuGStwYd7m4eizacjlrwPyu3vxuCxLCLC_iPAIiU-2imLLM0yVJxNb/exec";
+                    let isEditingCopy = false;
+                    let allRecordsCopy = [];
+
+                    function formatDateCopy(dateValue) {
+                        if (!dateValue) return "";
+                        if (!isNaN(dateValue)) {
+                            let jsDate = new Date(Math.round((dateValue - 25569) * 86400 * 1000));
+                            return jsDate.toLocaleDateString("en-GB");
+                        }
+                        let date = new Date(dateValue);
+                        if (isNaN(date)) return dateValue;
+                        return date.toLocaleDateString("en-GB");
+                    }
+
+                    function formatTimeCopy(timeValue) {
+                        if (!timeValue) return "";
+                        if (!isNaN(timeValue)) {
+                            let totalMinutes = Math.round(timeValue * 24 * 60);
+                            let hours = Math.floor(totalMinutes / 60);
+                            let minutes = totalMinutes % 60;
+                            let period = hours >= 12 ? "PM" : "AM";
+                            hours = hours % 12 || 12;
+                            return `${hours}:${minutes.toString().padStart(2, "0")} ${period}`;
+                        }
+                        let date = new Date(`1970-01-01T${timeValue}`);
+                        if (isNaN(date)) return timeValue;
+                        return date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true });
+                    }
+
+                    function renderTableCopy(records) {
+                        const tbody = document.getElementById("productListCopy");
+                        tbody.innerHTML = "";
+                        records.forEach(record => {
+                            tbody.innerHTML += `
+                <tr class="hover:bg-gray-50">
+                    <td class="border p-2 whitespace-nowrap">${record.Id}</td>
+                    <td class="border p-2 whitespace-nowrap w-20 h-20 object-cover">
+                        <img src="${record.Icon}" alt="Product" class="rounded border-2"/>
+                    </td>
+                    <td class="border p-2 flex-col">
+                        <div class="font-extrabold">${record.Tittle}</div>
+                        <div>${formatTimeCopy(record.Time)}</div>
+                        <div>${formatDateCopy(record.Date)}</div>
+                    </td>
+                    <td class="border p-2 "> <b>Category</b>: ${record.Category}</div></td>
+                    <td class="border p-2 whitespace-nowrap">
+                         <div><b>Size</b>: ${record.Size}</div>
+                        <div><b>Price</b>: ${record.Price} .Rs</div>
+                        </td>
+                    <td class="border p-2 whitespace-nowrap flex-col">
+                        <div><b>Material</b>: ${record.Material}</div>
+                        <div><b>Color</b>: ${record.Color}</div>
+                        <div><b>Rating</b>: ${record.Ratting}</div>
+                    </td>
+                    <td class="border p-2  flex-col">
+                        <div>${record.Specification}</div>
+                        
+                    </td>
+                    <td class="border p-2 whitespace-nowrap flex-col">
+                       
+                        <div><b>Cash</b>: ${record.PaymentCash}</div>
+                            <div><b>Online</b>: ${record.Online}</div>
+                        <div><b>Payment</b>: ${record.Payment}</div>
+                    </td>
+                    <td class="border p-2 whitespace-nowrap flex-col">
+                         <div><b>Status</b>: ${record.Status}</div>
+                        <div><b>Level</b>: ${record.Level}</div>
+                    </td>
+                  
+                    <td class="border p-2 whitespace-nowrap flex space-x-1">
+                        <button onclick='editRecordCopy(${JSON.stringify(record)})' class="bg-yellow-500 text-white px-2 py-1 rounded text-xs"><i class="fas fa-pen"></i></button>
+                        <button onclick='deleteRecordCopy("${record.Id}")' class="bg-red-600 text-white px-2 py-1 rounded text-xs"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+                `;
+                        });
+                    }
+
+                    async function fetchRecordsCopy() {
+                        const res = await fetch(`${API_URL_COPY}?action=read`);
+                        const data = await res.json();
+                        allRecordsCopy = data.records;
+                        renderTableCopy(allRecordsCopy);
+                    }
+
+                    function showFormCopy(record = null) {
+                        document.getElementById("formContainerCopy").classList.remove("hidden");
+                        document.getElementById("crudFormCopy").reset();
+                        document.getElementById("formTitleCopy").innerText = record ? "Edit Record" : "Add Record";
+                        isEditingCopy = !!record;
+                        if (record) {
+                            Object.keys(record).forEach(key => {
+                                let input = document.querySelector(`[name="${key}"]`);
+                                if (input) input.value = record[key];
+                            });
+                        }
+                    }
+
+                    function hideFormCopy() {
+                        document.getElementById("formContainerCopy").classList.add("hidden");
+                    }
+
+                    function editRecordCopy(record) {
+                        showFormCopy(record);
+                    }
+
+                    async function deleteRecordCopy(id) {
+                        if (!confirm("Are you sure?")) return;
+                        await fetch(API_URL_COPY, { method: "POST", body: new URLSearchParams({ action: "delete", Id: id }) });
+                        fetchRecordsCopy();
+                    }
+
+                    function getBase64Copy(file) {
+                        return new Promise((resolve, reject) => {
+                            const reader = new FileReader();
+                            reader.readAsDataURL(file);
+                            reader.onload = () => resolve(reader.result);
+                            reader.onerror = err => reject(err);
+                        });
+                    }
+
+                    document.getElementById("searchInputCopy").addEventListener("input", applyFilterCopy);
+                    document.getElementById("filterFieldCopy").addEventListener("change", applyFilterCopy);
+
+                    function applyFilterCopy() {
+                        const query = document.getElementById("searchInputCopy").value.toLowerCase().trim();
+                        const field = document.getElementById("filterFieldCopy").value;
+                        let filtered = allRecordsCopy.filter(record => {
+                            if (!query) return true;
+                            if (field) return String(record[field] || "").toLowerCase().includes(query);
+                            return Object.values(record).some(val => String(val).toLowerCase().includes(query));
+                        });
+                        renderTableCopy(filtered);
+                    }
+
+                    document.getElementById("crudFormCopy").addEventListener("submit", async (e) => {
+                        e.preventDefault();
+                        const formData = new FormData(e.target);
+                        let payload = { action: isEditingCopy ? "update" : "create" };
+                        for (const [key, val] of formData.entries()) payload[key] = val;
+                        const fileInput = document.getElementById("ImageInputCopy");
+                        if (fileInput.files.length > 0) {
+                            payload.Image = await getBase64Copy(fileInput.files[0]);
+                            payload.ImageName = fileInput.files[0].name;
+                        }
+                        await fetch(API_URL_COPY, { method: "POST", body: new URLSearchParams(payload) });
+                        hideFormCopy();
+                        fetchRecordsCopy();
+                    });
+
+                    fetchRecordsCopy();
+                </script>
+
             </section>
 
             <section id="documents" class="hidden">
@@ -458,7 +786,7 @@
 
                     <!-- Add Button -->
                 </div>
-
+                <!-- sells-->
                 <script>
                     const API_URL = "https://script.google.com/macros/s/AKfycby_gJSJorghtpLgbZjHKO4eJ4f0S1HwDF89FpmFng4CcMedA7L--y8flV_HCaRb2LE-/exec";
                     let editing = false;
@@ -619,6 +947,7 @@
             <section id="help" class="hidden">
                 <h2 class="text-orange-500 font-semibold text-xl mb-6">Help</h2>
                 <p class="text-gray-700 text-sm">Help section content goes here. Find FAQs and support.</p>
+
             </section>
 
             <section id="setting" class="hidden">
@@ -742,8 +1071,8 @@
                     .then((docSnap) => {
                         if (docSnap.exists()) {
                             const userData = docSnap.data();
-                            document.getElementById("loggedUserFName").innerText = userData.firstName || "N/A";
-                            document.getElementById("loggedUserEmail").innerText = userData.email || "N/A";
+                            let bb = document.getElementById("ownername").innerText = userData.firstName || "N/A";
+                            document.getElementById("ownermail").innerText = userData.email || "N/A";
 
                             // ✅ Optional: handle missing lastName gracefully
                             const lNameElement = document.getElementById("loggedUserLName");
