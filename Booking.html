@@ -293,20 +293,20 @@
                 Process Details
               </p>
               <div id="data1">
-                <input type="text" id="code" class="hidden" name="Id">
-                <input type="text" id="icon" class="hidden" name="Icon">
-                <input type="text" id="Filtered" class="hidden" name="Filtered">
-                <input type="text" name="Date" id="dates" class=" hidden w-full p-2 border rounded-lg"
+                <input type="text" id="code" class=" hidden" name="Id">
+                <input type="text" id="icons" class=" hidden" name="Icon">
+                <input type="text" id="Level" class=" hidden" name="1" value="Level 1">
+                <input type="text" id="Filtered" class=" hidden" name="Filtered">
+                <input type="text" name="Date" id="dates" class="  hidden w-full p-2 border rounded-lg"
                   placeholder="YYYY-MM-DD">
-                <input type="text" name="Time" id="times" class=" hidden w-full p-2 border rounded-lg"
+                <input type="text" name="Time" id="times" class="  hidden w-full p-2 border rounded-lg"
                   placeholder="HH:MM AM/PM">
-
                 <input type="text" name="Payment" id="Payment" value="WhatsApp"
-                  class="hidden w-full p-2 border rounded-lg">
-                <input type="text" name="Other" id="Other" class="hidden w-full p-2 border rounded-lg">
-                <input type="text" name="Status" id="Status" class="hidden" value="Not Accept">
-                <input type="text" name="Price" value="Size" class="hidden">
-                <input type="file" id="ImageInput" accept="image/jpg/png*" class=" hidden w-full border rounded-lg">
+                  class=" hidden w-full p-2 border rounded-lg">
+                <input type="text" name="Other" id="Other" value="1" class=" hidden w-full p-2 border rounded-lg">
+                <input type="text" name="Status" id="Status" class=" hidden" value="Not Accept">
+                <input type="text" name="Price" value="Size" class=" hidden">
+                <input type="file" id="ImageInput" accept="image/jpg/png*" class="  hidden w-full border rounded-lg">
 
                 <input
                   class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none  "
@@ -316,7 +316,7 @@
                   placeholder="Mobile Number" id="number" name="Number" type="text" required />
 
                 <input type="text" id="selectedSize" name="Size" required
-                  class="hidden w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
+                  class=" hidden w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
                   name="Material" placeholder="Size Select" />
 
                 <div class="flex space-x-4 mb-2">
@@ -637,7 +637,6 @@
     function getCourseIdFromURL() {
       return new URLSearchParams(location.search).get("id");
     }
-
     window.addEventListener("DOMContentLoaded", () => {
       const courseId = getCourseIdFromURL();
       const course = courses[courseId];
@@ -672,13 +671,29 @@
 
     const code = Math.floor(1000 + Math.random() * 9000);
     const ID = Math.floor(100000 + Math.random() * 7000);
-    const courseId = new URLSearchParams(window.location.search).get("id");
+    window.addEventListener("load", () => {
+      const courseId = new URLSearchParams(window.location.search).get("id");
+      const courseTitle = new URLSearchParams(window.location.search).get("head");
+      const courseIcon = new URLSearchParams(window.location.search).get("icon");
+
+      // Populate inputs or elements
+      const otherInput = document.getElementById("Other");
+      const iconInput = document.getElementById("icons");
+      const titleInput = document.getElementById("titleInput"); // optional
+
+      if (otherInput) otherInput.value = courseTitle;
+      if (iconInput) iconInput.value = courseIcon;
+      if (titleInput) titleInput.value = courseId;
+
+
+    });
+
+
     const course = courses[courseId];
 
     function renderCourse(course) {
       const section = document.getElementById("course-detail");
-      document.getElementById("icon").value = course.icon;
-      document.getElementById("Other").value = course.title;
+
       document.getElementById('openLoginBtn').innerText = "₹ " + course.price;
       const Order = document.getElementById('orderbtn').innerHTML;
       section.innerHTML = ` 
