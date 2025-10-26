@@ -48,7 +48,7 @@ fetch(`${SHEET_API}?action=read`)
     <img
       src="${course.Icon}"
       alt="${course.Tittle}"
-      class="w-full h-full object-cover rounded-lg"
+      class="w-full h-full object-cover  "
     />
   </div>
 

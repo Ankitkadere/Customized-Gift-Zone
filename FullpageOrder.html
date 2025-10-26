@@ -246,7 +246,7 @@
         class="fixed md:hidden bottom-0 w-full right-0 z-50 flex items-center justify-between gap-2 bg-gray-100 border-t border-[#d9d9d9] py-1 px-3">
 
         <!-- WhatsApp Button -->
-        <button onclick="window.location.href='https://wa.me/918251092973'; notload();"
+        <button onclick="window.location.href='https://wa.me/918251092973'; "
             class="text-white  bg-black font-semibold rounded-full py-1.5 w-14 text-center flex items-center justify-center"
             type="button">
             <i class="fab fa-whatsapp text-2xl"></i>
@@ -277,45 +277,53 @@
 
         function renderCourse(course) {
             // Prevent undefined reference errors for missing data
-            const Order = `<button class='bg-black hover:bg-gray-800 w-full text-white px-2 py-2 rounded-lg font-semibold mt-4'>Order Now</button>`;
+            const Order = `<button
+        class='bg-black hover:bg-gray-800 w-full text-white px-2 py-2 rounded-lg font-semibold mt-4'>Order
+        Now</button>`;
             const f = { icon: "fas fa-tag", text: "Quality Product" };
-            document.getElementById("openLoginBtn").innerText = course.Price + " .Rs";
+            let Page = document.getElementById("openLoginBtn").innerText = course.Price + " .Rs";
+            const orderBtn = document.getElementById("openLoginBtn");
+            orderBtn.addEventListener("click", function () {
+                window.location.href = `Booking.html?id=${course.Id}`;
+            });
             document.getElementById("course-detail").innerHTML = `
-                <section class="md:flex w-full md:[100vw] bg-gray-100 overflow-x-hidden">
-                    <div class="dragimg items-top flex flex-col w-[100vw] md:w-[55vw]" id="dragimg">
-                        <div style="background-image: url('https://images.unsplash.com/photo-1513694203232-719a280e022f?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bGl2aW5nJTIwcm9vbSUyMHdhbGx8ZW58MHx8MHx8fDA%3Dg'); 
+    <section class="md:flex w-full md:[100vw] bg-gray-100 overflow-x-hidden">
+        <div class="dragimg items-top flex flex-col w-[100vw] md:w-[55vw]" id="dragimg">
+            <div style="background-image: url('https://images.unsplash.com/photo-1513694203232-719a280e022f?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bGl2aW5nJTIwcm9vbSUyMHdhbGx8ZW58MHx8MHx8fDA%3Dg'); 
                        background-size: cover; 
                        background-position: center; 
                        width: 100%; 
-                      ;" id="Wall" onclick="notload()" class="items-center justify-center h-[400px]  w-[100vw] md:w-[100%] md:h-full overflow-hidden">
-                            <img src="${course.Icon || course.Image || ''}" alt="${course.Tittle || ''}" class="w-40 h-100 mt-2 object-cover justify-center mx-auto">
-                        </div>
-                    </div>
+                      ;" id="Wall" onclick="notload()"
+                class="items-center justify-center h-[400px]  w-[100vw] md:w-[100%] md:h-full overflow-hidden">
+                <img src="${course.Icon || course.Image || ''}" alt="${course.Tittle || ''}"
+                    class="w-40 h-100 mt-2 object-cover justify-center mx-auto">
+            </div>
+        </div>
 
-                    <div class="flex1 bg-gray-100 px-2 w-full md:w-[45vw] py-2 z-[400px]">
-                        <div class=" flex  justify-between">
-                            <div >
-                                <h1 class="text-2xl text-black md:text-3xl font-extrabold">${course.Tittle || ''}</h1>
-                                <p class="text-sm text-gray-500">${course.Category || ''} </p>
-                            </div>
-                            <div class="flex   gap-1 mt-2">
-                                <i class="fas fa-star text-yellow-500 text-base"></i>
-                                <p class="text-base text-gray-900">
-                                    (${course.Ratting || '0'})
-                                </p>
-                            </div>
+        <div class="flex1 bg-gray-100 px-2 w-full md:w-[45vw] py-2 z-[400px]">
+            <div class=" flex  justify-between">
+                <div>
+                    <h1 class="text-2xl text-black md:text-3xl font-extrabold">${course.Tittle || ''}</h1>
+                    <p class="text-sm text-gray-500">${course.Category || ''} </p>
+                </div>
+                <div class="flex   gap-1 mt-2">
+                    <i class="fas fa-star text-yellow-500 text-base"></i>
+                    <p class="text-base text-gray-900">
+                        (${course.Ratting || '0'})
+                    </p>
+                </div>
 
-                        </div>
-                        <p class="text-gray-700 text-justify mt-2">${course.SubTittle || ''}</p>
-                        <br>
+            </div>
+            <p class="text-gray-700 text-justify mt-2">${course.SubTittle || ''}</p>
+            <br>
 
-                            <div class="w-full mx-auto">
-                                <div class="flex">
-                                    <p class="text-black font-semibold mb-2 text-base">Select Size</p>
-                                </div>
+            <div class="w-full mx-auto">
+                <div class="flex">
+                    <p class="text-black font-semibold mb-2 text-base">Select Size</p>
+                </div>
 
-                                <div class="flex flex-wrap gap-x-2 gap-y-2 md:justify-start justify-start">
-                                    ${[
+                <div class="flex flex-wrap gap-x-2 gap-y-2 md:justify-start justify-start">
+                    ${[
                     { size: "4 x 6", price: "₹ 100" },
                     { size: "5 x 7", price: "₹ 140" },
                     { size: "6 x 8", price: "₹ 150" },
@@ -328,98 +336,100 @@
                 ]
                     .map(
                         item => `
-          <div onclick="openLogin()" class="flex flex-col justify-between items-center">
-            <button class="border border-gray-400 rounded-md px-3 py-1.5 text-black font-semibold text-sm" type="button">${item.size}</button>
-            <span class="text-sm font-extrabold text-gray-700 mt-1">${item.price}</span>
-          </div>
-        `
+                    <div onclick="openLogin()" class="flex flex-col justify-between items-center">
+                        <button class="border border-gray-400 rounded-md px-3 py-1.5 text-black font-semibold text-sm"
+                            type="button">${item.size}</button>
+                        <span class="text-sm font-extrabold text-gray-700 mt-1">${item.price}</span>
+                    </div>
+                    `
                     )
                     .join("")}
-                                </div>
-                            </div>
+                </div>
+            </div>
+            <a href="Booking.html?id=${course.Id}}"
+                class="hidden md:mt-4 md:block flex justify-center inline-block bg-black text-white font-semibold rounded-md l py-2 px-6 text-center text-lg hover:bg-gray-800 transition">
+                Order Now ₹ ${course.Price || '---'}
+            </a>
+            <hr class="border-2 mt-2 md:mt-4">
+    </section>
+    <div class="instructors md:flex justify-between bg-gray-100 p-3 md:p-4 rounded-xl shadow-sm mb-24">
 
-                            <div class=" hidden md:mt-4 bg-gray-100 md:block flex">
-                                ${Order}
-                            </div>
+        <!-- Specification Section -->
+        <div class="flex-1 h-full md:pr-6">
+            <h2 class="text-lg font-semibold mt-3 mb-2 text-gray-800">Specification</h2>
+            <ul
+                class="list-disc list-inside space-y-1 text-gray-700 text-sm leading-relaxed text-justify break-words overflow-hidden">
+                ${course.Specification || 'No details available.'}
+            </ul>
+            <hr class="border-t-2 border-gray-300 mt-3">
+        </div>
 
-                            <hr class="border-2 mt-2 md:mt-4">
-                            </section>
-                            <div class="instructors md:flex justify-between bg-gray-100 p-3 md:p-4 rounded-xl shadow-sm mb-24">
+        <!-- Order Process + Reviews -->
+        <div class="w-full md:w-[45%] mt-4 md:mt-0 md:pl-4">
+            <h2 class="text-lg font-semibold mb-3 text-gray-800">Order Process</h2>
 
-  <!-- Specification Section -->
-                                <div class="flex-1 h-full md:pr-6">
-                                    <h2 class="text-lg font-semibold mt-3 mb-2 text-gray-800">Specification</h2>
-                                    <ul class="list-disc list-inside space-y-1 text-gray-700 text-sm leading-relaxed text-justify break-words overflow-hidden">
-                                        ${course.Specification || 'No details available.'}
-                                    </ul>
-                                    <hr class="border-t-2 border-gray-300 mt-3">
-                                </div>
+            <div
+                class="flex flex-wrap mx-auto items-center justify-center md:justify-start space-x-2 md:space-x-10  px-2 mb-4">
+                <!-- Step 1 -->
+                <div class="flex flex-col items-center space-y-1">
+                    <div class="w-10 h-10 rounded-full bg-black flex justify-center items-center shadow">
+                        <i class="fas fa-clipboard-list text-white text-lg"></i>
+                    </div>
+                    <span class="text-gray-600 text-xs font-bold font-sans">Ordered</span>
+                </div>
 
-                                <!-- Order Process + Reviews -->
-                                <div class="w-full md:w-[45%] mt-4 md:mt-0 md:pl-4">
-                                    <h2 class="text-lg font-semibold mb-3 text-gray-800">Order Process</h2>
+                <div class="w-8 h-0.5 bg-red-600 rounded"></div>
 
-                                    <div class="flex flex-wrap mx-auto items-center justify-center md:justify-start space-x-2 md:space-x-10  px-2 mb-4">
-                                        <!-- Step 1 -->
-                                        <div class="flex flex-col items-center space-y-1">
-                                            <div class="w-10 h-10 rounded-full bg-black flex justify-center items-center shadow">
-                                                <i class="fas fa-clipboard-list text-white text-lg"></i>
-                                            </div>
-                                            <span class="text-gray-600 text-xs font-bold font-sans">Ordered</span>
-                                        </div>
+                <!-- Step 2 -->
+                <div class="flex flex-col items-center space-y-1">
+                    <div class="w-10 h-10 rounded-full bg-gray-500 flex justify-center items-center shadow">
+                        <i class="fas fa-box-open text-white text-lg"></i>
+                    </div>
+                    <span class="text-gray-600 text-xs font-bold font-sans">Packed</span>
+                </div>
 
-                                        <div class="w-8 h-0.5 bg-red-600 rounded"></div>
+                <div class="w-8 h-0.5 bg-red-600 rounded"></div>
 
-                                        <!-- Step 2 -->
-                                        <div class="flex flex-col items-center space-y-1">
-                                            <div class="w-10 h-10 rounded-full bg-gray-500 flex justify-center items-center shadow">
-                                                <i class="fas fa-box-open text-white text-lg"></i>
-                                            </div>
-                                            <span class="text-gray-600 text-xs font-bold font-sans">Packed</span>
-                                        </div>
+                <!-- Step 3 -->
+                <div class="flex flex-col items-center space-y-1">
+                    <div class="w-10 h-10 rounded-full bg-gray-500 flex justify-center items-center shadow">
+                        <i class="fas fa-truck-moving text-white text-lg"></i>
+                    </div>
+                    <span class="text-gray-600 text-xs font-bold font-sans">Transit</span>
+                </div>
 
-                                        <div class="w-8 h-0.5 bg-red-600 rounded"></div>
+                <!-- Dotted connector -->
+                <div class="flex space-x-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
+                </div>
 
-                                        <!-- Step 3 -->
-                                        <div class="flex flex-col items-center space-y-1">
-                                            <div class="w-10 h-10 rounded-full bg-gray-500 flex justify-center items-center shadow">
-                                                <i class="fas fa-truck-moving text-white text-lg"></i>
-                                            </div>
-                                            <span class="text-gray-600 text-xs font-bold font-sans">Transit</span>
-                                        </div>
+                <!-- Step 4 -->
+                <div class="flex flex-col items-center space-y-1">
+                    <div class="w-10 h-10 rounded-full bg-gray-500 flex justify-center items-center shadow">
+                        <i class="fas fa-home text-white text-lg"></i>
+                    </div>
+                    <span class="text-gray-600 text-xs font-bold font-sans">Delivered</span>
+                </div>
+            </div>
 
-                                        <!-- Dotted connector -->
-                                        <div class="flex space-x-1">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
-                                            <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
-                                            <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
-                                            <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
-                                        </div>
+            <!-- Reviews Section -->
+            <h2 class="text-lg font-semibold mb-2 text-gray-800">Reviews</h2>
+            <ul class="space-y-3">
+                <li class="border rounded-lg p-3 bg-gray-50 shadow-sm">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="font-semibold text-gray-800">${course.Name || 'User'}</span>
+                        <span class="flex gap-0.5">${renderStars(course.Ratting || 4)}</span>
+                    </div>
+                    <p class="text-sm text-gray-600">${course.Reviews || 'No reviews yet.'}</p>
+                </li>
+            </ul>
+        </div>
 
-                                        <!-- Step 4 -->
-                                        <div class="flex flex-col items-center space-y-1">
-                                            <div class="w-10 h-10 rounded-full bg-gray-500 flex justify-center items-center shadow">
-                                                <i class="fas fa-home text-white text-lg"></i>
-                                            </div>
-                                            <span class="text-gray-600 text-xs font-bold font-sans">Delivered</span>
-                                        </div>
-                                    </div>
-
-                                    <!-- Reviews Section -->
-                                    <h2 class="text-lg font-semibold mb-2 text-gray-800">Reviews</h2>
-                                    <ul class="space-y-3">
-                                        <li class="border rounded-lg p-3 bg-gray-50 shadow-sm">
-                                            <div class="flex justify-between items-center mb-1">
-                                                <span class="font-semibold text-gray-800">${course.Name || 'User'}</span>
-                                                <span class="flex gap-0.5">${renderStars(course.Ratting || 4)}</span>
-                                            </div>
-                                            <p class="text-sm text-gray-600">${course.Reviews || 'No reviews yet.'}</p>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                            </div>
-                            `;
+    </div>
+    `;
         }
 
         // 🔹 Load product by Id
