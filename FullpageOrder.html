@@ -4,49 +4,261 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Product Details</title>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="apple-touch-icon" href="fav.jpg" />
+    <link rel="icon" href="fav.jpg" type="image/jpeg/jpg" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="fav.jpg" type="image/jpeg" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="theme-color" content="#f5fdf7" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="#f5fdf7" />
+    <meta name="msapplication-navbutton-color" content="#f5fdf7" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Gift Zone : Photo Frame</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
 </head>
 
-<body class="bg-gray-50 min-h-screen">
+<style>
+    body {
+        font-family: "Inter", sans-serif;
+    }
+
+    /* Hide scrollbar for side nav */
+    #mobile-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    #mobile-nav {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    @media screen and (max-width:768px) {
+        ul li {
+            font-size: 15px;
+        }
+    }
+</style>
+<style>
+    /* Overlay background */
+    #appDownload {
+        display: none;
+        /* initially hidden */
+        z-index: 9999;
+    }
+
+    /* Centered modal box */
+    #appDownload .modal-box {
+        width: 320px;
+        background: #fff;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        text-align: center;
+    }
+
+    /* App logo */
+    #appDownload img {
+        border-radius: 50%;
+        margin-bottom: 1rem;
+    }
+
+    /* Progress bar container */
+    .progress-container {
+
+        background-color: #e5e7eb;
+
+        border-radius: 9999px;
+        height: 1.5rem;
+        overflow: hidden;
+        position: relative;
+        margin-top: 1rem;
+    }
+
+    /* Progress bar fill */
+    #progress-bar {
+
+        height: 100%;
+        width: 0%;
+        border-radius: 9999px;
+        transition: width 0.3s ease-in-out;
+    }
+
+    /* Progress text */
+    #progress-text {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 600;
+        font-size: 0.875rem;
+        /* text-sm */
+        pointer-events: none;
+    }
+
+    /* Install button */
+    #installBtn {
+        margin-top: 1rem;
+        width: 100%;
+        padding: 0.5rem 1rem;
+        background-color: #1f1f1f;
+        /* blue-600 */
+        color: #fff;
+        font-weight: 600;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    #installBtn:hover {
+        background-color: #1d4ed8;
+        /* blue-700 */
+    }
+
+    /* Status text */
+    #status-text {
+        margin-top: 1rem;
+        font-weight: 500;
+        color: #374151;
+        /* gray-700 */
+    }
+
+    /* Keyframes animation (optional) */
+    @keyframes fillWidth {
+        from {
+            width: 0%;
+        }
+
+        to {
+            width: 100%;
+        }
+    }
+</style>
+
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+</style>
+
+<body class="bg-gray-100 ">
+    <header class="  hidden md:block border-gray-100 p-1">
+        <div class=" mx-auto  flex items-center justify-between px-3 py-1 sm:py-3">
+            <div class="flex bottom-4 items-center justify-between w-full md:w-80 space-x-2  rounded-lg">
+                <a href="index.html" class="flex">
+                    <img alt="Gift Zone" class=" hidden w-28 h-10  md:block object-contain" height="32" src="favll.jpg"
+                        width="32" />
+                    <h1 class="font-extrabold w-full  pt-0 md:pt-3 flex  md:text-1x1 text-2xl leading-none">
+                        Gift Zone
+                        <span class="font-normal hidden pt-1 px-1 md:block  font-extrabold  sm:text-sm md:text-sm ">
+                            Store
+                        </span>
+                    </h1>
+                </a>
+            </div>
+            <div class="hidden sm:flex flex-1 max-w-xl mx-4">
+                <div class="relative w-full">
+                    <input aria-label="Search for products" id="firstinput"
+                        class="w-full border  border-gray-700 rounded-full py-2 px-3 text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-600 focus:border-transparent"
+                        placeholder="Search for products..." type="search" />
+                    <span id="searchbtn" class="absolute inset-y-0 right-5 flex items-center text-gray-500">
+                        <i class="fas fa-search text-lg"></i>
+                    </span>
+                </div>
+            </div>
+
+            <div class="hidden sm:flex items-center space-x-4 text-xs sm:text-sm text-gray-900 font-semibold">
+                <div onclick="window.location.href='Owner.html'" class="text-right leading-tight">
+                    <div id="HomeName" class=" font-extrabold">Gift Zone</div>
+                    <div id="Homemails" class=" font-extrabold">Giftzone@gmail.com </div>
+                </div>
+                <button aria-label="Favorites" class="hidden hover:text-gray-900 transition">
+                    <i class="font-extrabold far fa-heart text-3xl "></i>
+                </button>
+                <button aria-label="Shopping cart" class=" text-gray-600 hover:text-gray-900 transition">
+                    <a href="Orderlist.html"><i class="fas fa-shopping-cart  text-3xl"></i>
+                    </a>
+                </button>
+            </div>
+        </div>
+        <nav aria-label="Primary Navigation "
+            class="hidden sm:flex mx-auto items-center justify-between px-4 py-2 text-xs sm:text-sm text-gray-700">
+            <div onclick="window.location.href='Job.html'"
+                class="flex items-center space-x-2 cursor-pointer select-none">
+                <span class="font-extrabold ">SHOP BY CATEGORIES</span>
+                <i class="fas fa-chevron-down text-xs "></i>
+            </div>
+            <ul class="flex flex-wrap items-center  font-extrabold space-x-3 sm:space-x-5 overflow-x-auto no-scrollbar">
+                <li><a class="hover:text-gray-900" href="index.html">Home</a></li>
+                <li><a class="hover:text-gray-900" href="Adminpenel.html">services</a></li>
+                <li><a class="hover:text-gray-900" href="Userchat.html">Chat</a></li>
+                <li><a class="hover:text-gray-900" href="Tool\Edit.html">Edit</a></li>
+                <li><a class="hover:text-gray-900" href="#">Footwear</a></li>
+                <li><a class="hover:text-gray-900" href="#">Groceries</a></li>
+                <li><a class="hover:text-gray-900" href="#">Beauty</a></li>
+                <li><a class="hover:text-gray-900" href="#">Wellness</a></li>
+                <li><a class="hover:text-gray-900" href="#">Jewellery</a></li>
+            </ul>
+            <div class="flex items-center space-x-2  text-xs sm:text-sm">
+                <i class="font-extrabold fas fa-truck text-base"></i>
+                <span class="font-extrabold"> Free International Delivery</span>
+            </div>
+        </nav>
+    </header>
+
     <!-- 🔹 Header -->
 
-  <div class="flex w-full md:hidden items-center justify-between p-2">
-    <button onclick="history.back()" aria-label="Go back"
-      class="w-10 h-10 bg-black text-white rounded-full flex justify-center items-center shadow-sm">
-      <i class="fas fa-chevron-down text-white font-extrabold text-lg">
-      </i>
-    </button>
-    <button onclick="window.location.href='index.html'" aria-label="Go back" class="flex justify-center items-center">
-      <h1 class="mx-auto text-4xl sm:text-5xl font-black leading-none
+    <div class="flex w-full md:hidden items-center justify-between p-2">
+        <button onclick="history.back()" aria-label="Go back"
+            class="w-10 h-10 bg-black text-white rounded-full flex justify-center items-center shadow-sm">
+            <i class="fas fa-chevron-down text-white font-extrabold text-lg">
+            </i>
+        </button>
+        <button onclick="window.location.href='index.html'" aria-label="Go back"
+            class="flex justify-center items-center">
+            <h1 class="mx-auto text-4xl sm:text-5xl font-black leading-none
              text-black">
-        Gift Zone
-      </h1>
-    </button>
-
-  </div>
-    <!-- 🔹 Product Section -->
-    <main id="course-detail" class=" mx-auto "></main>
-
-
-
-
-    <nav aria-label="Bottom navigation " id="orderbtn"
-        class="fixed md:hidden bottom-0 z-[99999999999px] md:w-full md:flex justify-between bg-gray-100 left-0 right-0 border-t gap-1 border-[#d9d9d9]  flex  items-center py-1 md:py-0 px-2 z-50">
-
-        <button onclick="window.location.href='https://wa.me/918251092973'" onclick="notload()"
-            class="md:hidden text-white bg-black font-semibold rounded-full md:py-1 py-1.5 w-14 mx-auto text-center"
-            type="button">
-            <i class="fab fa-whatsapp text-2xl p-1"></i>
+                Gift Zone
+            </h1>
         </button>
 
-        <button id="openLoginBtn" onclick="openLogin()"
-            class=" text-white bg-black text-2xl md:mt-4 font-semibold rounded-full md:py-1 py-1.5 w-full md:w-full  mx-auto text-center"
+    </div>
+    <!-- 🔹 Product Section -->
+    <main id="course-detail" class=""></main>
+
+    <nav aria-label="Bottom navigation" id="orderbtn"
+        class="fixed md:hidden bottom-0 w-full right-0 z-50 flex items-center justify-between gap-2 bg-gray-100 border-t border-[#d9d9d9] py-1 px-3">
+
+        <!-- WhatsApp Button -->
+        <button onclick="window.location.href='https://wa.me/918251092973'; notload();"
+            class="text-white  bg-black font-semibold rounded-full py-1.5 w-14 text-center flex items-center justify-center"
             type="button">
+            <i class="fab fa-whatsapp text-2xl"></i>
+        </button>
+
+        <!-- Book Button -->
+        <button id="openLoginBtn" onclick="openLogin()"
+            class="text-white bg-black text-xl font-semibold rounded-full py-1.5 w-full text-center" type="button">
             Book
         </button>
     </nav>
+
 
     <!-- 🔹 Script -->
     <script>
@@ -67,6 +279,7 @@
             // Prevent undefined reference errors for missing data
             const Order = `<button class='bg-black hover:bg-gray-800 w-full text-white px-2 py-2 rounded-lg font-semibold mt-4'>Order Now</button>`;
             const f = { icon: "fas fa-tag", text: "Quality Product" };
+            document.getElementById("openLoginBtn").innerText = course.Price + " .Rs";
             document.getElementById("course-detail").innerHTML = `
                 <section class="md:flex w-full md:[100vw] bg-gray-100 overflow-x-hidden">
                     <div class="dragimg items-top flex flex-col w-[100vw] md:w-[55vw]" id="dragimg">
@@ -80,9 +293,18 @@
                     </div>
 
                     <div class="flex1 bg-gray-100 px-2 w-full md:w-[45vw] py-2 z-[400px]">
-                        <div>
-                            <h1 class="text-2xl text-black md:text-3xl font-extrabold">${course.Tittle || ''}</h1>
-                            <p class="text-sm text-gray-500">${course.Category || ''} &middot; ₹${course.Price || ''}</p>
+                        <div class=" flex  justify-between">
+                            <div >
+                                <h1 class="text-2xl text-black md:text-3xl font-extrabold">${course.Tittle || ''}</h1>
+                                <p class="text-sm text-gray-500">${course.Category || ''} </p>
+                            </div>
+                            <div class="flex   gap-1 mt-2">
+                                <i class="fas fa-star text-yellow-500 text-base"></i>
+                                <p class="text-base text-gray-900">
+                                    (${course.Ratting || '0'})
+                                </p>
+                            </div>
+
                         </div>
                         <p class="text-gray-700 text-justify mt-2">${course.SubTittle || ''}</p>
                         <br>
@@ -94,25 +316,25 @@
 
                                 <div class="flex flex-wrap gap-x-2 gap-y-2 md:justify-start justify-start">
                                     ${[
-                                        { size: "4 x 6", price: "₹ 100" },
-                                        { size: "5 x 7", price: "₹ 140" },
-                                        { size: "6 x 8", price: "₹ 150" },
-                                        { size: "8 x 12", price: "₹ 299" },
-                                        { size: "10 x 15", price: "₹ 419" },
-                                        { size: "12 x 18", price: "₹ 549" },
-                                        { size: "16 x 24", price: "₹ 1,350" },
-                                        { size: "20 x 30", price: "₹ 1,619" },
-                                        { size: "24 x 36", price: "₹ 1,999" },
-                                    ]
-                                        .map(
-                                            item => `
+                    { size: "4 x 6", price: "₹ 100" },
+                    { size: "5 x 7", price: "₹ 140" },
+                    { size: "6 x 8", price: "₹ 150" },
+                    { size: "8 x 12", price: "₹ 299" },
+                    { size: "10 x 15", price: "₹ 419" },
+                    { size: "12 x 18", price: "₹ 549" },
+                    { size: "16 x 24", price: "₹ 1,350" },
+                    { size: "20 x 30", price: "₹ 1,619" },
+                    { size: "24 x 36", price: "₹ 1,999" },
+                ]
+                    .map(
+                        item => `
           <div onclick="openLogin()" class="flex flex-col justify-between items-center">
             <button class="border border-gray-400 rounded-md px-3 py-1.5 text-black font-semibold text-sm" type="button">${item.size}</button>
             <span class="text-sm font-extrabold text-gray-700 mt-1">${item.price}</span>
           </div>
         `
-                                        )
-                                        .join("")}
+                    )
+                    .join("")}
                                 </div>
                             </div>
 
@@ -122,66 +344,71 @@
 
                             <hr class="border-2 mt-2 md:mt-4">
                             </section>
+                            <div class="instructors md:flex justify-between bg-gray-100 p-3 md:p-4 rounded-xl shadow-sm mb-24">
 
-                            <div class="instructors md:flex justify-between mx-auto bg-gray-100 p-2 mb-20">
-
-                                <div class="flex-1 w-full h-full md:p-4 p-2">
-                                    <h2 class="text-lg w-96 font-semibold mt-4 mb-2">Specification</h2>
-                                    <ul class="list-disc list-inside space-y-1 text-gray-700 text-justify break-words overflow-hidden">
+  <!-- Specification Section -->
+                                <div class="flex-1 h-full md:pr-6">
+                                    <h2 class="text-lg font-semibold mt-3 mb-2 text-gray-800">Specification</h2>
+                                    <ul class="list-disc list-inside space-y-1 text-gray-700 text-sm leading-relaxed text-justify break-words overflow-hidden">
                                         ${course.Specification || 'No details available.'}
                                     </ul>
-
-                                    <hr class="border-2 mt-2">
+                                    <hr class="border-t-2 border-gray-300 mt-3">
                                 </div>
 
-                                <div class=" p-2 w-full flex1">
-                                    <h2 class="text-lg font-semibold py-2 mb-2">Order Process</h2>
-                                    <ul class="space-y-3 px-4 mb-2">
-                                        <div class="flex items-center space-x-4">
-                                            <div class="flex flex-col items-center space-y-1">
-                                                <div class="w-10 h-10 rounded-full bg-gray-500 flex justify-center items-center">
-                                                    <i class="fas fa-clipboard-list text-white text-lg"></i>
-                                                </div>
-                                                <span class="text-gray-600 text-xs font-bold font-sans">Ordered</span>
+                                <!-- Order Process + Reviews -->
+                                <div class="w-full md:w-[45%] mt-4 md:mt-0 md:pl-4">
+                                    <h2 class="text-lg font-semibold mb-3 text-gray-800">Order Process</h2>
+
+                                    <div class="flex flex-wrap mx-auto items-center justify-center md:justify-start space-x-2 md:space-x-10  px-2 mb-4">
+                                        <!-- Step 1 -->
+                                        <div class="flex flex-col items-center space-y-1">
+                                            <div class="w-10 h-10 rounded-full bg-black flex justify-center items-center shadow">
+                                                <i class="fas fa-clipboard-list text-white text-lg"></i>
                                             </div>
-
-                                            <div class="w-8 h-0.5 bg-red-600 rounded"></div>
-
-                                            <div class="flex flex-col items-center space-y-1">
-                                                <div class="w-10 h-10 rounded-full bg-gray-500 flex justify-center items-center">
-                                                    <i class="fas fa-box-open text-white text-lg"></i>
-                                                </div>
-                                                <span class="text-gray-600 text-xs font-bold font-sans">Packed</span>
-                                            </div>
-
-                                            <div class="w-8 h-0.5 bg-red-600 rounded"></div>
-
-                                            <div class="flex flex-col items-center space-y-1">
-                                                <div class="w-10 h-10 rounded-full bg-gray-500 flex justify-center items-center">
-                                                    <i class="fas fa-truck-moving text-white text-lg"></i>
-                                                </div>
-                                                <span class="text-gray-600 text-xs font-bold font-sans">Transit</span>
-                                            </div>
-
-                                            <div class="flex space-x-1">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
-                                                <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
-                                                <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
-                                                <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
-                                            </div>
-
-                                            <div class="flex flex-col items-center space-y-1">
-                                                <div class="w-10 h-10 rounded-full bg-gray-500 flex justify-center items-center">
-                                                    <i class="fas fa-home text-white text-lg"></i>
-                                                </div>
-                                                <span class="text-gray-600 text-xs font-bold font-sans">Delivered</span>
-                                            </div>
+                                            <span class="text-gray-600 text-xs font-bold font-sans">Ordered</span>
                                         </div>
-                                    </ul>
 
-                                    <h2 class="text-lg font-semibold mb-2">Reviews</h2>
+                                        <div class="w-8 h-0.5 bg-red-600 rounded"></div>
+
+                                        <!-- Step 2 -->
+                                        <div class="flex flex-col items-center space-y-1">
+                                            <div class="w-10 h-10 rounded-full bg-gray-500 flex justify-center items-center shadow">
+                                                <i class="fas fa-box-open text-white text-lg"></i>
+                                            </div>
+                                            <span class="text-gray-600 text-xs font-bold font-sans">Packed</span>
+                                        </div>
+
+                                        <div class="w-8 h-0.5 bg-red-600 rounded"></div>
+
+                                        <!-- Step 3 -->
+                                        <div class="flex flex-col items-center space-y-1">
+                                            <div class="w-10 h-10 rounded-full bg-gray-500 flex justify-center items-center shadow">
+                                                <i class="fas fa-truck-moving text-white text-lg"></i>
+                                            </div>
+                                            <span class="text-gray-600 text-xs font-bold font-sans">Transit</span>
+                                        </div>
+
+                                        <!-- Dotted connector -->
+                                        <div class="flex space-x-1">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
+                                            <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
+                                            <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
+                                            <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
+                                        </div>
+
+                                        <!-- Step 4 -->
+                                        <div class="flex flex-col items-center space-y-1">
+                                            <div class="w-10 h-10 rounded-full bg-gray-500 flex justify-center items-center shadow">
+                                                <i class="fas fa-home text-white text-lg"></i>
+                                            </div>
+                                            <span class="text-gray-600 text-xs font-bold font-sans">Delivered</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Reviews Section -->
+                                    <h2 class="text-lg font-semibold mb-2 text-gray-800">Reviews</h2>
                                     <ul class="space-y-3">
-                                        <li class="border w-full rounded p-3 bg-gray-50">
+                                        <li class="border rounded-lg p-3 bg-gray-50 shadow-sm">
                                             <div class="flex justify-between items-center mb-1">
                                                 <span class="font-semibold text-gray-800">${course.Name || 'User'}</span>
                                                 <span class="flex gap-0.5">${renderStars(course.Ratting || 4)}</span>
@@ -191,34 +418,107 @@
                                     </ul>
                                 </div>
 
-                            </div>`;
+                            </div>
+                            `;
         }
 
         // 🔹 Load product by Id
         window.addEventListener("DOMContentLoaded", () => {
             const courseId = getCourseIdFromURL();
 
-                            if (!courseId) {
-                                document.getElementById("course-detail").innerHTML =
-                                `<p class="text-center text-red-500 font-medium mt-10">No product selected.</p>`;
-                            return;
+            if (!courseId) {
+                document.getElementById("course-detail").innerHTML =
+                    `<p class="text-center text-red-500 font-medium mt-10">No product selected.</p>`;
+                return;
             }
 
-                            fetch(`${SHEET_API}?action=read`)
+            fetch(`${SHEET_API}?action=read`)
                 .then((res) => res.json())
                 .then((data) => {
                     const course = data.records.find((c) => String(c.Id) === String(courseId));
-                            if (course) renderCourse(course);
-                            else
-                            document.getElementById("course-detail").innerHTML =
+                    if (course) renderCourse(course);
+                    else
+                        document.getElementById("course-detail").innerHTML =
                             `<p class="text-center text-gray-500 mt-10">Product not found.</p>`;
                 })
                 .catch(() => {
-                                document.getElementById("course-detail").innerHTML =
-                                `<p class="text-center text-red-500 mt-10">Failed to load product details. Try again later.</p>`;
+                    document.getElementById("course-detail").innerHTML =
+                        `<p class="text-center text-red-500 mt-10">Failed to load product details. Try again later.</p>`;
                 });
         });
     </script>
 </body>
+<script type="module">
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+    import {
+        getAuth,
+        onAuthStateChanged,
+        signOut,
+    } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+    import {
+        getFirestore,
+        getDoc,
+        doc,
+    } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+
+    // ✅ Your Firebase config (USE YOUR OWN VALUES HERE)
+    const firebaseConfig = {
+        apiKey: "AIzaSyAKN5GR18VTFrKNgVG7FenD4aSTX3Q2PbA",
+        authDomain: "gift-zone-project.firebaseapp.com",
+        projectId: "gift-zone-project",
+        storageBucket: "gift-zone-project.appspot.com",
+        messagingSenderId: "806465456032",
+        appId: "1:806465456032:web:becf8988a6dfabe43646c5",
+        measurementId: "G-1ZLMWBP61Y",
+    };
+
+    // ✅ Initialize Firebase services
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // ✅ On Auth Change: fetch and show user data
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            const loggedInUserId = localStorage.getItem("loggedInUserId");
+            if (!loggedInUserId) {
+                console.log("User ID not found in local storage.");
+                return;
+            }
+
+            const docRef = doc(db, "users", loggedInUserId);
+            getDoc(docRef)
+                .then((docSnap) => {
+                    if (docSnap.exists()) {
+                        const userData = docSnap.data();
+                        let filt = (document.getElementById("HomeName").innerText =
+                            userData.firstName || "N/A");
+                        let ff = (document.getElementById("Homemails").innerText =
+                            userData.email || "N/A");
+                        let filts = (document.getElementById("PhoneHomeName").innerText =
+                            userData.firstName || "N/A");
+                        let ffd = (document.getElementById("PhoneHomemails").innerText =
+                            userData.email || "N/A");
+
+                        // ✅ Optional: handle missing lastName gracefully
+                        const lNameElement = document.getElementById("loggedUserLName");
+                        if (userData.lastName) {
+                            lNameElement.innerText = userData.lastName;
+                        } else {
+                            lNameElement.innerText = "-";
+                        }
+                    } else {
+                        console.log("No user document found in Firestore.");
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error fetching user data:", error);
+                });
+        } else {
+            console.log("User not signed in.");
+        }
+    });
+</script>
 
 </html>
