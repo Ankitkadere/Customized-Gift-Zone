@@ -220,6 +220,7 @@
                 <span class="font-extrabold"> Free International Delivery</span>
             </div>
         </nav>
+          <hr class="text-black bg-gray-200 p-[0.3px]">
     </header>
 
     <!-- 🔹 Header -->
@@ -240,7 +241,104 @@
 
     </div>
     <!-- 🔹 Product Section -->
-    <main id="course-detail" class=""></main>
+    <main id="course-detail" class="">
+        <!-- 🔄 Product Details Preloader -->
+        <section class="md:flex w-full md:[100vw] bg-gray-100 overflow-x-hidden animate-pulse">
+            <!-- Left Image Section -->
+            <div class="flex flex-col w-[100vw] md:w-[55vw]">
+                <div class="h-[400px] md:h-[60vh] bg-gray-300 w-full flex  justify-center">
+                    <div class="w-40 h-40 bg-gray-400 rounded-md mt-2"></div>
+                </div>
+            </div>
+
+            <!-- Right Content Section -->
+            <div class="bg-gray-100 px-3 w-full md:w-[45vw] py-4 space-y-4">
+                <!-- Title & Rating -->
+                <div class="flex justify-between items-start">
+                    <div class="space-y-2 w-2/3">
+                        <div class="h-6 w-3/4 bg-gray-300 rounded"></div>
+                        <div class="h-4 w-1/3 bg-gray-200 rounded"></div>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <div class="w-5 h-5 bg-yellow-300 rounded"></div>
+                        <div class="h-4 w-8 bg-gray-200 rounded"></div>
+                    </div>
+                </div>
+
+                <!-- Subtitle -->
+                <div class="space-y-2">
+                    <div class="h-4 bg-gray-200 w-full rounded"></div>
+                    <div class="h-4 bg-gray-200 w-11/12 rounded"></div>
+                    <div class="h-4 bg-gray-200 w-9/12 rounded"></div>
+                    <div class="h-4 bg-gray-200 w-full rounded"></div>
+                    <div class="h-4 bg-gray-200 w-11/12 rounded"></div>
+                   
+                </div>
+
+                <!-- Size Options -->
+                <div>
+                    <div class="h-5 w-24 bg-gray-300 rounded mb-2"></div>
+                    <div class="flex flex-wrap gap-2">
+                        <div class="h-8 w-16 bg-gray-300 rounded"></div>
+                        <div class="h-8 w-16 bg-gray-300 rounded"></div>
+                        <div class="h-8 w-16 bg-gray-300 rounded"></div>
+                        <div class="h-8 w-16 bg-gray-300 rounded"></div>
+                        <div class="h-8 w-16 bg-gray-300 rounded"></div>
+                        <div class="h-8 w-16 bg-gray-300 rounded"></div>
+                        <div class="h-8 w-16 bg-gray-300 rounded"></div>
+                        <div class="h-8 w-16 bg-gray-300 rounded"></div>
+                        <div class="h-8 w-16 bg-gray-300 rounded"></div>
+                        <div class="h-8 w-16 bg-gray-300 rounded"></div>
+                    </div>
+                </div>
+
+                <!-- Order Button -->
+                <div class="hidden md:block mt-4">
+                    <div class="h-10 bg-gray-300 w-full rounded-lg mx-auto"></div>
+                </div>
+
+                <hr class="border-2 mt-4 border-gray-300">
+            </div>
+        </section>
+
+        <!-- 🔄 Specification + Order Process + Reviews Preloader -->
+        <div class="md:flex justify-between bg-gray-100 p-3 md:p-4 rounded-xl shadow-sm mb-24 animate-pulse">
+            <!-- Specification -->
+            <div class="flex-1 h-full md:pr-6 space-y-2">
+                <div class="h-5 w-1/3 bg-gray-300 rounded"></div>
+                <div class="space-y-1">
+                    <div class="h-4 bg-gray-200 w-full rounded"></div>
+                    <div class="h-4 bg-gray-200 w-11/12 rounded"></div>
+                    <div class="h-4 bg-gray-200 w-10/12 rounded"></div>
+                    <div class="h-4 bg-gray-200 w-8/12 rounded"></div>
+                      <div class="h-4 bg-gray-200 w-10/12 rounded"></div>
+                    <div class="h-4 bg-gray-200 w-8/12 rounded"></div>
+                </div>
+                <hr class="border-t-2 border-gray-300 mt-3">
+            </div>
+
+            <!-- Order Process + Reviews -->
+            <div class="w-full md:w-[45%] mt-4 md:mt-0 md:pl-4 space-y-4">
+                <div class="h-5 w-1/2 bg-gray-300 rounded"></div>
+
+                <!-- Steps -->
+                <div class="flex flex-wrap gap-6 md:gap-28 px-6 justify-between md:justify-start">
+                    <div class="w-10 h-10 bg-gray-400 rounded-full"></div>
+                    <div class="w-10 h-10 bg-gray-400 rounded-full"></div>
+                    <div class="w-10 h-10 bg-gray-400 rounded-full"></div>
+                    <div class="w-10 h-10 bg-gray-400 rounded-full"></div>
+                </div>
+
+                <!-- Review Section -->
+                <div class="h-5 w-1/3 bg-gray-300 rounded"></div>
+                <div class="space-y-3">
+                    <div class="h-16 bg-gray-200 rounded-lg"></div>
+                    <div class="h-16 bg-gray-200 rounded-lg"></div>
+                </div>
+            </div>
+        </div>
+
+    </main>
 
     <nav aria-label="Bottom navigation" id="orderbtn"
         class="fixed md:hidden bottom-0 w-full right-0 z-50 flex items-center justify-between gap-2 bg-gray-100 border-t border-[#d9d9d9] py-1 px-3">
@@ -399,7 +497,7 @@
                 </div>
 
                 <!-- Dotted connector -->
-                <div class="flex space-x-1">
+                <div class="flex space-x-3">
                     <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
                     <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
                     <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
