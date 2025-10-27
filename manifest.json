@@ -21,7 +21,7 @@
       "purpose": "any"
     },
     {
-      "src": "fav.jpg",
+      "src": "app.jpg",
       "type": "image/jpeg",
       "sizes": "512x512",
       "purpose": "any maskable"
