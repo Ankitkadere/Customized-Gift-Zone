@@ -20,7 +20,10 @@
 <body class=" w-full top-0 left-0 fixed font-extrabold flex items-center justify-center ">
     <div styl="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)"
         class="  w-full flex flex-col md:flex-row overflow-hidden">
-
+        <div id="funLoader" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+            <div class="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin">
+            </div>
+        </div>
         <!-- Toggle Button (Visible only on mobile) -->
         <div class="flex items-center md:px-0 px-2 h-full justify-between">
             <button id="menuToggle" type="button" class="p-3 text-gray-700 focus:outline-none">
@@ -292,12 +295,14 @@
                             class="px-6 py-2 bg-orange-200 text-orange-700 font-semibold rounded-lg hover:bg-orange-300 transition flex items-center gap-2">
                             <i class="fas fa-times"></i> Cancel
                         </button>
-                        <button type="submit"
+                        <button type="submit" id="actionBtn" onclick="showLoader()"
                             class="px-6 py-2 bg-orange-600 text-white font-semibold rounded-lg hover:bg-orange-700 transition flex items-center gap-2">
-                            <i class="fas fa-save"></i> Save
+                            <i class="fas fa-save"></i>
+                            Save
                         </button>
                     </div>
                 </form>
+
 
             </div>
 
@@ -393,7 +398,7 @@
 
                         <div>
                             <button onclick="showFormCopy()"
-                                class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded shadow">+
+                                class="bg-blue-600 hover:bg-green-700 text-white px-6 py-2 rounded-md shadow">+
                                 Add New</button>
                         </div>
                         <div>
@@ -796,18 +801,27 @@
                             </div>
                             <div>
                                 <label class="block text-gray-600 mb-1">Date</label>
-                                <input type="text" name="Date" class="w-full p-2 border rounded-lg"
+                                <input type="date" name="Date" class="w-full p-2 border rounded-lg"
                                     placeholder="YYYY-MM-DD">
                             </div>
                             <div>
                                 <label class="block text-gray-600 mb-1">Time</label>
-                                <input type="text" name="Time" class="w-full p-2 border rounded-lg"
+                                <input type="time" name="Time" class="w-full p-2 border rounded-lg"
                                     placeholder="HH:MM AM/PM">
                             </div>
                             <div>
                                 <label class="block text-gray-600 mb-1">Category</label>
-                                <input type="text" name="Category" class="w-full p-2 border rounded-lg">
+                                <select name="Category" class="w-full p-2 border rounded-lg">
+                                    <option value="">Select Photo Frame</option>
+                                    <option value="Wooden Frame">Wooden Frame</option>
+                                    <option value="Metal Frame">Metal Frame</option>
+                                    <option value="Glass Frame">Glass Frame</option>
+                                    <option value="Plastic Frame">Plastic Frame</option>
+                                    <option value="Collage Frame">Collage Frame</option>
+                                    <option value="Canvas Frame">Canvas Frame</option>
+                                </select>
                             </div>
+
                             <div>
                                 <label class="block text-gray-600 mb-1">Tittle</label>
                                 <input type="text" name="Tittle" class="w-full p-2 border rounded-lg">
@@ -816,64 +830,156 @@
                                 <label class="block text-gray-600 mb-1">SubTittle</label>
                                 <input type="text" name="SubTittle" class="w-full p-2 border rounded-lg">
                             </div>
-                            <div>
+                            <div class="hidden">
                                 <label class="block text-gray-600 mb-1">Size</label>
                                 <input type="text" name="Size" class="w-full p-2 border rounded-lg">
                             </div>
-                            <div>
+                            <div class="hidden">
                                 <label class="block text-gray-600 mb-1">Material</label>
                                 <input type="text" name="Material" class="w-full p-2 border rounded-lg">
                             </div>
-                            <div>
+                            <div class="hidden">
                                 <label class="block text-gray-600 mb-1">Color</label>
                                 <input type="text" name="Color" class="w-full p-2 border rounded-lg">
                             </div>
                             <div>
                                 <label class="block text-gray-600 mb-1">Specification</label>
-                                <input type="text" name="Specification" class="w-full p-2 border rounded-lg">
+                                <select name="Specification" class="w-full p-2 border rounded-lg">
+                                    <option value="">Select Specification</option>
+
+                                    <option
+                                        value="This elegant photo frame is crafted from high-quality wood with a smooth matte finish, designed for both wall mount and tabletop display. The glass front provides excellent clarity and protects your photo from dust and moisture. Its minimal yet stylish design suits all interiors — from classic to modern. Perfect for displaying portraits, certificates, or art prints, the frame ensures long-lasting durability with a non-fading finish that preserves your memories beautifully. Includes metal hooks and back stand for easy placement.">
+                                        Wall Mount & Tabletop Display
+                                    </option>
+
+                                    <option
+                                        value="This photo frame uses premium scratch-resistant acrylic glass that ensures lasting clarity while being lightweight and safer than traditional glass. The surface is UV-protected to prevent yellowing or fading over time, keeping your photos as vibrant as the day they were printed. The frame body is crafted from eco-friendly wood composite, offering strength and style. Ideal for gifting or showcasing special moments, it provides a clear, reflection-free view that enhances every image.">
+                                        Scratch-Resistant Acrylic Glass
+                                    </option>
+
+                                    <option
+                                        value="The lightweight wooden frame design combines elegance with practicality. Crafted from sustainable pinewood, it’s easy to handle, hang, or move. Despite its light build, it maintains exceptional rigidity, preventing warping over time. A soft-touch protective coating enhances the texture and resists fingerprints. Suitable for offices, homes, or galleries, this frame’s versatility and premium aesthetic make it a timeless choice for decorators and collectors alike.">
+                                        Lightweight Wooden Frame
+                                    </option>
+
+                                    <option
+                                        value="This premium gloss finish photo frame offers a stunning reflective sheen that enhances the depth and contrast of your photos. Its multi-layered lacquer coating resists scratches, fingerprints, and fading. Designed to add a touch of luxury to your living space, this frame’s smooth surface beautifully complements both monochrome and color images. The high-gloss coating also makes it easy to clean and maintain, ensuring that it continues to look brand new for years.">
+                                        Premium Gloss Finish
+                                    </option>
+
+                                    <option
+                                        value="Gift-ready packaging makes this frame the perfect choice for special occasions like weddings, birthdays, and anniversaries. Each frame is carefully wrapped in protective layers and enclosed in a decorative box. The packaging is eco-conscious, using recyclable materials and zero plastic. The unboxing experience is designed to impress, ensuring that your loved ones receive a premium product in flawless condition — ready to be presented straight out of the box.">
+                                        Gift-Ready Packaging
+                                    </option>
+                                </select>
                             </div>
+
                             <div>
-                                <label class="block text-gray-600 mb-1">Ratting</label>
-                                <input type="text" name="Ratting" class="w-full p-2 border rounded-lg">
+                                <label class="block text-gray-600 mb-1">Rating</label>
+                                <select name="Ratting" class="w-full p-2 border rounded-lg">
+                                    <option value="">Select Rating</option>
+                                    <option value="5.0">⭐⭐⭐⭐⭐ 5.0</option>
+                                    <option value="4.9">⭐⭐⭐⭐⭐ 4.9</option>
+                                    <option value="4.8">⭐⭐⭐⭐⭐ 4.8</option>
+                                    <option value="4.7">⭐⭐⭐⭐⭐ 4.7</option>
+                                    <option value="4.6">⭐⭐⭐⭐⭐ 4.6</option>
+                                    <option value="4.5">⭐⭐⭐⭐⭐ 4.5</option>
+                                    <option value="4.4">⭐⭐⭐⭐⭐ 4.4</option>
+                                    <option value="4.3">⭐⭐⭐⭐⭐ 4.3</option>
+                                    <option value="4.2">⭐⭐⭐⭐⭐ 4.2</option>
+                                    <option value="4.1">⭐⭐⭐⭐⭐ 4.1</option>
+                                    <option value="4.0">⭐⭐⭐⭐ 4.0</option>
+                                    <option value="3.9">⭐⭐⭐⭐ 3.9</option>
+                                    <option value="3.8">⭐⭐⭐⭐ 3.8</option>
+                                    <option value="3.7">⭐⭐⭐⭐ 3.7</option>
+                                    <option value="3.6">⭐⭐⭐⭐ 3.6</option>
+                                    <option value="3.5">⭐⭐⭐⭐ 3.5</option>
+                                    <option value="3.4">⭐⭐⭐⭐ 3.4</option>
+                                    <option value="3.3">⭐⭐⭐⭐ 3.3</option>
+                                    <option value="3.2">⭐⭐⭐⭐ 3.2</option>
+                                    <option value="3.1">⭐⭐⭐⭐ 3.1</option>
+                                    <option value="3.0">⭐⭐⭐ 3.0</option>
+                                    <option value="2.9">⭐⭐⭐ 2.9</option>
+                                    <option value="2.8">⭐⭐⭐ 2.8</option>
+                                    <option value="2.7">⭐⭐⭐ 2.7</option>
+                                    <option value="2.6">⭐⭐⭐ 2.6</option>
+                                    <option value="2.5">⭐⭐⭐ 2.5</option>
+                                    <option value="2.4">⭐⭐⭐ 2.4</option>
+                                    <option value="2.3">⭐⭐⭐ 2.3</option>
+                                    <option value="2.2">⭐⭐⭐ 2.2</option>
+                                    <option value="2.1">⭐⭐⭐ 2.1</option>
+                                    <option value="2.0">⭐⭐ 2.0</option>
+                                    <option value="1.9">⭐⭐ 1.9</option>
+                                    <option value="1.8">⭐⭐ 1.8</option>
+                                    <option value="1.7">⭐⭐ 1.7</option>
+                                    <option value="1.6">⭐⭐ 1.6</option>
+                                    <option value="1.5">⭐⭐ 1.5</option>
+                                    <option value="1.4">⭐⭐ 1.4</option>
+                                    <option value="1.3">⭐⭐ 1.3</option>
+                                    <option value="1.2">⭐ 1.2</option>
+                                    <option value="1.1">⭐ 1.1</option>
+                                    <option value="1.0">⭐ 1.0</option>
+                                </select>
                             </div>
+
                             <div>
                                 <label class="block text-gray-600 mb-1">Price</label>
-                                <input type="text" name="Price" class="w-full p-2 border rounded-lg">
+                                <input type="number" name="Price" class="w-full p-2 border rounded-lg">
                             </div>
                             <div>
                                 <label class="block text-gray-600 mb-1">Cash</label>
-                                <input type="text" name="Cash" class="w-full p-2 border rounded-lg">
+                                <select name="Cash" class="w-full p-2 border rounded-lg">
+                                    <option value="">Select</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
                             </div>
+
                             <div>
                                 <label class="block text-gray-600 mb-1">Online</label>
-                                <input type="text" name="Online" class="w-full p-2 border rounded-lg">
+                                <select name="Online" class="w-full p-2 border rounded-lg">
+                                    <option value="">Select</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
                             </div>
+
                             <div>
                                 <label class="block text-gray-600 mb-1">Reviews</label>
                                 <input type="text" name="Reviews" class="w-full p-2 border rounded-lg">
                             </div>
                             <div class="col-span-2">
                                 <label class="block text-gray-600 mb-1">Image</label>
-                                <input type="file" id="ImageInputCopy" name="Image" accept="image/*"
+                                <input type="file" id="ImageInputopy" name="Image" accept="image/*"
                                     class="w-full p-2 border rounded-lg">
                             </div>
-                            <div>
+                            <div class="hidden">
                                 <label class="block text-gray-600 mb-1">Level</label>
                                 <input type="text" name="Level" class="w-full p-2 border rounded-lg">
                             </div>
                             <div>
                                 <label class="block text-gray-600 mb-1">Status</label>
-                                <input type="text" name="Status" class="w-full p-2 border rounded-lg">
+                                <select name="Status" class="w-full p-2 border rounded-lg">
+                                    <option value="">Select Status</option>
+                                    <option value="In Stock">In Stock</option>
+                                    <option value="Out of Stock">Out of Stock</option>
+                                    <option value="Coming Soon">Coming Soon</option>
+                                    <option value="Discontinued">Discontinued</option>
+                                    <option value="Preorder">Preorder</option>
+                                </select>
                             </div>
+
                             <div class="col-span-2 hidden ">
                                 <label class="block text-gray-600 mb-1">Filtered</label>
                                 <input type="text" name="Filtered" class="w-full p-2 border rounded-lg">
                             </div>
 
-                            <div class="col-span-2 flex justify-end space-x-3 mt-6">
+                            <div class="md:fixed bottom-20 right-20 col-span-2 flex justify-end space-x-3 mt-6">
                                 <button type="button" onclick="hideFormCopy()"
-                                    class="px-4 py-2 bg-gray-500 text-white rounded-lg">Cancel</button>
-                                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg">Save</button>
+                                    class="px-10 py-2 bg-gray-500 text-white rounded-lg">Cancel</button>
+                                <button type="submit" onclick="showLoader()"
+                                    class="px-10 py-2 bg-blue-600 text-white rounded-lg">
+                                    Save</button>
                             </div>
                         </form>
 
@@ -884,6 +990,8 @@
                 </div>
 
                 <script>
+
+
                     const API_URL_COPY = "https://script.google.com/macros/s/AKfycbzMq8ZIKjp_zbvuGStwYd7m4eizacjlrwPyu3vxuCxLCLC_iPAIiU-2imLLM0yVJxNb/exec";
                     let isEditingCopy = false;
                     let allRecordsCopy = [];
@@ -921,9 +1029,10 @@
                             tbody.innerHTML += `
                 <tr class="hover:bg-gray-50">
                     <td class="border p-2 whitespace-nowrap">${record.Id}</td>
-                    <td class="border p-2 whitespace-nowrap w-20 h-20 object-cover">
-                        <img src="${record.Icon}" alt="Product" class="rounded border-2"/>
-                    </td>
+                <td class="border p-2 w-20 h-20 flex items-center justify-center">
+  <img src="${record.Icon}" alt="Product" class="rounded border-2 w-full h-full object-cover"/>
+</td>
+
                     <td class="border p-2 flex-col">
                         <div class="font-extrabold">${record.Tittle}</div>
                         <div>${formatTimeCopy(record.Time)}</div>
@@ -1012,10 +1121,12 @@
                     }
 
                     function editRecordCopy(record) {
+                        showLoader();
                         showFormCopy(record);
                     }
 
                     async function deleteRecordCopy(id) {
+                        showLoader();
                         if (!confirm("Are you sure?")) return;
                         await fetch(API_URL_COPY, { method: "POST", body: new URLSearchParams({ action: "delete", Id: id }) });
                         fetchRecordsCopy();
@@ -1089,6 +1200,9 @@
                             if (!response.ok) throw new Error(result || "Failed to submit");
                             hideFormCopy();
                             fetchRecordsCopy();
+                            const loader = document.getElementById("funLoader");
+                            loader.classList.remove("hidden");       // show loader
+
                         } catch (err) {
                             console.error("Error submitting form:", err);
                             alert("Error submitting form. Check console for details.");
@@ -1096,6 +1210,21 @@
                     });
 
                     fetchRecordsCopy();
+
+
+                    function showLoader() {
+                        const loader = document.getElementById("funLoader");
+                        const button = event.target; // the clicked button
+
+                        loader.classList.remove("hidden");       // show loader
+                        button.classList.add("animate-bounce");  // fun bounce effect
+
+                        setTimeout(() => {
+                            loader.classList.add("hidden");        // hide loader
+                            button.classList.remove("animate-bounce");
+
+                        }, 5000); // 3s loader
+                    }
                 </script>
 
             </section>
@@ -1546,9 +1675,10 @@
                             tbody.innerHTML += `
           <tr class="hover:bg-gray-50">
           <td class="border p-2 whitespace-nowrap">${record.Id}</td>
-          <td class="border p-2 whitespace-nowrap  w-32 h-20 object-cover ">
-            <img src="${record.Icon}" alt="Product" class=" rounded border-2 w-20" />
-          </td>
+        <td class="border p-2 w-28 h-20 flex items-center justify-center">
+  <img src="${record.Icon}" alt="Product" class="rounded border-2 w-20 h-20 object-cover" />
+</td>
+
           <td class="border p-2  flex-col">
             <div class="font-extrabold"> ${record.Other} </div>
             <div>${formatTime(record.Time)}</div>
@@ -1608,10 +1738,14 @@
                             });
                         }
                     }
-                    function hideForm() { document.getElementById("formContainer").classList.add("hidden"); }
-                    function editRecord(record) { showForm(record); }
+                    function hideForm() { document.getElementById("formContainer").classList.add("hidden"); showLoader(); }
+                    function editRecord(record) {
+                        showForm(record);
+                        showLoader();
+                    }
 
                     async function deleteRecord(id) {
+                        showLoader();
                         if (!confirm("Are you sure ?")) return;
                         await fetch(API_URL, { method: "POST", body: new URLSearchParams({ action: "delete", Id: id }) });
                         fetchRecords();
