@@ -16,14 +16,20 @@
   "icons": [
     {
       "src": "app.jpg",
-      "type": "image/jpeg",
+      "type": "image/png",
       "sizes": "192x192",
       "purpose": "any"
     },
     {
       "src": "app.jpg",
-      "type": "image/jpeg",
+      "type": "image/png",
       "sizes": "512x512",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "app.jpg",
+      "type": "image/png",
+      "sizes": "1024x1024",
       "purpose": "any maskable"
     }
   ],
@@ -54,14 +60,26 @@
       "short_name": "Online & Offline Shop",
       "description": "Browse and shop personalized gifts",
       "url": "/shop",
-      "icons": [{ "src": "icons/shop.png", "sizes": "96x96", "type": "image/png" }]
+      "icons": [
+        {
+          "src": "icons/shop.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
     },
     {
       "name": "My Orders",
       "short_name": "Orders",
       "description": "Check your recent orders",
       "url": "/orders",
-      "icons": [{ "src": "icons/orders.png", "sizes": "96x96", "type": "image/png" }]
+      "icons": [
+        {
+          "src": "icons/orders.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
     }
   ]
 }
