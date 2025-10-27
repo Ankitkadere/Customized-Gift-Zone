@@ -802,7 +802,8 @@
                         <form id="crudFormCopy" class="grid grid-cols-4 gap-4 text-sm">
                             <div>
                                 <label class="block text-gray-600 mb-1">ID</label>
-                                <input type="number" id="IdCopy" name="Id" class="w-full p-2 border rounded-lg">
+                                <input type="number" id="IdCopy" name="Id" required minlength="4"
+                                    class="w-full p-2 border rounded-lg">
                             </div>
                             <div>
                                 <label class="block text-gray-600 mb-1">Icon</label>
@@ -810,26 +811,28 @@
                             </div>
                             <div>
                                 <label class="block text-gray-600 mb-1">Date</label>
-                                <input type="date" name="Date" class="w-full p-2 border rounded-lg"
+                                <input type="text" id="dateInput" name="Date" class="w-full p-2 border rounded-lg"
                                     placeholder="YYYY-MM-DD">
                             </div>
                             <div>
                                 <label class="block text-gray-600 mb-1">Time</label>
-                                <input type="time" name="Time" class="w-full p-2 border rounded-lg"
+                                <input type="text" id="timeInput" name="Time" class="w-full p-2 border rounded-lg"
                                     placeholder="HH:MM AM/PM">
                             </div>
                             <div>
                                 <label class="block text-gray-600 mb-1">Category</label>
                                 <select name="Category" class="w-full p-2 border rounded-lg">
-                                    <option value="">Select Photo Frame</option>
-                                    <option value="Wooden Frame">Wooden Frame</option>
-                                    <option value="Metal Frame">Metal Frame</option>
-                                    <option value="Glass Frame">Glass Frame</option>
-                                    <option value="Plastic Frame">Plastic Frame</option>
-                                    <option value="Collage Frame">Collage Frame</option>
-                                    <option value="Canvas Frame">Canvas Frame</option>
+                                    <option value="all">All Frames</option>
+                                    <option value="Single">Single Frame</option>
+                                    <option value="Double">Double Frame</option>
+                                    <option value="Triple">Triple Frame</option>
+                                    <option value="Multiple">Multiple Frames</option>
+                                    <option value="Calendar">Calendar Frames</option>
+                                    <option value="Trending">Trending</option>
+                                    <option value="Lovely">Lovely Frames</option>
                                 </select>
                             </div>
+
 
                             <div>
                                 <label class="block text-gray-600 mb-1">Tittle</label>
@@ -1080,6 +1083,8 @@
                         });
                     }
 
+
+
                     async function fetchRecordsCopy() {
                         const res = await fetch(`${API_URL_COPY}?action=read`);
                         const data = await res.json();
@@ -1166,6 +1171,31 @@
 
                     document.getElementById("crudFormCopy").addEventListener("submit", async (e) => {
                         e.preventDefault();
+
+                        function fillCurrentDateTime() {
+                            const dateInput = document.getElementById('dateInput');
+                            const timeInput = document.getElementById('timeInput');
+
+                            const now = new Date();
+
+                            // Format date as YYYY-MM-DD
+                            const year = now.getFullYear();
+                            const month = String(now.getMonth() + 1).padStart(2, '0');
+                            const day = String(now.getDate()).padStart(2, '0');
+                            dateInput.value = `${year}-${month}-${day}`;
+
+                            // Format time as HH:MM:SS AM/PM
+                            let hours = now.getHours();
+                            const minutes = String(now.getMinutes()).padStart(2, '0');
+                            const seconds = String(now.getSeconds()).padStart(2, '0');
+                            const ampm = hours >= 12 ? 'PM' : 'AM';
+                            hours = hours % 12;
+                            hours = hours ? hours : 12; // 0 => 12
+                            timeInput.value = `${String(hours).padStart(2, '0')}:${minutes}:${seconds} ${ampm}`;
+                        }
+                        fillCurrentDateTime()
+                        // Call the function when window loads
+                        window.addEventListener('load', fillCurrentDateTime);
 
                         const form = e.target;
                         const formData = new FormData(form);

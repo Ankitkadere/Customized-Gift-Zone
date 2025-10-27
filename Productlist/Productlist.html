@@ -115,163 +115,130 @@
             .catch((err) => console.error("Error loading header:", err));
 
     </script>
-    <section aria-label="Filter and search"
-        class="w-full flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mx-auto px-4 md:mt-4">
+ <section aria-label="Filter and search" class="w-full flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mx-auto px-4 md:mt-4">
 
-        <div aria-label="Photo frame categories"
-            class="hidden sm:flex overflow-auto hide-scrollbar py-2 md:py-1 flex-nowrap items-center gap-2 md:gap-8 overflow-x-auto px-2"
-            style="-webkit-overflow-scrolling: touch;">
+  <!-- Desktop Buttons -->
+  <div aria-label="Photo frame categories" class="hidden sm:flex overflow-auto hide-scrollbar py-2 md:py-1 flex-nowrap items-center gap-2 md:gap-8 overflow-x-auto px-2" style="-webkit-overflow-scrolling: touch;">
 
-            <!-- All Frames -->
-            <button aria-pressed="true"
-                class="category-btn bg-[#972034] flex items-center ml-[-10px] md:ml-[-6px] gap-2 border-2 border-transparent px-4 py-2 rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
-                data-filter="all" type="button">
-                <i class="fas fa-th-large text-lg text-green-600"></i>
-                <span>All Frames</span>
-            </button>
+    <!-- All Frames -->
+    <button aria-pressed="true" class="category-btn bg-[#972034] flex items-center ml-[-10px] md:ml-[-6px] gap-2 border-2 border-transparent px-4 py-2 rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0" data-filter="all" type="button">
+      <i class="fas fa-th-large text-lg text-green-600"></i>
+      <span>All Frames</span>
+    </button>
 
-            <!-- Single Frame -->
-            <button aria-pressed="false"
-                class="category-btn flex items-center gap-2 border-2 border-transparent px-4 py-2 rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
-                data-filter="single" type="button">
-                <i class="fas fa-square text-lg text-blue-600"></i>
-                <span>Single Frame</span>
-            </button>
+    <!-- Single Frame -->
+    <button aria-pressed="false" class="category-btn flex items-center gap-2 border-2 border-transparent px-4 py-2 rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0" data-filter="Single" type="button">
+      <i class="fas fa-square text-lg text-blue-600"></i>
+      <span>Single Frame</span>
+    </button>
 
-            <!-- Double Frame -->
-            <button aria-pressed="false"
-                class="category-btn flex items-center gap-2 border-2 border-transparent px-4 py-2 rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
-                data-filter="double" type="button">
-                <i class="fas fa-columns text-lg text-purple-600"></i>
-                <span>Double Frame</span>
-            </button>
+    <!-- Double Frame -->
+    <button aria-pressed="false" class="category-btn flex items-center gap-2 border-2 border-transparent px-4 py-2 rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0" data-filter="Double" type="button">
+      <i class="fas fa-columns text-lg text-purple-600"></i>
+      <span>Double Frame</span>
+    </button>
 
-            <!-- Triple Frame -->
-            <button aria-pressed="false"
-                class="category-btn flex items-center gap-2 border-2 border-transparent px-2 py-2 rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
-                data-filter="triple" type="button">
-                <i class="fas fa-border-all text-lg text-pink-600"></i>
-                <span>Triple Frame</span>
-            </button>
+    <!-- Triple Frame -->
+    <button aria-pressed="false" class="category-btn flex items-center gap-2 border-2 border-transparent px-2 py-2 rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0" data-filter="Driple" type="button">
+      <i class="fas fa-border-all text-lg text-pink-600"></i>
+      <span>Triple Frame</span>
+    </button>
 
-            <!-- Multiple Frame -->
-            <button aria-pressed="false"
-                class="category-btn flex items-center gap-2 border-2 border-transparent px-4 py-2 rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
-                data-filter="multiple" type="button">
-                <i class="fas fa-th text-lg text-orange-600"></i>
-                <span>Multiple Frames</span>
-            </button>
+    <!-- Multiple Frame -->
+    <button aria-pressed="false" class="category-btn flex items-center gap-2 border-2 border-transparent px-4 py-2 rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0" data-filter="Multiple" type="button">
+      <i class="fas fa-th text-lg text-orange-600"></i>
+      <span>Multiple Frames</span>
+    </button>
 
-            <!-- Calendar Frames -->
-            <button aria-pressed="false"
-                class="category-btn flex items-center gap-2 border-2 border-transparent px-4 py-2 rounded-lg bg-[#972034] text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
-                data-filter="calendar" type="button">
-                <i class="fas fa-calendar-alt text-lg text-teal-600"></i>
-                <span>Calendar Frames</span>
-            </button>
+    <!-- Calendar Frames -->
+    <button aria-pressed="false" class="category-btn flex items-center gap-2 border-2 border-transparent px-4 py-2 rounded-lg bg-[#972034] text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0" data-filter="Calendar" type="button">
+      <i class="fas fa-calendar-alt text-lg text-teal-600"></i>
+      <span>Calendar Frames</span>
+    </button>
 
-            <!-- Trending -->
-            <button aria-pressed="false"
-                class="category-btn flex items-center gap-2 border-2 border-transparent px-4 py-2 rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
-                data-filter="trending" type="button">
-                <i class="fas fa-fire text-lg text-red-600"></i>
-                <span>Trending</span>
-            </button>
+    <!-- Trending -->
+    <button aria-pressed="false" class="category-btn flex items-center gap-2 border-2 border-transparent px-4 py-2 rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0" data-filter="Trending" type="button">
+      <i class="fas fa-fire text-lg text-red-600"></i>
+      <span>Trending</span>
+    </button>
 
-            <!-- Lovely Frames -->
-            <button aria-pressed="false"
-                class="category-btn flex items-center gap-2 border-2 border-transparent px-4 py-2 rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
-                data-filter="lovely" type="button">
-                <i class="fas fa-heart text-lg text-pink-500"></i>
-                <span>Lovely Frames</span>
-            </button>
-        </div>
+    <!-- Lovely Frames -->
+    <button aria-pressed="false" class="category-btn flex items-center gap-2 border-2 border-transparent px-4 py-2 rounded-lg text-[#1a1a1a] text-xs font-semibold hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0" data-filter="Lovely" type="button">
+      <i class="fas fa-heart text-lg text-pink-500"></i>
+      <span>Lovely Frames</span>
+    </button>
+  </div>
 
-        <div aria-label="Photo frame categories"
-            class="overflow-auto hide-scrollbar md:hidden px-1 py-2 md:py-1 flex flex-nowrap items-center gap-7 md:gap-8 overflow-x-auto px-0"
-            style="-webkit-overflow-scrolling: touch;">
+  <!-- Mobile Buttons -->
+  <div aria-label="Photo frame categories" class="overflow-auto hide-scrollbar md:hidden px-1 py-2 flex flex-nowrap items-center gap-7 md:gap-8 overflow-x-auto" style="-webkit-overflow-scrolling: touch;">
 
-            <!-- All Frames -->
-            <div class="flex  flex-col items-center text-center">
-                <button aria-pressed="true"
-                    class="category-btn  w-12 h-12 flex justify-center items-center border-2 border-transparent rounded-full hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
-                    data-filter="all" type="button">
-                    <i class="fas fa-th-large text-lg text-green-600"></i>
-                </button>
-                <span class="mt-1 text-xs font-semibold text-[#1a1a1a]">All</span>
-            </div>
+    <!-- All Frames -->
+    <div class="flex flex-col items-center text-center">
+      <button class="category-btn w-12 h-12 flex justify-center items-center border-2 border-transparent rounded-full hover:text-[#22c55e] hover:border-[#22c55e]" data-filter="all">
+        <i class="fas fa-th-large text-lg text-green-600"></i>
+      </button>
+      <span class="mt-1 text-xs font-semibold text-[#1a1a1a]">All</span>
+    </div>
 
-            <!-- Trending -->
-            <div class="flex flex-col items-center text-center">
-                <button aria-pressed="false"
-                    class="category-btn w-12 h-12 flex justify-center items-center border-2 border-transparent rounded-full hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
-                    data-filter="trending" type="button">
-                    <i class="fas fa-fire text-lg text-red-600"></i>
-                </button>
-                <span class="mt-1 text-xs font-semibold text-[#1a1a1a]">Trending</span>
-            </div>
+    <!-- Single Frame -->
+    <div class="flex flex-col items-center text-center">
+      <button class="category-btn w-12 h-12 flex justify-center items-center border-2 border-transparent rounded-full hover:text-[#22c55e] hover:border-[#22c55e]" data-filter="single">
+        <i class="fas fa-square text-lg text-blue-600"></i>
+      </button>
+      <span class="mt-1 text-xs font-semibold text-[#1a1a1a]">Single</span>
+    </div>
 
-            <!-- Single Frame -->
-            <div class="flex flex-col items-center text-center">
-                <button aria-pressed="false"
-                    class="category-btn w-12 h-12 flex justify-center items-center border-2 border-transparent rounded-full hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
-                    data-filter="single" type="button">
-                    <i class="fas fa-square text-lg text-blue-600"></i>
-                </button>
-                <span class="mt-1 text-xs font-semibold text-[#1a1a1a]">Single</span>
-            </div>
+    <!-- Double Frame -->
+    <div class="flex flex-col items-center text-center">
+      <button class="category-btn w-12 h-12 flex justify-center items-center border-2 border-transparent rounded-full hover:text-[#22c55e] hover:border-[#22c55e]" data-filter="double">
+        <i class="fas fa-columns text-lg text-purple-600"></i>
+      </button>
+      <span class="mt-1 text-xs font-semibold text-[#1a1a1a]">Double</span>
+    </div>
 
-            <!-- Double Frame -->
-            <div class="flex flex-col items-center text-center">
-                <button aria-pressed="false"
-                    class="category-btn w-12 h-12 flex justify-center items-center border-2 border-transparent rounded-full hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
-                    data-filter="double" type="button">
-                    <i class="fas fa-columns text-lg text-purple-600"></i>
-                </button>
-                <span class="mt-1 text-xs font-semibold text-[#1a1a1a]">Double</span>
-            </div>
+    <!-- Triple Frame -->
+    <div class="flex flex-col items-center text-center">
+      <button class="category-btn w-12 h-12 flex justify-center items-center border-2 border-transparent rounded-full hover:text-[#22c55e] hover:border-[#22c55e]" data-filter="triple">
+        <i class="fas fa-border-all text-lg text-pink-600"></i>
+      </button>
+      <span class="mt-1 text-xs font-semibold text-[#1a1a1a]">Triple</span>
+    </div>
 
-            <!-- Triple Frame -->
-            <div class="flex flex-col items-center text-center">
-                <button aria-pressed="false"
-                    class="category-btn w-12 h-12 flex justify-center items-center border-2 border-transparent rounded-full hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
-                    data-filter="triple" type="button">
-                    <i class="fas fa-border-all text-lg text-pink-600"></i>
-                </button>
-                <span class="mt-1 text-xs font-semibold text-[#1a1a1a]">Triple</span>
-            </div>
+    <!-- Multiple Frames -->
+    <div class="flex flex-col items-center text-center">
+      <button class="category-btn w-12 h-12 flex justify-center items-center border-2 border-transparent rounded-full hover:text-[#22c55e] hover:border-[#22c55e]" data-filter="multiple">
+        <i class="fas fa-th text-lg text-orange-600"></i>
+      </button>
+      <span class="mt-1 text-xs font-semibold text-[#1a1a1a]">Multiple</span>
+    </div>
 
-            <!-- Multiple Frames -->
-            <div class="flex flex-col items-center text-center">
-                <button aria-pressed="false"
-                    class="category-btn w-12 h-12 flex justify-center items-center border-2 border-transparent rounded-full hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
-                    data-filter="multiple" type="button">
-                    <i class="fas fa-th text-lg text-orange-600"></i>
-                </button>
-                <span class="mt-1 text-xs font-semibold text-[#1a1a1a]">Multiple</span>
-            </div>
+    <!-- Calendar Frames -->
+    <div class="flex flex-col items-center text-center">
+      <button class="category-btn bg-[#972034] w-12 h-12 flex justify-center items-center border-2 border-transparent rounded-full hover:text-[#22c55e] hover:border-[#22c55e]" data-filter="calendar">
+        <i class="fas fa-calendar-alt text-lg text-teal-600"></i>
+      </button>
+      <span class="mt-1 text-xs font-semibold text-[#1a1a1a]">Calendar</span>
+    </div>
 
-            <!-- Calendar Frames -->
-            <div class="flex flex-col items-center text-center">
-                <button aria-pressed="false"
-                    class="category-btn bg-[#972034] w-12 h-12 flex justify-center items-center border-2 border-transparent rounded-full hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
-                    data-filter="calendar" type="button">
-                    <i class="fas fa-calendar-alt text-lg text-teal-600"></i>
-                </button>
-                <span class="mt-1 text-xs font-semibold text-[#1a1a1a]">Calendar</span>
-            </div>
+    <!-- Trending -->
+    <div class="flex flex-col items-center text-center">
+      <button class="category-btn w-12 h-12 flex justify-center items-center border-2 border-transparent rounded-full hover:text-[#22c55e] hover:border-[#22c55e]" data-filter="trending">
+        <i class="fas fa-fire text-lg text-red-600"></i>
+      </button>
+      <span class="mt-1 text-xs font-semibold text-[#1a1a1a]">Trending</span>
+    </div>
 
-            <!-- Lovely Frames -->
-            <div class="flex flex-col items-center text-center">
-                <button aria-pressed="false"
-                    class="category-btn w-12 h-12 flex justify-center items-center border-2 border-transparent rounded-full hover:text-[#22c55e] hover:border-[#22c55e] transition flex-shrink-0"
-                    data-filter="lovely" type="button">
-                    <i class="fas fa-heart text-lg text-pink-500"></i>
-                </button>
-                <span class="mt-1 text-xs font-semibold text-[#1a1a1a]">Lovely</span>
-            </div>
-        </div>
-    </section>
+    <!-- Lovely Frames -->
+    <div class="flex flex-col items-center text-center">
+      <button class="category-btn w-12 h-12 flex justify-center items-center border-2 border-transparent rounded-full hover:text-[#22c55e] hover:border-[#22c55e]" data-filter="lovely">
+        <i class="fas fa-heart text-lg text-pink-500"></i>
+      </button>
+      <span class="mt-1 text-xs font-semibold text-[#1a1a1a]">Lovely</span>
+    </div>
+
+  </div>
+</section>
+
     <input type="text" id="searchResult" placeholder="Search courses..."
         class="hidden border p-2 rounded-md w-full mb-4" />
     <script src="Productlist/Productlist.js"></script>
