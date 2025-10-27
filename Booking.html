@@ -5,16 +5,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Product Details</title>
-  <link rel="apple-touch-icon" href="fav.jpg" /> 
-   <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="fav.jpg" />
+  <link rel="manifest" href="manifest.json">
   <meta name="background-color" content="bg-blue-600" />
   <meta name="background-color" content="#f3f4f6" />
-  <meta name="apple-mobile-web-app-title" content="Gift Zone"> 
+  <meta name="apple-mobile-web-app-title" content="Gift Zone">
   <meta name="apple-mobile-web-app-status-bar-style" content="#f3f4f6" />
   <meta name="msapplication-navbutton-color" content="#f3f4f6" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <link rel="icon" href="fav.jpg" type="image/jpeg/jpg" />
+  <!-- Razorpay Embedded Script (CDN) -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
@@ -26,6 +28,11 @@
 
     .font-mono-custom {
       font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      width: 100vw;
+      overflow: hidden;
     }
   </style>
 </head>
@@ -105,13 +112,12 @@
 </style>
 
 
-<body class="bg-gray-100 mb-10">
+<body class="bg-gray-100 mb-10 overflow-x-hidden">
   <script>// style="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)"</script>
 
 
 
-
-  <main id="mainback" class="  w-full mx-auto overflow-auto font-Inter">
+  <main id="mainback" class="  w-full h-full mx-auto overflow-auto font-Inter">
 
     </div>
 
@@ -138,7 +144,7 @@
     </div>
 
     <div id="loginFormContainer"
-      class="fixed overflow-y-auto w-full h-full top-0 right-0  mx-auto z-[99999] opacity-0 translate-y-full pointer-events-none transition-all duration-500 ease-out">
+      class="fixed overflow-y-auto w-full h-full top-0 right-0  z-[99999] opacity-0 translate-y-full pointer-events-none transition-all duration-500 ease-out">
       <main class="w-full h-full overflow-y-auto ">
         <div id="header" class="  md:block hidden "></div> <!-- Header will load here -->
         <script>
@@ -211,12 +217,43 @@
           </button>
 
         </div>
-        <div
-          class="bg-gray-100 md:w-full md:px-2 md:mx-auto md:flex md:p-1 w-full h-full flex flex-col p-2 relative select-none">
-
-
+        <div class="bg-gray-100 md:mx-auto md:flex md:p-1 w-full h-full flex flex-col p-2 relative select-none">
           <p class="font-semibold text-black mb-3 md:ml-4 w-full select-text">
-            Product Size
+            <style>
+              /* Basic CSS for styling */
+
+              .container {
+                text-align: center;
+                background: white;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+              }
+
+              #pay-button {
+                background-color: rgb(0, 0, 0);
+                color: white;
+                border: none;
+                padding: 15px 30px;
+                font-size: 16px;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+              }
+
+              #pay-button:hover {
+                background-color: #000000;
+              }
+
+              .status {
+                margin-top: 20px;
+                font-weight: bold;
+              }
+            </style>
+
+          <div id="status" class="status"></div>
+
+          Product Size
           </p>
           <div class="md:flex md:gap-2 md:mx-auto md:w-full md:p-6">
             <div
@@ -226,7 +263,7 @@
                 class="font-mono-custom font-extrabold text-white text-xl justify-center text-center tracking-widest pb-2 select-text">
                 Select Frame Size
               </p>
-              <div id="sizeButtons" class=" gap-4 space-x-1 text-sm font-semibold">
+              <div id="sizeButtons" class=" gap-2 space-x-1 text-sm font-semibold">
                 <div class="flex gap-6 md:gap-28">
                   <label for="size-4x6"
                     class="w-20 h-12 md:w-56 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
@@ -405,18 +442,23 @@
                 class="fixed md:relative bottom-0  md:mx-auto left-0 right-0 mx-2 border-t border-[#d9d9d9]bg-[#f3f3f3]   justify-center items-center py-3 z-50">
                 <div>
                   <div class="flex items-center justify-between mb-8 md:mb-4 mx-2 md:mx-auto md:w-[45vw] select-text">
-                    <span class="font-semibold text-black">
-                      Cash Paymment
+                    <span class="font-semibold text-1xl text-black">
+                      Cash.
                     </span>
-                    <label class="relative inline-flex items-center cursor-pointer" for="toggle">
-                      <input aria-checked="true" checked="" value="check" class="sr-only peer" id="toggle"
-                        type="checkbox" />
-                      <div class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-black transition-colors">
-                      </div>
-                      <div
-                        class="absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform peer-checked:translate-x-5">
-                      </div>
-                    </label>
+                    <span class="font-semibold text-black">
+                      <label class="relative inline-flex items-center cursor-pointer" for="toggle">
+                        <input aria-checked="true" class="sr-only peer" id="toggle" type="checkbox" />
+                        <div class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-black transition-colors">
+                        </div>
+                        <div
+                          class="absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform peer-checked:translate-x-5">
+                        </div>
+
+                      </label>
+                    </span>
+                    <span class="font-semibold text-black">
+                      Online
+                    </span>
                   </div>
                 </div>
                 <div class="flex md:mx-auto md:w-[47vw] md:justify-between justify-between w-full">
@@ -471,6 +513,51 @@
                   reader.onerror = err => reject(err);
                 });
               }
+              ///////////////////////////////////////////
+              // Sample Test API Key (from Razorpay docs - safe for demo)
+              const razorpayKey = 'rzp_test_1DP5mmOlF5G5ag'; // Replace with your test/live key
+
+              // Sample Test Secret Key (Placeholder - NEVER use in client code; for demo only)
+              // In real apps, this is used server-side to create orders.
+              const razorpaySecret = 'G3sA5V0yCl8rK7P4Q2wN6xM'; // Fake for demo; generate real ones from Razorpay dashboard
+
+              // Payment options (amount in paise: 50000 = ₹500)
+              const options = {
+                key: razorpayKey, // Test API key
+                amount: 50000, // Amount in paise (₹500)
+                currency: 'INR',
+                name: 'Gift Zone', // Your business name
+                description: 'Test Transaction for Demo',
+                image: 'https://via.placeholder.com/150', // Optional logo URL
+                handler: function (response) {
+                  // Success callback
+                  document.getElementById('status').innerText = 'Payment Successful! Payment ID: ' + response.razorpay_payment_id;
+                  console.log('Payment Response:', response);
+                  window.location.href = `Confirmorder.html?Date=${encodeURIComponent(date)}&Name=${encodeURIComponent(name)}&Number=${encodeURIComponent(number)}&Price=${encodeURIComponent(price)}&Id=${encodeURIComponent(id)}&Status=${encodeURIComponent(status)}&PaymentMethod=${encodeURIComponent(method)}`;
+
+                  // Here, you can send response to your server for verification
+                },
+                prefill: {
+                  name: 'AnkitKadere',
+                  email: 'Semple@example.com',
+                  contact: '9999999999'
+                },
+                notes: {
+                  address: 'Demo Address'
+                },
+                theme: {
+                  color: '#000' // Button color
+                },
+                modal: {
+                  ondismiss: function () {
+                    document.getElementById('status').innerText = 'Payment Cancelled.';
+                  }
+                }
+              };
+
+
+              // Initialize Razorpay
+              const rzp = new Razorpay(options);
 
               // 🔹 Handle button click (Next → Submit)
               document.getElementById("swap").addEventListener("click", async (e) => {
@@ -484,10 +571,7 @@
                   showLocalDate();
                   showTime();
                   generateCode();
-                  // Avoid multiple intervals stacking up
-                  // Only call setInterval once (already called above)
                   btn.innerText = "Submit";
-
                   return;
                 }
 
@@ -546,8 +630,7 @@
                   const method = document.getElementById("Payment").value;
 
                   // Build URL and redirect
-                  window.location.href = `Confirmorder.html?Date=${encodeURIComponent(date)}&Name=${encodeURIComponent(name)}&Number=${encodeURIComponent(number)}&Price=${encodeURIComponent(price)}&Id=${encodeURIComponent(id)}&Status=${encodeURIComponent(status)}&PaymentMethod=${encodeURIComponent(method)}`;
-
+                  document.getElementById('toggle').onchange = () => { if (toggle.checked) rzp.open(); };
                   form.reset();
                   swapback(); // return to first step
                 }
@@ -622,19 +705,12 @@
   </main>
 
   <nav aria-label="Bottom navigation " id="orderbtn"
-    class="fixed md:hidden bottom-0 z-[99999999999px] md:w-full md:flex justify-between bg-gray-100 left-0 right-0 border-t gap-1 border-[#d9d9d9]  flex  items-center py-1 md:py-0 px-2 z-50">
+    class="fixed md:top-40 bottom-2   md:w-full md:flex justify-center bg-gray-100 left-0 right-0 border-t gap-1 border-[#d9d9d9]  flex  items-center py-1 md:py-0 px-2 z-50">
 
-    <button onclick="window.location.href='https://wa.me/918251092973'" onclick="notload()"
-      class="md:hidden text-white bg-black font-semibold rounded-full md:py-1 py-1.5 w-14 mx-auto text-center"
-      type="button">
-      <i class="fab fa-whatsapp text-2xl p-1"></i>
-
-    </button>
-
-    <button id="openLoginBtn" onclick="openLogin()"
+    <button id="openLoginBtn" onclick="window.location.reload()"
       class=" text-white bg-black text-2xl md:mt-4 font-semibold rounded-full md:py-1 py-1.5 w-full md:w-full  mx-auto text-center"
       type="button">
-      Booking
+      Reload
     </button>
   </nav>
 
