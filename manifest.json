@@ -6,10 +6,10 @@
   "start_url": "/?source=pwa",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#f5fdf7",
-  "theme_color": "#f5fdf7",
-  "dark_theme_color": "#f5fdf7",
-  "dark_background_color": "#f5fdf7",
+  "background_color": "#f3f4f6",
+  "theme_color": "#f3f4f6",
+  "dark_theme_color": "#f3f4f6",
+  "dark_background_color": "#f3f4f6",
   "lang": "en",
   "dir": "ltr",
   "description": "Create and customize unique, meaningful gifts for every occasion. Personalized items made with love at Customized Gift Zone.",
@@ -17,7 +17,7 @@
     {
       "src": "app.jpg",
       "type": "image/jpeg",
-      "sizes": "192x192",
+      "sizes": "1092x1092",
       "purpose": "any"
     },
     {
