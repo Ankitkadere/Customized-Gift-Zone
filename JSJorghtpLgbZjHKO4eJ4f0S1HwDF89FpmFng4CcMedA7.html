@@ -1336,7 +1336,7 @@
                                         <th class="p-2 border">Status</th>
 
                                         <th class="p-2 border">Level</th>
-                                        <th class="p-2 border"> </th>
+                                        <th class="p-0 border-transparent"> </th>
                                         <th class="p-2 border">Actions</th>
                                     </tr>
                                 </thead>
@@ -1536,7 +1536,7 @@
                                         </td>
                                     </tr>
 
-                                    <tr class="animate-pulse hover:bg-gray-50">
+                                       <tr class="animate-pulse hover:bg-gray-50">
                                         <!-- ID -->
                                         <td class="border p-2">
                                             <div class="h-4 w-8 bg-gray-300 rounded"></div>
@@ -1665,6 +1665,73 @@
                                             <div class="h-6 w-6 bg-gray-300 rounded"></div>
                                         </td>
                                     </tr>
+
+                                    <tr class="animate-pulse hover:bg-gray-50">
+                                        <!-- ID -->
+                                        <td class="border p-2">
+                                            <div class="h-4 w-8 bg-gray-300 rounded"></div>
+                                        </td>
+
+                                        <!-- Image -->
+                                        <td class="border p-2 w-28 h-20">
+                                            <div class="h-full w-full bg-gray-300 rounded"></div>
+                                        </td>
+
+                                        <!-- Other / Time / Date -->
+                                        <td class="border p-2 flex flex-col space-y-1">
+                                            <div class="h-4 w-20 bg-gray-300 rounded"></div>
+                                            <div class="h-3 w-16 bg-gray-200 rounded"></div>
+                                            <div class="h-3 w-16 bg-gray-200 rounded"></div>
+                                        </td>
+
+                                        <!-- Name / Number -->
+                                        <td class="border p-2">
+                                            <div class="h-4 w-24 bg-gray-300 rounded"></div>
+                                        </td>
+
+                                        <!-- Size -->
+                                        <td class="border p-2">
+                                            <div class="h-4 w-12 bg-gray-300 rounded"></div>
+                                        </td>
+
+                                        <!-- Material / Color -->
+                                        <td class="border p-2 flex flex-col space-y-1">
+                                            <div class="h-3 w-16 bg-gray-200 rounded"></div>
+                                            <div class="h-3 w-16 bg-gray-200 rounded"></div>
+                                        </td>
+
+                                        <!-- Address / City / State / Pincode -->
+                                        <td class="border p-2 flex flex-col space-y-1 h-2">
+                                            <div class="h-3 w-20 bg-gray-300 rounded"></div>
+                                            <div class="h-3 w-16 bg-gray-200 rounded"></div>
+                                            <div class="h-3 w-16 bg-gray-200 rounded"></div>
+                                            <div class="h-3 w-12 bg-gray-200 rounded"></div>
+                                        </td>
+
+                                        <!-- Status / Payment -->
+                                        <td class="border p-2 flex flex-col space-y-1">
+                                            <div class="h-3 w-16 bg-gray-200 rounded"></div>
+                                            <div class="h-3 w-16 bg-gray-200 rounded"></div>
+                                        </td>
+
+                                        <!-- Level -->
+                                        <td class="border p-2">
+                                            <div class="h-3 w-12 bg-gray-200 rounded"></div>
+                                        </td>
+
+                                        <!-- Image link -->
+                                        <td class="border p-2">
+                                            <div class="h-3 w-16 bg-gray-200 rounded"></div>
+                                        </td>
+
+                                        <!-- Actions -->
+                                        <td class="border p-2 flex space-x-1">
+                                            <div class="h-6 w-6 bg-gray-300 rounded"></div>
+                                            <div class="h-6 w-6 bg-gray-300 rounded"></div>
+                                        </td>
+                                    </tr>
+ 
+ 
 
 
                                 </tbody>
@@ -1732,7 +1799,7 @@
             <div><b>Color</b> : ${record.Color}</div>
           </td>
  
-          <td class="border p-2  whitespace-nowrap flex-col">
+          <td class="border p-2   w-10 overflow-hidden flex-col">
             <div>${record.Address}}</div>
             <div>${record.City}</div>
             <div> ${record.State}</div>
@@ -1743,14 +1810,14 @@
             <div><b>Payment</b> : ${record.Payment}</div>
           </td>
           <td class="border p-2  whitespace-nowrap flex-col">
-            <div ><b>Level</b> : ${record.Level}</div>
+            <div >  ${record.Level}</div>
             
           </td>
          
           <td class="border p-2 whitespace-nowrap">
             ${record.Image ? `<a href="${record.Image}" target="_blank" class="text-blue-600 underline">View</a>` : ""}
           </td>
-          <td class="border p-2 whitespace-nowrap flex space-x-1">
+          <td class="border  ">
             <button onclick='editRecord(${JSON.stringify(record)})' class="bg-yellow-500 text-white px-2 py-1 rounded text-xs"> <i class="fas fa-pen"></i></button>
             <button onclick='deleteRecord("${record.Id}")' class="bg-red-600 text-white px-2 py-1 rounded text-xs"> <i class="fas fa-trash"></i></button>
           </td>
