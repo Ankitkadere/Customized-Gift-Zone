@@ -283,11 +283,11 @@
 
               <div class="block  fixed top-0 left-0  text-gray-700 hover:bg-gray-100">
                 <button sty
-                  class="flex fixed  items-center w-full h-full  justify-center gap-2 bg-black text-white px-6 opacity-50  py-3 rounded-lg font-semibold hover:bg-gray-700 transition">
-                  <i id="pwaInstallBtn" class="fas fa-mobile-alt text-9xl"></i>
+                  class="flex fixed  items-center w-full h-full  justify-center gap-2 bg-black text-white px-6 opacity-70  py-3 rounded-lg font-semibold hover:bg-gray-700 transition">
+                  <i id="pwaInstallBtn" class="fas fa-mobile-alt text-9xl"> <p id="installStatusMsg" class="mt-2 text-base text-white"> Install Now</p></i>
                   <span> </span>
                 </button>
-                <p id="installStatusMsg" class="mt-2 text-sm text-gray-800"></p>
+               
               </div>
 
               <script>
@@ -304,18 +304,18 @@
                   e.preventDefault(); // Prevent auto prompt
                   deferredPrompt = e;
                   pwaBtn.disabled = false;
-                  statusMsg.textContent = "App is ready to install.";
+                  statusMsg.textContent = " Install Now";
                 });
 
                 // Handle button click
                 pwaBtn.addEventListener('click', async () => {
                   if (appInstalled) {
-                    statusMsg.textContent = "✅ App is already installed.";
+                    statusMsg.textContent = " Already installed.";
                     return;
                   }
 
                   if (!deferredPrompt) {
-                    statusMsg.textContent = "⚠️ Your device or browser does not support app installation.";
+                    statusMsg.textContent = "⚠️ Your Device Does Not Support App";
                     return;
                   }
 
@@ -324,10 +324,10 @@
                   const choice = await deferredPrompt.userChoice;
 
                   if (choice.outcome === 'accepted') {
-                    statusMsg.textContent = "🎉 App installed successfully!";
+                    statusMsg.textContent = "🎉 App Installed Successfully!";
                     appInstalled = true;
                   } else {
-                    statusMsg.textContent = "❌ Install dismissed by user.";
+                    statusMsg.textContent = "❌ Install Dismissed By User.";
                   }
 
                   deferredPrompt = null;
@@ -336,7 +336,7 @@
 
                 // Listen for actual app installation
                 window.addEventListener('appinstalled', () => {
-                  statusMsg.textContent = "🎉 App installed successfully!";
+                  statusMsg.textContent = "🎉 App Installed Successfully!";
                   appInstalled = true;
                   pwaBtn.disabled = true;
                 });
