@@ -309,7 +309,7 @@
         </p>
         <div id="data1">
           <input type="text" id="code" class=" hidden" name="Id">
-          <input type="text" id="icons" class=" " name="Icon">
+          <input type="text" id="icons" class=" hidden" name="Icon">
           <input type="text" id="Level" class=" hidden" name="1" value="Level 1">
           <input type="text" id="Filtered" class=" hidden" name="Filtered">
           <input type="text" name="Date" id="dates" class="  hidden w-full p-2 border rounded-lg"
@@ -327,7 +327,7 @@
             placeholder="Full Name" name="Name" id="name" type="text" required />
           <input
             class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
-            placeholder="Mobile Number" type="tel" id="number" name="Number"  required />
+            placeholder="Mobile Number" type="tel" name="Number" required />
 
           <input type="text" id="selectedSize" name="Size" required
             class=" hidden w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
@@ -412,12 +412,12 @@
           class="fixed md:relative bottom-0  md:mx-auto left-0 right-0 mx-2  border-t border-[#d9d9d9]bg-[#f3f3f3]   justify-center items-center py-3 z-50">
 
           <div class="flex items-center justify-between mb-8  mx-2 md:mx-auto md:w-[45vw] select-text">
-            <span id="Cash" style="font-size: 18px;" class="font-semibold text-black">
-              Cash.
+            <span id="Online" style="font-size: 18px;" class="font-extrabold text-black">
+              Online
             </span>
             <span class="font-semibold text-black justify-center">
               <label class="relative inline-flex items-center cursor-pointer" for="toggle">
-                <input aria-checked="true" class="sr-only peer" id="toggle" type="checkbox" />
+                <input aria-checked="false" class="sr-only peer" id="toggle" type="checkbox" />
                 <div
                   class="w-40 h-8  mt-2 text-white text-center pt-1 bg-black rounded-full peer-checked:bg-black transition-colors">
                   Payment</div>
@@ -426,8 +426,8 @@
                 </div>
               </label>
             </span>
-            <span id="Online" style="font-size: 18px;" class="font-semibold text-black md:mt-0 mt-1">
-              Online
+            <span id="Cash" style="font-size: 18px;" class="font-semibold text-black md:mt-0 mt-1">
+              Cash
             </span>
           </div>
           <script>
@@ -437,11 +437,13 @@
             Cash.style.color = "gray";
             toggle.onchange = () => {
               if (toggle.checked) {
-                Online.style.color = "black";
-                Cash.style.color = "gray";
-              } else {
                 Online.style.color = "gray";
                 Cash.style.color = "black";
+                Cash.style.text = "bold";
+              } else {
+                Online.style.color = "black";
+                Online.style.text = "bold";
+                Cash.style.color = "gray";
               }
             };
 
@@ -559,11 +561,8 @@
             const icon = decodeURIComponent(params.get("icon") || "");
             const Owner = decodeURIComponent(params.get("owner") || "");
 
-           
             document.getElementById("icons").value = icon || "";
             document.getElementById("Other").value = head || "";
-        
-
 
             swap();
             generateCode();
@@ -621,15 +620,15 @@
 
             // Build URL and redirect
             const toggle = document.getElementById('toggle');
-
+            const params = new URLSearchParams(window.location.search);
             if (toggle.checked) {
-              // Online mode → open Razorpay
-              rzp.open();
-            } else {
-              // Cash mode → redirect to Confirmorder.html
-              const url = `Confirmorder.html?Date=${encodeURIComponent(date)}&Name=${encodeURIComponent(name)}&Number=${encodeURIComponent(number)}&Price=${encodeURIComponent(price)}&Id=${encodeURIComponent(id)}&Status=${encodeURIComponent(status)}&PaymentMethod=${encodeURIComponent(method)}`;
+              const url = `Confirmorder.html`;
+              // ?Date=${encodeURIComponent(date)}&Name=${encodeURIComponent(name)}&Number=${encodeURIComponent(number)}&Price=${encodeURIComponent(price)}&Id=${encodeURIComponent(id)}&Status=${encodeURIComponent(status)}&PaymentMethod=${encodeURIComponent(method)}`;
               window.location.href = url;
               form.reset();
+            }
+            else {
+              rzp.open();
             }
             swapback(); // return to first step
           }
@@ -785,10 +784,6 @@
       loadData();
       window.location.href = "Confirmorder.html";
 
-      document.getElementById("dset").classList.add("hidden");
-      document.getElementById("buttonsets").classList.add("hidden");
-      document.getElementById("dset").style.display = "none";
-      document.getElementById("buttonsets").style.display = "none";
     };
 
     loadData();
