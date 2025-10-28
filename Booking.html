@@ -116,612 +116,585 @@
   <script>// style="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)"</script>
 
 
+  <!-- Course Detail -->
 
-  <main id="mainback" class="  w-full h-full mx-auto overflow-auto font-Inter">
+  <div id="header" class="  md:block hidden "></div> <!-- Header will load here -->
+  <script>
+    (async () => {
+      try {
+        // 1️⃣ Load Header CSS
+        const headerCSS = document.createElement("link");
+        headerCSS.rel = "stylesheet";
+        headerCSS.href = "Header.css";
+        document.head.appendChild(headerCSS);
 
-    </div>
+        // 2️⃣ Fetch Header HTML
+        const response = await fetch("Header.html", { cache: "no-cache" });
+        if (!response.ok) throw new Error("Failed to fetch Header.html");
+        const html = await response.text();
 
-    <section id="Drags"
-      class="h-screen hidden absolute flex-wrap gap-2 bg-[url('https://via.placeholder.com/1200x800')] bg-cover bg-center bg-no-repeat">
+        // 3️⃣ Insert HTML into target div
+        const headerDiv = document.getElementById("header");
+        if (!headerDiv) throw new Error("Header div not found");
+        headerDiv.innerHTML = html;
 
-      <!-- Frame (with overflow hidden) -->
-      <div
-        class="w-[100vw] md:w-[54.5vw] h-[15%] mt-10 md:h-[30%] top-20 md:mt-2 flex items-center justify-center mx-auto">
-        <div id="frame"
-          class="z-[43] overflow-hidden relative md:h-[150px] md:w-[110px] w-[29%] h-[120%] bg-white/70 flex items-center justify-center">
-        </div>
-      </div>
-      <div id="uploaders" class="md:top-[35%] top-[30%] relative flex justify-between items-center"></div>
-      <div id="add" class=" inset-0 flex justify-center items-center"></div>
-      <p id="imglink"></p>
-    </section>
+        // 4️⃣ Run scripts inside Header.html (inline + external)
+        headerDiv.querySelectorAll("script").forEach((oldScript) => {
+          const newScript = document.createElement("script");
 
+          // If script has src → load external file
+          if (oldScript.src) {
+            newScript.src = oldScript.src;
+            if (oldScript.type) newScript.type = oldScript.type;
+          }
+          // If script is inline → copy its content
+          else {
+            newScript.textContent = oldScript.textContent;
+            if (oldScript.type) newScript.type = oldScript.type;
+          }
 
-    <!-- Course Detail -->
-    <section id="course-detail" class="shadow  space-y-6"></section>
-    <br>
-    <div onclick="closeLogin()" id="overlay" class="fixed inset-0 bg-gray-100 z-40 backdrop-blur-sm">
-    </div>
+          // Append to body (ensures execution)
+          document.body.appendChild(newScript);
+        });
 
-    <div id="loginFormContainer"
-      class="fixed overflow-y-auto w-full h-full top-0 right-0  z-[99999] opacity-0 translate-y-full pointer-events-none transition-all duration-500 ease-out">
-      <main class="w-full h-full overflow-y-auto ">
-        <div id="header" class="  md:block hidden "></div> <!-- Header will load here -->
-        <script>
-          (async () => {
-            try {
-              // 1️⃣ Load Header CSS
-              const headerCSS = document.createElement("link");
-              headerCSS.rel = "stylesheet";
-              headerCSS.href = "Header.css";
-              document.head.appendChild(headerCSS);
+        // 5️⃣ Load external Header.js (both normal and module versions)
+        const headerScriptNormal = document.createElement("script");
+        headerScriptNormal.src = "Header.js";
+        headerScriptNormal.defer = true;
+        document.body.appendChild(headerScriptNormal);
 
-              // 2️⃣ Fetch Header HTML
-              const response = await fetch("Header.html", { cache: "no-cache" });
-              if (!response.ok) throw new Error("Failed to fetch Header.html");
-              const html = await response.text();
+        const headerScriptModule = document.createElement("script");
+        headerScriptModule.type = "module";
+        headerScriptModule.src = "HeaderModule.js"; // optional module version
+        document.body.appendChild(headerScriptModule);
 
-              // 3️⃣ Insert HTML into target div
-              const headerDiv = document.getElementById("header");
-              if (!headerDiv) throw new Error("Header div not found");
-              headerDiv.innerHTML = html;
-
-              // 4️⃣ Run scripts inside Header.html (inline + external)
-              headerDiv.querySelectorAll("script").forEach((oldScript) => {
-                const newScript = document.createElement("script");
-
-                // If script has src → load external file
-                if (oldScript.src) {
-                  newScript.src = oldScript.src;
-                  if (oldScript.type) newScript.type = oldScript.type;
-                }
-                // If script is inline → copy its content
-                else {
-                  newScript.textContent = oldScript.textContent;
-                  if (oldScript.type) newScript.type = oldScript.type;
-                }
-
-                // Append to body (ensures execution)
-                document.body.appendChild(newScript);
-              });
-
-              // 5️⃣ Load external Header.js (both normal and module versions)
-              const headerScriptNormal = document.createElement("script");
-              headerScriptNormal.src = "Header.js";
-              headerScriptNormal.defer = true;
-              document.body.appendChild(headerScriptNormal);
-
-              const headerScriptModule = document.createElement("script");
-              headerScriptModule.type = "module";
-              headerScriptModule.src = "HeaderModule.js"; // optional module version
-              document.body.appendChild(headerScriptModule);
-
-            } catch (err) {
-              console.error("❌ Error loading header:", err);
-            }
-          })();
-        </script>
-        <hr class="text-black bg-gray-200 p-[0.3px]">
-        <div class="flex w-full md:hidden items-center justify-between p-2">
-          <button onclick="history.back()" aria-label="Go back"
-            class="w-10 h-10 bg-black text-white rounded-full flex justify-center items-center shadow-sm">
-            <i class="fas fa-chevron-down text-white font-extrabold text-lg">
-            </i>
-          </button>
-          <button onclick="window.location.href='index.html'" aria-label="Go back"
-            class="flex justify-center items-center">
-            <h1 class="mx-auto text-4xl sm:text-5xl font-black leading-none
+      } catch (err) {
+        console.error("❌ Error loading header:", err);
+      }
+    })();
+  </script>
+  <hr class="text-black bg-gray-200 p-[0.3px]">
+  <div class="flex w-full md:hidden items-center justify-between p-2">
+    <button onclick="history.back()" aria-label="Go back"
+      class="w-10 h-10 bg-black text-white rounded-full flex justify-center items-center shadow-sm">
+      <i class="fas fa-chevron-down text-white font-extrabold text-lg">
+      </i>
+    </button>
+    <button onclick="window.location.href='index.html'" aria-label="Go back" class="flex justify-center items-center">
+      <h1 class="mx-auto text-4xl sm:text-5xl font-black leading-none
              text-black">
-              Gift Zone
-            </h1>
-          </button>
+        Gift Zone
+      </h1>
+    </button>
 
-        </div>
-        <div class="bg-gray-100 md:mx-auto md:flex md:p-1 w-full h-full flex flex-col p-2 relative select-none">
-          <p class="font-semibold text-black mb-3 md:ml-4 w-full select-text">
-            <style>
-              /* Basic CSS for styling */
+  </div>
+  <div class="bg-gray-100 md:mx-auto md:flex md:p-1 w-full h-full flex flex-col p-2 relative select-none">
+    <p class="font-semibold text-black mb-3 md:ml-4 w-full select-text">
+      <style>
+        /* Basic CSS for styling */
 
-              .container {
-                text-align: center;
-                background: white;
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-              }
+        .container {
+          text-align: center;
+          background: white;
+          padding: 20px;
+          border-radius: 8px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
-              #pay-button {
-                background-color: rgb(0, 0, 0);
-                color: white;
-                border: none;
-                padding: 15px 30px;
-                font-size: 16px;
-                border-radius: 5px;
-                cursor: pointer;
-                transition: background-color 0.3s;
-              }
+        #pay-button {
+          background-color: rgb(0, 0, 0);
+          color: white;
+          border: none;
+          padding: 15px 30px;
+          font-size: 16px;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s;
+        }
 
-              #pay-button:hover {
-                background-color: #000000;
-              }
+        #pay-button:hover {
+          background-color: #000000;
+        }
 
-              .status {
-                margin-top: 20px;
-                font-weight: bold;
-              }
-            </style>
+        .status {
+          margin-top: 20px;
+          font-weight: bold;
+        }
+      </style>
 
-          <div id="status" class="status"></div>
+    <div id="status" class="status"></div>
 
-          Product Size
-          </p>
-          <div class="md:flex md:gap-2 md:mx-auto md:w-full md:p-6">
-            <div
-              class="relative bg-gradient-to-tr bg-gray-900 rounded-3xl p-6 w-full max-w-[360px] md:max-w-[100%]  md:max-h-[60%] mx-auto mb-8 shadow-lg"
-              style="aspect-ratio: 16 / 9;">
-              <p
-                class="font-mono-custom font-extrabold text-white text-xl justify-center text-center tracking-widest pb-2 select-text">
-                Select Frame Size
-              </p>
-              <div id="sizeButtons" class=" gap-2 space-x-1 text-sm font-semibold">
-                <div class="flex gap-6 md:gap-28">
-                  <label for="size-4x6"
-                    class="w-20 h-12 md:w-56 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
-                    4 x 6
-                  </label>
-                  <label for="size-5x7"
-                    class="w-20 h-12 md:w-56 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
-                    5 x 7
-                  </label>
-                  <label for="size-6x8"
-                    class="w-20 h-12 md:w-56 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
-                    6 x 8
-                  </label>
-                </div>
-                <br>
-                <div class="flex gap-6 md:gap-28">
-                  <label for="size-8x12"
-                    class="w-20 h-12 md:w-56 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
-                    8 x 12
-                  </label>
-                  <label for="size-10x15"
-                    class="w-20 h-12 md:w-56 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
-                    10 x 15
-                  </label>
-                  <label for="size-12x18"
-                    class="w-20 h-12 md:w-56 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
-                    12 x 18
-                  </label>
-                </div>
-                <br>
-                <div class="flex gap-6 md:gap-28">
-                  <label for="size-16x24"
-                    class="w-20 h-12 md:w-56 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
-                    16 x 24
-                  </label>
-                  <label for="size-20x30"
-                    class="w-20 h-12 md:w-56 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
-                    20 x 30
-                  </label>
-                  <label for="size-24x36"
-                    class="w-20 h-12 md:w-56 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
-                    24 x 36
-                  </label>
-                </div>
-              </div>
-
-              <input type="radio" name="size" id="size-4x6" value="4 x 6 => Rs. 100" class="hidden" />
-              <input type="radio" name="size" id="size-5x7" value="5 x 7 => Rs. 140" class="hidden" />
-              <input type="radio" name="size" id="size-6x8" value="6 x 8 => Rs. 150" class="hidden" />
-              <input type="radio" name="size" id="size-8x12" value="8 x 12 => Rs. 299" class="hidden" />
-              <input type="radio" name="size" id="size-10x15" value="10 x 15 => Rs. 419" class="hidden" />
-              <input type="radio" name="size" id="size-12x18" value="12 x 18 => Rs. 549" class="hidden" />
-              <input type="radio" name="size" id="size-16x24" value="16 x 24 => Rs. 1,350" class="hidden" />
-              <input type="radio" name="size" id="size-20x30" value="20 x 30 => Rs. 1,619" class="hidden" />
-              <input type="radio" name="size" id="size-24x36" value="24 x 36 => Rs. 1,999" class="hidden" />
-
-            </div>
-            <form id="crudForm" class="md:w-full space-y-4 mb-2">
-              <input type="radio" name="size" id="size-4x6" value="4 x 6 => 100 Rs" class="hidden" />
-              <input type="radio" name="size" id="size-5x7" value="5 x 7 => 140 Rs" class="hidden" />
-              <input type="radio" name="size" id="size-6x8" value="6 x 8 => 150 Rs" class="hidden" />
-              <input type="radio" name="size" id="size-8x12" value="8 x 12 => 299 Rs" class="hidden" />
-              <input type="radio" name="size" id="size-10x15" value="10 x 15 => 419 Rs" class="hidden" />
-              <input type="radio" name="size" id="size-12x18" value="12 x 18 => 549 Rs" class="hidden" />
-              <input type="radio" name="size" id="size-16x24" value="16 x 24 => 1,350 Rs" class="hidden" />
-              <input type="radio" name="size" id="size-20x30" value="20 x 30 => 1,619 Rs" class="hidden" />
-              <input type="radio" name="size" id="size-24x36" value="24 x 36 => 1,999 Rs" class="hidden" />
-
-
-              <p class="font-semibold text-black mb-3 md:mx-auto select-text">
-                Process Details
-              </p>
-              <div id="data1">
-                <input type="text" id="code" class=" hidden" name="Id">
-                <input type="text" id="icons" class=" hidden" name="Icon">
-                <input type="text" id="Level" class=" hidden" name="1" value="Level 1">
-                <input type="text" id="Filtered" class=" hidden" name="Filtered">
-                <input type="text" name="Date" id="dates" class="  hidden w-full p-2 border rounded-lg"
-                  placeholder="YYYY-MM-DD">
-                <input type="text" name="Time" id="times" class="  hidden w-full p-2 border rounded-lg"
-                  placeholder="HH:MM AM/PM">
-                <input type="text" name="Payment" id="Payment" value="WhatsApp"
-                  class=" hidden w-full p-2 border rounded-lg">
-                <input type="text" name="Other" id="Other" value="1" class=" hidden w-full p-2 border rounded-lg">
-                <input type="text" name="Status" id="Status" class=" hidden" value="Not Accept">
-                <input type="text" name="Price" value="Size" class=" hidden">
-                <input type="file" id="ImageInput" accept="image/jpg/png*" class="  hidden w-full border rounded-lg">
-
-                <input
-                  class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none  "
-                  placeholder="Full Name" name="Name" id="name" type="text" required />
-                <input
-                  class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
-                  placeholder="Mobile Number" id="number" name="Number" type="text" required />
-
-                <input type="text" id="selectedSize" name="Size" required
-                  class=" hidden w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
-                  name="Material" placeholder="Size Select" />
-
-                <div class="flex space-x-4 mb-2">
-                  <select id="frameMaterial" name="Material" required name="Color"
-                    class="flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none ">
-                    <option value="" disabled selected>Select Material</option>
-                    <option value="Wooden">Wooden</option>
-                    <option value="metal">Polystyrene</option>
-
-                  </select>
-                  <select id="frameColor" name="Color" required
-                    class=" flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none ">
-
-                    <option value="" disabled selected>Select Color</option>
-                    <option value="Black" class="text-black bg-black text-white">Black</option>
-                    <option value="Brown" class="bg-[#361403] text-white"> Brown</option>
-                    <option value="White" class="bg-white text-black">White</option>
-                    <option value="Goldden" class="bg-[#FFD700] text-black">Goldden</option>
-                  </select>
-                </div>
-              </div>
-              <div id="data2" style="display: none; margin-top: mt-2;">
-
-                <input
-                  class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
-                  placeholder="Address" type="text" name="Address" required />
-                <input
-                  class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
-                  placeholder="City / House " name="City" type="text" required />
-                <div class="flex space-x-4 mb-2">
-                  <input
-                    class="flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none "
-                    placeholder="Pin Code" type="text" name="Pincode" required />
-                  <select id="state" name="State" required name="State"
-                    class="flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none ">
-                    <option value="" disabled selected>Select State</option>
-                    <option value="Andhra Pradesh">Andhra Pradesh</option>
-                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-                    <option value="Assam">Assam</option>
-                    <option value="Bihar">Bihar</option>
-                    <option value="Chhattisgarh">Chhattisgarh</option>
-                    <option value="Goa">Goa</option>
-                    <option value="Gujarat">Gujarat</option>
-                    <option value="Haryana">Haryana</option>
-                    <option value="Himachal Pradesh">Himachal Pradesh</option>
-                    <option value="Jharkhand">Jharkhand</option>
-                    <option value="Karnataka">Karnataka</option>
-                    <option value="Kerala">Kerala</option>
-                    <option value="Madhya Pradesh">Madhya Pradesh</option>
-                    <option value="Maharashtra">Maharashtra</option>
-                    <option value="Manipur">Manipur</option>
-                    <option value="Meghalaya">Meghalaya</option>
-                    <option value="Mizoram">Mizoram</option>
-                    <option value="Nagaland">Nagaland</option>
-                    <option value="Odisha">Odisha</option>
-                    <option value="Punjab">Punjab</option>
-                    <option value="Rajasthan">Rajasthan</option>
-                    <option value="Sikkim">Sikkim</option>
-                    <option value="Tamil Nadu">Tamil Nadu</option>
-                    <option value="Telangana">Telangana</option>
-                    <option value="Tripura">Tripura</option>
-                    <option value="Uttar Pradesh">Uttar Pradesh</option>
-                    <option value="Uttarakhand">Uttarakhand</option>
-                    <option value="West Bengal">West Bengal</option>
-                    <option disabled>──────────</option>
-                    <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
-                    <option value="Chandigarh">Chandigarh</option>
-                    <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu
-                    </option>
-                    <option value="Delhi">Delhi (NCT)</option>
-                    <option value="Jammu & Kashmir">Jammu & Kashmir</option>
-                    <option value="Ladakh">Ladakh</option>
-                    <option value="Lakshadweep">Lakshadweep</option>
-                    <option value="Puducherry">Puducherry</option>
-                  </select>
-                </div>
-              </div>
-              <nav aria-label="Bottom navigation"
-                class="fixed md:relative bottom-0  md:mx-auto left-0 right-0 mx-2 border-t border-[#d9d9d9]bg-[#f3f3f3]   justify-center items-center py-3 z-50">
-
-                <div class="flex items-center justify-between mb-8 md:mb-4 mx-2 md:mx-auto md:w-[45vw] select-text">
-                  <span style="font-size: 18px;" class="font-semibold   text-black">
-                    Cash.
-                  </span>
-                  <span class="font-semibold text-black">
-                    <label class="relative inline-flex items-center cursor-pointer" for="toggle">
-                      <input aria-checked="true" class="sr-only peer" id="toggle" type="checkbox" />
-                      <div class="w-28 h-6 mt-2 bg-black rounded-full peer-checked:bg-black transition-colors"></div>
-                      <div
-                        class="absolute left-1 top-[0.70rem] bg-white w-4 h-4 rounded-full transition-transform peer-checked:translate-x-[5.5rem]">
-                      </div>
-                    </label>
-                  </span>
-                  <span style="font-size: 18px;" class="font-semibold text-black">
-                    Online
-                  </span>
-                </div>
-
-                <div class="flex md:mx-auto md:w-[47vw] md:justify-between justify-between w-full">
-                  <div style=" display: none;" onclick="swapback() " aria-label="Go back" id="swapback"
-                    class="w-14 h-12 bg-black rounded-full flex justify-center items-center shadow-sm">
-                    <i class="fas fa-chevron-left font-extrabold text-white text-3x1 pl-5 pt-4"></i>
-                  </div>
-
-                  <button onclick="swap()" id="swap"
-                    class="bg-black text-white font-extrabold rounded-full py-3 w-full md:mx-0 mx-auto text-center"
-                    type="submit">
-                    Next
-                  </button>
-                </div>
-              </nav>
-            </form>
-            <script>
-              // Generate 6-digit random number
-              function generateCode() {
-                let randomCode = Math.floor(100000 + Math.random() * 900000);
-                document.getElementById("code").value = randomCode;
-              }
-
-              // Show current time (12-hour format with AM/PM)
-              function showTime() {
-                const now = new Date();
-                const options = { hour: "numeric", minute: "numeric", second: "numeric", hour12: true };
-                document.getElementById("times").value = now.toLocaleTimeString([], options);
-              }
-              showTime();
-              setInterval(showTime, 1000); // Update every second
-
-              // Show current date in DD/MM/YYYY
-              function showLocalDate() {
-                const today = new Date();
-                const formattedDate = today.toLocaleDateString("en-IN", {
-                  day: "2-digit",
-                  month: "2-digit",
-                  year: "numeric"
-                });
-                document.getElementById("dates").value = formattedDate;
-              }
-              showLocalDate();
-
-              const API_URL = "https://script.google.com/macros/s/AKfycbyG5foFh0_qWqUG4d2Kbg-055UsLAw8Nu-jWXCeTYVT2mfvC1PADZaixEjQmyDPeRrs/exec";
-
-              function getBase64(file) {
-                return new Promise((resolve, reject) => {
-                  const reader = new FileReader();
-                  reader.readAsDataURL(file);
-                  reader.onload = () => resolve(reader.result);
-                  reader.onerror = err => reject(err);
-                });
-              }
-              ///////////////////////////////////////////
-              // Sample Test API Key (from Razorpay docs - safe for demo)
-              const razorpayKey = 'rzp_test_1DP5mmOlF5G5ag'; // Replace with your test/live key
-
-              // Sample Test Secret Key (Placeholder - NEVER use in client code; for demo only)
-              // In real apps, this is used server-side to create orders.
-              const razorpaySecret = 'G3sA5V0yCl8rK7P4Q2wN6xM'; // Fake for demo; generate real ones from Razorpay dashboard
-
-              // Payment options (amount in paise: 50000 = ₹500)
-              const options = {
-                key: razorpayKey, // Test API key
-                amount: 50000, // Amount in paise (₹500)
-                currency: 'INR',
-                name: 'Gift Zone', // Your business name
-                description: 'Test Transaction for Demo',
-                image: 'https://via.placeholder.com/150', // Optional logo URL
-                handler: function (response) {
-                  // Success callback
-                  document.getElementById('status').innerText = 'Payment Successful! Payment ID: ' + response.razorpay_payment_id;
-                  console.log('Payment Response:', response);
-                  window.location.href = `Confirmorder.html?Date=${encodeURIComponent(date)}&Name=${encodeURIComponent(name)}&Number=${encodeURIComponent(number)}&Price=${encodeURIComponent(price)}&Id=${encodeURIComponent(id)}&Status=${encodeURIComponent(status)}&PaymentMethod=${encodeURIComponent(method)}`;
-
-                  // Here, you can send response to your server for verification
-                },
-                prefill: {
-                  name: 'AnkitKadere',
-                  email: 'Semple@example.com',
-                  contact: '9999999999'
-                },
-                notes: {
-                  address: 'Demo Address'
-                },
-                theme: {
-                  color: '#000' // Button color
-                },
-                modal: {
-                  ondismiss: function () {
-                    document.getElementById('status').innerText = 'Payment Cancelled.';
-                  }
-                }
-              };
-
-
-              // Initialize Razorpay
-              const rzp = new Razorpay(options);
-
-              // 🔹 Handle button click (Next → Submit)
-              document.getElementById("swap").addEventListener("click", async (e) => {
-                e.preventDefault();
-                const btn = document.getElementById("swap");
-
-                if (btn.innerText === "Next") {
-                  // Step 1 → Step 2
-                  swap();
-                  generateCode();
-                  showLocalDate();
-                  showTime();
-                  generateCode();
-                  btn.innerText = "Submit";
-                  return;
-                }
-
-                if (btn.innerText === "Submit") {
-                  generateCode();
-                  // 🔹 Check if all file inputs are empty
-                  const form = document.getElementById("crudForm");
-                  const inputs = form.querySelectorAll("input:not([type='hidden']):not([type='file']),select");
-
-                  // Validate all visible inputs
-                  let isValid = true;
-                  inputs.forEach((input) => {
-                    if (!input.value || input.value.trim() === "") {
-                      isValid = false;
-                    }
-                  });
-
-                  if (!isValid) {
-                    btn.innerText = "Please Fill Details...";
-                    setTimeout(() => {
-                      btn.innerText = "Submit";
-                    }, 3000);
-                    return false;
-                  }
-
-                  btn.innerText = "Please Wait...";
-
-                  // 🔹 Final submit → send data to Google Sheet
-                  const Forms = document.getElementById("crudForm");
-                  const formData = new FormData(Forms);
-                  let payload = { action: "create" };
-
-                  for (const [key, val] of formData.entries()) {
-                    payload[key] = val;
-                  }
-
-                  // Handle single image input (ImageInput)
-                  const fileInput = document.getElementById("ImageInput");
-                  if (fileInput && fileInput.files.length > 0) {
-                    payload.Image = await getBase64(fileInput.files[0]);
-                    payload.ImageName = fileInput.files[0].name;
-                  }
-
-                  await fetch(API_URL, {
-                    method: "POST",
-                    body: new URLSearchParams(payload),
-                  });
-
-                  // Get all fields for redirect
-                  const date = document.getElementById("dates").value;
-                  const name = document.getElementById("name").value;
-                  const number = document.getElementById("number").value;
-                  const price = document.getElementById("times").value;
-                  const id = document.getElementById("code").value;
-                  const status = document.getElementById("Status").value;
-                  const method = document.getElementById("Payment").value;
-
-                  // Build URL and redirect
-                  const toggle = document.getElementById('toggle');
-
-                  toggle.onchange = () => {
-                    if (toggle.checked) {
-                      // Online mode → open Razorpay
-                      rzp.open();
-                    } else {
-                      // Cash mode → redirect to Confirmorder.html
-                      const url = `Confirmorder.html?Date=${encodeURIComponent(date)}&Name=${encodeURIComponent(name)}&Number=${encodeURIComponent(number)}&Price=${encodeURIComponent(price)}&Id=${encodeURIComponent(id)}&Status=${encodeURIComponent(status)}&PaymentMethod=${encodeURIComponent(method)}`;
-                      window.location.href = url;
-                    }
-                  };
-                 
-                  swapback(); // return to first step
-                }
-              });
-            </script>
+    Product Size
+    </p>
+    <div class="md:flex md:gap-2 md:mx-auto md:w-full md:p-6">
+      <div
+        class="relative bg-gradient-to-tr bg-gray-900 rounded-3xl p-6 w-full max-w-[360px] md:max-w-[100%]  md:max-h-[60%] mx-auto mb-8 shadow-lg"
+        style="aspect-ratio: 16 / 9;">
+        <p
+          class="font-mono-custom font-extrabold text-white text-xl  justify-center text-center tracking-widest pb-2 select-text">
+          Select Frame Size
+        </p>
+        <div id="sizeButtons" class="text-center md:ml-10 md:mt-2 justify-center text-sm font-semibold">
+          <div class="flex gap-8 md:gap-20">
+            <label for="size-4x6"
+              class="w-20 h-12 md:w-28 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
+              4 x 6
+            </label>
+            <label for="size-5x7"
+              class="w-20 h-12 md:w-28 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
+              5 x 7
+            </label>
+            <label for="size-6x8"
+              class="w-20 h-12 md:w-28 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
+              6 x 8
+            </label>
+          </div>
+          <br>
+          <div class="flex gap-8 md:gap-20">
+            <label for="size-8x12"
+              class="w-20 h-12 md:w-28 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
+              8 x 12
+            </label>
+            <label for="size-10x15"
+              class="w-20 h-12 md:w-28 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
+              10 x 15
+            </label>
+            <label for="size-12x18"
+              class="w-20 h-12 md:w-28 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
+              12 x 18
+            </label>
+          </div>
+          <br>
+          <div class="flex gap-8 md:gap-20">
+            <label for="size-16x24"
+              class="w-20 h-12 md:w-28 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
+              16 x 24
+            </label>
+            <label for="size-20x30"
+              class="w-20 h-12 md:w-28 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
+              20 x 30
+            </label>
+            <label for="size-24x36"
+              class="w-20 h-12 md:w-28 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
+              24 x 36
+            </label>
           </div>
         </div>
-        <div>
 
+        <input type="radio" name="size" id="size-4x6" value="4 x 6 => Rs. 100" class="hidden" />
+        <input type="radio" name="size" id="size-5x7" value="5 x 7 => Rs. 140" class="hidden" />
+        <input type="radio" name="size" id="size-6x8" value="6 x 8 => Rs. 150" class="hidden" />
+        <input type="radio" name="size" id="size-8x12" value="8 x 12 => Rs. 299" class="hidden" />
+        <input type="radio" name="size" id="size-10x15" value="10 x 15 => Rs. 419" class="hidden" />
+        <input type="radio" name="size" id="size-12x18" value="12 x 18 => Rs. 549" class="hidden" />
+        <input type="radio" name="size" id="size-16x24" value="16 x 24 => Rs. 1,350" class="hidden" />
+        <input type="radio" name="size" id="size-20x30" value="20 x 30 => Rs. 1,619" class="hidden" />
+        <input type="radio" name="size" id="size-24x36" value="24 x 36 => Rs. 1,999" class="hidden" />
+
+      </div>
+      <form id="crudForm" class="md:w-full space-y-4 mb-2">
+        <input type="radio" name="size" id="size-4x6" value="4 x 6 => 100 Rs" class="hidden" />
+        <input type="radio" name="size" id="size-5x7" value="5 x 7 => 140 Rs" class="hidden" />
+        <input type="radio" name="size" id="size-6x8" value="6 x 8 => 150 Rs" class="hidden" />
+        <input type="radio" name="size" id="size-8x12" value="8 x 12 => 299 Rs" class="hidden" />
+        <input type="radio" name="size" id="size-10x15" value="10 x 15 => 419 Rs" class="hidden" />
+        <input type="radio" name="size" id="size-12x18" value="12 x 18 => 549 Rs" class="hidden" />
+        <input type="radio" name="size" id="size-16x24" value="16 x 24 => 1,350 Rs" class="hidden" />
+        <input type="radio" name="size" id="size-20x30" value="20 x 30 => 1,619 Rs" class="hidden" />
+        <input type="radio" name="size" id="size-24x36" value="24 x 36 => 1,999 Rs" class="hidden" />
+
+
+        <p class="font-semibold text-black mb-3 md:mx-auto select-text">
+          Process Details
+        </p>
+        <div id="data1">
+          <input type="text" id="code" class=" hidden" name="Id">
+          <input type="text" id="icons" class=" hidden" name="Icon">
+          <input type="text" id="Level" class=" hidden" name="1" value="Level 1">
+          <input type="text" id="Filtered" class=" hidden" name="Filtered">
+          <input type="text" name="Date" id="dates" class="  hidden w-full p-2 border rounded-lg"
+            placeholder="YYYY-MM-DD">
+          <input type="text" name="Time" id="times" class="  hidden w-full p-2 border rounded-lg"
+            placeholder="HH:MM AM/PM">
+          <input type="text" name="Payment" id="Payment" value="WhatsApp" class=" hidden w-full p-2 border rounded-lg">
+          <input type="text" name="Other" id="Other" value="1" class=" hidden w-full p-2 border rounded-lg">
+          <input type="text" name="Status" id="Status" class=" hidden" value="Not Accept">
+          <input type="text" name="Price" value="Size" class=" hidden">
+          <input type="file" id="ImageInput" accept="image/jpg/png*" class="  hidden w-full border rounded-lg">
+
+          <input
+            class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none  "
+            placeholder="Full Name" name="Name" id="name" type="text" required />
+          <input
+            class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
+            placeholder="Mobile Number" id="number" name="Number" type="text" required />
+
+          <input type="text" id="selectedSize" name="Size" required
+            class=" hidden w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
+            name="Material" placeholder="Size Select" />
+
+          <div class="flex space-x-4 mb-2">
+            <select id="frameMaterial" name="Material" required name="Color"
+              class="flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none ">
+              <option value="" disabled selected>Select Material</option>
+              <option value="Wooden">Wooden</option>
+              <option value="metal">Polystyrene</option>
+
+            </select>
+            <select id="frameColor" name="Color" required
+              class=" flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none ">
+
+              <option value="" disabled selected>Select Color</option>
+              <option value="Black" class="text-black bg-black text-white">Black</option>
+              <option value="Brown" class="bg-[#361403] text-white"> Brown</option>
+              <option value="White" class="bg-white text-black">White</option>
+              <option value="Goldden" class="bg-[#FFD700] text-black">Goldden</option>
+            </select>
+          </div>
+        </div>
+        <div id="data2" style="display: none; margin-top: mt-2;">
+
+          <input
+            class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
+            placeholder="Address" type="text" name="Address" required />
+          <input
+            class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
+            placeholder="City / House " name="City" type="text" required />
+          <div class="flex space-x-4 mb-2">
+            <input
+              class="flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none "
+              placeholder="Pin Code" type="text" name="Pincode" required />
+            <select id="state" name="State" required name="State"
+              class="flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none ">
+              <option value="" disabled selected>Select State</option>
+              <option value="Andhra Pradesh">Andhra Pradesh</option>
+              <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+              <option value="Assam">Assam</option>
+              <option value="Bihar">Bihar</option>
+              <option value="Chhattisgarh">Chhattisgarh</option>
+              <option value="Goa">Goa</option>
+              <option value="Gujarat">Gujarat</option>
+              <option value="Haryana">Haryana</option>
+              <option value="Himachal Pradesh">Himachal Pradesh</option>
+              <option value="Jharkhand">Jharkhand</option>
+              <option value="Karnataka">Karnataka</option>
+              <option value="Kerala">Kerala</option>
+              <option value="Madhya Pradesh">Madhya Pradesh</option>
+              <option value="Maharashtra">Maharashtra</option>
+              <option value="Manipur">Manipur</option>
+              <option value="Meghalaya">Meghalaya</option>
+              <option value="Mizoram">Mizoram</option>
+              <option value="Nagaland">Nagaland</option>
+              <option value="Odisha">Odisha</option>
+              <option value="Punjab">Punjab</option>
+              <option value="Rajasthan">Rajasthan</option>
+              <option value="Sikkim">Sikkim</option>
+              <option value="Tamil Nadu">Tamil Nadu</option>
+              <option value="Telangana">Telangana</option>
+              <option value="Tripura">Tripura</option>
+              <option value="Uttar Pradesh">Uttar Pradesh</option>
+              <option value="Uttarakhand">Uttarakhand</option>
+              <option value="West Bengal">West Bengal</option>
+              <option disabled>──────────</option>
+              <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+              <option value="Chandigarh">Chandigarh</option>
+              <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu
+              </option>
+              <option value="Delhi">Delhi (NCT)</option>
+              <option value="Jammu & Kashmir">Jammu & Kashmir</option>
+              <option value="Ladakh">Ladakh</option>
+              <option value="Lakshadweep">Lakshadweep</option>
+              <option value="Puducherry">Puducherry</option>
+            </select>
+          </div>
+        </div>
+        <nav aria-label="Bottom navigation"
+          class="fixed md:relative bottom-0  md:mx-auto left-0 right-0 mx-2  border-t border-[#d9d9d9]bg-[#f3f3f3]   justify-center items-center py-3 z-50">
+
+          <div class="flex items-center justify-between mb-8  mx-2 md:mx-auto md:w-[45vw] select-text">
+            <span id="Cash" style="font-size: 18px;" class="font-semibold text-black">
+              Cash.
+            </span>
+            <span class="font-semibold text-black justify-center">
+              <label class="relative inline-flex items-center cursor-pointer" for="toggle">
+                <input aria-checked="true" class="sr-only peer" id="toggle" type="checkbox" />
+                <div
+                  class="w-40 h-8 mt-2 text-white text-center bg-black rounded-full peer-checked:bg-black transition-colors">
+                  Payment</div>
+                <div
+                  class="absolute left-1 top-[0.70rem] bg-white w-6 h-6 rounded-full transition-transform peer-checked:translate-x-[8rem]">
+                </div>
+              </label>
+            </span>
+            <span id="Online" style="font-size: 18px;" class="font-semibold text-black md:mt-0 mt-1">
+              Online
+            </span>
+          </div>
           <script>
-
-            function swap() {
-              const s = document.getElementById('data1').style.display = "none";
-              const d = document.getElementById('data2').style.display = "block";
-              const f = document.getElementById('swapback').style.display = "block";
-              const j = document.getElementById('swap').style.width = "80%";
-              const e = document.getElementById('swap');
-              e.innerText = "Submit";
-            }
-            function swapback() {
-              const s = document.getElementById('data1').style.display = "block";
-              const d = document.getElementById('data2').style.display = "none";
-              const f = document.getElementById('swapback').style.display = "none";
-              const w = document.getElementById('swap').style.width = "100%";
-              const e = document.getElementById('swap');
-              e.innerText = "Next";
-            }
-
-            const radios = document.querySelectorAll('input[name="size"]');
-            const labels = document.querySelectorAll('#sizeButtons label');
-            const selectedSizeInput = document.getElementById('selectedSize');
-
-            function updateSelection(selectedId) {
-              radios.forEach(radio => {
-                if (radio.id === selectedId) {
-
-                  radio.checked = true;
-                  selectedSizeInput.value = radio.value;
-                  selectedSizeInput.placeholder = "";
-
-                }
-              });
-
-              labels.forEach(label => {
-
-                if (label.getAttribute('for') === selectedId) {
-
-                  label.classList.add('bg-black', 'text-white');
-                  label.classList.remove('border', 'border-gray-400', 'text-black');
-                } else {
-                  label.classList.remove('bg-black', 'text-white');
-                  label.classList.add('border', 'border-gray-400', 'text-black');
-
-                }
-              });
+            const toggle = document.getElementById('toggle');
+            const Cash = document.getElementById('Cash');
+            const Online = document.getElementById('Online');
+            Cash.style.color = "gray";
+            toggle.onchange = () => {
+              if (toggle.checked) {
+                Online.style.color = "black";
+                Cash.style.color = "gray";
+              } else {
+                Online.style.color = "gray";
+                Cash.style.color = "black";
+              }
             };
 
 
-            labels.forEach(label => {
-              label.addEventListener('click', () => {
-                updateSelection(label.getAttribute('for'));
-              });
+          </script>
+          <div class="flex md:mx-auto md:w-[47vw] md:justify-between justify-between w-full">
+            <div style=" display: none;" onclick="swapback() " aria-label="Go back" id="swapback"
+              class="w-14 h-12 bg-black rounded-full flex justify-center items-center shadow-sm">
+              <i class="fas fa-chevron-left font-extrabold text-white text-3x1 pl-5 pt-4"></i>
+            </div>
+
+            <button onclick="swap()" id="swap"
+              class="bg-black text-white font-extrabold rounded-full py-3 w-full md:mx-0 mx-auto text-center"
+              type="submit">
+              Next
+            </button>
+          </div>
+        </nav>
+      </form>
+      <script>
+        // Generate 6-digit random number
+        function generateCode() {
+          let randomCode = Math.floor(100000 + Math.random() * 900000);
+          document.getElementById("code").value = randomCode;
+        }
+
+        // Show current time (12-hour format with AM/PM)
+        function showTime() {
+          const now = new Date();
+          const options = { hour: "numeric", minute: "numeric", second: "numeric", hour12: true };
+          document.getElementById("times").value = now.toLocaleTimeString([], options);
+        }
+        showTime();
+        setInterval(showTime, 1000); // Update every second
+
+        // Show current date in DD/MM/YYYY
+        function showLocalDate() {
+          const today = new Date();
+          const formattedDate = today.toLocaleDateString("en-IN", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric"
+          });
+          document.getElementById("dates").value = formattedDate;
+        }
+        showLocalDate();
+
+        const API_URL = "https://script.google.com/macros/s/AKfycbyG5foFh0_qWqUG4d2Kbg-055UsLAw8Nu-jWXCeTYVT2mfvC1PADZaixEjQmyDPeRrs/exec";
+
+        function getBase64(file) {
+          return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = err => reject(err);
+          });
+        }
+        ///////////////////////////////////////////
+        // Sample Test API Key (from Razorpay docs - safe for demo)
+        const razorpayKey = 'rzp_test_1DP5mmOlF5G5ag'; // Replace with your test/live key
+
+        // Sample Test Secret Key (Placeholder - NEVER use in client code; for demo only)
+        // In real apps, this is used server-side to create orders.
+        const razorpaySecret = 'G3sA5V0yCl8rK7P4Q2wN6xM'; // Fake for demo; generate real ones from Razorpay dashboard
+
+        // Payment options (amount in paise: 50000 = ₹500)
+        const options = {
+          key: razorpayKey, // Test API key
+          amount: 50000, // Amount in paise (₹500)
+          currency: 'INR',
+          name: 'Gift Zone', // Your business name
+          description: 'Test Transaction for Demo',
+          image: 'https://via.placeholder.com/150', // Optional logo URL
+          handler: function (response) {
+            // Success callback
+            document.getElementById('status').innerText = 'Payment Successful! Payment ID: ' + response.razorpay_payment_id;
+            console.log('Payment Response:', response);
+            window.location.href = `Confirmorder.html?Date=${encodeURIComponent(date)}&Name=${encodeURIComponent(name)}&Number=${encodeURIComponent(number)}&Price=${encodeURIComponent(price)}&Id=${encodeURIComponent(id)}&Status=${encodeURIComponent(status)}&PaymentMethod=${encodeURIComponent(method)}`;
+
+            // Here, you can send response to your server for verification
+          },
+          prefill: {
+            name: 'AnkitKadere',
+            email: 'Semple@example.com',
+            contact: '9999999999'
+          },
+          notes: {
+            address: 'Demo Address'
+          },
+          theme: {
+            color: '#000' // Button color
+          },
+          modal: {
+            ondismiss: function () {
+              document.getElementById('status').innerText = 'Payment Cancelled.';
+            }
+          }
+        };
+
+
+        // Initialize Razorpay
+        const rzp = new Razorpay(options);
+
+        // 🔹 Handle button click (Next → Submit)
+        document.getElementById("swap").addEventListener("click", async (e) => {
+          e.preventDefault();
+          const btn = document.getElementById("swap");
+
+          if (btn.innerText === "Next") {
+            // Step 1 → Step 2
+            swap();
+            generateCode();
+            showLocalDate();
+            showTime();
+            generateCode();
+            btn.innerText = "Submit";
+            return;
+          }
+
+          if (btn.innerText === "Submit") {
+            generateCode();
+            // 🔹 Check if all file inputs are empty
+            const form = document.getElementById("crudForm");
+            const inputs = form.querySelectorAll("input:not([type='hidden']):not([type='file']),select");
+
+            // Validate all visible inputs
+            let isValid = true;
+            inputs.forEach((input) => {
+              if (!input.value || input.value.trim() === "") {
+                isValid = false;
+              }
             });
 
-            // Initialize with no selection
-            selectedSizeInput.value = "";
-            selectedSizeInput.placeholder = "No size selected";
-          </script>
-        </div>
-      </main>
+            if (!isValid) {
+              btn.innerText = "Please Fill Details...";
+              setTimeout(() => {
+                btn.innerText = "Submit";
+              }, 3000);
+              return false;
+            }
+
+            btn.innerText = "Please Wait...";
+
+            // 🔹 Final submit → send data to Google Sheet
+            const Forms = document.getElementById("crudForm");
+            const formData = new FormData(Forms);
+            let payload = { action: "create" };
+
+            for (const [key, val] of formData.entries()) {
+              payload[key] = val;
+            }
+
+            // Handle single image input (ImageInput)
+            const fileInput = document.getElementById("ImageInput");
+            if (fileInput && fileInput.files.length > 0) {
+              payload.Image = await getBase64(fileInput.files[0]);
+              payload.ImageName = fileInput.files[0].name;
+            }
+
+            await fetch(API_URL, {
+              method: "POST",
+              body: new URLSearchParams(payload),
+            });
+
+            // Get all fields for redirect
+            const date = document.getElementById("dates").value;
+            const name = document.getElementById("name").value;
+            const number = document.getElementById("number").value;
+            const price = document.getElementById("times").value;
+            const id = document.getElementById("code").value;
+            const status = document.getElementById("Status").value;
+            const method = document.getElementById("Payment").value;
+
+            // Build URL and redirect
+            const toggle = document.getElementById('toggle');
+
+            if (toggle.checked) {
+              // Online mode → open Razorpay
+              rzp.open();
+            } else {
+              // Cash mode → redirect to Confirmorder.html
+              const url = `Confirmorder.html?Date=${encodeURIComponent(date)}&Name=${encodeURIComponent(name)}&Number=${encodeURIComponent(number)}&Price=${encodeURIComponent(price)}&Id=${encodeURIComponent(id)}&Status=${encodeURIComponent(status)}&PaymentMethod=${encodeURIComponent(method)}`;
+              window.location.href = url;
+              form.reset();
+            }
+            swapback(); // return to first step
+          }
+        });
+      </script>
     </div>
-  </main>
+  </div>
+  <div>
 
-  <nav aria-label="Bottom navigation " id="orderbtn"
-    class="fixed md:top-40 bottom-2   md:w-full md:flex justify-center bg-gray-100 left-0 right-0 border-t gap-1 border-[#d9d9d9]  flex  items-center py-1 md:py-0 px-2 z-50">
+    <script>
 
-    <button id="openLoginBtn" onclick="window.location.reload()"
-      class=" text-white bg-black text-2xl md:mt-4 font-semibold rounded-full md:py-1 py-1.5 w-full md:w-full  mx-auto text-center"
-      type="button">
-      Reload
-    </button>
-  </nav>
+      function swap() {
+        const s = document.getElementById('data1').style.display = "none";
+        const d = document.getElementById('data2').style.display = "block";
+        const f = document.getElementById('swapback').style.display = "block";
+        const j = document.getElementById('swap').style.width = "80%";
+        const e = document.getElementById('swap');
+        e.innerText = "Submit";
+      }
+      function swapback() {
+        const s = document.getElementById('data1').style.display = "block";
+        const d = document.getElementById('data2').style.display = "none";
+        const f = document.getElementById('swapback').style.display = "none";
+        const w = document.getElementById('swap').style.width = "100%";
+        const e = document.getElementById('swap');
+        e.innerText = "Next";
+      }
+
+      const radios = document.querySelectorAll('input[name="size"]');
+      const labels = document.querySelectorAll('#sizeButtons label');
+      const selectedSizeInput = document.getElementById('selectedSize');
+
+      function updateSelection(selectedId) {
+        radios.forEach(radio => {
+          if (radio.id === selectedId) {
+
+            radio.checked = true;
+            selectedSizeInput.value = radio.value;
+            selectedSizeInput.placeholder = "";
+
+          }
+        });
+
+        labels.forEach(label => {
+
+          if (label.getAttribute('for') === selectedId) {
+
+            label.classList.add('bg-black', 'text-white');
+            label.classList.remove('border', 'border-gray-400', 'text-black');
+          } else {
+            label.classList.remove('bg-black', 'text-white');
+            label.classList.add('border', 'border-gray-400', 'text-black');
+
+          }
+        });
+      };
+
+
+      labels.forEach(label => {
+        label.addEventListener('click', () => {
+          updateSelection(label.getAttribute('for'));
+        });
+      });
+
+      // Initialize with no selection
+      selectedSizeInput.value = "";
+      selectedSizeInput.placeholder = "No size selected";
+    </script>
+  </div>
 
   <script>
 
@@ -729,85 +702,6 @@
     function getCourseIdFromURL() {
       return new URLSearchParams(location.search).get("id");
     }
-    window.addEventListener("DOMContentLoaded", () => {
-      const courseId = getCourseIdFromURL();
-      const course = courses[courseId];
-
-      if (course) {
-        renderCourse(course);
-      } else {
-        document.getElementById("course-detail").innerHTML = `<p class="text-red-600">Products not found.</p>`;
-      }
-    });
-
-
-    function renderStars(rating) {
-      let stars = "";
-      for (let i = 1; i <= 5; i++) {
-        stars += i <= rating
-          ? '<i class="fas fa-star text-yellow-400"></i>'
-          : '<i class="far fa-star text-yellow-400"></i>';
-      }
-      return stars;
-    }
-
-    fetch('courses.json')
-      .then(res => res.json())
-      .then(courses => {
-        // Replace with the ID you want to render dynamically
-
-        renderCourse(courses[courseId]);
-      })
-      .catch(err => console.error('Error loading courses:', err));
-
-
-    const code = Math.floor(1000 + Math.random() * 9000);
-    const ID = Math.floor(100000 + Math.random() * 7000);
-    window.addEventListener("load", () => {
-      const courseId = new URLSearchParams(window.location.search).get("id");
-      const courseTitle = new URLSearchParams(window.location.search).get("head");
-      const courseIcon = new URLSearchParams(window.location.search).get("icon");
-
-      // Populate inputs or elements
-      const otherInput = document.getElementById("Other");
-      const iconInput = document.getElementById("icons");
-      const titleInput = document.getElementById("titleInput"); // optional
-
-      if (otherInput) otherInput.value = courseTitle;
-      if (iconInput) iconInput.value = courseIcon;
-      if (titleInput) titleInput.value = courseId;
-
-
-    });
-
-
-    const course = courses[courseId];
-
-    function renderCourse(course) {
-      const section = document.getElementById("course-detail");
-
-      document.getElementById('openLoginBtn').innerText = "₹ " + course.price;
-      const Order = document.getElementById('orderbtn').innerHTML;
-      section.innerHTML = ` 
-
-    <div class="hidden md:block flex">
-      ${Order}
-    </div>
- 
-  `;
-    }
-
-    window.addEventListener("DOMContentLoaded", () => {
-      const courseId = getCourseIdFromURL();
-      const course = courses[courseId];
-
-      if (course) {
-        renderCourse(course);
-      } else {
-        document.getElementById("course-detail").innerHTML = `<p class="text-red-600">Course not found.</p>`;
-      }
-    });
-
 
     function updateEndDate() {
       const startInput = document.getElementById("Start");
@@ -830,60 +724,7 @@
       updateEndDate();
     });
 
-    function buycourse() {
 
-
-      if (!course) {
-        alert("Invalid Product selected.");
-        return;
-      }
-
-      document.getElementById("Passcode").value = code;
-      document.getElementById("Id").value = ID;
-      document.getElementById("Passcode").classList.add("hidden");
-      document.getElementById("Id").classList.add("hidden");
-      document.getElementById("Price").value = course.price;
-      document.getElementById("Course").value = course.title;
-      document.getElementById("Date").classList.add("hidden");
-      document.getElementById("Time").classList.add("hidden");
-      document.getElementById("Start").classList.add("hidden");
-      document.getElementById("End").classList.add("hidden");
-      document.getElementById("Price").classList.add("hidden");
-      document.getElementById("Course").classList.add("hidden");
-      document.getElementById("Status").classList.add("hidden");
-
-    }
-
-    function handleBooking() {
-      document.getElementById("dset").classList.add("hidden");
-      document.getElementById("buttonsets").classList.add("hidden");
-
-      setTimeout(() => {
-        document.getElementById('deletedtext').innerText = 'Processing...';
-      }, 100);
-
-      setTimeout(() => {
-        document.getElementById("dset").classList.add("hidden");
-        document.getElementById("buttonsets").classList.add("hidden");
-        document.getElementById('deletedtext').innerHTML = `<p class="text-xl mt-2">Your Pass Code </p><h1 class="font-bold text-8xl text-green-700">${code}</h1><p class="text-xl mt-2">Completed</p>`;
-        const audio = document.getElementById("audioPlayer");
-        audio.play().catch(err => {
-          console.error(err);
-        });
-
-        const utterance = new SpeechSynthesisUtterance(" Wellcome to Apna Course ");
-        utterance.lang = "en-hi"; // Change to "hi-IN" or other for different languages
-        utterance.rate = 0.8; // Speed (0.1 to 10), 1 is normal
-        utterance.pitch = 5; // Pitch (0 to 2), 1 is default
-        window.speechSynthesis.cancel(); // Cancel previous speech
-        window.speechSynthesis.speak(utterance);
-
-      }, 8000);
-      setTimeout(() => {
-        window.location.href = 'Owner.html';
-      }, 30000);
-
-    }
 
 
     const form = document.getElementById("entryForm");
@@ -954,9 +795,12 @@
     const closeBtn = document.getElementById("closeLoginBtn");
     const loginFormContainer = document.getElementById("loginFormContainer");
     const overlay = document.getElementById("overlay");
-    overlay.classList.remove("hidden");
+
     loginFormContainer.style.opacity = "1";
-    loginFormContainer.style.transform = "translateY(0)";
+    setInterval(() => {
+      loginFormContainer.style.transform = "translateY(0)";
+    }, 10);
+
     loginFormContainer.style.pointerEvents = "auto";
     function openLogin() {
       overlay.classList.remove("hidden");
@@ -964,18 +808,7 @@
       loginFormContainer.style.transform = "translateY(0)";
       loginFormContainer.style.pointerEvents = "auto";
     }
-
-    function closeLogin() {
-      loginFormContainer.style.opacity = "0";
-      loginFormContainer.style.transform = "translateY(100%)";
-      loginFormContainer.style.pointerEvents = "none";
-      overlay.classList.add("hidden");
-    }
-
   </script>
-
-  <script src="courses.json"></script>
-
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
     import {
