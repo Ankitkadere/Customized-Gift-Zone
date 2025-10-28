@@ -19,25 +19,20 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
-
         .font-mono-custom {
-
             font-family: 'arial', monospace;
-
             font-family: 'Roboto Mono', monospace;
-
         }
     </style>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
-
         body {
             font-family: 'Inter', sans-serif;
         }
     </style>
 </head>
 
-<body class="bg-gray-100  flex flex-col items-center justify-center md:w-96 md:mx-auto  p-2">
+<body class="bg-gray-100  items-center justify-center   p-2">
     <div class="flex w-full p-2 items-center mb-6 justify-between">
         <button onclick="history.back()" aria-label="Go back"
             class="w-10 h-10 bg-black rounded-full flex justify-center items-center shadow-sm">
@@ -51,7 +46,7 @@
             </h1>
         </button>
     </div>
-    <div class="h-full w-full ">
+    <div class="h-full w-full md:px-80">
         <div class="flex justify-center mb-6 rounded-full">
             <img alt="Illustration of a smartphone with a credit card and a green checkmark indicating payment success"
                 class="w-24 h-24 rounded-full" height="96"
@@ -69,7 +64,7 @@
             <h2 class="text-black font-semibold mb-3">
                 Payment Details
             </h2>
-            <dl class="space-y-3 text-sm text-gray-400">
+            <dl class="space-y-3 text-sm text-gray-800">
                 <div class="flex justify-between">
                     <dt>
                         Order ID
@@ -118,7 +113,7 @@
 
 
         <nav aria-label="Bottom navigation"
-            class="fixed bottom-0 left-0 right-0 mx-2 border-t border-[#d9d9d9]bg-[#f3f3f3] md:w-96  md:mx-auto  justify-center items-center py-3 z-50">
+            class="fixed bottom-0 left-0 md:px-80 right-0 mx-2 border-t border-[#d9d9d9]bg-[#f3f3f3] justify-center items-center py-3 z-50">
             <div>
                 <div class="flex items-center justify-between mb-8 mx-2 select-text">
                     <span class="font-semibold text-black">
@@ -134,15 +129,15 @@
                     </label>
                 </div>
             </div>
-            <div class="md:mx-auto space-y-4">
+            <div class="  space-y-4 md:space-y-0  md:flex justify-between md:gap-20 text-center align-items">
                 <!-- Track Your Order Button -->
-                <a href="Orderlist.html" class="block">
+                <a href="Orderlist.html" class="block w-full">
                     <div class="bg-black text-white font-semibold rounded-full py-3 w-full text-center">
                         Track Your Order
                     </div>
                 </a>
                 <!-- Back To Home Button -->
-                <a href="index.html" class="block">
+                <a href="index.html" class="block w-full">
                     <div class="bg-black text-white font-semibold rounded-full py-3 w-full text-center">
                         Back To Home
                     </div>
@@ -151,8 +146,6 @@
         </nav>
     </div>
 </body>
-
-
 </html>
 
 <script>

@@ -110,14 +110,20 @@
         /* gray-500 */
     }
 </style>
+<style>
+    .progress p,
+    .track {
+        font-size: 0.70rem;
+    }
+</style>
 
-<body class="bg-black md:bg-gray-100 w-full top-0 left-0 fixed font-extrabold flex items-center justify-center pb-6">
+<body class="bg-gray-100 w-full top-0 left-0 fixed font-extrabold flex items-center justify-center pb-6">
     <div styl="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)"
         class="  w-full flex flex-col md:flex-row overflow-hidden">
 
         <!-- Toggle Button (Visible only on mobile) -->
-        <div class="flex bg-black items-center md:px-0 px-2 h-full justify-between">
-            <div class="flex bg-black w-full md:hidden  items-center justify-between p-2">
+        <div class="flex items-center md:px-0 px-2 h-full justify-between">
+            <div class="flex w-full md:hidden  items-center justify-between p-2">
                 <button id="menuToggle" type="button"
                     class="w-10 h-10 p-3 flex bg-white justify-center items-center rounded-full shadow-sm focus:outline-none">
                     <i class="fas fa-user text-xl text-black"></i>
@@ -125,8 +131,8 @@
 
                 <button onclick="window.location.href='index.html'" aria-label="Go back"
                     class="flex justify-center items-center">
-                    <h1 class="mx-auto text-4xl sm:text-5xl font-black leading-none
-                        text-white bg-black">
+                    <h1 class="mx-auto text-4xl sm:text-5xl leading-none
+                        ">
                         Gift Zone
                     </h1>
                 </button>
@@ -391,18 +397,17 @@
                 </style>
 
                 <div class=" md:mb-80  mx-auto">
-
                     <!-- Data Table -->
-                    <div class="bg-white shadow rounded-lg md:mb-20 w-full  md:max-h-[80vh]">
+                    <div class="bg-white shadow rounded-lg md:mb-20 w-full md:max-h-[80vh]">
                         <!-- Wrapper for scrolling -->
                         <div class="overflow-x-auto overflow-y-auto max-h-[86vh] md:max-h-[80vh]">
                             <table class="min-w-full border border-gray-200 text-xs text-gray-700">
 
-                                <tbody id="tableBody" class="divide-y divide-gray-200 pb-20">
+                                <tbody id="tableBody" class="divide-y divide-gray-200 pb-20 ">
                                     <div id="page-loader"
-                                        class="fixed inset-0 bg-white bg-opacity-50 flex items-center justify-center z-50">
+                                        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                                         <div
-                                            class="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin">
+                                            class="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin">
                                         </div>
                                     </div>
                                     <script>setTimeout(() => {
@@ -583,7 +588,7 @@
 
                         records.forEach((record, index) => {
                             tbody.innerHTML += `
-      <div class="bg-white shadow-md m-2 mx-2 rounded-lg overflow-hidden">
+      <div class="bg-white shadow-md rounded-lg mb-1 pb-1 overflow-hidden md:mx-40">
         <div class="p-2 md:flex items-start justify-between">
           <div class="flex items-start object-cover">
             <img src="${record.Icon}" alt="Product" class="w-20 h-20 rounded border-2" />
@@ -593,14 +598,83 @@
               <p class="text-sm text-green-600 mt-1 font-medium">Delivered ${formatTime(record.Time)} : ${formatDate(record.Date)}</p>
             </div>
           </div>
-          <div class="mt-4 flex flex-wrap gap-2 justify-between w-full md:w-auto">
-            <button class="text-black font-extrabold px-4 py-0 rounded-md hover:bg-blue-700 text-lg">${record.Size}</button>
+                  
+                     <input id="n-${record.Id}" value="${record.Level}"  type="text" min="1" max="4"
+                            placeholder="1-4" class="hidden"></div>
+                    <div class="relative w-full md:px-16 px-3 mx-auto overflow-hidden">
+                        <div class="absolute top-[0.70rem] w-[90%] ml-2 h-[0.20rem] bg-gray-300 rounded"></div>
+                        <div id="progress-${record.Id}"
+                            class="absolute w-[90%] top-[0.70rem] h-[0.20rem] ml-2 mr-4 bg-gray-600 rounded transition-all duration-500"
+                            style="width:0%"></div>
+                        <div class="flex justify-between relative z-10">
+                            <div id="${record.Id + 1}" class="flex flex-col progress items-center">
+                                <div id="box1-${record.Id}"
+                                    class="w-1 h-1 rounded-full border-4 border-gray-300 flex items-center justify-center bg-white">
+                                    <box-icon name='cart' ></box-icon>
+                                </div>
+                                <p class=" text-sm">Order</p>
+                            </div>
+                            <div id="${record.Id + 2}" class="flex flex-col progress items-center">
+                                <div  id="box2-${record.Id}"
+                                    class="w-1 h-1 rounded-full border-4 border-gray-300 flex items-center justify-center bg-white">
+                                    <box-icon name='truck'></box-icon>
+                                </div>
+                                <p class=" text-sm">Shipped</p>
+                            </div>
+                            <div id="${record.Id + 3}" class="flex flex-col progress items-center">
+                                <div  id="box3-${record.Id}"
+                                    class="w-1 h-1 rounded-full border-4 border-gray-300 flex items-center justify-center bg-white">
+                                    <box-icon name='navigation'></box-icon>
+                                </div>
+                                <p class=" text-sm">Out</p>
+                            </div>
+                            <div id="${record.Id + 4}" class="flex flex-col progress items-center">
+                                <div  id="box4-${record.Id}"
+                                    class="w-1 h-1 rounded-full border-4 border-gray-300 flex items-center justify-center bg-white">
+                                    <box-icon name='check-circle'></box-icon>
+                                </div>
+                                <p class="  text-sm">Done</p>
+                            </div>
+                        </div>
+                    </div>  
+
+          <div class=" px-2 flex flex-wrap gap-2 justify-between w-full md:w-auto">
+            <button class="text-black font-extrabold  py-0  rounded-md hover:bg-blue-700 text-sm">${record.Size}</button>
             <button onclick='deleteRecord("${record.Id}")' class="bg-black text-white px-3 py-1 rounded-md hover:bg-blue-700 text-sm">Cancel</button>
           </div>
         </div>
       </div>`;
                         });
                     }
+
+
+                    setInterval(() => {
+                        document.querySelectorAll("[id^='n-']").forEach(n => {
+                            const id = n.id.split("-")[1];
+                            const progress = document.getElementById(`progress-${id}`);
+
+                            const update = () => {
+                                const v = parseInt(n.value) || 1;
+                                const w = ((v - 1) / 3.3) * 100; // total 4 steps
+                                progress.style.width = w + "%";
+
+                                for (let i = 1; i <= 4; i++) {
+                                    const box = document.querySelector(`#box${i}-${id}`);
+                                    if (box) {
+                                        box.className =
+                                            "w-6 h-6 rounded-full border-4 flex items-center justify-center transition-all duration-300 " +
+                                            (i <= v ? "bg-gray-400 border-gray-500 text-white" : "bg-white border-gray-300 text-black");
+                                        const icon = box.querySelector("box-icon");
+                                        if (icon) icon.setAttribute("color", i <= v ? "white" : "black");
+                                    }
+                                }
+                            };
+
+                            update();
+                        });
+                    }, 1000);
+
+
 
                     // Fetch records only for logged-in user
                     async function fetchRecords() {
