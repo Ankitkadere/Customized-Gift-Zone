@@ -309,7 +309,7 @@
         </p>
         <div id="data1">
           <input type="text" id="code" class=" hidden" name="Id">
-          <input type="text" id="icons" class=" hidden" name="Icon">
+          <input type="text" id="icons" class=" " name="Icon">
           <input type="text" id="Level" class=" hidden" name="1" value="Level 1">
           <input type="text" id="Filtered" class=" hidden" name="Filtered">
           <input type="text" name="Date" id="dates" class="  hidden w-full p-2 border rounded-lg"
@@ -327,7 +327,7 @@
             placeholder="Full Name" name="Name" id="name" type="text" required />
           <input
             class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
-            placeholder="Mobile Number" id="number" name="Number" type="text" required />
+            placeholder="Mobile Number" type="tel" id="number" name="Number"  required />
 
           <input type="text" id="selectedSize" name="Size" required
             class=" hidden w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
@@ -419,10 +419,10 @@
               <label class="relative inline-flex items-center cursor-pointer" for="toggle">
                 <input aria-checked="true" class="sr-only peer" id="toggle" type="checkbox" />
                 <div
-                  class="w-40 h-8 mt-2 text-white text-center bg-black rounded-full peer-checked:bg-black transition-colors">
+                  class="w-40 h-8  mt-2 text-white text-center pt-1 bg-black rounded-full peer-checked:bg-black transition-colors">
                   Payment</div>
                 <div
-                  class="absolute left-1 top-[0.70rem] bg-white w-6 h-6 rounded-full transition-transform peer-checked:translate-x-[8rem]">
+                  class="absolute left-1  top-[0.79rem] bg-white w-6 h-6 rounded-full transition-transform peer-checked:translate-x-[8rem]">
                 </div>
               </label>
             </span>
@@ -552,6 +552,19 @@
 
           if (btn.innerText === "Next") {
             // Step 1 → Step 2
+
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get("id");
+            const head = decodeURIComponent(params.get("head") || "");
+            const icon = decodeURIComponent(params.get("icon") || "");
+            const Owner = decodeURIComponent(params.get("owner") || "");
+
+           
+            document.getElementById("icons").value = icon || "";
+            document.getElementById("Other").value = head || "";
+        
+
+
             swap();
             generateCode();
             showLocalDate();
@@ -605,15 +618,6 @@
               method: "POST",
               body: new URLSearchParams(payload),
             });
-
-            // Get all fields for redirect
-            const date = document.getElementById("dates").value;
-            const name = document.getElementById("name").value;
-            const number = document.getElementById("number").value;
-            const price = document.getElementById("times").value;
-            const id = document.getElementById("code").value;
-            const status = document.getElementById("Status").value;
-            const method = document.getElementById("Payment").value;
 
             // Build URL and redirect
             const toggle = document.getElementById('toggle');
@@ -789,26 +793,7 @@
 
     loadData();
   </script>
-  <script>
 
-    const openBtn = document.getElementById("openLoginBtn");
-    const closeBtn = document.getElementById("closeLoginBtn");
-    const loginFormContainer = document.getElementById("loginFormContainer");
-    const overlay = document.getElementById("overlay");
-
-    loginFormContainer.style.opacity = "1";
-    setInterval(() => {
-      loginFormContainer.style.transform = "translateY(0)";
-    }, 10);
-
-    loginFormContainer.style.pointerEvents = "auto";
-    function openLogin() {
-      overlay.classList.remove("hidden");
-      loginFormContainer.style.opacity = "1";
-      loginFormContainer.style.transform = "translateY(0)";
-      loginFormContainer.style.pointerEvents = "auto";
-    }
-  </script>
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
     import {
