@@ -440,27 +440,25 @@
               </div>
               <nav aria-label="Bottom navigation"
                 class="fixed md:relative bottom-0  md:mx-auto left-0 right-0 mx-2 border-t border-[#d9d9d9]bg-[#f3f3f3]   justify-center items-center py-3 z-50">
-                <div>
-                  <div class="flex items-center justify-between mb-8 md:mb-4 mx-2 md:mx-auto md:w-[45vw] select-text">
-                    <span class="font-semibold text-1xl text-black">
-                      Cash.
-                    </span>
-                    <span class="font-semibold text-black">
-                      <label class="relative inline-flex items-center cursor-pointer" for="toggle">
-                        <input aria-checked="true" class="sr-only peer" id="toggle" type="checkbox" />
-                        <div class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-black transition-colors">
-                        </div>
-                        <div
-                          class="absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform peer-checked:translate-x-5">
-                        </div>
 
-                      </label>
-                    </span>
-                    <span class="font-semibold text-black">
-                      Online
-                    </span>
-                  </div>
+                <div class="flex items-center justify-between mb-8 md:mb-4 mx-2 md:mx-auto md:w-[45vw] select-text">
+                  <span style="font-size: 18px;" class="font-semibold   text-black">
+                    Cash.
+                  </span>
+                  <span class="font-semibold text-black">
+                    <label class="relative inline-flex items-center cursor-pointer" for="toggle">
+                      <input aria-checked="true" class="sr-only peer" id="toggle" type="checkbox" />
+                      <div class="w-28 h-6 mt-2 bg-black rounded-full peer-checked:bg-black transition-colors"></div>
+                      <div
+                        class="absolute left-1 top-[0.70rem] bg-white w-4 h-4 rounded-full transition-transform peer-checked:translate-x-[5.5rem]">
+                      </div>
+                    </label>
+                  </span>
+                  <span style="font-size: 18px;" class="font-semibold text-black">
+                    Online
+                  </span>
                 </div>
+
                 <div class="flex md:mx-auto md:w-[47vw] md:justify-between justify-between w-full">
                   <div style=" display: none;" onclick="swapback() " aria-label="Go back" id="swapback"
                     class="w-14 h-12 bg-black rounded-full flex justify-center items-center shadow-sm">
@@ -630,8 +628,19 @@
                   const method = document.getElementById("Payment").value;
 
                   // Build URL and redirect
-                  document.getElementById('toggle').onchange = () => { if (toggle.checked) rzp.open(); };
-                  form.reset();
+                  const toggle = document.getElementById('toggle');
+
+                  toggle.onchange = () => {
+                    if (toggle.checked) {
+                      // Online mode → open Razorpay
+                      rzp.open();
+                    } else {
+                      // Cash mode → redirect to Confirmorder.html
+                      const url = `Confirmorder.html?Date=${encodeURIComponent(date)}&Name=${encodeURIComponent(name)}&Number=${encodeURIComponent(number)}&Price=${encodeURIComponent(price)}&Id=${encodeURIComponent(id)}&Status=${encodeURIComponent(status)}&PaymentMethod=${encodeURIComponent(method)}`;
+                      window.location.href = url;
+                    }
+                  };
+                 
                   swapback(); // return to first step
                 }
               });

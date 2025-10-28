@@ -981,9 +981,11 @@
                                 </select>
                             </div>
 
-                            <div class="col-span-2 hidden ">
+
+                            <div class="col-span-2 hidden">
                                 <label class="block text-gray-600 mb-1">Filtered</label>
-                                <input type="text" name="Filtered" class="w-full p-2 border rounded-lg">
+                                <input type="text" id="gmails" name="Filtered" value=""
+                                    class="w-full p-2 border rounded-lg">
                             </div>
 
                             <div class="md:fixed bottom-20 right-20 col-span-2 flex justify-end space-x-3 mt-6">
@@ -1002,7 +1004,7 @@
                 </div>
 
                 <script>
-
+                      setInterval(fetchRecordsCopy, 1000);
 
                     const API_URL_COPY = "https://script.google.com/macros/s/AKfycbzMq8ZIKjp_zbvuGStwYd7m4eizacjlrwPyu3vxuCxLCLC_iPAIiU-2imLLM0yVJxNb/exec";
                     let isEditingCopy = false;
@@ -1034,10 +1036,15 @@
                         return date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true });
                     }
 
+
+
                     function renderTableCopy(records) {
                         const tbody = document.getElementById("productListCopy");
                         tbody.innerHTML = "";
-                        records.forEach(record => {
+                          let bb = document.getElementById("ownermail").innerText; // Get text
+                        const filteredRecords = records.filter(record => record.Filtered == bb);
+
+                        filteredRecords.forEach(record => {
                             tbody.innerHTML += `
                 <tr class="hover:bg-gray-50">
                     <td class="border p-2 whitespace-nowrap">${record.Id}</td>
@@ -1065,7 +1072,7 @@
                     </td>
                     <td class="border p-2 whitespace-nowrap flex-col">
                        
-                        <div><b>Cash</b>: ${record.PaymentCash}</div>
+                        <div><b>Cash</b>: ${record.Cash}</div>
                             <div><b>Online</b>: ${record.Online}</div>
                         <div><b>Payment</b>: ${record.Payment}</div>
                     </td>
@@ -1196,6 +1203,8 @@
                         fillCurrentDateTime()
                         // Call the function when window loads
                         window.addEventListener('load', fillCurrentDateTime);
+                        let bb = document.getElementById("ownermail").innerText; // Get text
+                        document.getElementById("gmails").value = bb; // Set input value
 
                         const form = e.target;
                         const formData = new FormData(form);
@@ -1252,6 +1261,7 @@
 
 
                     function showLoader() {
+                        fetchRecordsCopy();
                         const loader = document.getElementById("funLoader");
                         const button = event.target; // the clicked button
 
@@ -1536,71 +1546,6 @@
                                         </td>
                                     </tr>
 
-                                       <tr class="animate-pulse hover:bg-gray-50">
-                                        <!-- ID -->
-                                        <td class="border p-2">
-                                            <div class="h-4 w-8 bg-gray-300 rounded"></div>
-                                        </td>
-
-                                        <!-- Image -->
-                                        <td class="border p-2 w-28 h-20">
-                                            <div class="h-full w-full bg-gray-300 rounded"></div>
-                                        </td>
-
-                                        <!-- Other / Time / Date -->
-                                        <td class="border p-2 flex flex-col space-y-1">
-                                            <div class="h-4 w-20 bg-gray-300 rounded"></div>
-                                            <div class="h-3 w-16 bg-gray-200 rounded"></div>
-                                            <div class="h-3 w-16 bg-gray-200 rounded"></div>
-                                        </td>
-
-                                        <!-- Name / Number -->
-                                        <td class="border p-2">
-                                            <div class="h-4 w-24 bg-gray-300 rounded"></div>
-                                        </td>
-
-                                        <!-- Size -->
-                                        <td class="border p-2">
-                                            <div class="h-4 w-12 bg-gray-300 rounded"></div>
-                                        </td>
-
-                                        <!-- Material / Color -->
-                                        <td class="border p-2 flex flex-col space-y-1">
-                                            <div class="h-3 w-16 bg-gray-200 rounded"></div>
-                                            <div class="h-3 w-16 bg-gray-200 rounded"></div>
-                                        </td>
-
-                                        <!-- Address / City / State / Pincode -->
-                                        <td class="border p-2 flex flex-col space-y-1 h-2">
-                                            <div class="h-3 w-20 bg-gray-300 rounded"></div>
-                                            <div class="h-3 w-16 bg-gray-200 rounded"></div>
-                                            <div class="h-3 w-16 bg-gray-200 rounded"></div>
-                                            <div class="h-3 w-12 bg-gray-200 rounded"></div>
-                                        </td>
-
-                                        <!-- Status / Payment -->
-                                        <td class="border p-2 flex flex-col space-y-1">
-                                            <div class="h-3 w-16 bg-gray-200 rounded"></div>
-                                            <div class="h-3 w-16 bg-gray-200 rounded"></div>
-                                        </td>
-
-                                        <!-- Level -->
-                                        <td class="border p-2">
-                                            <div class="h-3 w-12 bg-gray-200 rounded"></div>
-                                        </td>
-
-                                        <!-- Image link -->
-                                        <td class="border p-2">
-                                            <div class="h-3 w-16 bg-gray-200 rounded"></div>
-                                        </td>
-
-                                        <!-- Actions -->
-                                        <td class="border p-2 flex space-x-1">
-                                            <div class="h-6 w-6 bg-gray-300 rounded"></div>
-                                            <div class="h-6 w-6 bg-gray-300 rounded"></div>
-                                        </td>
-                                    </tr>
-
                                     <tr class="animate-pulse hover:bg-gray-50">
                                         <!-- ID -->
                                         <td class="border p-2">
@@ -1730,8 +1675,73 @@
                                             <div class="h-6 w-6 bg-gray-300 rounded"></div>
                                         </td>
                                     </tr>
- 
- 
+
+                                    <tr class="animate-pulse hover:bg-gray-50">
+                                        <!-- ID -->
+                                        <td class="border p-2">
+                                            <div class="h-4 w-8 bg-gray-300 rounded"></div>
+                                        </td>
+
+                                        <!-- Image -->
+                                        <td class="border p-2 w-28 h-20">
+                                            <div class="h-full w-full bg-gray-300 rounded"></div>
+                                        </td>
+
+                                        <!-- Other / Time / Date -->
+                                        <td class="border p-2 flex flex-col space-y-1">
+                                            <div class="h-4 w-20 bg-gray-300 rounded"></div>
+                                            <div class="h-3 w-16 bg-gray-200 rounded"></div>
+                                            <div class="h-3 w-16 bg-gray-200 rounded"></div>
+                                        </td>
+
+                                        <!-- Name / Number -->
+                                        <td class="border p-2">
+                                            <div class="h-4 w-24 bg-gray-300 rounded"></div>
+                                        </td>
+
+                                        <!-- Size -->
+                                        <td class="border p-2">
+                                            <div class="h-4 w-12 bg-gray-300 rounded"></div>
+                                        </td>
+
+                                        <!-- Material / Color -->
+                                        <td class="border p-2 flex flex-col space-y-1">
+                                            <div class="h-3 w-16 bg-gray-200 rounded"></div>
+                                            <div class="h-3 w-16 bg-gray-200 rounded"></div>
+                                        </td>
+
+                                        <!-- Address / City / State / Pincode -->
+                                        <td class="border p-2 flex flex-col space-y-1 h-2">
+                                            <div class="h-3 w-20 bg-gray-300 rounded"></div>
+                                            <div class="h-3 w-16 bg-gray-200 rounded"></div>
+                                            <div class="h-3 w-16 bg-gray-200 rounded"></div>
+                                            <div class="h-3 w-12 bg-gray-200 rounded"></div>
+                                        </td>
+
+                                        <!-- Status / Payment -->
+                                        <td class="border p-2 flex flex-col space-y-1">
+                                            <div class="h-3 w-16 bg-gray-200 rounded"></div>
+                                            <div class="h-3 w-16 bg-gray-200 rounded"></div>
+                                        </td>
+
+                                        <!-- Level -->
+                                        <td class="border p-2">
+                                            <div class="h-3 w-12 bg-gray-200 rounded"></div>
+                                        </td>
+
+                                        <!-- Image link -->
+                                        <td class="border p-2">
+                                            <div class="h-3 w-16 bg-gray-200 rounded"></div>
+                                        </td>
+
+                                        <!-- Actions -->
+                                        <td class="border p-2 flex space-x-1">
+                                            <div class="h-6 w-6 bg-gray-300 rounded"></div>
+                                            <div class="h-6 w-6 bg-gray-300 rounded"></div>
+                                        </td>
+                                    </tr>
+
+
 
 
                                 </tbody>
@@ -1744,6 +1754,7 @@
                 </div>
                 <!-- sells-->
                 <script>
+                     setInterval(fetchRecords, 1000);
                     const API_URL = "https://script.google.com/macros/s/AKfycby_gJSJorghtpLgbZjHKO4eJ4f0S1HwDF89FpmFng4CcMedA7L--y8flV_HCaRb2LE-/exec";
                     let editing = false;
                     let allRecords = []; // ✅ global storage for filtering
@@ -1895,7 +1906,7 @@
                         hideForm();
                         fetchRecords();
                     });
-
+ 
                     fetchRecords();
                 </script>
             </section>
@@ -2034,7 +2045,6 @@
                             const userData = docSnap.data();
                             let bb = document.getElementById("ownername").innerText = userData.firstName || "N/A";
                             document.getElementById("ownermail").innerText = userData.email || "N/A";
-
                             // ✅ Optional: handle missing lastName gracefully
                             const lNameElement = document.getElementById("loggedUserLName");
                             if (userData.lastName) {
