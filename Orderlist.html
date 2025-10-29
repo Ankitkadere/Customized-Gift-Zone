@@ -346,7 +346,7 @@
                             <table class="min-w-full border border-gray-200 text-xs text-gray-700">
 
                                 <tbody id="tableBody"
-                                    class="divide-y divide-gray-200 md:h-[88vh] pb-20 flex w-full flex-wrap">
+                                    class="divide-y divide-gray-200 md:h-[88vh] h-[92vh] pb-20 flex w-full flex-wrap">
 
                                     <div id="page-loader" class=" fixed w-96 h-full  z-40">
                                         <!-- 🌀 Preloader Container -->
@@ -643,35 +643,35 @@
                      <input id="n-${record.Id}" value="${record.Level}"  type="text" min="1" max="4"
                             placeholder="1-4" class="hidden"></div>
                     <div class="relative w-full md:px-4 px-3 mx-auto z-10 overflow-hidden">
-                        <div class="absolute top-[0.70rem] w-[90%] md:ml-0 ml-2 h-[0.20rem] bg-gray-300 rounded"></div>
+                        <div class="absolute top-[0.40rem] w-[90%] md:ml-0 ml-2 h-[0.20rem] bg-gray-300 rounded"></div>
                         <div id="progress-${record.Id}"
-                            class="absolute md:w-[83%] w-[90%] top-[0.70rem] md:ml-0 h-[0.20rem] ml-2 md:ml-1 mr-4 bg-gray-600 rounded transition-all duration-500"
+                            class="absolute md:w-[83%] w-[90%] top-[0.40rem] md:ml-0 h-[0.20rem] ml-2 md:ml-1 mr-4 bg-gray-600 rounded transition-all duration-500"
                             style="width:0%"></div>
                         <div class="flex justify-between relative z-10">
                             <div id="${record.Id + 1}" class="flex flex-col progress items-center">
                                 <div id="box1-${record.Id}"
-                                    class="w-1 h-1 rounded-full border-4 border-gray-300 flex items-center justify-center bg-white">
+                                    class="w-0 p-[0.10rem] h-0 rounded-full border-4 border-gray-300 flex items-center justify-center bg-white">
                                     <box-icon name='cart' ></box-icon>
                                 </div>
                                 <p class=" text-sm">Order</p>
                             </div>
                             <div id="${record.Id + 2}" class="flex flex-col progress items-center">
                                 <div  id="box2-${record.Id}"
-                                    class="w-1 h-1 rounded-full border-4 border-gray-300 flex items-center justify-center bg-white">
+                                    class="w-0 p-[0.10rem] h-0 rounded-full border-4 border-gray-300 flex items-center justify-center bg-white">
                                     <box-icon name='truck'></box-icon>
                                 </div>
                                 <p class=" text-sm">Shipped</p>
                             </div>
                             <div id="${record.Id + 3}" class="flex flex-col progress items-center">
                                 <div  id="box3-${record.Id}"
-                                    class="w-1 h-1 rounded-full border-4 border-gray-300 flex items-center justify-center bg-white">
+                                    class="w-0 p-[0.10rem] h-0 rounded-full border-4 border-gray-300 flex items-center justify-center bg-white">
                                     <box-icon name='navigation'></box-icon>
                                 </div>
                                 <p class=" text-sm">Out</p>
                             </div>
                             <div id="${record.Id + 4}" class="flex flex-col progress items-center">
                                 <div  id="box4-${record.Id}"
-                                    class="w-1 h-1 rounded-full border-4 border-gray-300 flex items-center justify-center bg-white">
+                                    class="w-0 p-[0.20rem] h-0 rounded-full border-4 border-gray-300 flex items-center justify-center bg-white">
                                     <box-icon name='check-circle'></box-icon>
                                 </div>
                                 <p class="  text-sm">Done</p>
@@ -696,15 +696,15 @@
 
                             const update = () => {
                                 const v = parseInt(n.value) || 1;
-                                const w = ((v - 1) / 3.3) * 100; // total 4 steps
+                                const w = ((v - 1) / 3.4) * 100; // total 4 steps
                                 progress.style.width = w + "%";
 
                                 for (let i = 1; i <= 4; i++) {
                                     const box = document.querySelector(`#box${i}-${id}`);
                                     if (box) {
                                         box.className =
-                                            "w-6 h-6 rounded-full border-4 flex items-center justify-center transition-all duration-300 " +
-                                            (i <= v ? "bg-gray-400 border-gray-500 text-white" : "bg-white border-gray-300 text-black");
+                                            "w-4 h-4 rounded-full border-4 flex items-center justify-center transition-all duration-300 " +
+                                            (i <= v ? "bg-green-400 border-gray-400 text-white" : "bg-white border-gray-200 text-black");
                                         const icon = box.querySelector("box-icon");
                                         if (icon) icon.setAttribute("color", i <= v ? "white" : "black");
                                     }
