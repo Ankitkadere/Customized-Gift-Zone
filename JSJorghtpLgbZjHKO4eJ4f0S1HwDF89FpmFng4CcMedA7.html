@@ -240,7 +240,7 @@
                     class="text-2xl font-semibold mb-8 text-orange-500 border-b border-orange-300 pb-3 flex items-center gap-2">
                     <i class="fas fa-plus-circle text-orange-500"></i> Add Record
                 </h2>
-                <form id="crudForm" class="w-full text-sm grid grid-cols-4 sm:grid-cols-4 md:grid-cols-4 gap-4 z-50">
+                <form id="crudForm" class="w-full text-sm grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 z-50">
                     <input type="hidden" id="Id" name="Id">
 
                     <div>
@@ -345,7 +345,7 @@
                             class="w-full p-2 border border-orange-300 rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-orange-400 transition" />
                     </div>
 
-                    <div class="sm:col-span-2 md:col-span-4 flex justify-end gap-4 mt-4">
+                    <div class="absolute md:relative bottom-4 right-20 md:col-span-4 flex justify-end gap-4 md:mt-10">
                         <button type="button" onclick="hideForm()"
                             class="px-6 py-2 bg-orange-200 text-orange-700 font-semibold rounded-lg hover:bg-orange-300 transition flex items-center gap-2">
                             <i class="fas fa-times"></i> Cancel
@@ -449,16 +449,15 @@
                 <div class=" mx-auto">
 
                     <!-- Filter Section -->
-                    <div class="mb-4 flex justify-between space-x-2">
+                    <div class="mb-4 flex justify-between space-x-1">
 
                         <div>
                             <button onclick="showFormCopy()"
-                                class="bg-blue-600 hover:bg-green-700 text-white px-6 py-2 rounded-md shadow">+
-                                Add New</button>
+                                class="bg-gray-600 hover:bg-green-700 text-white md:px-6 md:py-2 px-3 py-[0.30rem] mt-[0.20rem] w-[100%] rounded-md shadow">Add</button>
                         </div>
                         <div>
                             <select id="filterFieldCopy"
-                                class="p-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-300 focus:outline-none text-sm">
+                                class="p-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-black focus:outline-none text-sm">
                                 <option value="">All Fields</option>
                                 <option value="Id">Id</option>
                                 <option value="Date">Date</option>
@@ -477,7 +476,8 @@
                             </select>
 
                             <input type="text" id="searchInputCopy" placeholder="Search..."
-                                class="w-72 p-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-300 focus:outline-none text-sm">
+                                class="md:w-72 w-[65%] p-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-300 focus:outline-none text-sm">
+
                         </div>
                     </div>
 
@@ -845,7 +845,7 @@
                         <h2 id="formTitleCopy" class="text-base font-semibold mb-6 text-gray-800 border-b pb-2">Add
                             Record</h2>
 
-                        <form id="crudFormCopy" class="grid grid-cols-4 gap-4 text-sm">
+                        <form id="crudFormCopy" class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                             <div>
                                 <label class="block text-gray-600 mb-1">ID</label>
                                 <input type="number" id="IdCopy" name="Id" required minlength="4"
@@ -854,13 +854,13 @@
                             <div>
                                 <label class="block text-gray-600 mb-1">Icon</label>
                                 <input type="text" name="Icon" class="w-full p-2 border rounded-lg">
-                            </div>
+                            </div class="hidden"> 
                             <div>
                                 <label class="block text-gray-600 mb-1">Date</label>
                                 <input type="text" id="dateInput" name="Date" class="w-full p-2 border rounded-lg"
                                     placeholder="YYYY-MM-DD">
                             </div>
-                            <div>
+                            <div class="hidden">
                                 <label class="block text-gray-600 mb-1">Time</label>
                                 <input type="text" id="timeInput" name="Time" class="w-full p-2 border rounded-lg"
                                     placeholder="HH:MM AM/PM">
@@ -1034,7 +1034,7 @@
                                     class="w-full p-2 border rounded-lg">
                             </div>
 
-                            <div class="md:fixed bottom-20 right-20 col-span-2 flex justify-end space-x-3 mt-6">
+                            <div class="fixed bottom-10  md:bottom-20 right-20 col-span-2 flex justify-end space-x-3 mt-6">
                                 <button type="button" onclick="hideFormCopy()"
                                     class="px-10 py-2 bg-gray-500 text-white rounded-lg">Cancel</button>
                                 <button type="submit" onclick="showLoader()"
