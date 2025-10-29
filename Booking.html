@@ -312,16 +312,14 @@
           <input type="text" id="icons" class=" hidden" name="Icon">
           <input type="text" id="Level" class=" hidden" name="1" value="Level 1">
           <input type="text" id="Filtered" class=" hidden" name="Filtered">
-          <input type="text" name="Date" id="dates" class="  hidden w-full p-2 border rounded-lg"
-            placeholder="YYYY-MM-DD">
-          <input type="text" name="Time" id="times" class="  hidden w-full p-2 border rounded-lg"
-            placeholder="HH:MM AM/PM">
+          <input type="text" name="Date" id="dates" class="  hidden w-full p-2 border rounded-lg">
+          <input type="text" name="Time" id="times" class="  hidden w-full p-2 border rounded-lg">
           <input type="text" name="Payment" id="Payment" value="WhatsApp" class=" hidden w-full p-2 border rounded-lg">
           <input type="text" name="Other" id="Other" value="1" class=" hidden w-full p-2 border rounded-lg">
           <input type="text" name="Status" id="Status" class=" hidden" value="Not Accept">
           <input type="text" name="Price" value="Size" class=" hidden">
           <input type="file" id="ImageInput" accept="image/jpg/png*" class="  hidden w-full border rounded-lg">
-
+          <input type="text" id="Delivered" class=" hidden" name="Delivered">
           <input
             class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none  "
             placeholder="Full Name" name="Name" id="name" type="text" required />
@@ -490,6 +488,20 @@
           document.getElementById("dates").value = formattedDate;
         }
         showLocalDate();
+
+        function showLocalDateSeven() {
+          const today = new Date();
+          today.setDate(today.getDate() + 7); // ➕ adds 7 days
+          const formattedDate = today.toLocaleDateString("en-IN", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric"
+          });
+          document.getElementById("Delivered").value = formattedDate;
+        }
+
+        showLocalDateSeven();
+
 
         const API_URL = "https://script.google.com/macros/s/AKfycbyG5foFh0_qWqUG4d2Kbg-055UsLAw8Nu-jWXCeTYVT2mfvC1PADZaixEjQmyDPeRrs/exec";
 
