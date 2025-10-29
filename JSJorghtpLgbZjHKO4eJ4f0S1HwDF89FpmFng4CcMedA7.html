@@ -2114,7 +2114,7 @@
         // ✅ Logout
         const logoutButton = document.getElementById("logout");
         logoutButton.addEventListener("click", () => {
-            localStorage.removeItem("loggedInUserId");
+            localStorage.removeItem("ownermail");
             signOut(auth)
                 .then(() => {
                     window.location.href = "JSJorghtpLgbZjHKO4eJ4f0S1HwDF89FpmFng4CcMedA7.html";
