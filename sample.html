@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Profile + Sidebar — Tailwind</title>
+
+  <!-- Tailwind CDN (no build step) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* small extra polish */
+    .glass {
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(6px);
+    }
+    /* mimic subtle left panel shadow when open */
+    .side-shadow::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      box-shadow: 40px 0 80px rgba(2,6,23,0.18);
+      pointer-events: none;
+      filter: blur(22px);
+      z-index: -1;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 antialiased text-slate-800">
+
+  <main class="min-h-screen flex items-center justify-center p-6">
+    <div class="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-6">
+
+      <!-- LEFT: Sidebar -->
+      <aside class="relative side-shadow">
+        <div class="rounded-2xl overflow-hidden shadow-xl flex flex-col md:flex-row md:items-stretch">
+          <!-- sidebar panel -->
+          <div class="w-full md:w-80 bg-white glass p-6">
+            <div class="flex items-center gap-4">
+              <img src="https://i.pravatar.cc/120?img=12" alt="avatar" class="w-14 h-14 rounded-full ring-2 ring-white shadow-sm object-cover">
+              <div>
+                <h3 class="text-lg font-semibold">James Martin</h3>
+                <p class="text-sm text-slate-500">Senior Graphic Designer</p>
+              </div>
+            </div>
+
+            <nav class="mt-6">
+              <ul class="space-y-2">
+                <li>
+                  <a href="#" class="flex items-center justify-between gap-3 p-3 rounded-lg hover:bg-slate-50">
+                    <div class="flex items-center gap-3">
+                      <!-- inbox icon -->
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h6l3 5 3-5h6v11H3V7z"/></svg>
+                      <span class="text-sm font-medium">All Inboxes</span>
+                    </div>
+                    <span class="text-xs bg-slate-100 text-slate-700 px-2 py-0.5 rounded-full">15</span>
+                  </a>
+                </li>
+
+                <li>
+                  <a href="#" class="flex items-center justify-between gap-3 p-3 rounded-lg hover:bg-slate-50">
+                    <div class="flex items-center gap-3">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8"/></svg>
+                      <span class="text-sm">Primary</span>
+                    </div>
+                    <span class="text-xs text-slate-500">15</span>
+                  </a>
+                </li>
+
+                <li>
+                  <a href="#" class="flex items-center justify-between gap-3 p-3 rounded-lg hover:bg-slate-50">
+                    <div class="flex items-center gap-3">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a5 5 0 00-10 0v2M5 9v10a2 2 0 002 2h10a2 2 0 002-2V9"/></svg>
+                      <span class="text-sm">Social</span>
+                    </div>
+                    <span class="text-xs inline-flex items-center gap-1 bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full">
+                      <span class="px-1 py-0.5 text-[11px] bg-white rounded">14</span> new
+                    </span>
+                  </a>
+                </li>
+
+                <li>
+                  <a href="#" class="flex items-center justify-between gap-3 p-3 rounded-lg hover:bg-slate-50">
+                    <div class="flex items-center gap-3">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h3l3 8 4-16 3 9 3-3"/></svg>
+                      <span class="text-sm">Promotions</span>
+                    </div>
+                    <span class="text-xs bg-green-50 text-green-700 px-2 py-0.5 rounded-full">99+ new</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+
+            <div class="mt-6 border-t pt-4">
+              <h4 class="text-xs text-slate-500 uppercase tracking-wide">All labels</h4>
+              <ul class="mt-3 space-y-2">
+                <li class="flex items-center gap-3 text-sm text-slate-700">
+                  <svg class="w-4 h-4 text-amber-500" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.946a1 1 0 00.95.69h4.148c.969 0 1.371 1.24.588 1.81l-3.36 2.44a1 1 0 00-.364 1.118l1.286 3.946c.3.921-.755 1.688-1.54 1.118l-3.36-2.44a1 1 0 00-1.176 0l-3.36 2.44c-.785.57-1.84-.197-1.54-1.118l1.286-3.946a1 1 0 00-.364-1.118L2.067 9.373c-.783-.57-.38-1.81.588-1.81h4.148a1 1 0 00.95-.69L9.05 2.927z"/></svg>
+                  Starred
+                </li>
+                <li class="flex items-center gap-3 text-sm text-slate-700">
+                  <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="currentColor"><path d="M3 6h18v2H3z"/></svg>
+                  Important
+                </li>
+                <li class="flex items-center gap-3 text-sm text-slate-700">
+                  <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="currentColor"><path d="M9 5v14l11-7z"/></svg>
+                  Sent
+                </li>
+                <li class="flex items-center gap-3 text-sm text-slate-700">
+                  <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16v16H4z"/></svg>
+                  Drafts
+                </li>
+              </ul>
+            </div>
+
+            <div class="mt-6 text-sm text-slate-500">
+              <button class="w-full text-left px-3 py-2 rounded-md hover:bg-slate-50">Manage labels</button>
+            </div>
+          </div>
+
+          <!-- right thin dark preview (for the image's layered effect) -->
+          <div class="hidden md:block md:flex-1 bg-gradient-to-b from-slate-900 to-slate-800" style="width:120px">
+            <!-- decorative only -->
+          </div>
+        </div>
+      </aside>
+
+      <!-- RIGHT: Profile Card -->
+      <section aria-label="Profile card" class="flex items-center justify-center">
+        <div class="w-full max-w-xl">
+          <div class="rounded-2xl shadow-2xl overflow-hidden">
+            <!-- header -->
+            <div class="bg-gradient-to-tr from-blue-600 via-indigo-600 to-violet-600 p-6">
+              <div class="flex items-center justify-between">
+                <button class="text-white opacity-90 hover:opacity-100">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                </button>
+
+                <div class="text-white text-sm">Profile</div>
+
+                <button class="text-white opacity-90 hover:opacity-100" title="Settings">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3"/></svg>
+                </button>
+              </div>
+
+              <div class="mt-4 flex flex-col items-center gap-3">
+                <div class="relative -mt-8">
+                  <img src="https://i.pravatar.cc/160?img=12" alt="avatar" class="w-28 h-28 rounded-full ring-4 ring-white shadow-lg object-cover">
+                </div>
+
+                <div class="text-center text-white">
+                  <h2 class="text-xl font-semibold">James Martin</h2>
+                  <p class="text-sm opacity-90">Senior Graphic Designer</p>
+                </div>
+
+                <div class="flex items-center gap-6 mt-3">
+                  <div class="text-center">
+                    <div class="text-white font-bold text-lg">1000</div>
+                    <div class="text-xs text-white/80">Followers</div>
+                  </div>
+                  <div class="text-center">
+                    <div class="text-white font-bold text-lg">1200</div>
+                    <div class="text-xs text-white/80">Following</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- body -->
+            <div class="bg-white p-6">
+              <ul class="space-y-4">
+                <li class="flex items-start gap-4">
+                  <svg class="w-5 h-5 text-slate-400 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M16 12a4 4 0 10-8 0 4 4 0 008 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+                  <div>
+                    <div class="text-sm font-medium">Email</div>
+                    <div class="text-xs text-slate-500">james012@gmail.com</div>
+                  </div>
+                </li>
+
+                <li class="flex items-start gap-4">
+                  <svg class="w-5 h-5 text-slate-400 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 5h18v14H3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+                  <div>
+                    <div class="text-sm font-medium">Mobile</div>
+                    <div class="text-xs text-slate-500">+91 1234567891</div>
+                  </div>
+                </li>
+
+                <li class="flex items-start gap-4">
+                  <svg class="w-5 h-5 text-slate-400 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M8 12h8M8 16h4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+                  <div>
+                    <div class="text-sm font-medium">Twitter</div>
+                    <div class="text-xs text-slate-500">@james012</div>
+                  </div>
+                </li>
+
+                <li class="flex items-start gap-4">
+                  <svg class="w-5 h-5 text-slate-400 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 7h18v10H3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+                  <div>
+                    <div class="text-sm font-medium">Behance</div>
+                    <div class="text-xs text-slate-500">www.behance.net/james012</div>
+                  </div>
+                </li>
+
+                <li class="flex items-start gap-4">
+                  <svg class="w-5 h-5 text-slate-400 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 12a10 10 0 10-20 0 10 10 0 0020 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+                  <div>
+                    <div class="text-sm font-medium">Facebook</div>
+                    <div class="text-xs text-slate-500">www.facebook.com/james012</div>
+                  </div>
+                </li>
+              </ul>
+
+              <div class="mt-6 flex gap-3">
+                <button class="flex-1 py-2 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200">Message</button>
+                <button class="flex-1 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700">Follow</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+</body>
+</html>
