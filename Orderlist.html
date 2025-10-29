@@ -405,7 +405,7 @@
 
                                 <tbody id="tableBody" class="divide-y divide-gray-200 pb-20 flex w-full flex-wrap">
 
-                                    <div id="page-loader" class=" fixed w-96 h-full bg-gray-100  z-40">
+                                    <div id="page-loader" class=" fixed w-96 h-full  z-40">
                                         <!-- 🌀 Preloader Container -->
                                         <div id="preloader"
                                             class="space-y-2 md:space-x-6 animate-pulse md:flex md:w-full ">
@@ -697,10 +697,10 @@
                   
                      <input id="n-${record.Id}" value="${record.Level}"  type="text" min="1" max="4"
                             placeholder="1-4" class="hidden"></div>
-                    <div class="relative w-full md:px-16 px-3 mx-auto z-10 overflow-hidden">
-                        <div class="absolute top-[0.70rem] w-[90%] ml-2 h-[0.20rem] bg-gray-300 rounded"></div>
+                    <div class="relative w-full md:px-4 px-3 mx-auto z-10 overflow-hidden">
+                        <div class="absolute top-[0.70rem] w-[90%] md:ml-0 ml-2 h-[0.20rem] bg-gray-300 rounded"></div>
                         <div id="progress-${record.Id}"
-                            class="absolute w-[90%] top-[0.70rem] h-[0.20rem] ml-2 mr-4 bg-gray-600 rounded transition-all duration-500"
+                            class="absolute md:w-[83%] w-[90%] top-[0.70rem] md:ml-0 h-[0.20rem] ml-2 md:ml-1 mr-4 bg-gray-600 rounded transition-all duration-500"
                             style="width:0%"></div>
                         <div class="flex justify-between relative z-10">
                             <div id="${record.Id + 1}" class="flex flex-col progress items-center">
