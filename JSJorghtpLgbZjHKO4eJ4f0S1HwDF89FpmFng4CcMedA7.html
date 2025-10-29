@@ -29,7 +29,7 @@
 <body class=" w-full top-0 left-0 fixed font-extrabold flex items-center justify-center ">
     <div styl="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)"
         class="  w-full flex flex-col md:flex-row overflow-hidden">
-        <div id="funLoader" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div id="funLoader" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-[100]">
             <div class="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin">
             </div>
         </div>
@@ -234,7 +234,7 @@
                 </div>
             </div>
 
-            <div id="formContainer" class="fixed hidden shadow-[0_8px_80px_black] inset-0 md:mx-auto m-2 mb-4 md:top-10 h-full bottom-auto md:max-h-[85vh] md:max-w-7xl overflow-y-auto 
+            <div id="formContainer" class="fixed hidden shadow-[0_8px_80px_black] z-[50] inset-0 md:mx-auto m-2 mb-4 md:top-10 h-full bottom-auto md:max-h-[85vh] md:max-w-7xl overflow-y-auto 
          bg-white rounded-3xl shadow-2xl border border-orange-300 p-4">
                 <h2 id="formTitle"
                     class="text-2xl font-semibold mb-8 text-orange-500 border-b border-orange-300 pb-3 flex items-center gap-2">
@@ -840,7 +840,7 @@
 
 
                     <!-- Form (hidden by default) -->
-                    <div id="formContainerCopy" class="fixed hidden shadow-[0_8px_80px_black] inset-0 md:mx-auto m-2 mb-4 md:top-10 h-full bottom-auto md:max-h-[85vh] md:max-w-7xl overflow-y-auto 
+                    <div id="formContainerCopy" class="fixed hidden z-50 shadow-[0_8px_80px_black] inset-0 md:mx-auto m-2 mb-4 md:top-10 h-full bottom-auto md:max-h-[85vh] md:max-w-7xl overflow-y-auto 
                               bg-white rounded-3xl shadow-2xl border border-orange-300 p-4">
                         <h2 id="formTitleCopy" class="text-base font-semibold mb-6 text-gray-800 border-b pb-2">Add
                             Record</h2>
@@ -1006,7 +1006,7 @@
                                 <label class="block text-gray-600 mb-1">Reviews</label>
                                 <input type="text" name="Reviews" class="w-full p-2 border rounded-lg">
                             </div>
-                            <div class="col-span-2">
+                            <div class="col-span-2 hidden">
                                 <label class="block text-gray-600 mb-1">Image</label>
                                 <input type="file" id="ImageInputopy" name="Image" accept="image/*"
                                     class="w-full p-2 border rounded-lg">
@@ -1225,6 +1225,7 @@
                     document.getElementById("crudFormCopy").addEventListener("submit", async (e) => {
                         e.preventDefault();
 
+
                         function fillCurrentDateTime() {
                             const dateInput = document.getElementById('dateInput');
                             const timeInput = document.getElementById('timeInput');
@@ -1242,11 +1243,16 @@
                             const minutes = String(now.getMinutes()).padStart(2, '0');
                             const seconds = String(now.getSeconds()).padStart(2, '0');
                             const ampm = hours >= 12 ? 'PM' : 'AM';
-                            hours = hours % 12;
-                            hours = hours ? hours : 12; // 0 => 12
+                            hours = hours % 12 || 12; // Convert 0 to 12-hour format
+
                             timeInput.value = `${String(hours).padStart(2, '0')}:${minutes}:${seconds} ${ampm}`;
                         }
-                        fillCurrentDateTime()
+
+                        // Call function immediately on page load
+                        fillCurrentDateTime();
+
+                        // Optional: update time every second (live clock)
+                        setInterval(fillCurrentDateTime, 1000);
                         // Call the function when window loads
                         window.addEventListener('load', fillCurrentDateTime);
                         let bb = document.getElementById("ownermail").innerText; // Get text
