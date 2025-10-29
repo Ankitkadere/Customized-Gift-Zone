@@ -181,12 +181,12 @@
         <div id="overlay" class="fixed z-50 left-0 inset-0 bg-black bg-opacity-50 hidden "></div>
         <!-- Sidebar -->
 
-        <aside id="sidebar" class="fixed overflow-auto top-0 left-0 h-full z-50 w-full bg-gray-800 font-extrabold border-r border-gray-200 flex flex-col pb-8
-         transform -translate-x-full transition-transform duration-300 ease-in-out
+        <aside id="sidebar" class="fixed overflow-auto top-0 left-0 h-full z-50 w-full bg-gray-200 font-extrabold border-r border-gray-200 flex flex-col pb-8
+         transform -translate-x-0 transition-transform duration-300 ease-in-out
        md:-translate-x-0 md:w-56
          ">
             <div onclick="window.location.href='index.html'"
-                class="relative bg-indigo-600 text-white md:p-0 px-4 h-[50vh] text-center overflow-hidden rounded-b-3xl shadow-lg cursor-pointer transition-all duration-300 hover:opacity-95">
+                class="relative bg-black text-white md:p-0 px-4 h-[50vh] text-center overflow-hidden rounded-b-3xl shadow-lg cursor-pointer transition-all duration-300 hover:opacity-95">
                 <!-- Back / Title / Settings -->
                 <div class="flex items-center justify-between md:hidden pt-4">
                     <button class="text-white  bg-black rounded-full p-2 hover:opacity-100"
@@ -210,21 +210,22 @@
                     </div>
 
                     <div class="text-center">
-                        <h2 id="loggedUserFName" class="text-xl md:text-[1.3rem] font-semibold md:text-2xl tracking-wide">
+                        <h2 id="loggedUserFName"
+                            class="text-[2rem] md:text-[1.3rem] font-semibold md:text-2xl tracking-wide">
                             Gift Zone
                         </h2>
-                        <p id="loggedUserEmail" class="text-sm text-blue-100 opacity-90">
+                        <p id="loggedUserEmail" class="text-lg text-blue-100 opacity-90">
                             giftzone@gmail.com
                         </p>
                     </div>
 
-                    <div class="flex items-center justify-center gap-16 mt-4">
+                    <div class="flex items-center justify-between gap-16 mt-4">
                         <div class="text-center">
-                            <div class="text-white font-bold text-lg md:text-xl">1,000</div>
+                            <div class="text-white font-bold text-[1.5rem] md:text-xl">1,000</div>
                             <div class="text-xs text-blue-100">Followers</div>
                         </div>
                         <div class="text-center">
-                            <div class="text-white font-bold text-lg md:text-xl">1,200</div>
+                            <div class="text-white font-bold text-[1.5rem] md:text-xl">1,200</div>
                             <div class="text-xs text-blue-100">Following</div>
                         </div>
                     </div>
@@ -236,54 +237,54 @@
                 </div>
             </div>
 
-            <nav class="flex flex-col space-y-2 text-gray-700 font-semibold">
+            <nav class="flex flex-col md:space-y-0 space-y-3 text-gray-200 bg-gray-200 md:gap-0 gap-1 px-4 md:px-2 font-semibold">
 
                 <button data-section="photos"
-                    class="flex hidden items-center space-x-3 text-white text-semibold hover:text-orange-500 transition-colors px-3 py-2 rounded-md focus:outline-none text-base"
+                    class="flex bg-indigo-600 md:bg-transparent  hidden items-center space-x-3 text-white text-semibold hover:text-orange-500 transition-colors px-3 py-3 rounded-md focus:outline-none text-base"
                     onclick="selectSection('photos', this)" type="button">
                     <i class="fas fa-camera text-base"></i>
                     <span>Photos</span>
                 </button>
 
                 <button data-section="sells"
-                    class="flex items-center space-x-3 text-orange-500 font-semibold px-3 py-2 rounded-md focus:outline-none text-base"
+                    class="flex bg-white md:bg-transparent  items-center space-x-3 text-orange-500 font-semibold px-3 py-3 rounded-md focus:outline-none text-base"
                     onclick="selectSection('sells', this)" type="button">
                     <i class="fas fa-shopping-cart text-base"></i>
                     <span>My Orders</span>
                 </button>
 
                 <button data-section="message"
-                    class="flex items-center space-x-3 text-white text-semibold hover:text-orange-500 transition-colors px-3 py-2 rounded-md focus:outline-none text-base"
+                    class="flex bg-white md:bg-transparent  items-center space-x-3 text-white text-semibold hover:text-orange-500 transition-colors px-3 py-3 rounded-md focus:outline-none text-base"
                     onclick="selectSection('message', this)" type="button">
                     <i class="fas fa-comment-alt text-base"></i>
                     <span>Message</span>
                 </button>
 
                 <button data-section="help"
-                    class="flex items-center space-x-3 text-white text-semibold hover:text-orange-500 transition-colors px-3 py-2 rounded-md focus:outline-none text-base"
+                    class="flex bg-white md:bg-transparent  items-center space-x-3 text-white text-semibold hover:text-orange-500 transition-colors px-3 py-3 rounded-md focus:outline-none text-base"
                     onclick="selectSection('help', this)" type="button">
                     <i class="fas fa-question-circle text-base"></i>
                     <span>Help</span>
                 </button>
 
                 <button data-section="setting"
-                    class="flex items-center space-x-3 text-white text-semibold hover:text-orange-500 transition-colors px-3 py-2 rounded-md focus:outline-none text-base"
+                    class="flex bg-white md:bg-transparent  items-center space-x-3 text-white text-semibold hover:text-orange-500 transition-colors px-3 py-3 rounded-md focus:outline-none text-base"
                     onclick="selectSection('setting', this)" type="button">
                     <i class="fas fa-cog text-base"></i>
                     <span>Setting</span>
                 </button>
 
                 <button
-                    class="flex items-center space-x-3 text-white text-semibold hover:text-orange-500 transition-colors px-3 py-2 rounded-md focus:outline-none text-base"
-                    id="logout" type="button">
+                    class="hidden flex bg-white md:bg-transparent  items-center space-x-3 text-white text-semibold hover:text-orange-500 transition-colors px-3 py-3 rounded-md focus:outline-none text-base"
+                    type="button">
                     <i class="fas fa-cog text-base"></i>
-                    <span>LogOut</span>
+                    <span>Terms</span>
                 </button>
 
             </nav>
             <div class=" fixed bottom-4 w-96 md:w-full justify-between px-2  mx-auto flex md:gap-2 gap-8">
-                <button class="flex-1 py-2 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200">Message</button>
-                <button class="flex-1 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700">Follow</button>
+                <button  id="logout" class="flex-1 py-2 rounded-lg bg-black text-white hover:bg-slate-200">Log Out</button>
+                <button class="flex-1 py-2 rounded-lg bg-black text-white hover:bg-indigo-700">Follow</button>
             </div>
         </aside>
 
@@ -846,7 +847,7 @@
                     button.classList.remove('text-gray-400');
                 } else {
                     button.classList.remove('text-orange-500', 'font-semibold');
-                    button.classList.add('text-gray-400');
+                    button.classList.add('text-gray-800');
                 }
             });
         }
