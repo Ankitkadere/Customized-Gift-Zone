@@ -19,6 +19,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
         .font-mono-custom {
             font-family: 'arial', monospace;
             font-family: 'Roboto Mono', monospace;
@@ -26,13 +27,14 @@
     </style>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
         body {
             font-family: 'Inter', sans-serif;
         }
     </style>
 </head>
 
-<body class="bg-gray-100  items-center justify-center   p-2">
+<body class="bg-gray-100 items-center justify-center   p-2">
     <div class="flex w-full p-2 items-center mb-6 justify-between">
         <button onclick="history.back()" aria-label="Go back"
             class="w-10 h-10 bg-black rounded-full flex justify-center items-center shadow-sm">
@@ -46,21 +48,21 @@
             </h1>
         </button>
     </div>
-    <div class="h-full w-full md:px-80">
+    <div class=" w-full md:px-80 mt-20">
         <div class="flex justify-center mb-6 rounded-full">
             <img alt="Illustration of a smartphone with a credit card and a green checkmark indicating payment success"
-                class="w-24 h-24 rounded-full" height="96"
+                class="w-56 h-56 rounded-full" height="96"
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSdcDHeFa-lzgTdqjEEM8a2LdWyxy4OpOJyA&s"
                 width="96" />
         </div>
-        <h1 class="text-green-600 text-xl font-semibold text-center mb-2">
-            Order SuccessfulL
+        <h1 class="text-green-600 text-[2rem] font-semibold text-center mb-2">
+            Order Successfull
         </h1>
-        <p class="text-gray-400 text-center text-sm mb-6">
+        <p class="text-gray-600 text-center text-sm  ">
             Successful! Thanks for your order — it’s now confirmed.
-            Payment Successful! Thanks for your order — it’s now confirmed.
+            Payment <b class="text-black">Cash on Delivery</b> ! Thanks for your order — it’s now confirmed.
         </p>
-        <div class="  border border-gray-200 rounded-xl p-4 mb-6 shadow-sm">
+        <div class=" hidden  border border-gray-200 rounded-xl p-4 mb-6 shadow-sm">
             <h2 class="text-black font-semibold mb-3">
                 Payment Details
             </h2>
@@ -146,6 +148,7 @@
         </nav>
     </div>
 </body>
+
 </html>
 
 <script>
