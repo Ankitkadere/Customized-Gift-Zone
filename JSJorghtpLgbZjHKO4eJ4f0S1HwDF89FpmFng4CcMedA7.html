@@ -1090,7 +1090,7 @@
                         let bb = document.getElementById("ownermail").innerText; // Get text
                         const filteredRecords = records.filter(record => record.Filtered == bb);
 
-                        filteredRecords.forEach(record => {
+                        filteredRecords.slice().reverse().forEach(record => {
                             tbody.innerHTML += `
                 <tr class="hover:bg-gray-50">
                     <td class="border p-2 whitespace-nowrap">${record.Id}</td>
@@ -1834,7 +1834,7 @@
                     function renderTable(records) {
                         const tbody = document.getElementById("tableBody");
                         tbody.innerHTML = "";
-                        records.forEach(record => {
+                        records.slice().reverse().forEach(record => {
                             tbody.innerHTML += `
           <tr class="hover:bg-gray-50">
           <td class="border p-2 whitespace-nowrap">${record.Id}</td>

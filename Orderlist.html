@@ -444,7 +444,6 @@
 
                                     </div>
                                     <script>setTimeout(() => {
-
                                             const loader = document.getElementById('page-loader');
                                             const name = document.getElementById('loggedUserFName').innerText;
                                             const mail = document.getElementById('loggedUserEmail').innerText;
@@ -452,7 +451,6 @@
                                                 window.location.href = "Owner.html";
                                             }
                                             if (loader) {
-
                                                 setTimeout(() => loader.remove(), 600); // Remove after fade-out
                                             }
                                         }, 5000);
@@ -629,7 +627,7 @@
                         }
 
 
-                        records.forEach((record, index) => {
+                   records.slice().reverse().forEach((record, index) => {
                             tbody.innerHTML += `
       <div class="bg-white shadow-md rounded-lg mb-1 pb-1 w-full md:w-[30%] md:mx-4 overflow-hidden ">
         <div class="p-2 md:flex items-start justify-between">
