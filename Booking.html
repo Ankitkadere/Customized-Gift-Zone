@@ -173,6 +173,8 @@
       }
     })();
   </script>
+  <span id="nama" class="hidden"></span>
+  <span id="fildata" class="hidden"></span>
   <hr class="text-black bg-gray-200 p-[0.3px]">
   <div class="flex w-full md:hidden items-center justify-between p-2">
     <button onclick="history.back()" aria-label="Go back"
@@ -222,16 +224,15 @@
         }
       </style>
 
-    <div id="status" class="status"></div>
-
+ 
     Product Size
     </p>
     <div class="md:flex md:gap-2 md:mx-auto md:w-full md:p-6">
       <div
         class="relative bg-gradient-to-tr bg-gray-900 rounded-3xl p-6 w-full max-w-[360px] md:max-w-[100%]  md:max-h-[60%] mx-auto mb-8 shadow-lg"
         style="aspect-ratio: 16 / 9;">
-        <p
-          class="font-mono-custom font-extrabold text-white text-xl  justify-center text-center tracking-widest pb-2 select-text">
+        <p  id="status" 
+          class="status font-mono-custom font-extrabold text-white text-xl  justify-center text-center tracking-widest pb-2 select-text">
           Select Frame Size
         </p>
         <div id="sizeButtons" class="text-center md:ml-10 md:mt-2 justify-center text-sm font-semibold">
@@ -279,6 +280,7 @@
               24 x 36
             </label>
           </div>
+            
         </div>
 
         <input type="radio" name="size" id="size-4x6" value="4 x 6 => Rs. 100" class="hidden" />
@@ -303,7 +305,15 @@
         <input type="radio" name="size" id="size-20x30" value="20 x 30 => 1,619 Rs" class="hidden" />
         <input type="radio" name="size" id="size-24x36" value="24 x 36 => 1,999 Rs" class="hidden" />
 
-
+        <div id="page-loader"
+          class="fixed inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+          <div class="flex flex-col items-center">
+            <div class="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+            <p class="mt-4 text-blue-600 font-semibold text-sm tracking-wide animate-pulse">
+              Loading, please wait...
+            </p>
+          </div>
+        </div>
         <p class="font-semibold text-black mb-3 md:mx-auto select-text">
           Process Details
         </p>
@@ -312,6 +322,25 @@
           <input type="text" id="icons" class=" hidden" name="Icon">
           <input type="text" id="Level" class=" hidden" name="1" value="Level 1">
           <input type="text" id="Filtered" class=" hidden" name="Filtered">
+
+
+          <script>
+            // ⏳ Run every 5s
+            setInterval(() => {
+              const loader = document.getElementById('page-loader');
+              const name = document.getElementById('nama').innerText.trim();
+              const mail = document.getElementById('fildata').innerText.trim();
+             
+              if (name == "" ) {
+               window.location.href="Owner.html";
+                return;
+              }
+              if (loader) {
+                loader.classList.add("opacity-0");
+                setTimeout(() => loader.remove(), 600); // remove after fade-out
+              }
+            }, 5000);
+          </script>
           <input type="text" name="Date" id="dates" class="  hidden w-full p-2 border rounded-lg">
           <input type="text" name="Time" id="times" class="  hidden w-full p-2 border rounded-lg">
           <input type="text" name="Payment" id="Payment" value="WhatsApp" class=" hidden w-full p-2 border rounded-lg">
@@ -587,6 +616,8 @@
 
           if (btn.innerText === "Submit") {
             generateCode();
+
+
             // 🔹 Check if all file inputs are empty
             const form = document.getElementById("crudForm");
             const inputs = form.querySelectorAll("input:not([type='hidden']):not([type='file']),select");
@@ -845,9 +876,10 @@
 
             if (docSnap.exists()) {
               const userData = docSnap.data();
-              let a = userData.firstName || "N/A";
+
               let b = document.getElementById("Filtered").value = userData.email || "N/A";
-              let c = document.getElementById("dam").value = userData.email || "N/A";
+              let f = document.getElementById("fildata").innerText = userData.email || "N/A";
+              let c = document.getElementById("nama").innerText = userData.firstName || "N/A";
 
               // ✅ Optional: handle missing lastName gracefully
               const lNameElement = document.getElementById("loggedUserLName");

@@ -303,12 +303,12 @@
               </style>
 
               <div class="block  fixed top-0 left-0  text-gray-700 hover:bg-gray-100">
-                <button sty
+                <button id="PWA"
                   class="flex fixed  items-center w-full h-full  justify-center gap-2 bg-black text-white px-6 opacity-70  py-3  font-semibold hover:bg-gray-700 transition">
                   <i id="pwaInstallBtn" class="fas fa-mobile-alt text-9xl">
                     <p id="installStatusMsg" class="mt-2 text-base text-white"> Install Now</p>
                   </i>
-                  <span> </span>
+
                 </button>
 
               </div>
@@ -336,9 +336,11 @@
                     statusMsg.textContent = " Already installed.";
                     return;
                   }
-
+                 
+ 
                   if (!deferredPrompt) {
                     statusMsg.textContent = "⚠️ Your Device Does Not Support App";
+                    toggleMenu();
                     return;
                   }
 
@@ -640,8 +642,7 @@
     // Menu toggle
     function toggleMenu() {
       document.getElementById("menu").classList.toggle("hidden");
-    }
-
+    } 
     // Simulate progress (alternative random style)
     function simulateProgress(callback) {
       let progress = 0;
