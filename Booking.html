@@ -223,77 +223,18 @@
           font-weight: bold;
         }
       </style>
-
- 
-    Product Size
     </p>
-    <div class="md:flex md:gap-2 md:mx-auto md:w-full md:p-6">
-      <div
-        class="relative bg-gradient-to-tr bg-gray-900 rounded-3xl p-6 w-full max-w-[360px] md:max-w-[100%]  md:max-h-[60%] mx-auto mb-8 shadow-lg"
-        style="aspect-ratio: 16 / 9;">
-        <p  id="status" 
-          class="status font-mono-custom font-extrabold text-white text-xl  justify-center text-center tracking-widest pb-2 select-text">
-          Select Frame Size
+    <div id="page-loader"
+      class="fixed top-0 w-full h-[100vh] inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center z-50  ">
+      <div class="flex flex-col items-center">
+        <div class="w-12 h-12 border-4 border-black border-t-transparent rounded-full animate-spin"></div>
+        <p class="mt-4 text-black font-semibold text-sm tracking-wide animate-pulse">
+          Loading, please wait...
         </p>
-        <div id="sizeButtons" class="text-center md:ml-10 md:mt-2 justify-center text-sm font-semibold">
-          <div class="flex gap-8 md:gap-20">
-            <label for="size-4x6"
-              class="w-20 h-12 md:w-28 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
-              4 x 6
-            </label>
-            <label for="size-5x7"
-              class="w-20 h-12 md:w-28 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
-              5 x 7
-            </label>
-            <label for="size-6x8"
-              class="w-20 h-12 md:w-28 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
-              6 x 8
-            </label>
-          </div>
-          <br>
-          <div class="flex gap-8 md:gap-20">
-            <label for="size-8x12"
-              class="w-20 h-12 md:w-28 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
-              8 x 12
-            </label>
-            <label for="size-10x15"
-              class="w-20 h-12 md:w-28 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
-              10 x 15
-            </label>
-            <label for="size-12x18"
-              class="w-20 h-12 md:w-28 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
-              12 x 18
-            </label>
-          </div>
-          <br>
-          <div class="flex gap-8 md:gap-20">
-            <label for="size-16x24"
-              class="w-20 h-12 md:w-28 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
-              16 x 24
-            </label>
-            <label for="size-20x30"
-              class="w-20 h-12 md:w-28 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
-              20 x 30
-            </label>
-            <label for="size-24x36"
-              class="w-20 h-12 md:w-28 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
-              24 x 36
-            </label>
-          </div>
-            
-        </div>
-
-        <input type="radio" name="size" id="size-4x6" value="4 x 6 => Rs. 100" class="hidden" />
-        <input type="radio" name="size" id="size-5x7" value="5 x 7 => Rs. 140" class="hidden" />
-        <input type="radio" name="size" id="size-6x8" value="6 x 8 => Rs. 150" class="hidden" />
-        <input type="radio" name="size" id="size-8x12" value="8 x 12 => Rs. 299" class="hidden" />
-        <input type="radio" name="size" id="size-10x15" value="10 x 15 => Rs. 419" class="hidden" />
-        <input type="radio" name="size" id="size-12x18" value="12 x 18 => Rs. 549" class="hidden" />
-        <input type="radio" name="size" id="size-16x24" value="16 x 24 => Rs. 1,350" class="hidden" />
-        <input type="radio" name="size" id="size-20x30" value="20 x 30 => Rs. 1,619" class="hidden" />
-        <input type="radio" name="size" id="size-24x36" value="24 x 36 => Rs. 1,999" class="hidden" />
-
       </div>
+    </div>
+    <div class="md:flex md:gap-2 md:mx-auto md:w-full md:p-6">
+
       <form id="crudForm" class="md:w-full space-y-4 mb-2">
         <input type="radio" name="size" id="size-4x6" value="4 x 6 => 100 Rs" class="hidden" />
         <input type="radio" name="size" id="size-5x7" value="5 x 7 => 140 Rs" class="hidden" />
@@ -305,19 +246,11 @@
         <input type="radio" name="size" id="size-20x30" value="20 x 30 => 1,619 Rs" class="hidden" />
         <input type="radio" name="size" id="size-24x36" value="24 x 36 => 1,999 Rs" class="hidden" />
 
-        <div id="page-loader"
-          class="fixed inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center z-50 hidden">
-          <div class="flex flex-col items-center">
-            <div class="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-            <p class="mt-4 text-blue-600 font-semibold text-sm tracking-wide animate-pulse">
-              Loading, please wait...
-            </p>
-          </div>
-        </div>
+
         <p class="font-semibold text-black mb-3 md:mx-auto select-text">
           Process Details
         </p>
-        <div id="data1">
+        <div id="data1" class="md:flex">
           <input type="text" id="code" class=" hidden" name="Id">
           <input type="text" id="icons" class=" hidden" name="Icon">
           <input type="text" id="Level" class=" hidden" name="1" value="Level 1">
@@ -330,9 +263,9 @@
               const loader = document.getElementById('page-loader');
               const name = document.getElementById('nama').innerText.trim();
               const mail = document.getElementById('fildata').innerText.trim();
-             
-              if (name == "" ) {
-               window.location.href="Owner.html";
+
+              if (name == "") {
+                window.location.href = "Owner.html";
                 return;
               }
               if (loader) {
@@ -346,9 +279,121 @@
           <input type="text" name="Payment" id="Payment" value="WhatsApp" class=" hidden w-full p-2 border rounded-lg">
           <input type="text" name="Other" id="Other" value="1" class=" hidden w-full p-2 border rounded-lg">
           <input type="text" name="Status" id="Status" class=" hidden" value="Not Accept">
-          <input type="text" name="Price" value="Size" class=" hidden">
+          <input type="text" name="Price" id="sizess" value="Size" class=" hidden">
           <input type="file" id="ImageInput" accept="image/jpg/png*" class="  hidden w-full border rounded-lg">
           <input type="text" id="Delivered" class=" hidden" name="Delivered">
+
+          <div
+            class="relative bg-gradient-to-tr bg-gray-900 rounded-3xl p-6 w-full max-w-[360px] md:max-w-[50%]  md:max-h-[60%] mx-auto mb-8 shadow-lg"
+            style="aspect-ratio: 16 / 9;">
+            <p id="status"
+              class="status font-mono-custom font-extrabold text-white text-xl  justify-center text-center tracking-widest pb-2 select-text">
+              Select Frame Size
+            </p>
+            <div id="sizeButtons" class="text-center md:ml-10 md:mt-2 justify-center text-sm font-semibold">
+              <div class="flex gap-8 md:gap-20">
+                <label for="size-4x6"
+                  class="w-20 h-12 md:w-28 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
+                  4 x 6
+                </label>
+                <label for="size-5x7"
+                  class="w-20 h-12 md:w-28 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
+                  5 x 7
+                </label>
+                <label for="size-6x8"
+                  class="w-20 h-12 md:w-28 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
+                  6 x 8
+                </label>
+              </div>
+              <br>
+              <div class="flex gap-8 md:gap-20">
+                <label for="size-8x12"
+                  class="w-20 h-12 md:w-28 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
+                  8 x 12
+                </label>
+                <label for="size-10x15"
+                  class="w-20 h-12 md:w-28 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
+                  10 x 15
+                </label>
+                <label for="size-12x18"
+                  class="w-20 h-12 md:w-28 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
+                  12 x 18
+                </label>
+              </div>
+              <br>
+              <div class="flex gap-8 md:gap-20">
+                <label for="size-16x24"
+                  class="w-20 h-12 md:w-28 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
+                  16 x 24
+                </label>
+                <label for="size-20x30"
+                  class="w-20 h-12 md:w-28 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
+                  20 x 30
+                </label>
+                <label for="size-24x36"
+                  class="w-20 h-12 md:w-28 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
+                  24 x 36
+                </label>
+              </div>
+            </div>
+
+            <input type="radio" name="size" id="size-4x6" value="4 x 6 => Rs. 100" class="hidden" />
+            <input type="radio" name="size" id="size-5x7" value="5 x 7 => Rs. 140" class="hidden" />
+            <input type="radio" name="size" id="size-6x8" value="6 x 8 => Rs. 150" class="hidden" />
+            <input type="radio" name="size" id="size-8x12" value="8 x 12 => Rs. 299" class="hidden" />
+            <input type="radio" name="size" id="size-10x15" value="10 x 15 => Rs. 419" class="hidden" />
+            <input type="radio" name="size" id="size-12x18" value="12 x 18 => Rs. 549" class="hidden" />
+            <input type="radio" name="size" id="size-16x24" value="16 x 24 => Rs. 1,350" class="hidden" />
+            <input type="radio" name="size" id="size-20x30" value="20 x 30 => Rs. 1,619" class="hidden" />
+            <input type="radio" name="size" id="size-24x36" value="24 x 36 => Rs. 1,999" class="hidden" />
+
+          </div>
+          <div class="border border-gray-200 h-[70%] md:h-[80%] rounded-2xl p-4 mx-3 md:w-[45vw] shadow-lg bg-white">
+            <dl class="space-y-4 text-base text-gray-900">
+              <div class="flex justify-between items-center">
+                <dt class="font-bold text-lg">Order Size :</dt>
+                <dd class="font-extrabold text-lg" id="ordersize"></dd>
+              </div>
+
+              <div class="flex justify-between items-center">
+                <dt class="font-bold text-lg">Date :</dt>
+                <dd class="font-semibold text-lg" id="orderDate"></dd>
+              </div>
+
+              <div class="flex justify-between items-center">
+                <dt class="font-bold text-lg">Transaction Type :</dt>
+                <dd class="font-semibold text-lg" id="Cashs"></dd>
+              </div>
+
+              <div class="flex justify-between items-center">
+                <dt class="font-bold text-lg">Price :</dt>
+                <dd class="flex items-center text-green-600 font-bold gap-1 text-lg">
+                  <span id="orderprice">00.00 .Rs</span>
+                </dd>
+                </dd>
+              </div>
+
+              <div class="flex justify-between items-center">
+                <dt class="font-bold text-lg">Tax :</dt>
+                <dd class="flex items-center text-blaxk font-bold text-lg">
+                  <span id="orderTax">20</span>
+                </dd>
+              </div>
+
+              <div class="flex justify-between items-center pt-3 border-t">
+                <dt class="font-extrabold text-xl text-green-600">Total :</dt>
+                <dd class="flex items-center text-green-600 font-extrabold text-xl">
+                  <i class="fas fa-check-circle mr-2"></i>
+                  <span id="Totalprice">00.00 Rs</span>
+                </dd>
+              </div>
+
+            </dl>
+          </div>
+
+        </div>
+        <div id="data2" style="display: none; margin-top: gap-8 mt-2;">
+
           <input
             class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none  "
             placeholder="Full Name" name="Name" id="name" type="text" required />
@@ -378,9 +423,6 @@
               <option value="Goldden" class="bg-[#FFD700] text-black">Goldden</option>
             </select>
           </div>
-        </div>
-        <div id="data2" style="display: none; margin-top: mt-2;">
-
           <input
             class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
             placeholder="Address" type="text" name="Address" required />
@@ -436,46 +478,80 @@
           </div>
         </div>
         <nav aria-label="Bottom navigation"
-          class="fixed md:relative bottom-0  md:mx-auto left-0 right-0 mx-2  border-t border-[#d9d9d9]bg-[#f3f3f3]   justify-center items-center py-3 z-50">
+          class="fixed md:relative bottom-0 md:flex  md:mx-auto left-0 right-0 mx-2  border-t border-[#d9d9d9] bg-[#f3f3f3]   justify-center items-center py-3 z-50">
 
-          <div class="flex items-center justify-between mb-8  mx-2 md:mx-auto md:w-[45vw] select-text">
-            <span id="Online" style="font-size: 18px;" class="font-extrabold text-black">
-              Online
-            </span>
-            <span class="font-semibold text-black justify-center">
-              <label class="relative inline-flex items-center cursor-pointer" for="toggle">
-                <input aria-checked="false" class="sr-only peer" id="toggle" type="checkbox" />
-                <div
-                  class="w-40 h-8  mt-2 text-white text-center pt-1 bg-black rounded-full peer-checked:bg-black transition-colors">
-                  Payment</div>
-                <div
-                  class="absolute left-1  top-[0.79rem] bg-white w-6 h-6 rounded-full transition-transform peer-checked:translate-x-[8rem]">
-                </div>
-              </label>
-            </span>
-            <span id="Cash" style="font-size: 18px;" class="font-semibold text-black md:mt-0 mt-1">
-              Cash
-            </span>
+          <div
+            class="flex items-center bg-white py-1 rounded-full w-full justify-between mb-4 md:mx-auto md:w-[45vw] relative select-text">
+            <span id="Online" class="absolute left-3 z-40 font-extrabold text-white text-lg">Online</span>
+
+            <label class="relative inline-flex items-center cursor-pointer w-full justify-center" for="toggle">
+              <input class="sr-only peer" id="toggle" type="checkbox" />
+
+              <!-- Background -->
+              <div class="w-full h-10 rounded-full bg-white transition-colors peer-checked:bg-white"></div>
+
+              <!-- Sliding Black Overlay -->
+              <div
+                class="absolute left-0 top-0 w-1/2 h-10 bg-black rounded-full transition-transform duration-300 peer-checked:translate-x-full">
+              </div>
+            </label>
+
+            <span id="Cash" class="absolute right-3 font-semibold text-lg text-gray-400">Cash</span>
           </div>
+
           <script>
             const toggle = document.getElementById('toggle');
             const Cash = document.getElementById('Cash');
             const Online = document.getElementById('Online');
-            Cash.style.color = "gray";
-            toggle.onchange = () => {
+            const stats = document.getElementById('Cashs');
+            stats.textContent = "Online";
+
+            document.querySelectorAll('input[name="size"]').forEach(radio => {
+              radio.addEventListener('change', function () {
+
+                // Split value
+                const [sizeText, priceText] = this.value.split("=>");
+
+                // Show ONLY size
+                document.getElementById("ordersize").textContent = sizeText.trim();
+
+                // Remove Rs, ₹, commas → number only
+                const priceOnly = priceText.replace(/[^\d.]/g, "").trim();
+                document.getElementById("orderprice").textContent = priceOnly +" .Rs";
+
+                // Tax
+                const taxText = document.getElementById("orderTax").textContent;
+                const tax = parseFloat(taxText.replace(/[^\d.]/g, "")) || 0;
+
+                // Total
+                const total = parseFloat(priceOnly) + tax + " .Rs";
+                document.getElementById("Totalprice").textContent = total.toLocaleString("en-IN");
+              });
+            });
+
+
+            // Default state
+            Online.style.fontWeight = "bold";
+            Cash.style.fontWeight = "normal";
+
+            toggle.addEventListener('change', () => {
               if (toggle.checked) {
                 Online.style.color = "gray";
-                Cash.style.color = "black";
-                Cash.style.text = "bold";
+                Online.style.fontWeight = "normal";
+                Cash.style.color = "white";
+                Cash.style.fontWeight = "bold";
+                stats.textContent = "Cash On Delivery";
               } else {
-                Online.style.color = "black";
-                Online.style.text = "bold";
+                Online.style.color = "white";
+                Online.style.fontWeight = "bold";
                 Cash.style.color = "gray";
+                Cash.style.fontWeight = "normal";
+                stats.textContent = "Online";
+
               }
-            };
-
-
+            });
           </script>
+
           <div class="flex md:mx-auto md:w-[47vw] md:justify-between justify-between w-full">
             <div style=" display: none;" onclick="swapback() " aria-label="Go back" id="swapback"
               class="w-14 h-12 bg-black rounded-full flex justify-center items-center shadow-sm">
@@ -616,6 +692,12 @@
 
           if (btn.innerText === "Submit") {
             generateCode();
+
+
+            const loader = document.getElementById('page-loader');
+            if (loader) {
+              loader.classList.remove('hidden'); // Show loader
+            }
 
 
             // 🔹 Check if all file inputs are empty

@@ -12,7 +12,7 @@ fetch(`${SHEET_API}?action=read`)
     allCourses = data.records || [];
 
     // Initial render
-    renderCourses(); 
+    renderCourses();
     // Search input listener
     searchInput.addEventListener("input", (e) => {
       renderCourses(e.target.value, getActiveCategory());
@@ -73,9 +73,9 @@ function renderCourses(searchTerm = "", categoryFilter = "all") {
 
     card.innerHTML = `
       <a href="FullpageOrder.html?id=${course.Id}" class="block relative">
-        <div class="absolute top-2 left-2 bg-gray-50 w-7 h-7 rounded-full flex items-center justify-center">
-          <i class="fas fa-heart text-black text-lg"></i>
-        </div>
+    <div id="heartBtn" class="absolute top-2 left-2 bg-gray-50 w-7 h-7 rounded-full flex items-center justify-center cursor-pointer">
+  <i class="fas fa-heart text-black text-lg transition-colors duration-300"></i>
+</div>
         <div class="h-48 bg-[#526474] flex items-center justify-center overflow-hidden">
           <img src="${course.Icon}" alt="${
       course.Tittle
@@ -99,9 +99,11 @@ function renderCourses(searchTerm = "", categoryFilter = "all") {
           <div class="flex items-center justify-between  ">
             <span class="font-extrabold text-lg">₹${
               course.Price || 0
-            }<span class="text-[10px] text-gray-800"> ${
-      course.Size || ""
-    }</span></span>
+            }<span class="text-[10px] text-gray-800">
+  ${course.Size?.slice(0, 9) || ""}
+</span>
+
+    </span>
             <button aria-label="Add to cart" class="w-6 h-6 rounded-full flex items-center justify-center bg-gray-50 hover:bg-gray-400">
               <i class="fas fa-shopping-cart text-gray-700 text-base"></i>
             </button>
@@ -117,6 +119,11 @@ function renderCourses(searchTerm = "", categoryFilter = "all") {
   }
 }
 
+const heart = document.getElementById("heartBtn");
+heart.addEventListener("click", () => {
+  const icon = heart.querySelector("i");
+  icon.classList.toggle("text-red-500"); // toggle red color
+});
 // Helper to get currently selected category
 function getActiveCategory() {
   const activeBtn = document.querySelector(

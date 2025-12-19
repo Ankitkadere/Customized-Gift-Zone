@@ -136,19 +136,19 @@
 
 <body class="bg-gray-100 w-full top-0 left-0 fixed font-extrabold flex items-center justify-center pb-6">
     <div styl="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)"
-        class="  w-full flex flex-col md:flex-row overflow-hidden">
+        class=" bg-black md:bg-transparent w-full flex flex-col md:flex-row overflow-hidden">
 
         <!-- Toggle Button (Visible only on mobile) -->
         <div class="flex items-center md:px-0 px-2 h-full justify-between">
-            <div class="flex w-full md:hidden  items-center justify-between p-2">
+            <div class="flex w-full md:hidden items-center justify-between p-2">
                 <button id="menuToggle" type="button"
-                    class="w-10 h-10 p-3 flex bg-black justify-center items-center rounded-full shadow-sm focus:outline-none">
-                    <i class="fas fa-user text-xl text-white"></i>
+                    class="w-10 h-10 p-3 flex bg-white justify-center items-center rounded-full shadow-sm focus:outline-none">
+                    <i class="fas fa-user text-xl text-black"></i>
                 </button>
 
                 <button onclick="window.location.href='index.html'" aria-label="Go back"
                     class="flex justify-center items-center">
-                    <h1 class="mx-auto text-4xl sm:text-5xl leading-none
+                    <h1 class="mx-auto text-4xl sm:text-5xl leading-none text-white
                         ">
                         Gift Zone
                     </h1>
@@ -221,12 +221,12 @@
 
                     <div class="flex items-center justify-between gap-16 mt-4">
                         <div class="text-center">
-                            <div class="text-white font-bold text-[1.5rem] md:text-xl">1,000</div>
-                            <div class="text-xs text-blue-100">Followers</div>
+                            <div id="bookingss" class="text-white font-bold text-[1.5rem] md:text-xl">00</div>
+                            <div class="text-xs text-blue-100">Orders</div>
                         </div>
                         <div class="text-center">
-                            <div class="text-white font-bold text-[1.5rem] md:text-xl">1,200</div>
-                            <div class="text-xs text-blue-100">Following</div>
+                            <div id="booked" class="text-white font-bold text-[1.5rem] md:text-xl">00</div>
+                            <div class="text-xs text-blue-100">Delivered</div>
                         </div>
                     </div>
                 </div>
@@ -284,9 +284,9 @@
 
             </nav>
             <div class=" fixed bottom-4 w-96 md:w-full justify-between px-2  mx-auto flex md:gap-2 gap-8">
-                <button id="logout" class="flex-1 py-2 rounded-lg bg-black text-white hover:bg-slate-200">Log
+                <button id="logout" class="flex-1 py-2 rounded-lg bg-black text-white hover:bg-slate-400">Log
                     Out</button>
-                <button class="flex-1 py-2 rounded-lg bg-black text-white hover:bg-indigo-700">Follow</button>
+                <button onclick="window.location.href='index.html'" class="flex-1 py-2 rounded-lg bg-black text-white hover:bg-slate-400">Home</button>
             </div>
         </aside>
 
@@ -307,8 +307,7 @@
             </section>
 
             <section id="sells" class="">
-                <div class="flex justify-end"> <!-- 🔍 Filter Section -->
-
+                <div class="flex justify-end rounded-3xl"> <!-- 🔍 Filter Section -->
                     <div class="mb-4 mx-1 flex justify-between md:justify-end space-x-4">
                         <select id="filterField"
                             class=" border rounded-lg shadow-sm p-2  md:pl-2 md:px-4   focus:outline-none text-sm">
@@ -613,7 +612,10 @@
                     function renderTable(records) {
                         const tbody = document.getElementById("tableBody");
                         tbody.innerHTML = "";
-
+                        document.getElementById("bookingss").innerText = records.length;
+                        const bookedCount = records.filter(r => r.Level == "4").length;
+                        document.getElementById("booked").innerText = bookedCount;
+            
                         if (!records.length) {
                             tbody.innerHTML = `
     <div class="text-center text-black font-extrabold py-6 w-full">
@@ -627,14 +629,17 @@
                         }
 
 
-                   records.slice().reverse().forEach((record, index) => {
+                        records.slice().reverse().forEach((record, index) => {
                             tbody.innerHTML += `
       <div class="bg-white shadow-md rounded-lg mb-1 pb-1 w-full md:w-[30%] md:mx-4 overflow-hidden ">
         <div class="p-2 md:flex items-start justify-between">
-          <div class="flex items-start object-cover">
+          <div class="flex items-start object-cover  w-full">
             <img src="${record.Icon}" alt="Product" class="w-20 h-20 rounded border-2" />
-            <div class="ml-4">
-              <h3 class="text-lg font-semibold text-gray-800">${record.Other}</h3>
+            <div class="ml-2  w-full">
+              <div class="flex justify-between w-full">
+               <h3 class="text-lg font-semibold text-gray-800">${record.Other}</h3>
+               <h3 class="text-lg font-semibold text-gray-800">:</h3>
+              </div>
               <p class="text-sm text-gray-500">Order ID: <span class="font-medium">#${record.Id}</span></p>
               <p class="text-sm text-green-600 mt-1 font-medium">Delivered  : ${formatDate(record.Delivered)}</p>
             </div>
@@ -680,8 +685,21 @@
                     </div>  
 
           <div class=" px-2 flex flex-wrap gap-2 justify-between w-full md:w-auto">
-            <button class="text-black font-extrabold  py-0  rounded-md  text-sm">${record.Size}</button>
-            <button onclick='deleteRecord("${record.Id}")' class="bg-gray-200 text-black font-semibold px-3 py-1 rounded-md hover:bg-black hover:text-white text-sm">Cancel</button>
+       <button class="text-black font-extrabold py-0 justify-between flex w-[73%] rounded-md text-sm">
+  ${(() => {
+    const [size, price] = record.Size.split("=>");
+    return `
+      <span class="ml-2 font-blod py-1 text-sm">
+        ${size.trim()}
+      </span>
+     <span class="ml-2 font-extrabold text-green-600 py-1 text-sm">
+  ₹ ${ (parseInt(price.replace(/[^\d]/g, "")) + 20).toLocaleString("en-IN") }
+</span>
+    `;
+  })()}
+</button>
+                
+                <button onclick='deleteRecord("${record.Id}")' class="bg-gray-200 text-black font-semibold px-3 py-1 rounded-md hover:bg-black hover:text-white text-sm">Cancel</button>
           </div>
         </div>
       </div>`;

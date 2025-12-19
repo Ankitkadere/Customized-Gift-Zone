@@ -426,30 +426,47 @@
                 <div class="flex">
                     <p class="text-black font-semibold mb-2 text-base">Select Size</p>
                 </div>
+<div class="flex flex-wrap gap-x-2 gap-y-2 justify-start">
+  ${
+    (() => {
+      const priceList = [
+        { size: "4 x 6", price: "₹ 100" },
+        { size: "5 x 7", price: "₹ 140" },
+        { size: "6 x 8", price: "₹ 150" },
+        { size: "8 x 12", price: "₹ 299" },
+        { size: "10 x 15", price: "₹ 419" },
+        { size: "12 x 18", price: "₹ 549" },
+        { size: "16 x 24", price: "₹ 1,350" },
+        { size: "20 x 30", price: "₹ 1,619" },
+        { size: "24 x 36", price: "₹ 1,999" }
+      ];
 
-                <div class="flex flex-wrap gap-x-2 gap-y-2 md:justify-start justify-start">
-                    ${[
-                    { size: "4 x 6", price: "₹ 100" },
-                    { size: "5 x 7", price: "₹ 140" },
-                    { size: "6 x 8", price: "₹ 150" },
-                    { size: "8 x 12", price: "₹ 299" },
-                    { size: "10 x 15", price: "₹ 419" },
-                    { size: "12 x 18", price: "₹ 549" },
-                    { size: "16 x 24", price: "₹ 1,350" },
-                    { size: "20 x 30", price: "₹ 1,619" },
-                    { size: "24 x 36", price: "₹ 1,999" },
-                ]
-                    .map(
-                        item => `
-                    <div onclick="openLogin()" class="flex flex-col justify-between items-center">
-                        <button class="border border-gray-400 rounded-md px-3 py-1.5 text-black font-semibold text-sm"
-                            type="button">${item.size}</button>
-                        <span class="text-sm font-extrabold text-gray-700 mt-1">${item.price}</span>
-                    </div>
-                    `
-                    )
-                    .join("")}
-                </div>
+      return course.Size
+        ? course.Size.split(",").map(s => {
+            const size = s.split("=>")[0].trim();
+
+            const matched = priceList.find(p => p.size === size);
+
+            return `
+              <div onclick="openLogin()" class="flex flex-col items-center">
+                <button
+                  type="button"
+                  class="border border-gray-400 rounded-md px-3 py-1.5 text-black font-semibold text-sm">
+                  ${size}
+                </button>
+
+                <span class="text-sm font-extrabold text-gray-700 mt-1">
+                  ${matched ? matched.price : ""}
+                </span>
+              </div>
+            `;
+          }).join("")
+        : "";
+    })()
+  }
+</div>
+
+
             </div>
             <a href="Booking.html?id=${course.Id}&head=${encodeURIComponent(course.Tittle)}&icon=${encodeURIComponent(course.Icon)}"
                 class="hidden md:mt-4 md:block flex justify-center inline-block bg-black text-white font-semibold rounded-md l py-2 px-6 text-center text-lg hover:bg-gray-800 transition">
@@ -505,9 +522,10 @@
 
                 <!-- Dotted connector -->
                 <div class="flex space-x-3">
+                    
                     <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
-                    <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
-                    <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
+                      <div class="w-8 h-0.5 bg-red-600 rounded"></div>
+
                     <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
                 </div>
 
