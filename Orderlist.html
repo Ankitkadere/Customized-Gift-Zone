@@ -136,7 +136,7 @@
 
 <body class="bg-gray-100 w-full top-0 left-0 fixed font-extrabold flex items-center justify-center pb-6">
     <div styl="background: linear-gradient(90deg, #b90f2a 0%, #2e143a 100%)"
-        class=" bg-black pb-10 mb-10 md:bg-transparent w-full flex flex-col md:flex-row overflow-hidden">
+        class=" bg-black md:bg-transparent w-full flex flex-col md:flex-row overflow-hidden">
 
         <!-- Toggle Button (Visible only on mobile) -->
         <div class="flex items-center md:px-0 px-2 h-full justify-between">
@@ -286,7 +286,8 @@
             <div class=" fixed bottom-4 w-96 md:w-full justify-between px-2  mx-auto flex md:gap-2 gap-8">
                 <button id="logout" class="flex-1 py-2 rounded-lg bg-black text-white hover:bg-slate-400">Log
                     Out</button>
-                <button onclick="window.location.href='index.html'" class="flex-1 py-2 rounded-lg bg-black text-white hover:bg-slate-400">Home</button>
+                <button onclick="window.location.href='index.html'"
+                    class="flex-1 py-2 rounded-lg bg-black text-white hover:bg-slate-400">Home</button>
             </div>
         </aside>
 
@@ -341,11 +342,11 @@
                     <!-- Data Table -->
                     <div class="bg-white shadow rounded-lg md:mb-20 w-full h-full md:max-h-[98vh]">
                         <!-- Wrapper for scrolling -->
-                        <div class="overflow-x-auto overflow-y-auto max-h-[98vh] md:max-h-[98vh]">
+                        <div class="overflow-x-auto overflow-y-auto max-h-[100vh] md:max-h-[98vh]">
                             <table class="min-w-full border border-gray-200 text-xs text-gray-700">
 
                                 <tbody id="tableBody"
-                                    class="divide-y divide-gray-200 md:h-[88vh] h-[92vh] pb-20 mb-10 flex w-full flex-wrap">
+                                    class="divide-y divide-gray-200 md:h-[88vh] h-[92vh] pb-20 flex w-full flex-wrap">
 
                                     <div id="page-loader" class=" fixed w-96 h-full  z-40">
                                         <!-- 🌀 Preloader Container -->
@@ -459,7 +460,12 @@
                                 </tbody>
                             </table>
                         </div>
+                         <p class=" text-black h-10 w-full justify-center text-center ">
+                        Gift Zone
+                    </p>
                     </div>
+
+                   
                     <!-- Form (hidden by default) -->
                     <div id="formContainer" class="fixed hidden shadow-[0_8px_80px_black] inset-0 md:mx-auto m-2 mb-4 md:top-10 h-full bottom-auto md:max-h-[85vh] md:max-w-7xl overflow-y-auto 
                            bg-white rounded-3xl shadow-2xl border border-orange-300 p-4">
@@ -615,7 +621,7 @@
                         document.getElementById("bookingss").innerText = records.length;
                         const bookedCount = records.filter(r => r.Level == "4").length;
                         document.getElementById("booked").innerText = bookedCount;
-            
+
                         if (!records.length) {
                             tbody.innerHTML = `
     <div class="text-center text-black font-extrabold py-6 w-full">
@@ -687,16 +693,16 @@
           <div class=" px-2 flex flex-wrap gap-2 justify-between w-full md:w-auto">
        <button class="text-black font-extrabold py-0 justify-between flex w-[73%] rounded-md text-sm">
   ${(() => {
-    const [size, price] = record.Size.split("=>");
-    return `
+                                    const [size, price] = record.Size.split("=>");
+                                    return `
       <span class="ml-2 font-blod py-1 text-sm">
         ${size.trim()}
       </span>
      <span class="ml-2 font-extrabold text-green-600 py-1 text-sm">
-  ₹ ${ (parseInt(price.replace(/[^\d]/g, "")) + 20).toLocaleString("en-IN") }
+  ₹ ${(parseInt(price.replace(/[^\d]/g, "")) + 20).toLocaleString("en-IN")}
 </span>
     `;
-  })()}
+                                })()}
 </button>
                 
                 <button onclick='deleteRecord("${record.Id}")' class="bg-gray-200 text-black font-semibold px-3 py-1 rounded-md hover:bg-black hover:text-white text-sm">Cancel</button>
@@ -914,6 +920,7 @@
     </script>
 
 </body>
+
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
     import {
