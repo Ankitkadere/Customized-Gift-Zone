@@ -370,6 +370,7 @@
                 <dt class="font-bold text-lg">Price :</dt>
                 <dd class="flex items-center text-green-600 font-bold gap-1 text-lg">
                   <span id="orderprice">00.00 .Rs</span>
+                  <span> .Rs</span>
                 </dd>
                 </dd>
               </div>
@@ -385,10 +386,10 @@
                 <dt class="font-extrabold text-xl text-green-600">Total :</dt>
                 <dd class="flex items-center text-green-600 font-extrabold text-xl">
                   <i class="fas fa-check-circle mr-2"></i>
-                  <span id="Totalprice">00.00 Rs</span>
+                  <span id="Totalprice">00.00 </span>
+                  <span> .Rs</span>
                 </dd>
               </div>
-
             </dl>
           </div>
 
@@ -399,7 +400,7 @@
             placeholder="Full Name" name="Name" id="name" type="text" required />
           <input
             class="w-full rounded-lg border shadow-2xl border-gray-300 bg-white mf:px-4 py-3 px-5 py-4 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
-            placeholder="Mobile Number" type="tel" name="Number" required />
+            placeholder="Mobile Number" type="tel" id="Numbers" name="Number" required />
 
           <input type="text" id="selectedSize" name="Size" required
             class=" hidden w-full rounded-lg  shadow-lg border border-gray-300 bg-white mf:px-4 py-3 px-5 py-4 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
@@ -478,7 +479,7 @@
           </div>
         </div>
         <nav aria-label="Bottom navigation"
-          class=" fixed  bottom-0 md:mb-20 md:flex md:mx-auto left-0 right-0 px-2  border-t border-[#d9d9d9] bg-[#f3f3f3]   justify-center items-center py-3 z-50">
+          class=" fixed  bottom-0 md:mb-20 md:flex md:mx-auto left-0 right-0 px-2  border-t border-[#d9d9d9] bg-[#f3f3f3]   justify-center items-center py-3 z-40">
           <div
             class="flex items-center bg-white py-1  rounded-full w-full justify-between md:mb-0 mb-4 md:mx-auto md:w-[45vw] relative select-text">
             <span id="Online" class="absolute left-3 z-40 font-extrabold text-white text-lg">Online</span>
@@ -497,68 +498,6 @@
 
             <span id="Cash" class="absolute right-3 font-semibold text-lg text-gray-400">Cash</span>
           </div>
-          <script>
-            const toggle = document.getElementById('toggle');
-            const Cash = document.getElementById('Cash');
-            const Online = document.getElementById('Online');
-            const stats = document.getElementById('Cashs');
-            stats.textContent = "Online";
-            const orderDateEl = document.getElementById("orderDate");
-            const today = new Date();
-            today.setDate(today.getDate() + 7); // ➕ 7 days
-            // Format: DD-MM-YYYY (Indian style)
-            const formattedDate = today.toLocaleDateString("en-IN", {
-              day: "2-digit",
-              month: "2-digit",
-              year: "numeric"
-            });
-            orderDateEl.textContent = formattedDate;
-            document.querySelectorAll('input[name="size"]').forEach(radio => {
-              radio.addEventListener('change', function () {
-
-                // Split value
-                const [sizeText, priceText] = this.value.split("=>");
-
-                // Show ONLY size
-                document.getElementById("ordersize").textContent = sizeText.trim();
-
-                // Remove Rs, ₹, commas → number only
-                const priceOnly = priceText.replace(/[^\d.]/g, "").trim();
-                document.getElementById("orderprice").textContent = priceOnly + " .Rs";
-
-                // Tax
-                const taxText = document.getElementById("orderTax").textContent;
-                const tax = parseFloat(taxText.replace(/[^\d.]/g, "")) || 0;
-
-                // Total
-                const total = parseFloat(priceOnly) + tax + " .Rs";
-                document.getElementById("Totalprice").textContent = total.toLocaleString("en-IN");
-              });
-            });
-
-
-            // Default state
-            Online.style.fontWeight = "bold";
-            Cash.style.fontWeight = "normal";
-
-            toggle.addEventListener('change', () => {
-              if (toggle.checked) {
-                Online.style.color = "gray";
-                Online.style.fontWeight = "normal";
-                Cash.style.color = "white";
-                Cash.style.fontWeight = "bold";
-                stats.textContent = "Cash On Delivery";
-              } else {
-                Online.style.color = "white";
-                Online.style.fontWeight = "bold";
-                Cash.style.color = "gray";
-                Cash.style.fontWeight = "normal";
-                stats.textContent = "Online";
-
-              }
-            });
-          </script>
-
           <div class="flex md:mx-auto md:w-[47vw] md:justify-between justify-between w-full">
             <div style=" display: none;" onclick="swapback() " aria-label="Go back" id="swapback"
               class="w-14 h-12 bg-black rounded-full flex justify-center items-center shadow-sm">
@@ -574,6 +513,64 @@
         </nav>
       </form>
       <script>
+
+        const toggle = document.getElementById('toggle');
+        const Cash = document.getElementById('Cash');
+        const Online = document.getElementById('Online');
+        const stats = document.getElementById('Cashs');
+        stats.textContent = "Online";
+        const orderDateEl = document.getElementById("orderDate");
+        const today = new Date();
+        today.setDate(today.getDate() + 7); // ➕ 7 days
+        // Format: DD-MM-YYYY (Indian style)
+        const formattedDate = today.toLocaleDateString("en-IN", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric"
+        });
+        orderDateEl.textContent = formattedDate;
+        document.querySelectorAll('input[name="size"]').forEach(radio => {
+          radio.addEventListener('change', function () {
+            // Split value
+            const [sizeText, priceText] = this.value.split("=>");
+            // Show ONLY size
+            document.getElementById("ordersize").textContent = sizeText.trim();
+            // Remove Rs, ₹, commas → number only
+            const priceOnly = priceText.replace(/[^\d.]/g, "").trim();
+            document.getElementById("orderprice").textContent = priceOnly;
+            // Tax
+            const taxText = document.getElementById("orderTax").textContent;
+            const tax = parseFloat(taxText.replace(/[^\d.]/g, "")) || 0;
+            // Total
+            const total = parseFloat(priceOnly) + tax;
+            document.getElementById("Totalprice").textContent = total.toLocaleString("en-IN");
+
+          });
+        });
+
+
+        // Default state
+        Online.style.fontWeight = "bold";
+        Cash.style.fontWeight = "normal";
+
+        toggle.addEventListener('change', () => {
+          if (toggle.checked) {
+            Online.style.color = "gray";
+            Online.style.fontWeight = "normal";
+            Cash.style.color = "white";
+            Cash.style.fontWeight = "bold";
+            stats.textContent = "Cash On Delivery";
+          } else {
+            Online.style.color = "white";
+            Online.style.fontWeight = "bold";
+            Cash.style.color = "gray";
+            Cash.style.fontWeight = "normal";
+            stats.textContent = "Online";
+
+          }
+        });
+
+
         // Generate 6-digit random number
         function generateCode() {
           let randomCode = Math.floor(100000 + Math.random() * 900000);
@@ -614,7 +611,6 @@
 
         showLocalDateSeven();
 
-
         const API_URL = "https://script.google.com/macros/s/AKfycbyG5foFh0_qWqUG4d2Kbg-055UsLAw8Nu-jWXCeTYVT2mfvC1PADZaixEjQmyDPeRrs/exec";
 
         function getBase64(file) {
@@ -625,21 +621,21 @@
             reader.onerror = err => reject(err);
           });
         }
-        ///////////////////////////////////////////
-        // Sample Test API Key (from Razorpay docs - safe for demo)
+
         const razorpayKey = 'rzp_test_1DP5mmOlF5G5ag'; // Replace with your test/live key
-
-        // Sample Test Secret Key (Placeholder - NEVER use in client code; for demo only)
-        // In real apps, this is used server-side to create orders.
         const razorpaySecret = 'G3sA5V0yCl8rK7P4Q2wN6xM'; // Fake for demo; generate real ones from Razorpay dashboard
-
+        const usernumber = document.getElementById("Numbers").value;
+        const usermail = document.getElementById("Filtered").value;
+        const namaste = document.getElementById("nama").textContent;
+        const pays = document.getElementById("Totalprice").textContent;
+        alert("gfg");
         // Payment options (amount in paise: 50000 = ₹500)
         const options = {
           key: razorpayKey, // Test API key
-          amount: 50000, // Amount in paise (₹500)
+          amount: 1000*100, // Amount in paise (₹500)
           currency: 'INR',
           name: 'Gift Zone', // Your business name
-          description: 'Test Transaction for Demo',
+          description: 'Pay Ammount To Gift Zone',
           image: 'https://via.placeholder.com/150', // Optional logo URL
           handler: function (response) {
             // Success callback
@@ -650,9 +646,9 @@
             // Here, you can send response to your server for verification
           },
           prefill: {
-            name: 'AnkitKadere',
-            email: 'Semple@example.com',
-            contact: '9999999999'
+            name: namaste,
+            email: usermail,
+            contact: usernumber
           },
           notes: {
             address: 'Demo Address'
