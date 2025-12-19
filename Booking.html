@@ -627,12 +627,11 @@
         const usernumber = document.getElementById("Numbers").value;
         const usermail = document.getElementById("Filtered").value;
         const namaste = document.getElementById("nama").textContent;
-        const pays = document.getElementById("Totalprice").textContent;
-        alert("gfg");
+       
         // Payment options (amount in paise: 50000 = ₹500)
         const options = {
           key: razorpayKey, // Test API key
-          amount: 1000*100, // Amount in paise (₹500)
+          amount: 299*100, // Amount in paise (₹500)
           currency: 'INR',
           name: 'Gift Zone', // Your business name
           description: 'Pay Ammount To Gift Zone',
