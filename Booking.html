@@ -190,7 +190,7 @@
     </button>
 
   </div>
-  <div class="bg-gray-100 md:mx-auto md:flex md:p-1 w-full h-full flex flex-col p-2 relative select-none">
+  <div class="bg-gray-100 md:my-auto md:flex md:p-1 w-full h-full flex flex-col px-2 pb-20 relative select-none">
     <p class="font-semibold text-black mb-3 md:ml-4 w-full select-text">
       <style>
         /* Basic CSS for styling */
@@ -225,7 +225,7 @@
       </style>
     </p>
     <div id="page-loader"
-      class="fixed top-0 w-full h-[100vh] inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center z-50  ">
+      class="fixed top-0 bottom-0 w-full h-[100vh] inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center z-50  ">
       <div class="flex flex-col items-center">
         <div class="w-12 h-12 border-4 border-black border-t-transparent rounded-full animate-spin"></div>
         <p class="mt-4 text-black font-semibold text-sm tracking-wide animate-pulse">
@@ -233,9 +233,9 @@
         </p>
       </div>
     </div>
-    <div class="md:flex md:gap-2 md:mx-auto md:w-full md:p-6">
+    <div class="md:flex md:gap-2 md:my-auto pb-20 md:my-auto md:w-full md:px-6">
 
-      <form id="crudForm" class="md:w-full space-y-4 mb-2">
+      <form id="crudForm" class="md:w-full space-y-1 mb-20">
         <input type="radio" name="size" id="size-4x6" value="4 x 6 => 100 Rs" class="hidden" />
         <input type="radio" name="size" id="size-5x7" value="5 x 7 => 140 Rs" class="hidden" />
         <input type="radio" name="size" id="size-6x8" value="6 x 8 => 150 Rs" class="hidden" />
@@ -247,10 +247,10 @@
         <input type="radio" name="size" id="size-24x36" value="24 x 36 => 1,999 Rs" class="hidden" />
 
 
-        <p class="font-semibold text-black mb-3 md:mx-auto select-text">
+        <p class="font-semibold text-black mb-0 md:mb-3 md:my-auto select-text">
           Process Details
         </p>
-        <div id="data1" class="md:flex">
+        <div id="data1" class="md:flex mb-20 ">
           <input type="text" id="code" class=" hidden" name="Id">
           <input type="text" id="icons" class=" hidden" name="Icon">
           <input type="text" id="Level" class=" hidden" name="1" value="Level 1">
@@ -348,20 +348,21 @@
             <input type="radio" name="size" id="size-24x36" value="24 x 36 => Rs. 1,999" class="hidden" />
 
           </div>
-          <div class="border border-gray-200 h-[70%] md:h-[80%] rounded-2xl p-4 mx-3 md:w-[45vw] shadow-lg bg-white">
-            <dl class="space-y-4 text-base text-gray-900">
+          <div
+            class="relative border border-gray-200 h-[70%] md:h-[80%] mb-20 md:mb-0 rounded-2xl  p-4 mx-3 md:w-[45vw] shadow-lg bg-white">
+            <dl class="space-y-2 text-base text-gray-900">
               <div class="flex justify-between items-center">
                 <dt class="font-bold text-lg">Order Size :</dt>
                 <dd class="font-extrabold text-lg" id="ordersize"></dd>
               </div>
 
               <div class="flex justify-between items-center">
-                <dt class="font-bold text-lg">Date :</dt>
+                <dt class="font-bold text-lg">Delivery Date :</dt>
                 <dd class="font-semibold text-lg" id="orderDate"></dd>
               </div>
 
               <div class="flex justify-between items-center">
-                <dt class="font-bold text-lg">Transaction Type :</dt>
+                <dt class="font-bold text-lg">Pay. Type :</dt>
                 <dd class="font-semibold text-lg" id="Cashs"></dd>
               </div>
 
@@ -395,26 +396,26 @@
         <div id="data2" style="display: none; margin-top: gap-8 mt-2;">
 
           <input
-            class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none  "
+            class="w-full rounded-lg shadow-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none  "
             placeholder="Full Name" name="Name" id="name" type="text" required />
           <input
-            class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
+            class="w-full rounded-lg border shadow-2xl border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
             placeholder="Mobile Number" type="tel" name="Number" required />
 
           <input type="text" id="selectedSize" name="Size" required
-            class=" hidden w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
+            class=" hidden w-full rounded-lg  shadow-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
             name="Material" placeholder="Size Select" />
 
           <div class="flex space-x-4 mb-2">
             <select id="frameMaterial" name="Material" required name="Color"
-              class="flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none ">
+              class="flex-1 w-40 rounded-lg  shadow-lg border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none ">
               <option value="" disabled selected>Select Material</option>
               <option value="Wooden">Wooden</option>
               <option value="metal">Polystyrene</option>
 
             </select>
             <select id="frameColor" name="Color" required
-              class=" flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none ">
+              class=" flex-1 w-40 rounded-lg  shadow-lg border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none ">
 
               <option value="" disabled selected>Select Color</option>
               <option value="Black" class="text-black bg-black text-white">Black</option>
@@ -424,17 +425,17 @@
             </select>
           </div>
           <input
-            class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
+            class="w-full rounded-lg border  shadow-lg border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
             placeholder="Address" type="text" name="Address" required />
           <input
-            class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
+            class="w-full rounded-lg border  shadow-lg border-gray-300 bg-white px-4 py-3 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
             placeholder="City / House " name="City" type="text" required />
           <div class="flex space-x-4 mb-2">
             <input
-              class="flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none "
+              class="flex-1 w-40 rounded-lg  shadow-2xl border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none "
               placeholder="Pin Code" type="text" name="Pincode" required />
             <select id="state" name="State" required name="State"
-              class="flex-1 w-40 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none ">
+              class="flex-1 w-40 rounded-lg  shadow-2xl border border-gray-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none ">
               <option value="" disabled selected>Select State</option>
               <option value="Andhra Pradesh">Andhra Pradesh</option>
               <option value="Arunachal Pradesh">Arunachal Pradesh</option>
@@ -478,10 +479,9 @@
           </div>
         </div>
         <nav aria-label="Bottom navigation"
-          class="fixed md:relative bottom-0 md:flex  md:mx-auto left-0 right-0 mx-2  border-t border-[#d9d9d9] bg-[#f3f3f3]   justify-center items-center py-3 z-50">
-
+          class=" fixed  bottom-0 md:mb-20 md:flex md:mx-auto left-0 right-0 mx-2  border-t border-[#d9d9d9] bg-[#f3f3f3]   justify-center items-center py-3 z-50">
           <div
-            class="flex items-center bg-white py-1 rounded-full w-full justify-between mb-4 md:mx-auto md:w-[45vw] relative select-text">
+            class="flex items-center bg-white py-1  rounded-full w-full justify-between md:mb-0 mb-4 md:mx-auto md:w-[45vw] relative select-text">
             <span id="Online" class="absolute left-3 z-40 font-extrabold text-white text-lg">Online</span>
 
             <label class="relative inline-flex items-center cursor-pointer w-full justify-center" for="toggle">
@@ -498,14 +498,22 @@
 
             <span id="Cash" class="absolute right-3 font-semibold text-lg text-gray-400">Cash</span>
           </div>
-
           <script>
             const toggle = document.getElementById('toggle');
             const Cash = document.getElementById('Cash');
             const Online = document.getElementById('Online');
             const stats = document.getElementById('Cashs');
             stats.textContent = "Online";
-
+            const orderDateEl = document.getElementById("orderDate");
+            const today = new Date();
+            today.setDate(today.getDate() + 7); // ➕ 7 days
+            // Format: DD-MM-YYYY (Indian style)
+            const formattedDate = today.toLocaleDateString("en-IN", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric"
+            });
+            orderDateEl.textContent = formattedDate;
             document.querySelectorAll('input[name="size"]').forEach(radio => {
               radio.addEventListener('change', function () {
 
@@ -517,7 +525,7 @@
 
                 // Remove Rs, ₹, commas → number only
                 const priceOnly = priceText.replace(/[^\d.]/g, "").trim();
-                document.getElementById("orderprice").textContent = priceOnly +" .Rs";
+                document.getElementById("orderprice").textContent = priceOnly + " .Rs";
 
                 // Tax
                 const taxText = document.getElementById("orderTax").textContent;
@@ -670,7 +678,6 @@
           const btn = document.getElementById("swap");
 
           if (btn.innerText === "Next") {
-            // Step 1 → Step 2
 
             const params = new URLSearchParams(window.location.search);
             const id = params.get("id");
@@ -692,7 +699,6 @@
 
           if (btn.innerText === "Submit") {
             generateCode();
-
 
             const loader = document.getElementById('page-loader');
             if (loader) {
