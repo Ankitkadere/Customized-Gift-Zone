@@ -40,7 +40,6 @@
 
     font-family: "Inter", sans-serif;
   }
-
   .hide-scrollbar::-webkit-scrollbar {
     display: none;
   }
@@ -336,8 +335,8 @@
                     statusMsg.textContent = " Already installed.";
                     return;
                   }
-                 
- 
+
+
                   if (!deferredPrompt) {
                     statusMsg.textContent = "⚠️ Your Device Does Not Support App";
                     toggleMenu();
@@ -407,20 +406,20 @@
           <span class="font-extrabold ">SHOP BY CATEGORIES</span>
           <i class="fas fa-chevron-down text-xs "></i>
         </div>
-        <ul class="flex flex-wrap items-center  font-extrabold space-x-3 sm:space-x-5 overflow-x-auto no-scrollbar">
+        <ul class="flex flex-wrap items-center  font-extrabold space-x-3 sm:space-x-8 overflow-x-auto no-scrollbar">
           <li><a class="hover:text-gray-900" href="index.html">Home</a></li>
-          <li><a class="hover:text-gray-900" href="Adminpenel.html">services</a></li>
-          <li><a class="hover:text-gray-900" href="Userchat.html">Chat</a></li>
-          <li><a class="hover:text-gray-900" href="Tool\Edit.html">Edit</a></li>
-          <li><a class="hover:text-gray-900" href="#">Footwear</a></li>
-          <li><a class="hover:text-gray-900" href="#">Groceries</a></li>
-          <li><a class="hover:text-gray-900" href="#">Beauty</a></li>
-          <li><a class="hover:text-gray-900" href="#">Wellness</a></li>
-          <li><a class="hover:text-gray-900" href="#">Jewellery</a></li>
+          <li><a class="hover:text-gray-900" href="Courselist.html">Services</a></li>
+          <li><a class="hover:text-gray-900" href="Userchat.html">Contect</a></li>
+          <li><a class="hover:text-gray-900" href="#">Affiliate</a></li>
+          <li><a class="hover:text-gray-900" href="#">Marketing</a></li>
+          <li><a class="hover:text-gray-900" href="#">Members</a></li>
+          <li><a class="hover:text-gray-900" href="#">Support</a></li>
+
+          <li><a class="hover:text-gray-900" href="Owner.html">Login</a></li>
         </ul>
         <div class="flex items-center space-x-2  text-xs sm:text-sm">
           <i class="font-extrabold fas fa-truck text-base"></i>
-          <span class="font-extrabold"> Free International Delivery</span>
+          <span class="font-extrabold"> International Delivery</span>
         </div>
       </nav>
     </header>
@@ -642,7 +641,7 @@
     // Menu toggle
     function toggleMenu() {
       document.getElementById("menu").classList.toggle("hidden");
-    } 
+    }
     // Simulate progress (alternative random style)
     function simulateProgress(callback) {
       let progress = 0;
@@ -768,22 +767,22 @@
           <div class="absolute flex top-4 left-4 sm:top-6 sm:left-6 max-w-xs sm:max-w-md text-white">
             <div class="md:h-full  border-2 border-transparent">
               <div
-                class="inline-block bg-gray-300 text-black text-[9px] sm:text-xs font-semibold rounded-full px-2 py-1 mb-1">
+                class="inline-block md:block hidden  text-black text-[9px] sm:text-xs font-semibold rounded-full px-2 py-1 mb-1">
                 EXCLUSIVE OFFER -40% OFF
               </div>
-              <h2 class="font-extrabold text-lg sm:text-2xl md:text-3xl text-black leading-tight mb-1">
+              <h2 class="font-extrabold  md:block hidden text-lg sm:text-2xl md:text-3xl text-black leading-tight mb-1">
                 Quality Freshness Guaranteed!
               </h2>
-              <p class="text-xs sm:text-sm font-normal text-black mb-2">
+              <p class="text-xs sm:text-sm  md:block hidden font-normal text-black mb-2">
                 Only this week. Don't miss…
               </p>
               <p class="text-white font-semibold text-sm sm:text-base mb-2 mr-8">
-                from 300 Rs
+                From 99.Rs
               </p>
-              <button
-                class="bg-gray-500 text-white text-sm font-semibold rounded-full px-3  py-1 md:mt-6 hover:bg-green-600 transition">
-                Shop Now
-              </button>
+              <a href="Courselist.html"
+                class="bg-gray-500 text-white text-sm font-semibold rounded-full px-3  py-1 md:mt-6  transition">
+                Book Now
+              </a href="Courselist.html">
             </div>
 
           </div>
@@ -795,22 +794,22 @@
           <div class="absolute flex top-4 left-4 sm:top-6 sm:left-6 max-w-xs sm:max-w-md text-white">
             <div class="md:h-full border-2 border-transparent">
               <div
-                class="inline-block bg-gray-300 text-black text-[9px] sm:text-xs font-semibold rounded-full px-2 py-1 mb-1">
+                class="inline-block   md:block hidden text-black text-[9px] sm:text-xs font-semibold rounded-full px-2 py-1 mb-1">
                 EXCLUSIVE OFFER -40% OFF
               </div>
-              <h2 class="font-extrabold text-lg sm:text-2xl md:text-3xl text-black leading-tight mb-1">
+              <h2 class="font-extrabold text-lg sm:text-2xl  md:block hidden md:text-3xl text-black leading-tight mb-1">
                 Quality Freshness Guaranteed!
               </h2>
-              <p class="text-xs sm:text-sm font-normal text-black mb-2">
+              <p class="text-xs sm:text-sm font-normal  md:block hidden text-black mb-2">
                 Only this week. Don't miss…
               </p>
               <p class="text-white font-semibold text-sm sm:text-base mb-2 mr-8">
-                from 300 Rs
+                From 149 Rs
               </p>
-              <button
-                class="bg-gray-500 text-white text-sm font-semibold rounded-full px-4 py-1 md:mt-6 hover:bg-green-600 transition">
-                Shop Now
-              </button>
+              <a href="Courselist.html"
+                class="bg-gray-500 text-white text-sm font-semibold rounded-full px-4 py-1 md:mt-6   transition">
+                Book Now
+              </a href="Courselist.html">
             </div>
 
           </div>
@@ -823,22 +822,23 @@
           <div class="absolute flex top-4 left-4 sm:top-6 sm:left-6 max-w-xs sm:max-w-md text-white">
             <div class="md:h-full  border-2 border-transparent">
               <div
-                class="inline-block bg-gray-300 text-black text-[9px] sm:text-xs font-semibold rounded-full px-2 py-1 mb-1">
+                class="inline-block   md:block hidden text-black text-[9px] sm:text-xs font-semibold rounded-full px-2 py-1 mb-1">
                 EXCLUSIVE OFFER -40% OFF
               </div>
-              <h2 class="font-extrabold text-lg sm:text-2xl md:text-3xl text-black leading-tight mb-1">
+              <h2
+                class="font-extrabold text-lg  md:block hidden  sm:text-2xl md:text-3xl text-black leading-tight mb-1">
                 Quality Freshness Guaranteed!
               </h2>
-              <p class="text-xs sm:text-sm font-normal text-black mb-2">
+              <p class="text-xs sm:text-sm font-normal  md:block hidden text-black mb-2">
                 Only this week. Don't miss…
               </p>
               <p class="text-white font-semibold text-sm sm:text-base mb-2 mr-8">
-                from 300 Rs
+                From 300 Rs
               </p>
-              <button
-                class="bg-gray-500 text-white text-sm font-semibold rounded-full px-4 py-1 md:mt-6 hover:bg-green-600 transition">
-                Shop Now
-              </button>
+              <a href="Courselist.html"
+                class="bg-gray-500 text-white text-sm font-semibold rounded-full px-4 py-1 md:mt-6  transition">
+                Book Now
+              </a href="Courselist.html">
             </div>
 
             <!-- Product Image -->

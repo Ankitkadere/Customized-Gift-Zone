@@ -224,15 +224,20 @@
         }
       </style>
     </p>
-    <div id="page-loader"
-      class="fixed top-0 bottom-0 w-full h-[100vh] inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center z-50  ">
-      <div class="flex flex-col items-center">
-        <div class="w-12 h-12 border-4 border-black border-t-transparent rounded-full animate-spin"></div>
+    <div id="page-loader" class="fixed inset-0 z-50 flex items-center justify-center
+         bg-[url('Assets/newhot.jpg')] bg-cover bg-center
+         before:absolute before:inset-0 before:bg-white/80
+         before:backdrop-blur-sm before:content-['']">
+      <div class="relative flex flex-col items-center">
+        <div class="w-12 h-12 border-4 border-black border-t-transparent
+             rounded-full animate-spin"></div>
         <p class="mt-4 text-black font-semibold text-sm tracking-wide animate-pulse">
-          Loading, please wait...
+          Loading, Please Wait...
         </p>
       </div>
     </div>
+    <div id="paymentAlert"></div>
+
     <div class="md:flex md:gap-2 md:my-auto pb-20 md:my-auto md:w-full md:px-6">
 
       <form id="crudForm" class="md:w-full space-y-1 mb-20">
@@ -290,7 +295,7 @@
               class="status font-mono-custom font-extrabold text-white text-xl  justify-center text-center tracking-widest pb-2 select-text">
               Select Frame Size
             </p>
-            <div id="sizeButtons" class="text-center md:ml-10 md:mt-2 justify-center text-sm font-semibold">
+            <div id="sizeButtons" class="text-center md:ml-6 md:mt-2 justify-center text-sm font-semibold">
               <div class="flex gap-8 md:gap-20">
                 <label for="size-4x6"
                   class="w-20 h-12 md:w-28 md:h-16 rounded-full bg-[#f3f3f3] border border-gray-400 text-black flex items-center justify-center cursor-pointer select-none">
@@ -394,7 +399,8 @@
           </div>
 
         </div>
-        <div id="data2" style="display: none; margin-top: gap-8 mt-2;">
+        <div id="data2" class="rounded-2xl shadow-2xl bg-gray-900 md:bg-gray-300 p-2 md:mt-2 mt-4"
+          style="display: none; margin-top: gap-8 mt-2;">
           <input
             class="w-full rounded-lg shadow-lg mt-10 md:mt-2 border border-gray-300 bg-white mf:px-4 py-3 px-5 py-4 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none  "
             placeholder="Full Name" name="Name" id="name" type="text" required />
@@ -426,14 +432,14 @@
           </div>
           <input
             class="w-full rounded-lg border  shadow-lg border-gray-300 bg-white mf:px-4 py-3 px-5 py-4 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
-            placeholder="Address" type="text" name="Address" required />
+            placeholder="Address" type="text" id="address" name="Address" required />
           <input
             class="w-full rounded-lg border  shadow-lg border-gray-300 bg-white mf:px-4 py-3 px-5 py-4 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none "
-            placeholder="City / House " name="City" type="text" required />
+            placeholder="City / House " id="cities" name="City" type="text" required />
           <div class="flex space-x-4 mb-2">
             <input
               class="flex-1 w-40 rounded-lg  shadow-2xl border border-gray-300 bg-white mf:px-4 py-3 px-5 py-4 text-gray-700 placeholder-gray-400 focus:outline-none "
-              placeholder="Pin Code" type="text" name="Pincode" required />
+              placeholder="Pin Code" type="text" id="pincode" name="Pincode" required />
             <select id="state" name="State" required name="State"
               class="flex-1 w-40 rounded-lg  shadow-2xl border border-gray-300 bg-white mf:px-4 py-3 px-5 py-4 text-gray-700 placeholder-gray-400 focus:outline-none ">
               <option value="" disabled selected>Select State</option>
@@ -543,7 +549,7 @@
             const tax = parseFloat(taxText.replace(/[^\d.]/g, "")) || 0;
             // Total
             const total = parseFloat(priceOnly) + tax;
-            document.getElementById("Totalprice").textContent = total.toLocaleString("en-IN");
+            document.getElementById("Totalprice").textContent = total;
 
           });
         });
@@ -624,47 +630,92 @@
 
         const razorpayKey = 'rzp_test_1DP5mmOlF5G5ag'; // Replace with your test/live key
         const razorpaySecret = 'G3sA5V0yCl8rK7P4Q2wN6xM'; // Fake for demo; generate real ones from Razorpay dashboard
-        const usernumber = document.getElementById("Numbers").value;
-        const usermail = document.getElementById("Filtered").value;
-        const namaste = document.getElementById("nama").textContent;
-       
-        // Payment options (amount in paise: 50000 = ₹500)
-        const options = {
-          key: razorpayKey, // Test API key
-          amount: 299*100, // Amount in paise (₹500)
-          currency: 'INR',
-          name: 'Gift Zone', // Your business name
-          description: 'Pay Ammount To Gift Zone',
-          image: 'https://via.placeholder.com/150', // Optional logo URL
-          handler: function (response) {
-            // Success callback
-            document.getElementById('status').innerText = 'Payment Successful! Payment ID: ' + response.razorpay_payment_id;
-            console.log('Payment Response:', response);
-            window.location.href = `Confirmorder.html?Date=${encodeURIComponent(date)}&Name=${encodeURIComponent(name)}&Number=${encodeURIComponent(number)}&Price=${encodeURIComponent(price)}&Id=${encodeURIComponent(id)}&Status=${encodeURIComponent(status)}&PaymentMethod=${encodeURIComponent(method)}`;
+        function getPayAmount() {
 
-            // Here, you can send response to your server for verification
-          },
-          prefill: {
-            name: namaste,
-            email: usermail,
-            contact: usernumber
-          },
-          notes: {
-            address: 'Demo Address'
-          },
-          theme: {
-            color: '#000' // Button color
-          },
-          modal: {
-            ondismiss: function () {
-              document.getElementById('status').innerText = 'Payment Cancelled.';
-            }
+        }
+
+        function payNow() {
+          const text = document.getElementById("Totalprice").textContent;
+          const amount = parseInt(text.replace(/[^\d]/g, ""), 10) * 100; // ₹ → paise
+          if (!amount) {
+            alert("Invalid payment amount");
+            return;
           }
-        };
 
+          const usernumber = document.getElementById("Numbers").value;
+          const usermail = document.getElementById("Filtered").value;
+          const namaste = document.getElementById("nama").textContent;
 
-        // Initialize Razorpay
-        const rzp = new Razorpay(options);
+          const options = {
+            key: "rzp_test_1DP5mmOlF5G5ag", // ✅ PUBLIC KEY ONLY
+            amount: amount,
+            currency: "INR",
+            name: "Gift Zone",
+            description: "Pay Amount To Gift Zone",
+            image: "https://via.placeholder.com/150",
+
+            handler: function (response) {
+              document.getElementById("status").innerText =
+                "Payment Successful! Payment ID: " + response.razorpay_payment_id;
+
+              window.location.href =
+                `Confirmorder.html?Date=${encodeURIComponent(date)}` +
+                `&Name=${encodeURIComponent(name)}` +
+                `&Number=${encodeURIComponent(number)}` +
+                `&Price=${encodeURIComponent(price)}` +
+                `&Id=${encodeURIComponent(id)}` +
+                `&Status=${encodeURIComponent(status)}` +
+                `&PaymentMethod=${encodeURIComponent(method)}`;
+            },
+
+            prefill: {
+              name: namaste,
+              email: usermail,
+              contact: usernumber
+            },
+
+            notes: {
+              address: "Place",
+            },
+
+            theme: {
+              color: "#000"
+            },
+
+            modal: {
+              ondismiss: function () {
+                const alertBox = document.getElementById("paymentAlert");
+
+                if (!alertBox) return;
+
+                alertBox.innerHTML = `
+      <div id="cancelModal" class="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+        <div class="bg-white rounded-xl p-6 w-80 text-center">
+          <div class="text-4xl mb-2">❌</div>
+          <h2 class="font-bold text-lg mb-2">Payment Cancelled</h2>
+          <p class="text-sm text-gray-600 mb-4">
+            You cancelled the payment. No money was deducted.
+          </p>
+          <button id="cancelOkBtn"
+            class="bg-black text-white px-4 py-2 rounded w-full">
+            OK
+          </button>
+        </div>
+      </div>
+    `;
+
+                document.getElementById("cancelOkBtn").onclick = () => {
+                  document.getElementById("cancelModal").remove();
+                  window.location.reload();
+                };
+              }
+            }
+
+          };
+
+        const rzp = new Razorpay(options); // ✅ only ONE argument
+        rzp.open();
+        }
 
         // 🔹 Handle button click (Next → Submit)
         document.getElementById("swap").addEventListener("click", async (e) => {
@@ -753,7 +804,8 @@
               form.reset();
             }
             else {
-              rzp.open();
+
+              payNow();
             }
             swapback(); // return to first step
           }
